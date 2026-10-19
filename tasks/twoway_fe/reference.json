@@ -1,0 +1,11 @@
+{
+ "estimand": "Two-way fixed effects coefficient with firm-clustered standard error",
+ "estimates": [
+  {
+   "term": "x",
+   "estimate": 0.5352992851842181,
+   "se": 0.024753181152870115,
+   "n_obs": 2000
+  }
+ ]
+}

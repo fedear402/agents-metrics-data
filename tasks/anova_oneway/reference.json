@@ -1,0 +1,29 @@
+{
+ "estimand": "One-way ANOVA omnibus test",
+ "estimates": [
+  {
+   "term": "F",
+   "estimate": 9.738534630314424,
+   "se": null,
+   "n_obs": 200
+  },
+  {
+   "term": "df_num",
+   "estimate": 3.0,
+   "se": null,
+   "n_obs": 200
+  },
+  {
+   "term": "df_den",
+   "estimate": 196.0,
+   "se": null,
+   "n_obs": 200
+  },
+  {
+   "term": "p_value",
+   "estimate": 5.089925867700066e-06,
+   "se": null,
+   "n_obs": 200
+  }
+ ]
+}

@@ -1,0 +1,23 @@
+{
+ "estimand": "Welch two-sample t-test, group 1 minus group 0",
+ "estimates": [
+  {
+   "term": "t",
+   "estimate": 2.985073329907838,
+   "se": null,
+   "n_obs": 200
+  },
+  {
+   "term": "df",
+   "estimate": 163.08330406950444,
+   "se": null,
+   "n_obs": 200
+  },
+  {
+   "term": "p_value",
+   "estimate": 0.0032718560705995436,
+   "se": null,
+   "n_obs": 200
+  }
+ ]
+}

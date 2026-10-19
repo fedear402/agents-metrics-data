@@ -1,0 +1,28 @@
+{
+ "estimates": [
+  {
+   "term": "gap",
+   "estimate": 1.4355165973939368,
+   "se": null,
+   "n_obs": 360
+  },
+  {
+   "term": "explained",
+   "estimate": 0.5722979841301531,
+   "se": null,
+   "n_obs": 360
+  },
+  {
+   "term": "unexplained",
+   "estimate": 0.8632186132637892,
+   "se": null,
+   "n_obs": 360
+  },
+  {
+   "term": "explained_x",
+   "estimate": 0.5105028813192991,
+   "se": null,
+   "n_obs": 360
+  }
+ ]
+}

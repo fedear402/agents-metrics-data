@@ -1,0 +1,19 @@
+{
+ "estimand": "Cox proportional hazards: log hazard ratios for treat and x; model-based SE",
+ "estimates": [
+  {
+   "term": "treat",
+   "estimate": -0.4989614463628582,
+   "se": 0.05340045619799403,
+   "n_obs": 2000
+  },
+  {
+   "term": "x",
+   "estimate": 0.32312678996748956,
+   "se": 0.02649356242314411,
+   "n_obs": 2000
+  }
+ ],
+ "events_total": 1470,
+ "n_obs": 2000
+}

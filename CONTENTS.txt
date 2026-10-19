@@ -1,0 +1,7 @@
+analysis/  CSV files of the analysis. runs.csv has one row per run; run_pricing.csv has the cost of each run;
+           term_checks.csv and se_checks.csv have each scored value and its reference; the other files are the
+           tables and figure data of the paper.
+tasks/     One folder per task: the input dataset and the reference output (reference.json).
+runs/      Run records: prompts, model responses, scripts, logs, and outputs. One archive per model, language, and
+           agency condition (tar.xz). After extraction, the run folders sit at the paths in runs.csv, column
+           record_path.

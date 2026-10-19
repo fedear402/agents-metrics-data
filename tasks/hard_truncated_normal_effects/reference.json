@@ -1,0 +1,22 @@
+{
+ "estimates": [
+  {
+   "term": "mean_observed",
+   "estimate": 0.9238817647544924,
+   "se": null,
+   "n_obs": 714
+  },
+  {
+   "term": "ame_x",
+   "estimate": 0.27587436993610226,
+   "se": null,
+   "n_obs": 714
+  },
+  {
+   "term": "latent_x",
+   "estimate": 0.7241749999247555,
+   "se": null,
+   "n_obs": 714
+  }
+ ]
+}

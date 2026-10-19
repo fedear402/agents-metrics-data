@@ -1,0 +1,11 @@
+{
+ "estimand": "Local-projection IRF at horizon 4 with Newey-West lag 4 standard error",
+ "estimates": [
+  {
+   "term": "irf_h4",
+   "estimate": 0.11267201727167597,
+   "se": 0.08395617091021815,
+   "n_obs": 245
+  }
+ ]
+}

@@ -1,0 +1,22 @@
+{
+ "estimates": [
+  {
+   "term": "effect",
+   "estimate": 0.489245094628532,
+   "se": 0.4919970926159917,
+   "n_obs": 48
+  },
+  {
+   "term": "first_stage",
+   "estimate": 1.3127174046282175,
+   "se": 0.25749160573577123,
+   "n_obs": 48
+  },
+  {
+   "term": "effective_shocks",
+   "estimate": 32.02462606005303,
+   "se": null,
+   "n_obs": 48
+  }
+ ]
+}

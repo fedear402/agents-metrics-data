@@ -1,0 +1,35 @@
+{
+ "estimand": "Variance inflation factors for x1-x5",
+ "estimates": [
+  {
+   "term": "vif_x1",
+   "estimate": 3.9838952280172433,
+   "se": null,
+   "n_obs": 500
+  },
+  {
+   "term": "vif_x2",
+   "estimate": 3.7600677352938527,
+   "se": null,
+   "n_obs": 500
+  },
+  {
+   "term": "vif_x3",
+   "estimate": 1.0118968332994016,
+   "se": null,
+   "n_obs": 500
+  },
+  {
+   "term": "vif_x4",
+   "estimate": 1.0071780074034018,
+   "se": null,
+   "n_obs": 500
+  },
+  {
+   "term": "vif_x5",
+   "estimate": 3.178194694349114,
+   "se": null,
+   "n_obs": 500
+  }
+ ]
+}

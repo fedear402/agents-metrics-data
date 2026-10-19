@@ -1,0 +1,65 @@
+{
+ "estimand": "Top five observations by Cook's distance, zero-based row index",
+ "estimates": [
+  {
+   "term": "rank1_obs_id",
+   "estimate": 190.0,
+   "se": null,
+   "n_obs": 500
+  },
+  {
+   "term": "rank1_cooks_d",
+   "estimate": 0.028549159074855068,
+   "se": null,
+   "n_obs": 500
+  },
+  {
+   "term": "rank2_obs_id",
+   "estimate": 214.0,
+   "se": null,
+   "n_obs": 500
+  },
+  {
+   "term": "rank2_cooks_d",
+   "estimate": 0.024652545231505025,
+   "se": null,
+   "n_obs": 500
+  },
+  {
+   "term": "rank3_obs_id",
+   "estimate": 377.0,
+   "se": null,
+   "n_obs": 500
+  },
+  {
+   "term": "rank3_cooks_d",
+   "estimate": 0.02075133603187848,
+   "se": null,
+   "n_obs": 500
+  },
+  {
+   "term": "rank4_obs_id",
+   "estimate": 119.0,
+   "se": null,
+   "n_obs": 500
+  },
+  {
+   "term": "rank4_cooks_d",
+   "estimate": 0.01747981975836148,
+   "se": null,
+   "n_obs": 500
+  },
+  {
+   "term": "rank5_obs_id",
+   "estimate": 323.0,
+   "se": null,
+   "n_obs": 500
+  },
+  {
+   "term": "rank5_cooks_d",
+   "estimate": 0.017470235888456434,
+   "se": null,
+   "n_obs": 500
+  }
+ ]
+}

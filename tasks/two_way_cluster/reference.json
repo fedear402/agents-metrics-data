@@ -1,0 +1,17 @@
+{
+ "vcov": "two-way cluster (CGM) on (firm, year), per-component conventional small-sample correction",
+ "estimates": [
+  {
+   "term": "const",
+   "estimate": 1.0174559760693556,
+   "se": 0.15347233904374324,
+   "n_obs": 2000
+  },
+  {
+   "term": "x",
+   "estimate": 0.5531898969487796,
+   "se": 0.01664798361918575,
+   "n_obs": 2000
+  }
+ ]
+}

@@ -1,0 +1,16 @@
+{
+ "estimates": [
+  {
+   "term": "ame_x",
+   "estimate": 0.06136846722434919,
+   "se": null,
+   "n_obs": 850
+  },
+  {
+   "term": "effect_d",
+   "estimate": 0.11255682313455369,
+   "se": null,
+   "n_obs": 850
+  }
+ ]
+}

@@ -1,0 +1,34 @@
+{
+ "estimates": [
+  {
+   "term": "rmse",
+   "estimate": 1.0551115917349456,
+   "se": null,
+   "n_obs": 150
+  },
+  {
+   "term": "forecast_101",
+   "estimate": 0.05064737026988214,
+   "se": null,
+   "n_obs": 99
+  },
+  {
+   "term": "forecast_150",
+   "estimate": -0.849589015810549,
+   "se": null,
+   "n_obs": 99
+  },
+  {
+   "term": "forecast_200",
+   "estimate": 0.7171172895399796,
+   "se": null,
+   "n_obs": 99
+  },
+  {
+   "term": "forecast_250",
+   "estimate": -0.8331945652533261,
+   "se": null,
+   "n_obs": 99
+  }
+ ]
+}

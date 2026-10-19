@@ -1,0 +1,22 @@
+{
+ "estimates": [
+  {
+   "term": "welfare_gain",
+   "estimate": 0.23213290208508386,
+   "se": null,
+   "n_obs": 550
+  },
+  {
+   "term": "share_change_alt1",
+   "estimate": 0.10947154298911013,
+   "se": null,
+   "n_obs": 550
+  },
+  {
+   "term": "cost_coefficient",
+   "estimate": -1.0261688267440503,
+   "se": null,
+   "n_obs": 550
+  }
+ ]
+}

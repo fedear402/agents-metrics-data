@@ -1,0 +1,30 @@
+{
+ "estimand": "F-test of H0: y2 does not Granger-cause y1 with 2 lags; OLS-based",
+ "estimates": [
+  {
+   "term": "F",
+   "estimate": 2.8101011973731786,
+   "se": null,
+   "n_obs": 198
+  },
+  {
+   "term": "df_num",
+   "estimate": 2.0,
+   "se": null,
+   "n_obs": 198
+  },
+  {
+   "term": "df_den",
+   "estimate": 193.0,
+   "se": null,
+   "n_obs": 198
+  },
+  {
+   "term": "p_value",
+   "estimate": 0.06266431250371862,
+   "se": null,
+   "n_obs": 198
+  }
+ ],
+ "n_obs": 198
+}

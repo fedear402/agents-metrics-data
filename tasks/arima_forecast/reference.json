@@ -1,0 +1,24 @@
+{
+ "estimand": "ARIMA(1,1,1) one-step-ahead forecast with 95% prediction interval",
+ "estimates": [
+  {
+   "term": "forecast",
+   "estimate": 42.69527535947803,
+   "se": 0.9503238793214296,
+   "n_obs": 250
+  },
+  {
+   "term": "lower_95",
+   "estimate": 40.83267478235964,
+   "se": null,
+   "n_obs": 250
+  },
+  {
+   "term": "upper_95",
+   "estimate": 44.557875936596425,
+   "se": null,
+   "n_obs": 250
+  }
+ ],
+ "n_obs": 250
+}

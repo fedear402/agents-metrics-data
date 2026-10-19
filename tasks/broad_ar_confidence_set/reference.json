@@ -1,0 +1,34 @@
+{
+ "estimates": [
+  {
+   "term": "boundary_low",
+   "estimate": 2.1120210530638497,
+   "se": null,
+   "n_obs": 240
+  },
+  {
+   "term": "boundary_high",
+   "estimate": 5.137228679322982,
+   "se": null,
+   "n_obs": 240
+  },
+  {
+   "term": "accepts_zero",
+   "estimate": 1.0,
+   "se": null,
+   "n_obs": 240
+  },
+  {
+   "term": "unbounded",
+   "estimate": 1.0,
+   "se": null,
+   "n_obs": 240
+  },
+  {
+   "term": "ar_f_at_one",
+   "estimate": 0.4419701425893527,
+   "se": null,
+   "n_obs": 240
+  }
+ ]
+}

@@ -1,0 +1,36 @@
+{
+ "task_id": "lp11_duration",
+ "platform": "python",
+ "estimates": [
+  {
+   "term": "training_coefficient",
+   "estimate": 1.3451112796338405,
+   "se": null,
+   "n_obs": 144
+  },
+  {
+   "term": "conditional_odds_ratio",
+   "estimate": 3.8386136763581087,
+   "se": null,
+   "n_obs": 144
+  },
+  {
+   "term": "log_likelihood",
+   "estimate": -144.52235849178555,
+   "se": null,
+   "n_obs": 144
+  },
+  {
+   "term": "first_event_set_probability",
+   "estimate": 0.0003800395324599257,
+   "se": null,
+   "n_obs": 144
+  },
+  {
+   "term": "first_event_set_log_probability",
+   "estimate": -7.8752352778656,
+   "se": null,
+   "n_obs": 144
+  }
+ ]
+}

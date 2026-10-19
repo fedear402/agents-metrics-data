@@ -1,0 +1,23 @@
+{
+ "estimand": "Pearson chi-square test of independence without continuity correction",
+ "estimates": [
+  {
+   "term": "chi2",
+   "estimate": 23.537436811968853,
+   "se": null,
+   "n_obs": 600
+  },
+  {
+   "term": "df",
+   "estimate": 2.0,
+   "se": null,
+   "n_obs": 600
+  },
+  {
+   "term": "p_value",
+   "estimate": 7.743022784393774e-06,
+   "se": null,
+   "n_obs": 600
+  }
+ ]
+}

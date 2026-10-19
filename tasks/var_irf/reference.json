@@ -1,0 +1,14 @@
+{
+ "estimand": "orthogonal IRF (Cholesky, y1 ordered first) of y1 response to one-SD shock in y2 at horizon 4",
+ "estimates": [
+  {
+   "term": "irf_y1_to_y2_h4",
+   "estimate": 0.08174130755056178,
+   "se": null,
+   "n_obs": 200
+  }
+ ],
+ "lag_order": 2,
+ "identification": "Cholesky, y1 first",
+ "n_obs": 200
+}

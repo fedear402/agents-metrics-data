@@ -1,0 +1,18 @@
+{
+ "task_id": "lp04_ppml",
+ "platform": "python",
+ "estimates": [
+  {
+   "term": "agreement_coefficient",
+   "estimate": 0.4132383356379288,
+   "se": null,
+   "n_obs": 139
+  },
+  {
+   "term": "proportional_mean_change",
+   "estimate": 0.5117052762434185,
+   "se": null,
+   "n_obs": 139
+  }
+ ]
+}

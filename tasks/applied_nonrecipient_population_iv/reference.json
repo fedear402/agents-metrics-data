@@ -1,0 +1,24 @@
+{
+ "task_id": "applied_nonrecipient_population_iv",
+ "platform": "python",
+ "estimates": [
+  {
+   "term": "ineligible_effect",
+   "estimate": 2.0530515038360337,
+   "se": null,
+   "n_obs": 300
+  },
+  {
+   "term": "eligible_nonrecipient_effect",
+   "estimate": 5.781929320112421,
+   "se": null,
+   "n_obs": 300
+  },
+  {
+   "term": "population_effect",
+   "estimate": 2.649671954440256,
+   "se": null,
+   "n_obs": 300
+  }
+ ]
+}

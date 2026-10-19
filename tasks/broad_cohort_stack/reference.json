@@ -1,0 +1,28 @@
+{
+ "estimates": [
+  {
+   "term": "att_g3",
+   "estimate": 0.954222981646582,
+   "se": null,
+   "n_obs": 375
+  },
+  {
+   "term": "att_g5",
+   "estimate": 1.2377404221405475,
+   "se": null,
+   "n_obs": 275
+  },
+  {
+   "term": "att_g7",
+   "estimate": 2.113399165938864,
+   "se": null,
+   "n_obs": 315
+  },
+  {
+   "term": "att_weighted",
+   "estimate": 1.598869556850049,
+   "se": null,
+   "n_obs": 965
+  }
+ ]
+}

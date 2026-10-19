@@ -1,0 +1,11 @@
+{
+ "estimand": "Sharp RD local-linear LATE with triangular kernel and h=0.5",
+ "estimates": [
+  {
+   "term": "late",
+   "estimate": 0.9688841518587223,
+   "se": null,
+   "n_obs": 494
+  }
+ ]
+}

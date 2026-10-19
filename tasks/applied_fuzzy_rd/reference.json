@@ -1,0 +1,22 @@
+{
+ "estimates": [
+  {
+   "term": "treatment_effect",
+   "estimate": 1.9410732612719648,
+   "se": 0.6895291967774643,
+   "n_obs": 598
+  },
+  {
+   "term": "reduced_form",
+   "estimate": 0.8599221711096473,
+   "se": 0.2245347167292633,
+   "n_obs": 598
+  },
+  {
+   "term": "first_stage",
+   "estimate": 0.4430137637083051,
+   "se": 0.08057573329860016,
+   "n_obs": 598
+  }
+ ]
+}

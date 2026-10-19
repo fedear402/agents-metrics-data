@@ -1,0 +1,28 @@
+{
+ "estimates": [
+  {
+   "term": "mean_y",
+   "estimate": 0.7650874230799224,
+   "se": null,
+   "n_obs": 1300
+  },
+  {
+   "term": "ame_x",
+   "estimate": 0.35551380797887105,
+   "se": null,
+   "n_obs": 1300
+  },
+  {
+   "term": "effect_d",
+   "estimate": 0.06404381278255705,
+   "se": null,
+   "n_obs": 1300
+  },
+  {
+   "term": "prob_at_least_three",
+   "estimate": 0.09777762511648003,
+   "se": null,
+   "n_obs": 1300
+  }
+ ]
+}

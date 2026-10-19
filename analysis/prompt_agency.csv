@@ -1,0 +1,16 @@
+prompt,agency,n,successes,success_pct,success_pct_lo,success_pct_hi,tasks,bootstrap_draws,bootstrap_seed,interval,panel,platform
+few_shot,agent,2400,2344,97.66666666666667,96.375,98.75,40,4000,20260925,"95 percent percentile, task cluster bootstrap",prompt,
+few_shot,chatbot,2400,1982,82.58333333333333,78.25,86.95833333333333,40,4000,20260925,"95 percent percentile, task cluster bootstrap",prompt,
+few_shot,self_repair,2400,2240,93.33333333333333,90.75,95.625,40,4000,20260925,"95 percent percentile, task cluster bootstrap",prompt,
+zero_shot,agent,2400,2318,96.58333333333333,94.375,98.33333333333333,40,4000,20260925,"95 percent percentile, task cluster bootstrap",prompt,
+zero_shot,chatbot,2400,1825,76.04166666666666,71.20833333333333,80.875,40,4000,20260925,"95 percent percentile, task cluster bootstrap",prompt,
+zero_shot,self_repair,2400,2173,90.54166666666667,87.5,93.375,40,4000,20260925,"95 percent percentile, task cluster bootstrap",prompt,
+,agent,1600,1575,98.4375,97.4375,99.3125,40,4000,20260925,"95 percent percentile, task cluster bootstrap",platform,python
+,chatbot,1600,1410,88.125,83.8125,92.25,40,4000,20260925,"95 percent percentile, task cluster bootstrap",platform,python
+,self_repair,1600,1531,95.6875,93.5,97.625,40,4000,20260925,"95 percent percentile, task cluster bootstrap",platform,python
+,agent,1600,1567,97.9375,96.625,99.0,40,4000,20260925,"95 percent percentile, task cluster bootstrap",platform,r
+,chatbot,1600,1415,88.4375,84.5,92.125,40,4000,20260925,"95 percent percentile, task cluster bootstrap",platform,r
+,self_repair,1600,1517,94.8125,91.75,97.1875,40,4000,20260925,"95 percent percentile, task cluster bootstrap",platform,r
+,agent,1600,1520,95.0,91.9375,97.5,40,4000,20260925,"95 percent percentile, task cluster bootstrap",platform,stata
+,chatbot,1600,982,61.375,52.3125,70.5,40,4000,20260925,"95 percent percentile, task cluster bootstrap",platform,stata
+,self_repair,1600,1365,85.3125,80.0625,90.125,40,4000,20260925,"95 percent percentile, task cluster bootstrap",platform,stata

@@ -1,0 +1,30 @@
+{
+ "task_id": "applied_multivintage_trade_iv",
+ "platform": "python",
+ "estimates": [
+  {
+   "term": "iv_slope",
+   "estimate": -1.4034220222382099,
+   "se": null,
+   "n_obs": 72
+  },
+  {
+   "term": "exposure_area0_period0",
+   "estimate": 26.934150094768665,
+   "se": null,
+   "n_obs": 72
+  },
+  {
+   "term": "exposure_area0_period1",
+   "estimate": 37.78319259238101,
+   "se": null,
+   "n_obs": 72
+  },
+  {
+   "term": "instrument_area0_period0",
+   "estimate": 29.94430301262094,
+   "se": null,
+   "n_obs": 72
+  }
+ ]
+}

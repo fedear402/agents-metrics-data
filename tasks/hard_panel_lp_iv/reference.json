@@ -1,0 +1,22 @@
+{
+ "estimates": [
+  {
+   "term": "lp_h0",
+   "estimate": 0.8975460625135964,
+   "se": null,
+   "n_obs": 481
+  },
+  {
+   "term": "lp_h1",
+   "estimate": 0.1673589713682521,
+   "se": null,
+   "n_obs": 481
+  },
+  {
+   "term": "lp_h2",
+   "estimate": 0.06590423037980958,
+   "se": null,
+   "n_obs": 481
+  }
+ ]
+}

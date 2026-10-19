@@ -1,0 +1,22 @@
+{
+ "estimates": [
+  {
+   "term": "gamma_z",
+   "estimate": 0.6061143284304019,
+   "se": null,
+   "n_obs": 1400
+  },
+  {
+   "term": "ame_x",
+   "estimate": 0.21556723096535085,
+   "se": null,
+   "n_obs": 1400
+  },
+  {
+   "term": "effect_d",
+   "estimate": -0.18096923525388756,
+   "se": null,
+   "n_obs": 1400
+  }
+ ]
+}
