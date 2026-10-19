@@ -1,0 +1,112 @@
+You are a careful econometrician completing a benchmark task.
+The dataset is provided as ./input.csv.
+One shared fixed dataset with 480 rows. Columns: id, y, x, z.
+
+
+
+Related example: Three transport choices with one covariate
+Separate example context: A separate simulated transport survey records unordered choices 0, 1, and 2. Fit a multinomial logit on an intercept and travel distance, with category 0 as base. Report the distance coefficient for category 2 and its probability at distance zero.
+Explanation of this example: Each nonbase outcome has a coefficient vector. The base has zero index. Map the fitted equation columns to outcome labels before extracting a named covariate. In statsmodels with pandas input, parameter column 0 represents outcome 1 and column 1 represents outcome 2. The example relabels a copy explicitly. R and Stata expose native outcome/equation names. Include all three indices in the probability denominator.
+The example uses separate data and writes example_result.json. It uses the same estimates-row structure as the scored task, with its own task identifier and result names. The scored task below must read its own input.csv and write result.json.
+```python
+import json
+import numpy as np
+
+def report(**values):
+    rows = [
+        {'term': 'distance_choice2', 'estimate': float(values['distance_cat2']), 'se': float(values['slope_se']), 'n_obs': int(values['people'])},
+        {'term': 'choice2_at_zero', 'estimate': float(values['probability_cat2']), 'se': None, 'n_obs': int(values['people'])},
+    ]
+    output = {'task_id': 'multinomial_logit_separate_example', 'estimates': rows}
+    with open('example_result.json', 'w') as stream:
+        json.dump(output, stream, indent=2, allow_nan=False)
+
+import statsmodels.api as sm
+import pandas as pd
+from scipy.special import softmax
+rng = np.random.default_rng(1207)
+distance = rng.normal(size=120)
+probability = softmax(np.column_stack([np.zeros(120),.2+.5*distance,-.3-.7*distance]),axis=1)
+choice = np.array([rng.choice(3,p=p) for p in probability])
+X = pd.DataFrame({"const":np.ones(len(distance)),"distance":distance})
+fit = sm.MNLogit(choice,X).fit(disp=False,tol=1e-10)
+# Outcomes are 0,1,2; zero is the base. Parameter columns enumerate NONBASE equations.
+outcomes = [0,1,2]
+assert np.array_equal(np.unique(choice),outcomes)
+nonbase_outcomes = outcomes[1:]
+# With pandas input, raw parameter columns 0 and 1 correspond to outcomes 1 and 2.
+assert list(fit.params.columns)==[0,1]
+coefficients = fit.params.copy()
+errors = fit.bse.copy()
+coefficients.columns = nonbase_outcomes
+errors.columns = nonbase_outcomes
+prediction_input = pd.DataFrame({"const":[1.],"distance":[0.]})
+predicted = pd.Series(np.asarray(fit.predict(prediction_input))[0],index=outcomes)
+manual = softmax(np.r_[0.,coefficients.loc["const",nonbase_outcomes]])
+assert np.allclose(predicted.to_numpy(),manual) and np.isclose(predicted.sum(),1)
+report(distance_cat2=coefficients.loc["distance",2], slope_se=errors.loc["distance",2],
+       probability_cat2=predicted.loc[2], people=120)
+```
+Expected example_result.json:
+```json
+{
+  "task_id": "multinomial_logit_separate_example",
+  "estimates": [
+    {
+      "term": "distance_choice2",
+      "estimate": -0.4625772269819651,
+      "se": 0.28225907629686403,
+      "n_obs": 120
+    },
+    {
+      "term": "choice2_at_zero",
+      "estimate": 0.29697482699284955,
+      "se": null,
+      "n_obs": 120
+    }
+  ]
+}
+```
+
+Task: Estimate a multinomial logit model for y using an intercept, x, and z. Treat 0 as the base outcome. Outcomes 1 and 2 are unordered alternatives. Use maximum likelihood and conventional observed-information standard errors. Report x_cat1 and z_cat1 for the slopes in log(P(y=1)/P(y=0)). Report x_cat2 and z_cat2 for log(P(y=2)/P(y=0)). Also report prob_cat2_zero as the fitted probability of outcome 2 at x=0 and z=0, with se=null. Report n_obs as the full sample size for every row.
+
+Use Python 3 with pandas and statsmodels or other standard scientific packages already available in the environment. Read the CSV with pandas and write JSON with json.dump.
+
+Required output:
+  - Write a file `result.json` in the working directory with this shape:
+    {
+      "task_id": "broad_multinomial_logit",
+      "platform": "<python|r|stata>",
+      "estimates": [
+        {"term": "x_cat1", "estimate": <float>, "se": <float or null>, "n_obs": <int>},
+        {"term": "z_cat1", "estimate": <float>, "se": <float or null>, "n_obs": <int>},
+        {"term": "x_cat2", "estimate": <float>, "se": <float or null>, "n_obs": <int>},
+        {"term": "z_cat2", "estimate": <float>, "se": <float or null>, "n_obs": <int>},
+        {"term": "prob_cat2_zero", "estimate": <float>, "se": <float or null>, "n_obs": <int>}
+      ],
+      "method_metadata": {"estimator": "<string>", "vcov": "<string>"},
+      "diagnostics": {}
+    }
+  - Estimate names must be exactly: "x_cat1", "z_cat1", "x_cat2", "z_cat2", "prob_cat2_zero".
+  - Report numeric values to at least 6 significant digits when possible.
+  - Do not include extra prose in `result.json`.
+
+You may use the shell to write, execute, inspect errors, and revise your program.
+Run the script with /Users/federicolopez/LOCAL/GALIANI/AGENTS-METRICS/.venv/bin/python3 run.py.
+Write and run a script. Leave result.json and the script in this directory.
+Save the final solution as run.py for Python, run.R for R, or run.do for Stata.
+Before submission, verify the statistical calculation using the supplied data.
+Check the estimation sample, observation count, and variable construction against the task.
+Check the estimator and uncertainty calculation against the stated specification.
+Run at least one independent numerical check of a central calculation.
+Use a separate calculation or a mathematical identity that applies to this task.
+Inspect any discrepancy and correct errors supported by these checks.
+After edits, rerun the final script and inspect its requested output.
+Save a short plain-text account of the checks and their results in verification.txt.
+Use only the task statement, supplied data, installed software, and files you create.
+After these checks, finish with DONE.
+
+Use only the supplied input.csv and files you create in this directory.
+Installed software and package resources are available.
+Do not read external agent skills, project instructions, prior results, or benchmark references.
+Do not create journals or use Git. Do not use MCP servers, web tools, or other agents.

@@ -1,0 +1,34 @@
+You are a careful econometrician completing a benchmark task.
+The dataset is provided as ./input.csv.
+Exact CSV columns: `date`, `sales`, and `vix`. The columns `sales` and `vix` contain positive values. Simulated consecutive weekday trading observations.
+
+
+
+Task: The file contains consecutive trading observations with date, sales, and vix. Sales measure aggregate stock sales. Vix measures market volatility. Estimate the cumulative association between past changes in volatility and current log sales.
+
+Sort by date. Define the volatility change as the first difference of natural log(vix) across consecutive trading observations. Regress natural log(sales) on an intercept and lags 1 through 15 of this change. Lags refer to trading observations, including across weekends. Use every observation with the complete set of lagged changes. Report the sum of the fifteen coefficients as cumulative_response. Also report coefficients lag_1 and lag_15.
+
+Use Newey-West heteroskedasticity and autocorrelation robust covariance with maximum lag 15 and Bartlett weights 1-j/16 for lag j. Multiply the covariance by N/(N-16), where N is the regression sample size. Use the full coefficient covariance matrix for the cumulative-response standard error. Report standard errors and n_obs for all three rows.
+
+Use Rscript. Prefer base R plus common econometrics packages such as AER, ivreg, sandwich, lmtest, survival, plm, vars, forecast, and jsonlite when needed. For IV/2SLS tasks, AER::ivreg or ivreg::ivreg with sandwich::vcovHC(..., type = "HC1") is available.
+
+Required output:
+  - Write a file `result.json` in the working directory with this shape:
+    {
+      "task_id": "applied_cumulative_hac",
+      "platform": "<python|r|stata>",
+      "estimates": [
+        {"term": "cumulative_response", "estimate": <float>, "se": <float or null>, "n_obs": <int>},
+        {"term": "lag_1", "estimate": <float>, "se": <float or null>, "n_obs": <int>},
+        {"term": "lag_15", "estimate": <float>, "se": <float or null>, "n_obs": <int>}
+      ],
+      "method_metadata": {"estimator": "<string>", "vcov": "<string>"},
+      "diagnostics": {}
+    }
+  - Estimate names must be exactly: "cumulative_response", "lag_1", "lag_15".
+  - Report numeric values to at least 6 significant digits when possible.
+  - Do not include extra prose in `result.json`.
+
+The evaluator executes your script later in a directory containing input.csv.
+Act only as a code generator. Do not use tools, inspect files, or execute code.
+Return exactly one fenced r code block and nothing else.

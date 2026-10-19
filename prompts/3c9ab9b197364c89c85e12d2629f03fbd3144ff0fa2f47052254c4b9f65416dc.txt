@@ -1,0 +1,48 @@
+You are a careful econometrician completing a benchmark task.
+The dataset is provided as ./input.csv.
+One shared fixed dataset with 480 rows. Columns: id, y, x, z.
+
+
+
+Task: Estimate a multinomial logit model for y using an intercept, x, and z. Treat 0 as the base outcome. Outcomes 1 and 2 are unordered alternatives. Use maximum likelihood and conventional observed-information standard errors. Report x_cat1 and z_cat1 for the slopes in log(P(y=1)/P(y=0)). Report x_cat2 and z_cat2 for log(P(y=2)/P(y=0)). Also report prob_cat2_zero as the fitted probability of outcome 2 at x=0 and z=0, with se=null. Report n_obs as the full sample size for every row.
+
+Use Rscript. Prefer base R plus common econometrics packages such as AER, ivreg, sandwich, lmtest, survival, plm, vars, forecast, and jsonlite when needed. For IV/2SLS tasks, AER::ivreg or ivreg::ivreg with sandwich::vcovHC(..., type = "HC1") is available.
+
+Required output:
+  - Write a file `result.json` in the working directory with this shape:
+    {
+      "task_id": "broad_multinomial_logit",
+      "platform": "<python|r|stata>",
+      "estimates": [
+        {"term": "x_cat1", "estimate": <float>, "se": <float or null>, "n_obs": <int>},
+        {"term": "z_cat1", "estimate": <float>, "se": <float or null>, "n_obs": <int>},
+        {"term": "x_cat2", "estimate": <float>, "se": <float or null>, "n_obs": <int>},
+        {"term": "z_cat2", "estimate": <float>, "se": <float or null>, "n_obs": <int>},
+        {"term": "prob_cat2_zero", "estimate": <float>, "se": <float or null>, "n_obs": <int>}
+      ],
+      "method_metadata": {"estimator": "<string>", "vcov": "<string>"},
+      "diagnostics": {}
+    }
+  - Estimate names must be exactly: "x_cat1", "z_cat1", "x_cat2", "z_cat2", "prob_cat2_zero".
+  - Report numeric values to at least 6 significant digits when possible.
+  - Do not include extra prose in `result.json`.
+
+You may use the shell to write, execute, inspect errors, and revise your program.
+Run the script with Rscript --vanilla run.R.
+Write and run a script. Leave result.json and the script in this directory.
+Save the final solution as run.py for Python, run.R for R, or run.do for Stata.
+Before submission, verify the statistical calculation using the supplied data.
+Check the estimation sample, observation count, and variable construction against the task.
+Check the estimator and uncertainty calculation against the stated specification.
+Run at least one independent numerical check of a central calculation.
+Use a separate calculation or a mathematical identity that applies to this task.
+Inspect any discrepancy and correct errors supported by these checks.
+After edits, rerun the final script and inspect its requested output.
+Save a short plain-text account of the checks and their results in verification.txt.
+Use only the task statement, supplied data, installed software, and files you create.
+After these checks, finish with DONE.
+
+Use only the supplied input.csv and files you create in this directory.
+Installed software and package resources are available.
+Do not read external agent skills, project instructions, prior results, or benchmark references.
+Do not create journals or use Git. Do not use MCP servers, web tools, or other agents.

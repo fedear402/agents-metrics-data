@@ -1,0 +1,82 @@
+You are a careful econometrician writing a single self-contained r script.
+
+Dataset provided as `./input.csv`; original source file: `pilot_v5_collinear.csv`.
+Columns: y, x1, x2, x3, x4, x5.
+
+Few-shot demonstration:
+The following worked example solves a related econometric task from the same
+family as the scored task below. It shows the expected implementation style
+and the result.json conventions on its own small inline data. The scored task
+is a different task: do not copy the demonstration's variable names, inline
+data, or numbers. The scored task must read ./input.csv and write
+./result.json.
+
+Demonstration task: fit OLS of resp on w1 and w2 with an intercept on inline
+data and compute the leverage (hat) value of each observation. Report the
+maximum leverage as row max_leverage and its zero-based row index as row max_leverage_obs.
+
+```r
+library(jsonlite)
+df <- data.frame(
+  resp = c(3.1, 4.0, 4.8, 6.2, 5.9, 7.4, 8.1, 9.0),
+  w1 = c(1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 9.0),
+  w2 = c(0.5, 0.7, 0.6, 1.1, 0.9, 1.3, 1.2, 1.0)
+)
+fit <- lm(resp ~ w1 + w2, data = df)
+hat <- hatvalues(fit)
+idx <- which.max(hat)
+out <- list(
+  task_id = "demo_leverage",
+  platform = "r",
+  estimates = list(
+    list(term = "max_leverage", estimate = unname(hat[idx]), se = NA,
+         n_obs = nrow(df)),
+    list(term = "max_leverage_obs", estimate = unname(idx) - 1, se = NA,
+         n_obs = nrow(df))
+  ),
+  method_metadata = list(estimator = "OLS hat values", vcov = "none"),
+  diagnostics = structure(list(), names = character(0))
+)
+write_json(out, "result.json", auto_unbox = TRUE)
+```
+
+
+Task: Fit y on x1, x2, x3, x4, and x5 with an intercept. Compute Cook's distance for each row and report the top five row indices and values as rank1_obs_id, rank1_cooks_d, ..., rank5_obs_id, rank5_cooks_d. Use zero-based row indices.
+
+Use Rscript. Prefer base R plus common econometrics packages such as AER, ivreg, sandwich, lmtest, survival, plm, vars, forecast, and jsonlite when needed. For IV/2SLS tasks, AER::ivreg or ivreg::ivreg with sandwich::vcovHC(..., type = "HC1") is available.
+
+Required output:
+  - Write a file `result.json` in the working directory with this shape:
+    {
+      "task_id": "cooks_distance",
+      "platform": "<python|r|stata>",
+      "estimates": [
+        {"term": "rank1_obs_id", "estimate": <float>, "se": <float or null>, "n_obs": <int>},
+        {"term": "rank1_cooks_d", "estimate": <float>, "se": <float or null>, "n_obs": <int>},
+        {"term": "rank2_obs_id", "estimate": <float>, "se": <float or null>, "n_obs": <int>},
+        {"term": "rank2_cooks_d", "estimate": <float>, "se": <float or null>, "n_obs": <int>},
+        {"term": "rank3_obs_id", "estimate": <float>, "se": <float or null>, "n_obs": <int>},
+        {"term": "rank3_cooks_d", "estimate": <float>, "se": <float or null>, "n_obs": <int>},
+        {"term": "rank4_obs_id", "estimate": <float>, "se": <float or null>, "n_obs": <int>},
+        {"term": "rank4_cooks_d", "estimate": <float>, "se": <float or null>, "n_obs": <int>},
+        {"term": "rank5_obs_id", "estimate": <float>, "se": <float or null>, "n_obs": <int>},
+        {"term": "rank5_cooks_d", "estimate": <float>, "se": <float or null>, "n_obs": <int>}
+      ],
+      "method_metadata": {"estimator": "<string>", "vcov": "<string>"},
+      "diagnostics": {}
+    }
+  - Estimate names must be exactly: "rank1_obs_id", "rank1_cooks_d", "rank2_obs_id", "rank2_cooks_d", "rank3_obs_id", "rank3_cooks_d", "rank4_obs_id", "rank4_cooks_d", "rank5_obs_id", "rank5_cooks_d".
+  - Report numeric values to at least 6 significant digits when possible.
+  - Do not include extra prose in `result.json`.
+
+
+The script will be executed with the working directory set to a folder that
+contains `input.csv`. Read the data from `./input.csv` using a relative path.
+The script must run end-to-end and produce `result.json` in the same folder.
+
+OUTPUT FORMAT - STRICT:
+Respond with exactly ONE fenced code block in r and nothing else.
+No prose before or after. The fenced block must start with ```r and end
+with ```.
+
+IMPORTANT — code generation only: input.csv is NOT in your current directory right now, and you must NOT run any commands or read any file. Your script will be executed later in a directory that contains input.csv. Return ONLY the fenced code block.

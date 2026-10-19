@@ -1,0 +1,43 @@
+Use Python to solve the following task.
+
+Task:
+Read ./input.csv. Its columns are person (person identifier), alternative (alternative identifier: 0, 1, or 2), chosen (1 for the chosen alternative and 0 otherwise), cost (alternative cost), quality (alternative quality attribute), and weight (person weight).
+
+The supplied weight is constant within each person. Normalize each weighted average by the sum of person weights.
+Each person has three alternatives 0, 1, and 2 and exactly one chosen alternative. Fit conditional logit by maximum likelihood with utility beta_cost*cost+beta_quality*quality+asc1*1(alternative==1)+asc2*1(alternative==2). Alternative 0 has zero intercept. Use all people and all their alternatives. Estimate without observation weights. Evaluate a policy that reduces each person's alternative-1 cost by 30 percent, with every quality and other cost unchanged. Keep fitted coefficients fixed. Report welfare_gain, the weighted mean across people of [logsumexp(policy utilities)-logsumexp(original utilities)]/(-beta_cost). Report share_change_alt1, the weighted mean change in alternative-1 choice probability. Use the provided person weight only for these two post-estimation averages. Report cost_coefficient. For every row, n_obs is the number of distinct people, not the number of alternatives.
+
+Reporting:
+Report point estimates only. Set se to null. Write numeric estimates and integer n_obs values in result.json with json.dump. Use these exact term names: welfare_gain, share_change_alt1, cost_coefficient. Report at least eight significant digits. The structure is:
+{
+  "task_id": "hard_conditional_logit_welfare",
+  "platform": "python",
+  "estimates": [
+    {
+      "term": "welfare_gain",
+      "estimate": "<numeric value>",
+      "se": null,
+      "n_obs": "<integer>"
+    },
+    {
+      "term": "share_change_alt1",
+      "estimate": "<numeric value>",
+      "se": null,
+      "n_obs": "<integer>"
+    },
+    {
+      "term": "cost_coefficient",
+      "estimate": "<numeric value>",
+      "se": null,
+      "n_obs": "<integer>"
+    }
+  ],
+  "method_metadata": {
+    "estimator": "<description>",
+    "vcov": "not requested"
+  },
+  "diagnostics": {}
+}
+
+Write one self-contained Python script. The evaluator runs it with the supplied CSV files in its working directory.
+Act only as a code generator. Do not use tools, inspect files, or execute code.
+Return exactly one fenced python code block and nothing else.

@@ -1,0 +1,12 @@
+Use R to solve the following task.
+
+Task:
+Read input.csv from the current directory. Its columns are unit (unit identifier), period (calendar period), y (outcome), x (endogenous regressor), and z (excluded instrument).
+
+Estimate y responses at h=0,1,2 using 2SLS local projections. Each origin (unit,t) must have that same unit observed at calendar t-1,t,t+1,t+2. Use this common sample for every horizon. For each h, regress y_(t+h) on endogenous x_t, y_(t-1), unit fixed effects, and origin-period fixed effects. Include an intercept and omit one category from each fixed-effect set. The only excluded instrument is z_t. All included exogenous regressors instrument themselves. Report x coefficients as lp_h0,lp_h1,lp_h2. Do not treat adjacent stored rows as adjacent calendar periods. The sample count is the number of retained origin rows.
+
+Report these terms: lp_h0, lp_h1, lp_h2. Return each requested number as an estimate. Standard errors are not requested. Set se to null. Set n_obs to 481, the sample count defined above. Use jsonlite::write_json to write result.json with task_id "hard_panel_lp_iv", platform "r", an estimates list of term, estimate, se, and n_obs objects, and method_metadata and diagnostics objects. Set se to null. Set n_obs to the sample count specified in the task. Report at least eight significant digits. Each requested uncertainty measure is a separate estimate term. Use exact integers for declared count targets.
+
+Write one self-contained R script. The evaluator runs it with the supplied CSV files in its working directory.
+Act only as a code generator. Do not use tools, inspect files, or execute code.
+Return exactly one fenced r code block and nothing else.

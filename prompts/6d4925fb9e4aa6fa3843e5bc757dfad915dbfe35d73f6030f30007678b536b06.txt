@@ -1,0 +1,70 @@
+Write a self-contained R script. Read ./input.csv.
+
+Example on separate small data. This simpler example illustrates a related calculation.
+```r
+# Known coefficients in a smaller mean/scale model: mu=0.3+0.8*x, sigma=exp(0.5*z).
+x <- c(-1,0,1); z <- c(0,1,-1)
+sigma <- exp(0.5*z); eta <- (0.3+0.8*x)/sigma
+cat('probabilities', paste(sprintf('%.10f', pnorm(eta)), collapse=' '), '\n')
+cat('ame_x', sprintf('%.10f', mean(dnorm(eta)*0.8/sigma)), '\n')
+```
+The example prints:
+```text
+probabilities [0.3085375387, 0.5721926267, 0.9651298262]
+ame_x 0.1912192229
+```
+
+Task:
+Fit a heteroskedastic probit by maximum likelihood on all rows. The success probability is Phi((beta0+beta_x*x+beta_d*d)/exp(gamma_z*z)). The scale equation has z only and no intercept; therefore sigma=1 when z=0. This normalization is fixed. The mean equation includes an intercept. Report gamma_z. Report ame_x, the average derivative of the fitted success probability with respect to continuous x, holding d and z fixed. Report effect_d, the average fitted probability difference when d changes from 0 to 1, holding each row's x and z fixed. Use equal weights and all supplied rows for both averages. Set n_obs to the full row count for every result.
+
+Reporting:
+Report point estimates only. Set se to null. Write numeric estimates and integer n_obs values in result.json with jsonlite::write_json. Use these exact term names: gamma_z, ame_x, effect_d. Report at least eight significant digits. The structure is:
+{
+  "task_id": "hard_heteroskedastic_probit",
+  "platform": "r",
+  "estimates": [
+    {
+      "term": "gamma_z",
+      "estimate": "<numeric value>",
+      "se": null,
+      "n_obs": "<integer>"
+    },
+    {
+      "term": "ame_x",
+      "estimate": "<numeric value>",
+      "se": null,
+      "n_obs": "<integer>"
+    },
+    {
+      "term": "effect_d",
+      "estimate": "<numeric value>",
+      "se": null,
+      "n_obs": "<integer>"
+    }
+  ],
+  "method_metadata": {
+    "estimator": "<description>",
+    "vcov": "not requested"
+  },
+  "diagnostics": {}
+}
+
+Write result.json as a JSON object with task_id="hard_heteroskedastic_probit", platform="r", and the requested estimates list.
+
+Use the shell to write, execute, inspect, and revise your script.
+Run the script with Rscript --vanilla run.R.
+Leave the final script as run.R.
+Save the final solution as run.py for Python, run.R for R, or run.do for Stata.
+Before submission, verify the statistical calculation using the supplied data.
+Check the estimation sample, observation count, and variable construction against the task.
+Check the estimator and uncertainty calculation against the stated specification.
+Run at least one independent numerical check of a central calculation.
+Use a separate calculation or a mathematical identity that applies to this task.
+Inspect any discrepancy and correct errors supported by these checks.
+After edits, rerun the final script and inspect its requested output.
+Save a short plain-text account of the checks and their results in verification.txt.
+Use only the task statement, supplied data, installed software, and files you create.
+After these checks, finish with DONE.
+Use only input.csv, installed software, and files you create in this directory.
+Do not read benchmark references, previous results, agent skills, or project instructions.
+Do not use Git, web tools, MCP servers, or other agents.

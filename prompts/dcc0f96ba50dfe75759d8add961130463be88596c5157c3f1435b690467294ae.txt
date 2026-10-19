@@ -1,0 +1,81 @@
+You are a careful econometrician completing a benchmark task.
+The dataset is provided as ./input.csv.
+One shared fixed dataset with 420 rows. Columns: id, y, x, z.
+
+
+
+Related example: An ordered satisfaction response with one covariate
+Separate example context: A separate simulated survey records satisfaction categories 1, 2, and 3 and one service-speed covariate. Fit an ordered logit without an additional intercept. Report the slope and the probability of category 3 at speed zero.
+Explanation of this example: Two ordered cutpoints provide location parameters. Adding a free intercept would duplicate location. Convert the fitted threshold parameterization to actual cutpoints before checking the high-category probability.
+The example uses separate data and writes example_result.json. It uses the same estimates-row structure as the scored task, with its own task identifier and result names. The scored task below must read its own input.csv and write result.json.
+```python
+import json
+import numpy as np
+
+def report(**values):
+    rows = [
+        {'term': 'speed_slope', 'estimate': float(values['slope']), 'se': float(values['slope_se']), 'n_obs': int(values['people'])},
+        {'term': 'high_at_zero', 'estimate': float(values['high_at_zero']), 'se': None, 'n_obs': int(values['people'])},
+    ]
+    output = {'task_id': 'ordered_logit_separate_example', 'estimates': rows}
+    with open('example_result.json', 'w') as stream:
+        json.dump(output, stream, indent=2, allow_nan=False)
+
+from scipy.special import expit
+from statsmodels.miscmodels.ordinal_model import OrderedModel
+rng = np.random.default_rng(1103)
+speed = rng.normal(size=90)
+latent = .7*speed + rng.logistic(size=90)
+category = np.digitize(latent,[-.5,.9])+1
+model = OrderedModel(category,speed[:,None],distr='logit')
+fit = model.fit(method='bfgs',disp=False,gtol=1e-8)
+threshold = model.transform_threshold_params(fit.params)
+probability = model.predict(fit.params,exog=np.array([[0.]]))[0,2]
+assert np.isclose(probability,1-expit(threshold[2])) and threshold[1]<threshold[2]
+report(slope=fit.params[0], slope_se=fit.bse[0], high_at_zero=probability, people=90)
+```
+Expected example_result.json:
+```json
+{
+  "task_id": "ordered_logit_separate_example",
+  "estimates": [
+    {
+      "term": "speed_slope",
+      "estimate": 0.5293805022569584,
+      "se": 0.19949875013809112,
+      "n_obs": 90
+    },
+    {
+      "term": "high_at_zero",
+      "estimate": 0.2788147485157594,
+      "se": null,
+      "n_obs": 90
+    }
+  ]
+}
+```
+
+Task: Estimate an ordered logit model for y, whose categories are ordered 1, 2, 3. Use x and z as covariates. Estimate two free cutpoints and no separate intercept. Use maximum likelihood and conventional observed-information standard errors. Report slope rows x and z. Also report prob_high as the fitted probability of category 3 for x=1 and z=0, with se=null. Use all observations and report their number as n_obs for every row.
+
+Use Python 3 with pandas and statsmodels or other standard scientific packages already available in the environment. Read the CSV with pandas and write JSON with json.dump.
+
+Required output:
+  - Write a file `result.json` in the working directory with this shape:
+    {
+      "task_id": "broad_ordered_logit",
+      "platform": "<python|r|stata>",
+      "estimates": [
+        {"term": "x", "estimate": <float>, "se": <float or null>, "n_obs": <int>},
+        {"term": "z", "estimate": <float>, "se": <float or null>, "n_obs": <int>},
+        {"term": "prob_high", "estimate": <float>, "se": <float or null>, "n_obs": <int>}
+      ],
+      "method_metadata": {"estimator": "<string>", "vcov": "<string>"},
+      "diagnostics": {}
+    }
+  - Estimate names must be exactly: "x", "z", "prob_high".
+  - Report numeric values to at least 6 significant digits when possible.
+  - Do not include extra prose in `result.json`.
+
+The evaluator executes your script later in a directory containing input.csv.
+Act only as a code generator. Do not use tools, inspect files, or execute code.
+Return exactly one fenced python code block and nothing else.

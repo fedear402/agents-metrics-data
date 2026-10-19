@@ -1,0 +1,88 @@
+You are a careful econometrician writing a single self-contained python script.
+
+Dataset provided as `./input.csv`; original source file: `pilot.csv`.
+Columns: id, x1, x2, y_lin, y_bin_logit, y_bin_probit.
+
+Few-shot demonstration:
+The following worked example solves a related econometric task from the same
+family as the scored task below. It shows the expected implementation style
+and the result.json conventions on its own small inline data. The scored task
+is a different task: do not copy the demonstration's variable names, inline
+data, or numbers. The scored task must read ./input.csv and write
+./result.json.
+
+Demonstration task: with inline data on a binary purchase outcome and household
+income, estimate a binary GLM with a complementary log-log link and an
+intercept. Report coefficient-scale rows const and income with asymptotic standard errors.
+
+```python
+import json
+import pandas as pd
+import statsmodels.api as sm
+
+df = pd.DataFrame({
+    "purchase": [0, 0, 0, 1, 0, 1, 1, 1, 1, 0],
+    "income": [1.2, 1.8, 2.0, 2.4, 2.6, 3.0, 3.5, 4.0, 4.4, 2.2],
+})
+X = sm.add_constant(df[["income"]])
+family = sm.families.Binomial(link=sm.families.links.CLogLog())
+fit = sm.GLM(df["purchase"], X, family=family).fit()
+out = {
+    "task_id": "demo_cloglog",
+    "platform": "python",
+    "estimates": [
+        {"term": "const", "estimate": float(fit.params["const"]),
+         "se": float(fit.bse["const"]), "n_obs": int(fit.nobs)},
+        {"term": "income", "estimate": float(fit.params["income"]),
+         "se": float(fit.bse["income"]), "n_obs": int(fit.nobs)},
+    ],
+    "method_metadata": {"estimator": "binomial GLM cloglog link",
+                        "vcov": "asymptotic"},
+    "diagnostics": {},
+}
+with open("result.json", "w") as f:
+    json.dump(out, f)
+```
+
+
+Task: Estimate a binary logit of y_bin_logit on x1 and x2 with an intercept. Report coefficient-scale rows const, x1, and x2 with asymptotic standard errors.
+
+Use Python 3 with pandas and statsmodels or other standard scientific packages already available in the environment. Read the CSV with pandas and write JSON with json.dump.
+
+Required output:
+  - Write a file `result.json` in the working directory with this shape:
+    {
+      "task_id": "logit",
+      "platform": "<python|r|stata>",
+      "estimates": [
+        {"term": "const", "estimate": <float>, "se": <float or null>, "n_obs": <int>},
+        {"term": "x1", "estimate": <float>, "se": <float or null>, "n_obs": <int>},
+        {"term": "x2", "estimate": <float>, "se": <float or null>, "n_obs": <int>}
+      ],
+      "method_metadata": {"estimator": "<string>", "vcov": "<string>"},
+      "diagnostics": {}
+    }
+  - Estimate names must be exactly: "const", "x1", "x2".
+  - Report numeric values to at least 6 significant digits when possible.
+  - Do not include extra prose in `result.json`.
+
+
+You may use the shell to write, execute, inspect errors, and revise your program.
+Run the script with /Users/federicolopez/LOCAL/GALIANI/AGENTS-METRICS/.venv/bin/python3 run.py.
+Write and run a script. Leave result.json and the script in this directory.
+Save the final solution as run.py for Python, run.R for R, or run.do for Stata.
+Before submission, verify the statistical calculation using the supplied data.
+Check the estimation sample, observation count, and variable construction against the task.
+Check the estimator and uncertainty calculation against the stated specification.
+Run at least one independent numerical check of a central calculation.
+Use a separate calculation or a mathematical identity that applies to this task.
+Inspect any discrepancy and correct errors supported by these checks.
+After edits, rerun the final script and inspect its requested output.
+Save a short plain-text account of the checks and their results in verification.txt.
+Use only the task statement, supplied data, installed software, and files you create.
+After these checks, finish with DONE.
+
+Use only the supplied input.csv and files you create in this directory.
+Installed software and package resources are available.
+Do not read external agent skills, project instructions, prior results, or benchmark references.
+Do not create journals or use Git. Do not use MCP servers, web tools, or other agents.

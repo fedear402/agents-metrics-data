@@ -1,0 +1,38 @@
+You are a careful econometrician completing a benchmark task.
+The dataset is provided as ./input.csv.
+One row per region-industry pair: region_id, industry_id, baseline share, external industry shock, regional analysis weight, regional employment growth x, and regional wage growth y.
+
+
+
+Task: Estimate the effect of regional employment growth x on wage growth y using external industry demand shocks.
+input.csv has one row per region-industry pair. The columns are region_id, industry_id, share, shock, region_weight, x, and y.
+The baseline employment shares sum to one within each region. shock is constant within industry. region_weight, x, and y are repeated within region.
+Use all regions and industries. Normalize the regional weights once, using one observation per region: e_r = region_weight_r / sum_r region_weight_r.
+Construct the regional shift-share instrument z_r = sum_n share_rn * shock_n. Estimate weighted 2SLS of y_r on an intercept and x_r, instrumenting x_r with z_r and weighting by e_r.
+
+Identification comes from independent industry shocks. Obtain exposure-robust uncertainty through the Borusyak-Hull-Jaravel shock-level aggregation, with the following conventions.
+First subtract each variable's e_r-weighted regional mean from y_r, x_r, and z_r. Denote the residuals y0_r, x0_r, and z0_r.
+For each industry n, construct s_n = sum_r e_r*share_rn and aggregate each residual as vbar_n = sum_r e_r*share_rn*v0_r / s_n.
+Fit the shock-level weighted IV regression of ybar_n on an intercept and xbar_n, instrumenting xbar_n with shock_n and weighting by s_n. Its slope equals the regional 2SLS slope.
+Treat industries as the independent observations. Use heteroskedasticity-robust HC1 standard errors from this shock-level regression, with variance multiplier N/(N-2), where N is the number of industries. Use structural IV residuals and analytic weights, without clustering.
+
+To assess instrument relevance, also estimate the regional first-stage slope of x_r on an intercept and z_r using e_r weights. Obtain its exposure-robust standard error from the equivalent shock-level IV regression of xbar_n on an intercept and zbar_n, instrumenting zbar_n with shock_n and weighting by s_n. Use the same HC1 convention. This shock-level regression has zbar_n as its endogenous regressor.
+To describe how widely the identifying exposure is distributed, compute effective_shocks = 1/sum_n s_n^2.
+
+Report three rows: effect (the regional 2SLS slope with its shock-level HC1 SE), first_stage (the regional first-stage slope with its shock-level HC1 SE), and effective_shocks (with se=missing (.)).
+For every row, report n_obs as the number of industries used in the shock-level calculation.
+
+
+Use a Stata do-file. Read ./input.csv with import delimited.
+
+Print one labelled result line per required term to the Stata log:
+ANSWER: effect estimate=<number> se=<number or .> n_obs=<integer>
+ANSWER: first_stage estimate=<number> se=<number or .> n_obs=<integer>
+ANSWER: effective_shocks estimate=<number> se=<number or .> n_obs=<integer>
+Use valid Stata formats. This template illustrates the reporting syntax:
+display "ANSWER: term_name estimate=" %21.12f estimate_value " se=" %21.12f se_value " n_obs=" %12.0f n_value
+Replace the example names with computed scalars or expressions. Use . for an unrequested standard error.
+Do not use %0.0f. Set linesize 255 to reduce wrapping. A JSON result file is not required.
+The evaluator executes your script later in a directory containing input.csv.
+Act only as a code generator. Do not use tools, inspect files, or execute code.
+Return exactly one fenced stata code block and nothing else.

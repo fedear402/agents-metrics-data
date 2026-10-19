@@ -1,0 +1,48 @@
+Use R to solve the following task.
+
+A smaller example uses separate synthetic data to illustrate the method.
+```r
+files <- list()
+files[["input.csv"]] <- read.csv(text="cohort,worker,training,end_month,event\n0,0,0,1,1\n0,1,0,1,0\n0,2,0,1,0\n0,3,1,1,1\n0,4,1,1,0\n0,5,1,1,0\n1,0,0,1,0\n1,1,0,1,0\n1,2,0,1,0\n1,3,1,1,1\n1,4,1,1,1\n1,5,1,1,0\n2,0,0,1,0\n2,1,0,1,1\n2,2,0,1,0\n2,3,1,1,0\n2,4,1,1,1\n2,5,1,1,0\n")
+read <- function(name='input.csv') files[[name]]
+iv <- function(y,C,x,z,w=rep(1,length(y))) {
+  X <- cbind(C,x)*sqrt(w); Z <- cbind(C,z)*sqrt(w)
+  fitted <- qr.fitted(qr(Z),X)
+  as.numeric(qr.coef(qr(fitted),y*sqrt(w)))[ncol(X)]
+}
+task <- "lp11_duration"
+if(task=='lp11_duration') {
+ library(survival)
+ d <- read(); rows <- list(); k <- 0
+ for(g in unique(d$cohort)) for(m in sort(unique(d$end_month[d$cohort==g]))) {
+  a <- subset(d,cohort==g & end_month>=m)
+  a$exit <- as.integer(a$end_month==m & a$event==1)
+  if(sum(a$exit)>0) { k <- k+1; a$riskset <- k; rows[[k]] <- a }
+ }
+ a <- do.call(rbind,rows)
+ fit <- survival::clogit(exit~training+strata(riskset),a,method='exact',control=survival::coxph.control(eps=1e-12))
+ b <- unname(coef(fit)[1]); first <- rows[[1]]
+ count <- sum(first$exit); sums <- combn(first$training,count,sum)
+ logp <- b*sum(first$training*first$exit)-log(sum(exp(b*sums)))
+ out <- c(training_coefficient=b,conditional_odds_ratio=exp(b),log_likelihood=fit$loglik[2],first_event_set_probability=exp(logp),first_event_set_log_probability=logp)
+}
+cat(jsonlite::toJSON(as.list(out),auto_unbox=TRUE,digits=12),'\n')
+```
+
+Task:
+Workers belong to cohorts. Each cohort-month forms its own risk set. All workers enter before month one. Cohorts have independent baseline exit odds. training is a fixed binary covariate. end_month records either employment exit or right censoring. event=1 indicates employment exit. At each month, include workers whose end_month is at least that month. Evaluate all exits jointly before removing same-month censored workers. Remove both groups before the next month. No worker reenters.
+
+Estimate Cox's discrete-time conditional odds model. Its coefficient beta multiplies training. For a risk set R with d observed exits and observed training sum S, the conditional log likelihood is beta*S-log(sum_A exp(beta*sum_{j in A} training_j)). The sum covers all distinct size-d subsets of R. Add contributions across cohorts and months with at least one exit. Use exact enumeration or an elementary symmetric polynomial recursion. Maximize over beta in [-4,4].
+
+Return beta, exp(beta) as the conditional odds ratio, and the exact log likelihood without additional constants. At the fitted coefficient, return the conditional probability, given its exit count, that exactly the observed set of workers exits in cohort 0, month 1. This is the probability of those named workers, without multiplying by the number of sets with the same training sum. Also return its natural logarithm. The odds ratio is a conditional discrete-time quantity. For every result, n_obs is the number of input worker rows.
+
+Data dictionary:
+input.csv: cohort = Independent cohort-specific risk set identifier; worker = Worker identifier within the cohort; training = Fixed binary training covariate; end_month = Month of employment exit or censoring; event = One for an exit; zero for right censoring
+
+Read the supplied files: input.csv.
+Return these quantities as named estimates: training_coefficient, conditional_odds_ratio, log_likelihood, first_event_set_probability, first_event_set_log_probability.
+Use jsonlite::write_json to write result.json with task_id "lp11_duration", platform "r", an estimates list of term, estimate, se, and n_obs objects, and method_metadata and diagnostics objects. Set se to null. Set n_obs to the sample count specified in the task. Report at least eight significant digits. Each requested uncertainty measure is a separate estimate term. Use exact integers for declared count targets.
+
+Write one self-contained R script. The evaluator runs it with the supplied CSV files in its working directory.
+Act only as a code generator. Do not use tools, inspect files, or execute code.
+Return exactly one fenced r code block and nothing else.

@@ -1,0 +1,38 @@
+Use Python to solve the following task.
+
+A simpler example uses separate data and illustrates the method.
+```python
+import numpy as np
+import pandas as pd
+from linearmodels.iv import IV2SLS
+# Local projections use a shared set of calendar origins in a smaller panel.
+rng=np.random.default_rng(433);rows=[]
+for unit in range(4):
+    for t in range(10):
+        z=rng.normal();u=rng.normal();x=z+0.4*u
+        rows.append((unit,t,x,z,unit+0.2*t+1.3*x+u))
+d=pd.DataFrame(rows,columns=['unit','period','x','z','y']);d=d[~((d.unit==1)&(d.period==4))]
+sample=d.copy()
+for h in [-1,1]:
+    q=d[['unit','period','y']].copy();q.period-=h
+    sample=sample.merge(q.rename(columns={'y':f'y{h}'}),on=['unit','period'])
+C=pd.concat([pd.Series(1.,index=sample.index,name='intercept'),sample['y-1'].rename('lag_y'),pd.get_dummies(sample.unit,prefix='unit',drop_first=True,dtype=float),pd.get_dummies(sample.period,prefix='period',drop_first=True,dtype=float)],axis=1)
+assert C.columns.is_unique
+assert np.linalg.matrix_rank(C)==C.shape[1]
+print({f'lp_h{h}':float(IV2SLS(sample['y' if h==0 else 'y1'],C,sample.x,sample.z).fit().params['x']) for h in [0,1]})
+```
+Its output is:
+```text
+{'lp_h0': 1.187298848027124, 'lp_h1': 0.6913516864303595}
+```
+
+Task:
+Read input.csv from the current directory. Its columns are unit (unit identifier), period (calendar period), y (outcome), x (endogenous regressor), and z (excluded instrument).
+
+Estimate y responses at h=0,1,2 using 2SLS local projections. Each origin (unit,t) must have that same unit observed at calendar t-1,t,t+1,t+2. Use this common sample for every horizon. For each h, regress y_(t+h) on endogenous x_t, y_(t-1), unit fixed effects, and origin-period fixed effects. Include an intercept and omit one category from each fixed-effect set. The only excluded instrument is z_t. All included exogenous regressors instrument themselves. Report x coefficients as lp_h0,lp_h1,lp_h2. Do not treat adjacent stored rows as adjacent calendar periods. The sample count is the number of retained origin rows.
+
+Report these terms: lp_h0, lp_h1, lp_h2. Return each requested number as an estimate. Standard errors are not requested. Set se to null. Set n_obs to 481, the sample count defined above. Use json.dump to write result.json with task_id "hard_panel_lp_iv", platform "python", estimates (a list of term, estimate, se, n_obs objects), method_metadata (an object), and diagnostics (an object). Report at least eight significant digits. Use the supplied input.csv and installed numpy, pandas, scipy, statsmodels, and linearmodels.
+
+Write one self-contained Python script. The evaluator runs it with the supplied CSV files in its working directory.
+Act only as a code generator. Do not use tools, inspect files, or execute code.
+Return exactly one fenced python code block and nothing else.

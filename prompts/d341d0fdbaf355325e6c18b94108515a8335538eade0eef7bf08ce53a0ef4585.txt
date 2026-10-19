@@ -1,0 +1,56 @@
+A smaller example uses separate synthetic data to illustrate the method.
+```r
+experience0 <- c(1,2,4,6,7); experience1 <- c(2,3,5,7,9)
+wage0 <- c(11,13,14,18,19); wage1 <- c(14,17,21,22,28)
+b0 <- coef(lm(wage0~experience0)); b1 <- coef(lm(wage1~experience1))
+m0 <- c(1,mean(experience0)); m1 <- c(1,mean(experience1))
+gap <- mean(wage1)-mean(wage0)
+explained <- sum((m1-m0)*b0); unexplained <- sum(m1*(b1-b0))
+stopifnot(abs(gap-explained-unexplained)<1e-10)
+values <- c(wage_gap=gap,explained_gap=explained,unexplained_gap=unexplained)
+rows <- lapply(names(values),function(term) list(term=term,estimate=unname(values[term]),se=NULL,n_obs=10))
+jsonlite::write_json(list(task_id='oaxaca_separate_example',platform='r',estimates=rows),'result.json',auto_unbox=TRUE,null='null',digits=16)
+```
+
+Task:
+Use R. Read ./input.csv. Available columns: id, y, x, z, group.
+
+Decompose the difference in mean y between group 1 and group 0. Fit separate OLS regressions of y on an intercept, x, and z in each group. Use group 0 coefficients as the reference. Let Xbar_g include the intercept 1. Report gap=mean(y|group=1)-mean(y|group=0), explained=(Xbar_1-Xbar_0) times beta_0, and unexplained=Xbar_1 times (beta_1-beta_0). Also report explained_x=(mean(x|group=1)-mean(x|group=0))*beta_0_x. Include every row. Set se=null and n_obs to the full sample size for all rows. The components describe this regression decomposition and do not establish causal discrimination.
+
+Report the requested point estimates. Standard errors are not requested. Use jsonlite::write_json to write result.json with the following structure. Replace each <number> with the computed value. Report at least eight significant digits.
+{
+  "task_id": "broad_oaxaca",
+  "platform": "r",
+  "estimates": [
+    {
+      "term": "gap",
+      "estimate": "<number>",
+      "se": null,
+      "n_obs": 360
+    },
+    {
+      "term": "explained",
+      "estimate": "<number>",
+      "se": null,
+      "n_obs": 360
+    },
+    {
+      "term": "unexplained",
+      "estimate": "<number>",
+      "se": null,
+      "n_obs": 360
+    },
+    {
+      "term": "explained_x",
+      "estimate": "<number>",
+      "se": null,
+      "n_obs": 360
+    }
+  ],
+  "method_metadata": {},
+  "diagnostics": {}
+}
+
+Write one self-contained R script. The evaluator runs it with the supplied CSV files in its working directory.
+Act only as a code generator. Do not use tools, inspect files, or execute code.
+Return exactly one fenced r code block and nothing else.

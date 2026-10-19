@@ -1,0 +1,25 @@
+You are a careful econometrician completing a benchmark task.
+The dataset is provided as ./input.csv.
+Exact CSV columns: `date`, `sales`, and `vix`. The columns `sales` and `vix` contain positive values. Simulated consecutive weekday trading observations.
+
+
+
+Task: The file contains consecutive trading observations with date, sales, and vix. Sales measure aggregate stock sales. Vix measures market volatility. Estimate the cumulative association between past changes in volatility and current log sales.
+
+Sort by date. Define the volatility change as the first difference of natural log(vix) across consecutive trading observations. Regress natural log(sales) on an intercept and lags 1 through 15 of this change. Lags refer to trading observations, including across weekends. Use every observation with the complete set of lagged changes. Report the sum of the fifteen coefficients as cumulative_response. Also report coefficients lag_1 and lag_15.
+
+Use Newey-West heteroskedasticity and autocorrelation robust covariance with maximum lag 15 and Bartlett weights 1-j/16 for lag j. Multiply the covariance by N/(N-16), where N is the regression sample size. Use the full coefficient covariance matrix for the cumulative-response standard error. Report standard errors and n_obs for all three rows.
+
+Use a Stata do-file. Read ./input.csv with import delimited.
+
+Print one labelled result line per required term to the Stata log:
+ANSWER: cumulative_response estimate=<number> se=<number or .> n_obs=<integer>
+ANSWER: lag_1 estimate=<number> se=<number or .> n_obs=<integer>
+ANSWER: lag_15 estimate=<number> se=<number or .> n_obs=<integer>
+Use valid Stata formats. This template illustrates the reporting syntax:
+display "ANSWER: term_name estimate=" %21.12f estimate_value " se=" %21.12f se_value " n_obs=" %12.0f n_value
+Replace the example names with computed scalars or expressions. Use . for an unrequested standard error.
+Do not use %0.0f. Set linesize 255 to reduce wrapping. A JSON result file is not required.
+The evaluator executes your script later in a directory containing input.csv.
+Act only as a code generator. Do not use tools, inspect files, or execute code.
+Return exactly one fenced stata code block and nothing else.

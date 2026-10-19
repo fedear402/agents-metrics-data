@@ -1,0 +1,72 @@
+Write a self-contained R script. Read ./input.csv.
+
+Example on separate small data. This simpler example illustrates a related calculation.
+```r
+# A simpler intercept-and-x truncated model has known beta=(0.2,0.6), sigma=1.
+x <- c(-0.5,0.5,1); mu <- 0.2+0.6*x; a <- -mu
+lam <- dnorm(a)/pnorm(a, lower.tail=FALSE)
+conditional_mean <- mu+lam
+derivative <- 0.6*(1+a*lam-lam^2)
+cat('mean_observed', sprintf('%.10f', mean(conditional_mean)), '\n')
+cat('ame_x', sprintf('%.10f', mean(derivative)), '\n')
+```
+The example prints:
+```text
+mean_observed 0.9797797768
+ame_x 0.2798355479
+```
+
+Task:
+The file contains only observations with y>0 from a population model y*=beta0+beta_x*x+beta_z*z+epsilon, with epsilon normal and constant unknown standard deviation sigma. The observed y equals y*. Fit the left-truncated normal model conditional on y*>0 by maximum likelihood on every supplied row. This is truncation: unobserved units are absent. Include an intercept. The log likelihood for one observed row is log phi((y-mu)/sigma)-log sigma-log Phi(mu/sigma), where mu is the linear index. Report latent_x, the estimated beta_x. Report mean_observed, the average fitted conditional mean E[y*|y*>0,x,z] over the supplied rows. Report ame_x, the average derivative of that same conditional mean with respect to continuous x, holding z fixed. Use each supplied row's covariates and equal weights. Set n_obs to the supplied row count for every result.
+
+Reporting:
+Report point estimates only. Set se to null. Write numeric estimates and integer n_obs values in result.json with jsonlite::write_json. Use these exact term names: mean_observed, ame_x, latent_x. Report at least eight significant digits. The structure is:
+{
+  "task_id": "hard_truncated_normal_effects",
+  "platform": "r",
+  "estimates": [
+    {
+      "term": "mean_observed",
+      "estimate": "<numeric value>",
+      "se": null,
+      "n_obs": "<integer>"
+    },
+    {
+      "term": "ame_x",
+      "estimate": "<numeric value>",
+      "se": null,
+      "n_obs": "<integer>"
+    },
+    {
+      "term": "latent_x",
+      "estimate": "<numeric value>",
+      "se": null,
+      "n_obs": "<integer>"
+    }
+  ],
+  "method_metadata": {
+    "estimator": "<description>",
+    "vcov": "not requested"
+  },
+  "diagnostics": {}
+}
+
+Write result.json as a JSON object with task_id="hard_truncated_normal_effects", platform="r", and the requested estimates list.
+
+Use the shell to write, execute, inspect, and revise your script.
+Run the script with Rscript --vanilla run.R.
+Leave the final script as run.R.
+Save the final solution as run.py for Python, run.R for R, or run.do for Stata.
+Before submission, verify the statistical calculation using the supplied data.
+Check the estimation sample, observation count, and variable construction against the task.
+Check the estimator and uncertainty calculation against the stated specification.
+Run at least one independent numerical check of a central calculation.
+Use a separate calculation or a mathematical identity that applies to this task.
+Inspect any discrepancy and correct errors supported by these checks.
+After edits, rerun the final script and inspect its requested output.
+Save a short plain-text account of the checks and their results in verification.txt.
+Use only the task statement, supplied data, installed software, and files you create.
+After these checks, finish with DONE.
+Use only input.csv, installed software, and files you create in this directory.
+Do not read benchmark references, previous results, agent skills, or project instructions.
+Do not use Git, web tools, MCP servers, or other agents.

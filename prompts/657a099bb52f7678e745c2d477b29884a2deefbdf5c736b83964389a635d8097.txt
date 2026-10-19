@@ -1,0 +1,60 @@
+Write a self-contained Stata script. Read ./input.csv.
+
+Example on separate small data. This simpler example illustrates a related calculation.
+```stata
+clear
+input double x
+-0.5
+0.5
+end
+* A simpler known-parameter hurdle model on two covariate rows.
+generate double p = invlogit(-0.2+0.4*x)
+generate double lam = exp(0.1+0.3*x)
+generate double q = 1-exp(-lam)
+generate double conditional = lam/q
+generate double mu = p*conditional
+generate double derivative = p*(1-p)*0.4*conditional+p*0.3*lam*(q-lam*exp(-lam))/q^2
+generate double tail = p*poissontail(lam,3)/q
+quietly summarize mu
+display "mean_y " %15.10f r(mean)
+quietly summarize derivative
+display "ame_x " %15.10f r(mean)
+quietly summarize tail
+display "prob_at_least_three " %15.10f r(mean)
+```
+The example prints:
+```text
+mean_y 0.7549412069
+ame_x 0.2683988161
+prob_at_least_three 0.0715297185
+```
+
+Task:
+Fit a Poisson hurdle model on all supplied rows. Model Pr(y>0|x,d) by logit with an intercept, x, and d. Conditional on y>0, fit a zero-truncated Poisson with log lambda=b0+b_x*x+b_d*d, using only positive observations. Its likelihood is the Poisson mass divided by 1-exp(-lambda). The unconditional mean is Pr(y>0)*lambda/(1-exp(-lambda)). Report mean_y, the equally weighted average unconditional fitted mean over all rows. Report ame_x, the average derivative of this unconditional mean with respect to continuous x, accounting for x in both fitted equations. Report effect_d, the average difference in this unconditional mean when d changes from zero to one in both equations. Keep x at its observed value. Also report prob_at_least_three, the equally weighted average fitted unconditional probability Pr(y>=3|x,d) over all supplied rows. This probability includes the hurdle probability and the zero-truncation adjustment. For all results, n_obs is the full dataset row count, including zeros.
+
+Reporting:
+Report point estimates only. Print one line for each term. Use NA for se and the full row count for n_obs. Report at least eight significant digits.
+ANSWER: mean_y estimate=<number> se=NA n_obs=<integer>
+ANSWER: ame_x estimate=<number> se=NA n_obs=<integer>
+ANSWER: effect_d estimate=<number> se=NA n_obs=<integer>
+ANSWER: prob_at_least_three estimate=<number> se=NA n_obs=<integer>
+
+Print the requested ANSWER lines to the Stata log.
+
+Use the shell to write, execute, inspect, and revise your script.
+Run the script with /Applications/StataNow/StataSE.app/Contents/MacOS/stata-se -b do run.do.
+Leave the final script as run.do.
+Save the final solution as run.py for Python, run.R for R, or run.do for Stata.
+Before submission, verify the statistical calculation using the supplied data.
+Check the estimation sample, observation count, and variable construction against the task.
+Check the estimator and uncertainty calculation against the stated specification.
+Run at least one independent numerical check of a central calculation.
+Use a separate calculation or a mathematical identity that applies to this task.
+Inspect any discrepancy and correct errors supported by these checks.
+After edits, rerun the final script and inspect its requested output.
+Save a short plain-text account of the checks and their results in verification.txt.
+Use only the task statement, supplied data, installed software, and files you create.
+After these checks, finish with DONE.
+Use only input.csv, installed software, and files you create in this directory.
+Do not read benchmark references, previous results, agent skills, or project instructions.
+Do not use Git, web tools, MCP servers, or other agents.

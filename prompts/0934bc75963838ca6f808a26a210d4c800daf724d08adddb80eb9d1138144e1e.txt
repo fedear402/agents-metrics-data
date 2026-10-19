@@ -1,0 +1,31 @@
+Use Stata to solve the following task.
+
+Task:
+Fit a Bernoulli probit model by maximum likelihood on all rows, with intercept and regressors x, d, x*d, z, and x squared. Do not weight observations. For the subset target==1, calculate the average marginal effect of continuous x, including both its interaction and squared term, and report ame_x. Also calculate the average discrete effect of changing d from 0 to 1 in this same subset, holding x and z at each row's observed values and updating x*d consistently, and report effect_d. Fit the model once on the full sample. Average individual effects over the stated target subset. Do not evaluate effects at mean covariates. For both rows, n_obs is the full estimation sample size. Evaluate the x derivative at each target row's observed x, d, and z.
+
+Data dictionary:
+input.csv: y = Dependent outcome; x = Continuous regressor; d = Binary regressor; z = Additional exogenous covariate; target = Indicator for the population over which probability effects are averaged
+
+Read the supplied files: input.csv.
+Return these quantities as named estimates: ame_x, effect_d.
+Print one line per estimate using this format. Use the sample count specified in the task. Report at least eight significant digits. Each requested uncertainty measure is a separate estimate term. Use exact integers for declared count targets.
+ANSWER: ame_x estimate=<number> se=NA n_obs=<integer>
+ANSWER: effect_d estimate=<number> se=NA n_obs=<integer>
+
+Use the shell to write, execute, inspect, and revise your script.
+Run the script with /Applications/StataNow/StataSE.app/Contents/MacOS/stata-se -b do run.do.
+Leave the final script as run.do and its requested output in this directory.
+Save the final solution as run.py for Python, run.R for R, or run.do for Stata.
+Before submission, verify the statistical calculation using the supplied data.
+Check the estimation sample, observation count, and variable construction against the task.
+Check the estimator and uncertainty calculation against the stated specification.
+Run at least one independent numerical check of a central calculation.
+Use a separate calculation or a mathematical identity that applies to this task.
+Inspect any discrepancy and correct errors supported by these checks.
+After edits, rerun the final script and inspect its requested output.
+Save a short plain-text account of the checks and their results in verification.txt.
+Use only the task statement, supplied data, installed software, and files you create.
+After these checks, finish with DONE.
+Use only the supplied CSV files, installed software, and files you create in this directory.
+Do not read benchmark references, previous results, agent skills, or project instructions.
+Do not use Git, web tools, MCP servers, or other agents.

@@ -1,0 +1,118 @@
+You are a careful econometrician completing a benchmark task.
+The dataset is provided as ./input.csv.
+One shared fixed dataset with 240 rows. Columns: y, endog, x, z1, z2.
+
+
+
+Related example: Anderson-Rubin inversion with two encouragement instruments
+Separate example context: Ten separate teaching farms provide two encouragement assignments, fertilizer dose, and harvest. Assume both assignments satisfy the instrument conditions. Include an intercept and invert the homoskedastic joint F test.
+Explanation of this example: Let q count excluded instruments and df=n-p count residual degrees of freedom in the unrestricted regression. F(beta)=((SSR_R(beta)-SSR_U(beta))/q)/(SSR_U(beta)/df). Acceptance is SSR_R-(1+q*critical/df)*SSR_U<=0. Expand this into A*beta^2+B*beta+C<=0. For two distinct real boundaries, A>0 accepts the interval and A<0 accepts the outer rays. Derive the sign and membership from the example data. Other data can require separate degenerate-set handling.
+The example uses separate data and writes example_result.json. It uses the same estimates-row structure as the scored task, with its own task identifier and result names. The scored task below must read its own input.csv and write result.json.
+```python
+import json
+import numpy as np
+from scipy.stats import f
+
+# Ten separate teaching farms and two encouragement assignments.
+encouragement = np.array([-2.,-1.5,-1.,-.5,0.,.5,1.,1.5,2.,2.5])
+reminder = np.array([-1.,.8,-.6,.4,-.2,.1,.3,-.5,.7,-.9])
+dose = np.array([1.2,1.8,1.5,2.8,2.7,3.7,3.4,4.2,4.5,5.3])
+harvest = np.array([3.1,3.5,3.0,5.2,4.0,5.6,5.4,6.8,6.5,8.0])
+n = len(dose)
+controls = np.ones((n,1))
+excluded = np.column_stack([encouragement,reminder])
+full = np.column_stack([controls,excluded])
+q = excluded.shape[1]
+df = n-full.shape[1]
+def residual(y, design):
+    return y-design@np.linalg.lstsq(design,y,rcond=None)[0]
+ry, rd = residual(harvest,controls), residual(dose,controls)
+uy, ud = residual(harvest,full), residual(dose,full)
+critical = f.ppf(.95,q,df)
+# F(beta)=((SSR_R-SSR_U)/q)/(SSR_U/df). Retain both degrees of freedom.
+k = q*critical/df
+A = rd@rd-(1+k)*(ud@ud)
+B = -2*(ry@rd-(1+k)*(uy@ud))
+C = ry@ry-(1+k)*(uy@uy)
+# This example is nondegenerate with two real boundaries. Derive its shape.
+discriminant = B*B-4*A*C
+assert abs(A)>1e-10 and discriminant>0
+boundaries = np.sort(np.roots([A,B,C]).real)
+unbounded = int(A<0)
+# A>0 accepts between the boundaries. A<0 accepts both outer rays.
+def accepts(beta):
+    return A*beta*beta+B*beta+C<=0
+def direct_F(beta):
+    r, u = residual(harvest-beta*dose,controls), residual(harvest-beta*dose,full)
+    return ((r@r-u@u)/q)/((u@u)/df)
+for boundary in boundaries:
+    assert np.isclose(direct_F(boundary),critical,atol=1e-8)
+for beta in [boundaries[0]-1,boundaries.mean(),boundaries[1]+1,0.]:
+    assert accepts(beta)==(direct_F(beta)<=critical)
+rows = [
+ {'term':'fertilizer_boundary_low','estimate':float(boundaries[0]),'se':None,'n_obs':n},
+ {'term':'fertilizer_boundary_high','estimate':float(boundaries[1]),'se':None,'n_obs':n},
+ {'term':'fertilizer_accepts_zero','estimate':int(accepts(0.)),'se':None,'n_obs':n},
+ {'term':'fertilizer_unbounded','estimate':unbounded,'se':None,'n_obs':n}]
+with open('example_result.json','w') as stream:
+    json.dump({'task_id':'fertilizer_two_encouragement_ar','estimates':rows},stream,indent=2,allow_nan=False)
+```
+Expected example_result.json:
+```json
+{
+  "task_id": "fertilizer_two_encouragement_ar",
+  "estimates": [
+    {
+      "term": "fertilizer_boundary_low",
+      "estimate": 0.8599525486823083,
+      "se": null,
+      "n_obs": 10
+    },
+    {
+      "term": "fertilizer_boundary_high",
+      "estimate": 1.445925596937411,
+      "se": null,
+      "n_obs": 10
+    },
+    {
+      "term": "fertilizer_accepts_zero",
+      "estimate": 0,
+      "se": null,
+      "n_obs": 10
+    },
+    {
+      "term": "fertilizer_unbounded",
+      "estimate": 0,
+      "se": null,
+      "n_obs": 10
+    }
+  ]
+}
+```
+
+Task: Estimate the 95 percent Anderson-Rubin confidence set for the coefficient beta of endog in y = intercept + beta*endog + gamma*x + error, using excluded instruments z1 and z2. For each candidate beta, regress y-beta*endog on an intercept, x, z1, and z2. Use the conventional homoskedastic joint F test of both excluded-instrument coefficients, with numerator degrees of freedom 2 and denominator n-4. Accept beta when F is at most the 95th percentile of that F distribution. Invert this test over the entire real line, without a bounded search grid. The data yield two finite boundary points. Report their smaller and larger values as boundary_low and boundary_high. Report accepts_zero as 1 if zero belongs to the confidence set, otherwise 0. Report unbounded as 1 if the set includes arbitrarily large positive or negative beta values, otherwise 0. Report ar_f_at_one as the test statistic at beta=1. Use se=null and the full sample size as n_obs for every row. Determine set membership from the test inequality. A disjoint set is possible.
+
+Use Python 3 with pandas and statsmodels or other standard scientific packages already available in the environment. Read the CSV with pandas and write JSON with json.dump.
+
+Required output:
+  - Write a file `result.json` in the working directory with this shape:
+    {
+      "task_id": "broad_ar_confidence_set",
+      "platform": "<python|r|stata>",
+      "estimates": [
+        {"term": "boundary_low", "estimate": <float>, "se": <float or null>, "n_obs": <int>},
+        {"term": "boundary_high", "estimate": <float>, "se": <float or null>, "n_obs": <int>},
+        {"term": "accepts_zero", "estimate": <float>, "se": <float or null>, "n_obs": <int>},
+        {"term": "unbounded", "estimate": <float>, "se": <float or null>, "n_obs": <int>},
+        {"term": "ar_f_at_one", "estimate": <float>, "se": <float or null>, "n_obs": <int>}
+      ],
+      "method_metadata": {"estimator": "<string>", "vcov": "<string>"},
+      "diagnostics": {}
+    }
+  - Estimate names must be exactly: "boundary_low", "boundary_high", "accepts_zero", "unbounded", "ar_f_at_one".
+  - Report numeric values to at least 6 significant digits when possible.
+  - Do not include extra prose in `result.json`.
+
+The evaluator executes your script later in a directory containing input.csv.
+Act only as a code generator. Do not use tools, inspect files, or execute code.
+Return exactly one fenced python code block and nothing else.

@@ -1,0 +1,126 @@
+You are a careful econometrician completing a benchmark task.
+The dataset is provided as ./input.csv.
+One row per region-industry pair: region_id, industry_id, baseline share, external industry shock, regional analysis weight, regional employment growth x, and regional wage growth y.
+
+Related example: Port freight IV and shock-level uncertainty
+Separate example context: Five ports have shares in four shipping categories. External category shocks provide an instrument for freight use. Estimate the freight-cost slope and instrument relevance. For this toy calculation, assume independent category shocks affect cost only through freight use.
+Explanation of this example: Normalize weights across ports once. Subtract weighted regional means from cost, freight and the instrument before exposure aggregation. Include intercepts in the shock regressions. Both uncertainty calculations use structural IV residuals, squared weighted instrument scores and the category-count HC1 multiplier. For relevance, the endogenous shock-level regressor is aggregated regional instrument exposure. It is not the raw external shock. Check both shock slopes against their regional counterparts. Effective category count uses all exposure masses and can be fractional.
+```r
+library(jsonlite)
+row <- function(term, estimate, se=NULL, n_obs) {
+  list(term=term, estimate=unname(as.numeric(estimate)),
+       se=if (is.null(se)) NULL else unname(as.numeric(se)), n_obs=as.integer(n_obs))
+}
+report <- function(id, rows) {
+  write_json(list(task_id=id, estimates=rows), "example_result.json",
+             auto_unbox=TRUE, null="null", digits=16, pretty=TRUE)
+}
+# Separate toy ports, categories and independent external shocks.
+shares <- matrix(c(.5,.3,.1,.1, .1,.5,.3,.1, .2,.1,.5,.2,
+                   .1,.2,.2,.5, .3,.2,.1,.4),nrow=5,byrow=TRUE)
+shock <- c(-1,.4,1.7,-.2)
+port_weight <- c(1,2,1,3,2)
+port_weight <- port_weight/sum(port_weight)
+instrument <- drop(shares%*%shock)
+freight <- 1.2*instrument+c(.2,-.4,.6,-.2,.3)
+cost <- 1.7*freight+c(.3,.1,-.2,.4,-.3)
+# Center every regional variable before exposure aggregation.
+regional <- cbind(cost,freight,instrument)
+centered <- sweep(regional,2,drop(port_weight%*%regional))
+mass <- drop(port_weight%*%shares)
+aggregated <- (t(shares)%*%(port_weight*centered))/mass
+stopifnot(max(abs(mass%*%aggregated))<1e-10)
+category_count <- length(shock)
+shock_iv <- function(dependent,endogenous) {
+  regressors <- cbind(1,endogenous)
+  instruments <- cbind(1,shock)
+  cross <- crossprod(instruments,mass*regressors)
+  beta <- solve(cross,crossprod(instruments,mass*dependent))
+  # Structural residuals use the endogenous regressor itself.
+  residual <- drop(dependent-regressors%*%beta)
+  scores <- instruments*(mass*residual)
+  inverse <- solve(cross)
+  # One weight in each score gives squared weights in its outer product.
+  covariance <- category_count/(category_count-2)*inverse%*%crossprod(scores)%*%t(inverse)
+  c(slope=beta[2],se=sqrt(covariance[2,2]))
+}
+effect <- shock_iv(aggregated[,1],aggregated[,2])
+# Relevance treats the aggregated INSTRUMENT as endogenous.
+relevance <- shock_iv(aggregated[,2],aggregated[,3])
+regional_effect <- sum(port_weight*centered[,3]*centered[,1])/sum(port_weight*centered[,3]*centered[,2])
+regional_relevance <- sum(port_weight*centered[,3]*centered[,2])/sum(port_weight*centered[,3]^2)
+stopifnot(max(abs(c(effect[1],relevance[1])-c(regional_effect,regional_relevance)))<1e-10)
+report("shift_share_clearer_separate_example",list(
+  row("freight_slope",effect[1],effect[2],category_count),
+  row("freight_relevance",relevance[1],relevance[2],category_count),
+  row("effective_categories",1/sum(mass^2),NULL,category_count)))
+```
+Expected example_result.json:
+```json
+{
+  "task_id": "shift_share_clearer_separate_example",
+  "estimates": [
+    {
+      "term": "freight_slope",
+      "estimate": 1.781399900362963,
+      "se": 0.30919554699965063,
+      "n_obs": 4
+    },
+    {
+      "term": "freight_relevance",
+      "estimate": 0.8269956102704957,
+      "se": 0.44304674367794267,
+      "n_obs": 4
+    },
+    {
+      "term": "effective_categories",
+      "estimate": 3.886756238003839,
+      "se": null,
+      "n_obs": 4
+    }
+  ]
+}
+```
+
+
+Task: Estimate the effect of regional employment growth x on wage growth y using external industry demand shocks.
+input.csv has one row per region-industry pair. The columns are region_id, industry_id, share, shock, region_weight, x, and y.
+The baseline employment shares sum to one within each region. shock is constant within industry. region_weight, x, and y are repeated within region.
+Use all regions and industries. Normalize the regional weights once, using one observation per region: e_r = region_weight_r / sum_r region_weight_r.
+Construct the regional shift-share instrument z_r = sum_n share_rn * shock_n. Estimate weighted 2SLS of y_r on an intercept and x_r, instrumenting x_r with z_r and weighting by e_r.
+
+Identification comes from independent industry shocks. Obtain exposure-robust uncertainty through the Borusyak-Hull-Jaravel shock-level aggregation, with the following conventions.
+First subtract each variable's e_r-weighted regional mean from y_r, x_r, and z_r. Denote the residuals y0_r, x0_r, and z0_r.
+For each industry n, construct s_n = sum_r e_r*share_rn and aggregate each residual as vbar_n = sum_r e_r*share_rn*v0_r / s_n.
+Fit the shock-level weighted IV regression of ybar_n on an intercept and xbar_n, instrumenting xbar_n with shock_n and weighting by s_n. Its slope equals the regional 2SLS slope.
+Treat industries as the independent observations. Use heteroskedasticity-robust HC1 standard errors from this shock-level regression, with variance multiplier N/(N-2), where N is the number of industries. Use structural IV residuals and analytic weights, without clustering.
+
+To assess instrument relevance, also estimate the regional first-stage slope of x_r on an intercept and z_r using e_r weights. Obtain its exposure-robust standard error from the equivalent shock-level IV regression of xbar_n on an intercept and zbar_n, instrumenting zbar_n with shock_n and weighting by s_n. Use the same HC1 convention. This shock-level regression has zbar_n as its endogenous regressor.
+To describe how widely the identifying exposure is distributed, compute effective_shocks = 1/sum_n s_n^2.
+
+Report three rows: effect (the regional 2SLS slope with its shock-level HC1 SE), first_stage (the regional first-stage slope with its shock-level HC1 SE), and effective_shocks (with se=null).
+For every row, report n_obs as the number of industries used in the shock-level calculation.
+
+
+Use Rscript. Prefer base R plus common econometrics packages such as AER, ivreg, sandwich, lmtest, survival, plm, vars, forecast, and jsonlite when needed. For IV/2SLS tasks, AER::ivreg or ivreg::ivreg with sandwich::vcovHC(..., type = "HC1") is available.
+
+Required output:
+  - Write a file `result.json` in the working directory with this shape:
+    {
+      "task_id": "applied_shift_share",
+      "platform": "<python|r|stata>",
+      "estimates": [
+        {"term": "effect", "estimate": <float>, "se": <float or null>, "n_obs": <int>},
+        {"term": "first_stage", "estimate": <float>, "se": <float or null>, "n_obs": <int>},
+        {"term": "effective_shocks", "estimate": <float>, "se": <float or null>, "n_obs": <int>}
+      ],
+      "method_metadata": {"estimator": "<string>", "vcov": "<string>"},
+      "diagnostics": {}
+    }
+  - Estimate names must be exactly: "effect", "first_stage", "effective_shocks".
+  - Report numeric values to at least 6 significant digits when possible.
+  - Do not include extra prose in `result.json`.
+
+The evaluator executes your script later in a directory containing input.csv.
+Act only as a code generator. Do not use tools, inspect files, or execute code.
+Return exactly one fenced r code block and nothing else.

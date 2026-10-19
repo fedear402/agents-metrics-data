@@ -1,0 +1,33 @@
+Use R to solve the following task.
+
+Task:
+Use every CSV supplied for this task. Join trade.code to crosswalk.code. Missing area-industry employment cells mean zero. There are four industries. National industry employment is the sum across all supplied areas, within period and vintage. For each area-period, construct x=sum_j[(base area-industry employment/base total_employment)*(us_change/national base industry employment)/(price_index/100)/1000*(10/years)]. Construct z by replacing base with early and us_change with other_change everywhere. Trade changes are nominal dollars over the stated interval. The resulting exposures are thousands of real dollars per worker per decade. Outcome change_pp is already a decadal percentage-point change. Estimate weighted 2SLS on all 72 area-period observations: change_pp on an intercept, period, control, and x. Instrument x with z. Include all three exogenous columns as instruments. Use base-vintage population as the regression weight. Report the x coefficient, x for area 0 in each period, and z for area 0 in period 0. The task defines its denominator and interval conventions explicitly. Each code maps to exactly one industry. Within each period, each industry has one trade-code row. Price_index and years are constant within period. All national industry employment denominators are positive. Set n_obs to the number of area-period estimation rows.
+
+Data dictionary:
+crosswalk.csv: code = Trade-code key for the industry crosswalk; industry = Industry identifier
+trade.csv: period = Calendar period or interval identifier as defined in the task; code = Trade-code key for the industry crosswalk; us_change = Nominal import change for the focal country in dollars; other_change = Nominal import change in the instrument countries, in dollars; price_index = Price deflator, with base value 100; years = Interval length in years
+areas.csv: area = Synthetic area identifier; period = Calendar period or interval identifier as defined in the task; vintage = Employment measurement date: base or early; total_employment = Total employment, including industries outside the listed manufacturing sectors; population = Base-vintage population used as the regression weight
+employment.csv: area = Synthetic area identifier; period = Calendar period or interval identifier as defined in the task; vintage = Employment measurement date: base or early; industry = Industry identifier; employment = Area-industry employment; omitted cells contain zero
+outcomes.csv: area = Synthetic area identifier; period = Calendar period or interval identifier as defined in the task; control = Supplied exogenous control; change_pp = Outcome change already expressed in percentage points per decade
+
+Read the supplied files: crosswalk.csv, trade.csv, areas.csv, employment.csv, outcomes.csv.
+Return these quantities as named estimates: iv_slope, exposure_area0_period0, exposure_area0_period1, instrument_area0_period0.
+Use jsonlite::write_json to write result.json with task_id "applied_multivintage_trade_iv", platform "r", an estimates list of term, estimate, se, and n_obs objects, and method_metadata and diagnostics objects. Set se to null. Set n_obs to the sample count specified in the task. Report at least eight significant digits. Each requested uncertainty measure is a separate estimate term. Use exact integers for declared count targets.
+
+Use the shell to write, execute, inspect, and revise your script.
+Run the script with Rscript --vanilla run.R.
+Leave the final script as run.R and its requested output in this directory.
+Save the final solution as run.py for Python, run.R for R, or run.do for Stata.
+Before submission, verify the statistical calculation using the supplied data.
+Check the estimation sample, observation count, and variable construction against the task.
+Check the estimator and uncertainty calculation against the stated specification.
+Run at least one independent numerical check of a central calculation.
+Use a separate calculation or a mathematical identity that applies to this task.
+Inspect any discrepancy and correct errors supported by these checks.
+After edits, rerun the final script and inspect its requested output.
+Save a short plain-text account of the checks and their results in verification.txt.
+Use only the task statement, supplied data, installed software, and files you create.
+After these checks, finish with DONE.
+Use only the supplied CSV files, installed software, and files you create in this directory.
+Do not read benchmark references, previous results, agent skills, or project instructions.
+Do not use Git, web tools, MCP servers, or other agents.

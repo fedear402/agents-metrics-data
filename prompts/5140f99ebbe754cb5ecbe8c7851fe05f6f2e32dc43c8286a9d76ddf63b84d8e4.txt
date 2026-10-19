@@ -1,0 +1,120 @@
+You are a careful econometrician completing a benchmark task.
+The dataset is provided as ./input.csv.
+One shared fixed dataset with 400 rows. Columns: id, y, x, z.
+
+
+
+Related example: A censored laboratory reading with checked derivatives
+Separate example context: A laboratory records values below its detection threshold 1 as 1. Fit a Gaussian latent regression on an intercept and temperature using 100 separate simulated readings.
+Explanation of this example: Estimate coefficients jointly with log scale. Censored readings contribute a normal probability. Uncensored readings contribute a normal density. Check the negative-log-likelihood gradient against centered numerical derivatives at nonstationary parameter values. This exposes sign and scale errors. At the solution, check stationarity and positive observed information. Invert the full Hessian of the actual joint likelihood before extracting slope uncertainty. The BFGS covariance approximation is separate from this observed-information calculation.
+The example uses separate data and writes example_result.json. It uses the same estimates-row structure as the scored task, with its own task identifier and result names. The scored task below must read its own input.csv and write result.json.
+```python
+import json
+import numpy as np
+from scipy.optimize import minimize
+from scipy.stats import norm
+from statsmodels.tools.numdiff import approx_hess
+
+# Separate laboratory data. The detection threshold is 1.
+rng = np.random.default_rng(1301)
+temperature = rng.normal(size=100)
+latent = 1.2 + .8*temperature + rng.normal(scale=.7, size=100)
+reading = np.maximum(1., latent)
+design = np.column_stack([np.ones(100), temperature])
+censored = reading == 1.
+
+def loss(parameter):
+    mean = design @ parameter[:2]
+    scale = np.exp(parameter[2])
+    a = (1. - mean[censored])/scale
+    r = (reading[~censored] - mean[~censored])/scale
+    return -norm.logcdf(a).sum() - (norm.logpdf(r)-np.log(scale)).sum()
+
+def gradient(parameter):
+    # Gradient of NEGATIVE log likelihood, including the log-scale parameter.
+    mean = design @ parameter[:2]
+    scale = np.exp(parameter[2])
+    a = (1. - mean[censored])/scale
+    mills = np.exp(norm.logpdf(a)-norm.logcdf(a))
+    r = (reading[~censored]-mean[~censored])/scale
+    coefficient_score = design[censored].T @ (mills/scale)
+    coefficient_score -= design[~censored].T @ (r/scale)
+    scale_score = np.sum(a*mills) + np.sum(1.-r*r)
+    return np.r_[coefficient_score, scale_score]
+
+def numerical_gradient(parameter):
+    answer = np.zeros(3)
+    for j in range(3):
+        step = np.zeros(3)
+        step[j] = 1e-5
+        answer[j] = (loss(parameter+step)-loss(parameter-step))/(2e-5)
+    return answer
+
+# Check derivatives away from the optimum, where sign errors remain visible.
+initial = np.array([1., .5, np.log(.8)])
+for point in [initial, np.array([1.4, .2, np.log(1.1)])]:
+    assert np.allclose(gradient(point), numerical_gradient(point), atol=1e-5, rtol=1e-6)
+fit = minimize(loss, initial, jac=gradient, method='BFGS', options={'gtol':1e-7})
+assert np.isfinite(loss(fit.x)) and np.max(np.abs(gradient(fit.x))) < 1e-5
+assert np.max(np.abs(numerical_gradient(fit.x))) < 1e-5
+
+# Compute observed information from the actual joint likelihood.
+# The optimizer's inverse-Hessian approximation is not used for reported SEs.
+information = approx_hess(fit.x, loss)
+assert np.allclose(information, information.T, atol=1e-10)
+assert np.linalg.eigvalsh(information).min() > 0
+covariance = np.linalg.inv(information)
+output = {'task_id':'tobit_clearer_separate_example', 'estimates':[
+    {'term':'temperature_slope', 'estimate':float(fit.x[1]),
+     'se':float(np.sqrt(covariance[1,1])), 'n_obs':100},
+    {'term':'latent_scale', 'estimate':float(np.exp(fit.x[2])), 'se':None, 'n_obs':100}
+]}
+with open('example_result.json', 'w') as stream:
+    json.dump(output, stream, indent=2, allow_nan=False)
+```
+Expected example_result.json:
+```json
+{
+  "task_id": "tobit_clearer_separate_example",
+  "estimates": [
+    {
+      "term": "temperature_slope",
+      "estimate": 0.735967937165834,
+      "se": 0.0945742039859813,
+      "n_obs": 100
+    },
+    {
+      "term": "latent_scale",
+      "estimate": 0.718174038433304,
+      "se": null,
+      "n_obs": 100
+    }
+  ]
+}
+```
+
+Task: The observed expenditure y is left censored at zero. Fit a homoskedastic Gaussian Tobit model for latent y using an intercept, x, and z. Include every row, including observations with y=0. Use maximum likelihood with lower censoring point 0 and no upper censoring. Report latent-equation coefficients const, x, and z with conventional observed-information standard errors from the jointly estimated likelihood. Report sigma, the standard deviation of the latent Gaussian disturbance, with se=null. Report the full sample size as n_obs for every row.
+
+Use Python 3 with pandas and statsmodels or other standard scientific packages already available in the environment. Read the CSV with pandas and write JSON with json.dump.
+
+Required output:
+  - Write a file `result.json` in the working directory with this shape:
+    {
+      "task_id": "broad_tobit",
+      "platform": "<python|r|stata>",
+      "estimates": [
+        {"term": "const", "estimate": <float>, "se": <float or null>, "n_obs": <int>},
+        {"term": "x", "estimate": <float>, "se": <float or null>, "n_obs": <int>},
+        {"term": "z", "estimate": <float>, "se": <float or null>, "n_obs": <int>},
+        {"term": "sigma", "estimate": <float>, "se": <float or null>, "n_obs": <int>}
+      ],
+      "method_metadata": {"estimator": "<string>", "vcov": "<string>"},
+      "diagnostics": {}
+    }
+  - Estimate names must be exactly: "const", "x", "z", "sigma".
+  - Report numeric values to at least 6 significant digits when possible.
+  - Do not include extra prose in `result.json`.
+
+The evaluator executes your script later in a directory containing input.csv.
+Act only as a code generator. Do not use tools, inspect files, or execute code.
+Return exactly one fenced python code block and nothing else.

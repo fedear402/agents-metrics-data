@@ -1,0 +1,31 @@
+You are a careful econometrician completing a benchmark task.
+The dataset is provided as ./input.csv.
+One shared fixed dataset with 400 rows. Columns: id, y, x, z.
+
+
+
+Task: The observed expenditure y is left censored at zero. Fit a homoskedastic Gaussian Tobit model for latent y using an intercept, x, and z. Include every row, including observations with y=0. Use maximum likelihood with lower censoring point 0 and no upper censoring. Report latent-equation coefficients const, x, and z with conventional observed-information standard errors from the jointly estimated likelihood. Report sigma, the standard deviation of the latent Gaussian disturbance, with se=null. Report the full sample size as n_obs for every row.
+
+Use Python 3 with pandas and statsmodels or other standard scientific packages already available in the environment. Read the CSV with pandas and write JSON with json.dump.
+
+Required output:
+  - Write a file `result.json` in the working directory with this shape:
+    {
+      "task_id": "broad_tobit",
+      "platform": "<python|r|stata>",
+      "estimates": [
+        {"term": "const", "estimate": <float>, "se": <float or null>, "n_obs": <int>},
+        {"term": "x", "estimate": <float>, "se": <float or null>, "n_obs": <int>},
+        {"term": "z", "estimate": <float>, "se": <float or null>, "n_obs": <int>},
+        {"term": "sigma", "estimate": <float>, "se": <float or null>, "n_obs": <int>}
+      ],
+      "method_metadata": {"estimator": "<string>", "vcov": "<string>"},
+      "diagnostics": {}
+    }
+  - Estimate names must be exactly: "const", "x", "z", "sigma".
+  - Report numeric values to at least 6 significant digits when possible.
+  - Do not include extra prose in `result.json`.
+
+The evaluator executes your script later in a directory containing input.csv.
+Act only as a code generator. Do not use tools, inspect files, or execute code.
+Return exactly one fenced python code block and nothing else.

@@ -1,0 +1,62 @@
+A smaller example uses separate synthetic data to illustrate the method.
+```r
+# Two travel alternatives and one cost coefficient form a smaller choice problem.
+set.seed(434)
+n <- 120
+cost0 <- runif(n,.2,3); cost1 <- runif(n,.2,3)
+dx <- cost1-cost0
+y <- rbinom(n,1,plogis(.3-.9*dx))
+write.csv(data.frame(cost0,cost1,y), 'example_r_data.csv',row.names=FALSE)
+fit <- glm(y~dx,family=binomial())
+a <- unname(coef(fit)[1]); b <- unname(coef(fit)[2])
+old <- cbind(b*cost0,a+b*cost1)
+policy <- cbind(b*cost0,a+b*cost1*.8)
+lse <- function(u) {m<-apply(u,1,max);m+log(rowSums(exp(u-m)))}
+weights <- seq(1,2,length.out=n)
+gain <- (lse(policy)-lse(old))/(-b)
+print(list(cost_coefficient=b,welfare_gain=weighted.mean(gain,weights)))
+write.csv(data.frame(term=c('cost_coefficient','welfare_gain'),estimate=c(b,weighted.mean(gain,weights))), 'example_r_output.csv',row.names=FALSE)
+```
+
+Use R to solve the following task.
+
+Task:
+Read ./input.csv. Its columns are person (person identifier), alternative (alternative identifier: 0, 1, or 2), chosen (1 for the chosen alternative and 0 otherwise), cost (alternative cost), quality (alternative quality attribute), and weight (person weight).
+
+The supplied weight is constant within each person. Normalize each weighted average by the sum of person weights.
+Each person has three alternatives 0, 1, and 2 and exactly one chosen alternative. Fit conditional logit by maximum likelihood with utility beta_cost*cost+beta_quality*quality+asc1*1(alternative==1)+asc2*1(alternative==2). Alternative 0 has zero intercept. Use all people and all their alternatives. Estimate without observation weights. Evaluate a policy that reduces each person's alternative-1 cost by 30 percent, with every quality and other cost unchanged. Keep fitted coefficients fixed. Report welfare_gain, the weighted mean across people of [logsumexp(policy utilities)-logsumexp(original utilities)]/(-beta_cost). Report share_change_alt1, the weighted mean change in alternative-1 choice probability. Use the provided person weight only for these two post-estimation averages. Report cost_coefficient. For every row, n_obs is the number of distinct people, not the number of alternatives.
+
+Use jsonlite::write_json to write result.json with the following structure. Replace each <number> with the computed value. Report at least eight significant digits.
+{
+  "task_id": "hard_conditional_logit_welfare",
+  "platform": "r",
+  "estimates": [
+    {
+      "term": "welfare_gain",
+      "estimate": "<numeric value>",
+      "se": null,
+      "n_obs": "<integer>"
+    },
+    {
+      "term": "share_change_alt1",
+      "estimate": "<numeric value>",
+      "se": null,
+      "n_obs": "<integer>"
+    },
+    {
+      "term": "cost_coefficient",
+      "estimate": "<numeric value>",
+      "se": null,
+      "n_obs": "<integer>"
+    }
+  ],
+  "method_metadata": {
+    "estimator": "<description>",
+    "vcov": "not requested"
+  },
+  "diagnostics": {}
+}
+
+Write one self-contained R script. The evaluator runs it with the supplied CSV files in its working directory.
+Act only as a code generator. Do not use tools, inspect files, or execute code.
+Return exactly one fenced r code block and nothing else.

@@ -1,0 +1,39 @@
+You are a careful econometrician completing a benchmark task.
+The dataset is provided as ./input.csv.
+One shared fixed dataset with 240 rows. Columns: y, endog, x, z1, z2.
+
+
+
+Task: Estimate the 95 percent Anderson-Rubin confidence set for the coefficient beta of endog in y = intercept + beta*endog + gamma*x + error, using excluded instruments z1 and z2. For each candidate beta, regress y-beta*endog on an intercept, x, z1, and z2. Use the conventional homoskedastic joint F test of both excluded-instrument coefficients, with numerator degrees of freedom 2 and denominator n-4. Accept beta when F is at most the 95th percentile of that F distribution. Invert this test over the entire real line, without a bounded search grid. The data yield two finite boundary points. Report their smaller and larger values as boundary_low and boundary_high. Report accepts_zero as 1 if zero belongs to the confidence set, otherwise 0. Report unbounded as 1 if the set includes arbitrarily large positive or negative beta values, otherwise 0. Report ar_f_at_one as the test statistic at beta=1. Use se=missing (.) and the full sample size as n_obs for every row. Determine set membership from the test inequality. A disjoint set is possible.
+
+Use a Stata do-file. Read ./input.csv with import delimited.
+
+Print one labelled result line per required term to the Stata log:
+ANSWER: boundary_low estimate=<number> se=<number or .> n_obs=<integer>
+ANSWER: boundary_high estimate=<number> se=<number or .> n_obs=<integer>
+ANSWER: accepts_zero estimate=<number> se=<number or .> n_obs=<integer>
+ANSWER: unbounded estimate=<number> se=<number or .> n_obs=<integer>
+ANSWER: ar_f_at_one estimate=<number> se=<number or .> n_obs=<integer>
+Use valid Stata formats. This template illustrates the reporting syntax:
+display "ANSWER: term_name estimate=" %21.12f estimate_value " se=" %21.12f se_value " n_obs=" %12.0f n_value
+Replace the example names with computed scalars or expressions. Use . for an unrequested standard error.
+Do not use %0.0f. Set linesize 255 to reduce wrapping. A JSON result file is not required.
+You may use the shell to write, execute, inspect errors, and revise your program.
+Run the script with /Applications/StataNow/StataSE.app/Contents/MacOS/stata-se -b do run.do and inspect run.log if needed.
+Write run.do and execute it in batch mode. Leave run.log containing all required ANSWER lines.
+Save the final solution as run.py for Python, run.R for R, or run.do for Stata.
+Before submission, verify the statistical calculation using the supplied data.
+Check the estimation sample, observation count, and variable construction against the task.
+Check the estimator and uncertainty calculation against the stated specification.
+Run at least one independent numerical check of a central calculation.
+Use a separate calculation or a mathematical identity that applies to this task.
+Inspect any discrepancy and correct errors supported by these checks.
+After edits, rerun the final script and inspect its requested output.
+Save a short plain-text account of the checks and their results in verification.txt.
+Use only the task statement, supplied data, installed software, and files you create.
+After these checks, finish with DONE.
+
+Use only the supplied input.csv and files you create in this directory.
+Installed software and package resources are available.
+Do not read external agent skills, project instructions, prior results, or benchmark references.
+Do not create journals or use Git. Do not use MCP servers, web tools, or other agents.

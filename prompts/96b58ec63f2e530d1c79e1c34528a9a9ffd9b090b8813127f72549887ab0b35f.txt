@@ -1,0 +1,93 @@
+A service starts at time 3 for two towns. Other towns adopt later or never. Use times 2, 3, and 4. Controls must remain untreated through time 4. Keep only towns observed at all three window times. Estimate the treated-minus-control change from time 2 to the mean of times 3 and 4.
+
+Determine control eligibility from the end of this comparison window. Check balance inside this window. A town treated at its last period is ineligible. An otherwise eligible town with a missing window observation is also removed.
+
+The target repeats this process for three cohorts and aggregates with retained-treated counts.
+
+This separate example writes example_result.json. The task reads input.csv and reports its own results.
+
+```python
+import json
+import numpy as np
+
+def report(**values):
+    rows = [
+        {'term': 'town_effect', 'estimate': float(values['effect']), 'se': None, 'n_obs': int(values['rows'])},
+        {'term': 'treated_towns', 'estimate': float(values['retained_treated']), 'se': None, 'n_obs': int(values['rows'])},
+    ]
+    output = {'task_id': 'cohort_stack_separate_example', 'estimates': rows}
+    with open('example_result.json', 'w') as stream:
+        json.dump(output, stream, indent=2, allow_nan=False)
+
+town = np.repeat(np.arange(1,7),3)
+time = np.tile([2,3,4],6)
+adoption = np.repeat([3,3,0,5,4,0],3)
+level = np.repeat([10.,14.,8.,12.,9.,15.],3)
+y = level + .5*time + 2*((adoption==3)&(time>=3))
+y += np.array([0,.2,-.1,.1,-.2,.3,0,.1,-.1,.1,0,.2,0,.5,.8,.1,.3,-.2])
+observed = ~((town==6)&(time==3))
+eligible = (adoption==3)|(adoption==0)|(adoption>4)
+keep_towns = [unit for unit in np.unique(town) if np.sum(observed&eligible&(town==unit))==3]
+changes = {}
+for unit in keep_towns:
+    rows = town==unit
+    changes[unit] = y[rows&(time>=3)].mean()-y[rows&(time==2)][0]
+treated_units = [u for u in keep_towns if adoption[town==u][0] == 3]
+control_units = [u for u in keep_towns if u not in treated_units]
+effect = np.mean([changes[u] for u in treated_units])-np.mean([changes[u] for u in control_units])
+assert keep_towns==[1,2,3,4]
+import pandas as pd
+keep = observed & np.isin(town,keep_towns)
+did = ((adoption[keep]==3)&(time[keep]>=3)).astype(float)
+# An intercept accompanies one omitted category in each fixed-effect set.
+design = np.column_stack([np.ones(keep.sum()),did,
+    pd.get_dummies(town[keep],drop_first=True,dtype=float),
+    pd.get_dummies(time[keep],drop_first=True,dtype=float)])
+assert np.linalg.matrix_rank(design)==design.shape[1]
+fe_effect = np.linalg.lstsq(design,y[keep],rcond=None)[0][1]
+assert np.isclose(fe_effect,effect,atol=1e-10)
+report(effect=effect, retained_treated=len(treated_units), rows=3*len(keep_towns))
+```
+
+Task:
+Use Python. Read ./input.csv. Available columns: id, time, g, y.
+
+Construct separate cohort-specific difference-in-differences comparisons for adoption cohorts g=3,5,7. g=0 denotes never treated. For cohort c, retain calendar times c-2 through c+2. Eligible units have g=c, g=0, or g>c+2. Within that comparison, retain only units observed at all five window times. Do this balance check separately for each cohort. Define did=1 for units with g=c at times at least c, and 0 otherwise. Regress y on did, unit fixed effects, and calendar-time fixed effects separately for each cohort. Report the did coefficients as att_g3, att_g5, att_g7. No standard errors are requested. Their n_obs is the number of retained unit-time rows in that cohort comparison, including controls. Then report att_weighted as the weighted average of those three coefficients, using each comparison's number of retained treated units as its weight. For att_weighted, n_obs is the sum of the three comparison row counts, including rows reused across comparisons. Use se=null for every row. Do not fit a single unweighted regression to concatenated comparisons. The columns are id (unit), time (calendar period), g (adoption period), and y (outcome). Missing observations are absent rows. No retained row has a missing outcome. Unit-time keys are unique. Calendar times run from 1 through 10.
+
+Report the requested point estimates. Standard errors are not requested. Use json.dump to write result.json with the following structure. Replace each <number> with the computed value. Report at least eight significant digits.
+{
+  "task_id": "broad_cohort_stack",
+  "platform": "python",
+  "estimates": [
+    {
+      "term": "att_g3",
+      "estimate": "<number>",
+      "se": null,
+      "n_obs": 375
+    },
+    {
+      "term": "att_g5",
+      "estimate": "<number>",
+      "se": null,
+      "n_obs": 275
+    },
+    {
+      "term": "att_g7",
+      "estimate": "<number>",
+      "se": null,
+      "n_obs": 315
+    },
+    {
+      "term": "att_weighted",
+      "estimate": "<number>",
+      "se": null,
+      "n_obs": 965
+    }
+  ],
+  "method_metadata": {},
+  "diagnostics": {}
+}
+
+Write one self-contained Python script. The evaluator runs it with the supplied CSV files in its working directory.
+Act only as a code generator. Do not use tools, inspect files, or execute code.
+Return exactly one fenced python code block and nothing else.

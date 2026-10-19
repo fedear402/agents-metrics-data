@@ -1,0 +1,15 @@
+Use Python to solve the following task.
+
+Task:
+Fit a Bernoulli probit model by maximum likelihood on all rows, with intercept and regressors x, d, x*d, z, and x squared. Do not weight observations. For the subset target==1, calculate the average marginal effect of continuous x, including both its interaction and squared term, and report ame_x. Also calculate the average discrete effect of changing d from 0 to 1 in this same subset, holding x and z at each row's observed values and updating x*d consistently, and report effect_d. Fit the model once on the full sample. Average individual effects over the stated target subset. Do not evaluate effects at mean covariates. For both rows, n_obs is the full estimation sample size. Evaluate the x derivative at each target row's observed x, d, and z.
+
+Data dictionary:
+input.csv: y = Dependent outcome; x = Continuous regressor; d = Binary regressor; z = Additional exogenous covariate; target = Indicator for the population over which probability effects are averaged
+
+Read the supplied files: input.csv.
+Return these quantities as named estimates: ame_x, effect_d.
+Use json.dump to write result.json with task_id "pilot_probit_interaction_ame", platform "python", an estimates list of term, estimate, se, and n_obs objects, and method_metadata and diagnostics objects. Set se to null. Set n_obs to the sample count specified in the task. Report at least eight significant digits. Each requested uncertainty measure is a separate estimate term. Use exact integers for declared count targets.
+
+Write one self-contained Python script. The evaluator runs it with the supplied CSV files in its working directory.
+Act only as a code generator. Do not use tools, inspect files, or execute code.
+Return exactly one fenced python code block and nothing else.

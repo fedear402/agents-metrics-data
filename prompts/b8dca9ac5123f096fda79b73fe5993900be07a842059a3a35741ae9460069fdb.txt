@@ -1,0 +1,76 @@
+You are a careful econometrician writing a single self-contained stata script.
+
+Dataset provided as `./input.csv`; original source file: `pilot_v5_ttest.csv`.
+Columns: group, y.
+
+Few-shot demonstration:
+The following worked example solves a related econometric task from the same
+family as the scored task below. It shows the expected implementation style
+and the labelled printed-result conventions on its own small inline data. The scored task
+is a different task: do not copy the demonstration's variable names, inline
+data, or numbers. The scored task must read ./input.csv and print the required ANSWER lines.
+
+Demonstration task: with inline data on study hours and exam score, compute the
+Pearson correlation and the two-sided t test of zero correlation with n - 2
+degrees of freedom. Report rows r, t_stat, and p_val.
+
+```stata
+clear
+input hours score
+2.0 55
+3.5 60
+5.0 62
+6.0 68
+7.5 70
+9.0 74
+10.0 79
+12.0 83
+end
+correlate hours score
+local r = r(rho)
+local n = r(N)
+local t = `r' * sqrt(`n' - 2) / sqrt(1 - `r'^2)
+local p = 2 * ttail(`n' - 2, abs(`t'))
+local rs = string(`r', "%21.12f")
+local ts = string(`t', "%21.12f")
+local ps = string(`p', "%21.12f")
+local ns = string(`n', "%12.0f")
+local q = char(34)
+display "ANSWER: r estimate=`rs' se=. n_obs=`ns'"
+display "ANSWER: t_stat estimate=`ts' se=. n_obs=`ns'"
+display "ANSWER: p_val estimate=`ps' se=. n_obs=`ns'"
+```
+
+
+Task: Compare y between group 1 and group 0 using Welch's unequal-variance two-sample t-test. Define the t statistic as mean(y | group=1) minus mean(y | group=0), divided by the Welch standard error. Use the Welch-Satterthwaite approximation for the degrees of freedom. Report rows t, df, and p_value.
+
+Use Stata syntax in a do-file. Read the CSV with import delimited. Print labelled numeric results with display.
+
+Print one labelled line per required result to the Stata log:
+ANSWER: t estimate=<number> se=<number or .> n_obs=<integer>
+ANSWER: df estimate=<number> se=<number or .> n_obs=<integer>
+ANSWER: p_value estimate=<number> se=<number or .> n_obs=<integer>
+Set linesize 255. This template shows valid Stata reporting syntax:
+display "ANSWER: term_name estimate=" %21.12f estimate_value " se=" %21.12f se_value " n_obs=" %12.0f n_value
+Replace the example names with computed scalars or expressions. For an unrequested standard error (called null in the task), print a single dot.
+Do not use %0.0f. No JSON file or JSON validation is required.
+
+You may use the shell to write, execute, inspect errors, and revise your program.
+Run the script with /Applications/StataNow/StataSE.app/Contents/MacOS/stata-se -b do run.do and inspect run.log if needed.
+Write run.do and execute it in batch mode. Leave run.log containing all required ANSWER lines.
+Save the final solution as run.py for Python, run.R for R, or run.do for Stata.
+Before submission, verify the statistical calculation using the supplied data.
+Check the estimation sample, observation count, and variable construction against the task.
+Check the estimator and uncertainty calculation against the stated specification.
+Run at least one independent numerical check of a central calculation.
+Use a separate calculation or a mathematical identity that applies to this task.
+Inspect any discrepancy and correct errors supported by these checks.
+After edits, rerun the final script and inspect its requested output.
+Save a short plain-text account of the checks and their results in verification.txt.
+Use only the task statement, supplied data, installed software, and files you create.
+After these checks, finish with DONE.
+
+Use only the supplied input.csv and files you create in this directory.
+Installed software and package resources are available.
+Do not read external agent skills, project instructions, prior results, or benchmark references.
+Do not create journals or use Git. Do not use MCP servers, web tools, or other agents.

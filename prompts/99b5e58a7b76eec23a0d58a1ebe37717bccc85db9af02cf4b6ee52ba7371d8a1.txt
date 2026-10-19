@@ -1,0 +1,33 @@
+Use Stata to solve the following task.
+
+Task:
+Use households.csv and census.csv. Keep all households with recipient=0. This includes ineligible households in both village treatment statuses. Fit weighted 2SLS with two endogenous columns dose*(1-eligible) and dose*eligible. Exogenous columns are 1-eligible, eligible, baseline*(1-eligible), and baseline*eligible. Instruments are these four columns plus instrument*(1-eligible) and instrument*eligible. Add no other intercept. Use weight as the regression weight. For each eligibility group, the spillover effect is its dose slope times the household-weighted mean dose among its retained observations. Report ineligible_effect and eligible_nonrecipient_effect. Average these two effects using nonrecipient_population from census.csv. Report population_effect. The counterfactual sets dose to zero for every retained household. Census totals determine only the final between-group weights. For every result, n_obs is the number of nonrecipient household rows used in estimation. The group effect equals the fitted dose slope times its weighted mean dose. Attribution to a zero-dose counterfactual is a stated synthetic convention.
+
+Data dictionary:
+households.csv: household = Synthetic household identifier; eligible = Eligibility-group indicator, zero or one; treated = Own village treatment indicator; recipient = Indicator for actually receiving the transfer; instrument = Supplied excluded instrument for dose; dose = Supplied treatment exposure; baseline = Supplied baseline covariate; weight = Positive observation weight for estimation and within-group averages; outcome = Synthetic dependent variable in the stated regression
+census.csv: eligible = Eligibility-group indicator, zero or one; nonrecipient_population = Census count used only for final group aggregation
+
+Read the supplied files: households.csv, census.csv.
+Return these quantities as named estimates: ineligible_effect, eligible_nonrecipient_effect, population_effect.
+Print one line per estimate using this format. Use the sample count specified in the task. Report at least eight significant digits. Each requested uncertainty measure is a separate estimate term. Use exact integers for declared count targets.
+ANSWER: ineligible_effect estimate=<number> se=NA n_obs=<integer>
+ANSWER: eligible_nonrecipient_effect estimate=<number> se=NA n_obs=<integer>
+ANSWER: population_effect estimate=<number> se=NA n_obs=<integer>
+
+Use the shell to write, execute, inspect, and revise your script.
+Run the script with /Applications/StataNow/StataSE.app/Contents/MacOS/stata-se -b do run.do.
+Leave the final script as run.do and its requested output in this directory.
+Save the final solution as run.py for Python, run.R for R, or run.do for Stata.
+Before submission, verify the statistical calculation using the supplied data.
+Check the estimation sample, observation count, and variable construction against the task.
+Check the estimator and uncertainty calculation against the stated specification.
+Run at least one independent numerical check of a central calculation.
+Use a separate calculation or a mathematical identity that applies to this task.
+Inspect any discrepancy and correct errors supported by these checks.
+After edits, rerun the final script and inspect its requested output.
+Save a short plain-text account of the checks and their results in verification.txt.
+Use only the task statement, supplied data, installed software, and files you create.
+After these checks, finish with DONE.
+Use only the supplied CSV files, installed software, and files you create in this directory.
+Do not read benchmark references, previous results, agent skills, or project instructions.
+Do not use Git, web tools, MCP servers, or other agents.

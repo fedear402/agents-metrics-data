@@ -1,0 +1,77 @@
+You are a careful econometrician writing a single self-contained python script.
+
+Dataset provided as `./input.csv`; original source file: `pilot_v4_arima.csv`.
+Columns: t, y.
+
+Few-shot demonstration:
+The following worked example solves a related econometric task from the same
+family as the scored task below. It shows the expected implementation style
+and the result.json conventions on its own small inline data. The scored task
+is a different task: do not copy the demonstration's variable names, inline
+data, or numbers. The scored task must read ./input.csv and write
+./result.json.
+
+Demonstration task: for a short quarterly sales series provided inline, estimate
+an AR(1) regression of sales on its first lag with an intercept by OLS. Report
+the lag coefficient as row ar1 and the one-step-ahead forecast as row forecast_next.
+
+```python
+import json
+import pandas as pd
+import statsmodels.api as sm
+
+sales = pd.Series([102.0, 104.5, 103.8, 106.2, 108.0, 107.1,
+                   109.4, 111.0, 110.2, 112.5, 114.1, 113.6])
+df = pd.DataFrame({"sales": sales, "sales_lag": sales.shift(1)}).dropna()
+X = sm.add_constant(df[["sales_lag"]])
+fit = sm.OLS(df["sales"], X).fit()
+fc = float(fit.params["const"] + fit.params["sales_lag"] * sales.iloc[-1])
+out = {
+    "task_id": "demo_ar1",
+    "platform": "python",
+    "estimates": [
+        {"term": "ar1", "estimate": float(fit.params["sales_lag"]),
+         "se": float(fit.bse["sales_lag"]), "n_obs": int(fit.nobs)},
+        {"term": "forecast_next", "estimate": fc, "se": None,
+         "n_obs": int(fit.nobs)},
+    ],
+    "method_metadata": {"estimator": "AR(1) by OLS", "vcov": "classical"},
+    "diagnostics": {},
+}
+with open("result.json", "w") as f:
+    json.dump(out, f)
+```
+
+
+Task: Fit ARIMA(1,1,1) to the level series y by maximum likelihood, including no constant or drift term. Report the one-step-ahead forecast of y in levels for t = 251 and the 95 percent prediction interval bounds as rows named forecast, lower_95, and upper_95.
+
+Use Python 3 with pandas and statsmodels or other standard scientific packages already available in the environment. Read the CSV with pandas and write JSON with json.dump.
+
+Required output:
+  - Write a file `result.json` in the working directory with this shape:
+    {
+      "task_id": "arima_forecast",
+      "platform": "<python|r|stata>",
+      "estimates": [
+        {"term": "forecast", "estimate": <float>, "se": <float or null>, "n_obs": <int>},
+        {"term": "lower_95", "estimate": <float>, "se": <float or null>, "n_obs": <int>},
+        {"term": "upper_95", "estimate": <float>, "se": <float or null>, "n_obs": <int>}
+      ],
+      "method_metadata": {"estimator": "<string>", "vcov": "<string>"},
+      "diagnostics": {}
+    }
+  - Estimate names must be exactly: "forecast", "lower_95", "upper_95".
+  - Report numeric values to at least 6 significant digits when possible.
+  - Do not include extra prose in `result.json`.
+
+
+The script will be executed with the working directory set to a folder that
+contains `input.csv`. Read the data from `./input.csv` using a relative path.
+The script must run end-to-end and produce `result.json` in the same folder.
+
+OUTPUT FORMAT - STRICT:
+Respond with exactly ONE fenced code block in python and nothing else.
+No prose before or after. The fenced block must start with ```python and end
+with ```.
+
+IMPORTANT — code generation only: input.csv is NOT in your current directory right now, and you must NOT run any commands or read any file. Your script will be executed later in a directory that contains input.csv. Return ONLY the fenced code block.

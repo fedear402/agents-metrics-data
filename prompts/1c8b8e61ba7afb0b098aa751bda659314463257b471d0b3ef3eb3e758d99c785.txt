@@ -1,0 +1,121 @@
+You are a careful econometrician completing a benchmark task.
+The dataset is provided as ./input.csv.
+250 ordered observations with columns time (1 through 250) and y.
+
+Related example: Three clinic forecasts with one-based time labels
+Separate example context: A clinic records nine daily visit totals in shuffled row order. Forecast times 7, 8, and 9. Each forecast uses exactly the six observed levels immediately before its date. Fit an OLS AR(1) with an intercept on the five consecutive pairs within each window. Refit at each forecast date using observed visits. Report all three forecasts and their three-date RMSE.
+Explanation of this example: Sort by the time column. Forecast time f is a one-based label. Select labels f-6 through f-1 inclusive. For f=7, levels at times 1 through 6 yield five pairs: (1,2), (2,3), (3,4), (4,5), and (5,6). Use the fitted intercept and slope with observed visits at time6 to forecast time7. The next window contains observed times 2 through 7. It uses observed visits at time7, not the earlier forecast. No regression or forecast predictor uses the outcome at its forecast date. Evaluate errors after forecasting. Each forecast has n_obs=5 regression pairs. RMSE has n_obs=3 evaluated dates. A time label is not a zero-based array position. If using an array sorted from time1, label f corresponds to position f-1.
+```r
+library(jsonlite)
+row <- function(term, estimate, se=NULL, n_obs) {
+  list(term=term, estimate=unname(as.numeric(estimate)),
+       se=if (is.null(se)) NULL else unname(as.numeric(se)), n_obs=as.integer(n_obs))
+}
+report <- function(id, rows) {
+  write_json(list(task_id=id, estimates=rows), "example_result.json",
+             auto_unbox=TRUE, null="null", digits=16, pretty=TRUE)
+}
+# Separate teaching data. Time values are one-based observation labels.
+data <- data.frame(time=c(3,1,7,5,9,2,6,8,4),visits=c(24,21,30,27,33,18,23,25,20))
+data <- data[order(data$time),]
+window_levels <- 6
+forecast_times <- c(7,8,9)
+forecasts <- numeric(length(forecast_times))
+for (i in seq_along(forecast_times)) {
+  f <- forecast_times[i]
+  history <- data[data$time>=f-window_levels & data$time<=f-1,]
+  stopifnot(identical(as.numeric(history$time),as.numeric(seq(f-window_levels,f-1))))
+  levels <- history$visits
+  # Six levels give five pairs. At f=7 these are (1,2),...,(5,6).
+  lagged <- head(levels,-1)
+  current <- tail(levels,-1)
+  fit <- lm(current ~ lagged)
+  stopifnot(length(current)==window_levels-1)
+  # Forecast f from observed visits at f-1. Exclude observed visits at f.
+  forecasts[i] <- coef(fit)[1]+coef(fit)[2]*tail(levels,1)
+}
+# Refit each date. Time8 uses observed time7, not forecast7.
+actual <- data$visits[match(forecast_times,data$time)]
+rmse <- sqrt(mean((actual-forecasts)^2))
+rows <- list(row("clinic_rmse",rmse,NULL,length(forecast_times)))
+for (i in seq_along(forecast_times)) {
+  rows[[length(rows)+1]] <- row(paste0("clinic_forecast_",forecast_times[i]),forecasts[i],NULL,window_levels-1)
+}
+report("clinic_three_rolling_forecasts",rows)
+```
+Expected example_result.json:
+```json
+{
+  "task_id": "clinic_three_rolling_forecasts",
+  "estimates": [
+    {
+      "term": "clinic_rmse",
+      "estimate": 6.654477498682533,
+      "se": null,
+      "n_obs": 3
+    },
+    {
+      "term": "clinic_forecast_7",
+      "estimate": 22.139999999999997,
+      "se": null,
+      "n_obs": 5
+    },
+    {
+      "term": "clinic_forecast_8",
+      "estimate": 22.544715447154463,
+      "se": null,
+      "n_obs": 5
+    },
+    {
+      "term": "clinic_forecast_9",
+      "estimate": 24.935374149659857,
+      "se": null,
+      "n_obs": 5
+    }
+  ]
+}
+```
+
+
+Task: Sort input.csv by time. Construct one-step-ahead rolling OLS AR(1) forecasts for times f=101,...,250. For each forecast f, use exactly the 100 observed levels y_(f-100),...,y_(f-1). Fit y_s=a+b*y_(s-1) with an intercept on s=f-99,...,f-1, giving exactly 99 regression pairs. Forecast y_f as a_hat+b_hat*y_(f-1). Refit separately at every forecast date using observed values. Score RMSE=sqrt(sum_{f=101}^{250}(y_f-forecast_f)^2/150). Report terms rmse, forecast_101, forecast_150, forecast_200, and forecast_250. Set se=null for every term. For rmse set n_obs=150. For each forecast set n_obs=99, the number of regression pairs used to estimate that forecast's model.
+
+Use Rscript. Prefer base R plus common econometrics packages such as AER, ivreg, sandwich, lmtest, survival, plm, vars, forecast, and jsonlite when needed. For IV/2SLS tasks, AER::ivreg or ivreg::ivreg with sandwich::vcovHC(..., type = "HC1") is available.
+
+Required output:
+  - Write a file `result.json` in the working directory with this shape:
+    {
+      "task_id": "hard_rolling",
+      "platform": "<python|r|stata>",
+      "estimates": [
+        {"term": "rmse", "estimate": <float>, "se": <float or null>, "n_obs": <int>},
+        {"term": "forecast_101", "estimate": <float>, "se": <float or null>, "n_obs": <int>},
+        {"term": "forecast_150", "estimate": <float>, "se": <float or null>, "n_obs": <int>},
+        {"term": "forecast_200", "estimate": <float>, "se": <float or null>, "n_obs": <int>},
+        {"term": "forecast_250", "estimate": <float>, "se": <float or null>, "n_obs": <int>}
+      ],
+      "method_metadata": {"estimator": "<string>", "vcov": "<string>"},
+      "diagnostics": {}
+    }
+  - Estimate names must be exactly: "rmse", "forecast_101", "forecast_150", "forecast_200", "forecast_250".
+  - Report numeric values to at least 6 significant digits when possible.
+  - Do not include extra prose in `result.json`.
+
+You may use the shell to write, execute, inspect errors, and revise your program.
+Run the script with Rscript --vanilla run.R.
+Write and run a script. Leave result.json and the script in this directory.
+Save the final solution as run.py for Python, run.R for R, or run.do for Stata.
+Before submission, verify the statistical calculation using the supplied data.
+Check the estimation sample, observation count, and variable construction against the task.
+Check the estimator and uncertainty calculation against the stated specification.
+Run at least one independent numerical check of a central calculation.
+Use a separate calculation or a mathematical identity that applies to this task.
+Inspect any discrepancy and correct errors supported by these checks.
+After edits, rerun the final script and inspect its requested output.
+Save a short plain-text account of the checks and their results in verification.txt.
+Use only the task statement, supplied data, installed software, and files you create.
+After these checks, finish with DONE.
+
+Use only the supplied input.csv and files you create in this directory.
+Installed software and package resources are available.
+Do not read external agent skills, project instructions, prior results, or benchmark references.
+Do not create journals or use Git. Do not use MCP servers, web tools, or other agents.

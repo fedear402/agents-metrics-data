@@ -1,0 +1,93 @@
+Two separate groups have hourly wages and experience. Decompose group 1 minus group 0 mean wages using group 0 regression coefficients as reference.
+
+The explained component changes mean covariates while holding reference coefficients fixed. The unexplained component changes coefficients at group 1 means. Include the intercept in the latter calculation.
+
+The target has another covariate and an individual covariate contribution.
+
+This separate example writes example_result.json. The task reads input.csv and reports its own results.
+
+```python
+import json
+import numpy as np
+
+def report(**values):
+    rows = [
+        {'term': 'wage_gap', 'estimate': float(values['gap']), 'se': None, 'n_obs': int(values['workers'])},
+        {'term': 'explained_gap', 'estimate': float(values['explained']), 'se': None, 'n_obs': int(values['workers'])},
+        {'term': 'unexplained_gap', 'estimate': float(values['unexplained']), 'se': None, 'n_obs': int(values['workers'])},
+    ]
+    output = {'task_id': 'oaxaca_separate_example', 'estimates': rows}
+    with open('example_result.json', 'w') as stream:
+        json.dump(output, stream, indent=2, allow_nan=False)
+
+experience0 = np.array([1.,2.,4.,6.,7.])
+experience1 = np.array([2.,3.,5.,7.,9.])
+wage0 = np.array([11.,13.,14.,18.,19.])
+wage1 = np.array([14.,17.,21.,22.,28.])
+X0 = np.column_stack([np.ones(5),experience0])
+X1 = np.column_stack([np.ones(5),experience1])
+b0 = np.linalg.lstsq(X0,wage0,rcond=None)[0]
+b1 = np.linalg.lstsq(X1,wage1,rcond=None)[0]
+explained = (X1.mean(axis=0)-X0.mean(axis=0))@b0
+unexplained = X1.mean(axis=0)@(b1-b0)
+gap = wage1.mean()-wage0.mean()
+assert np.isclose(gap,explained+unexplained)
+report(gap=gap, explained=explained, unexplained=unexplained, workers=10)
+```
+
+Task:
+Use Python. Read ./input.csv. Available columns: id, y, x, z, group.
+
+Decompose the difference in mean y between group 1 and group 0. Fit separate OLS regressions of y on an intercept, x, and z in each group. Use group 0 coefficients as the reference. Let Xbar_g include the intercept 1. Report gap=mean(y|group=1)-mean(y|group=0), explained=(Xbar_1-Xbar_0) times beta_0, and unexplained=Xbar_1 times (beta_1-beta_0). Also report explained_x=(mean(x|group=1)-mean(x|group=0))*beta_0_x. Include every row. Set se=null and n_obs to the full sample size for all rows. The components describe this regression decomposition and do not establish causal discrimination.
+
+Report the requested point estimates. Standard errors are not requested. Use json.dump to write result.json with the following structure. Replace each <number> with the computed value. Report at least eight significant digits.
+{
+  "task_id": "broad_oaxaca",
+  "platform": "python",
+  "estimates": [
+    {
+      "term": "gap",
+      "estimate": "<number>",
+      "se": null,
+      "n_obs": 360
+    },
+    {
+      "term": "explained",
+      "estimate": "<number>",
+      "se": null,
+      "n_obs": 360
+    },
+    {
+      "term": "unexplained",
+      "estimate": "<number>",
+      "se": null,
+      "n_obs": 360
+    },
+    {
+      "term": "explained_x",
+      "estimate": "<number>",
+      "se": null,
+      "n_obs": 360
+    }
+  ],
+  "method_metadata": {},
+  "diagnostics": {}
+}
+
+Use the shell to write, execute, inspect, and revise your script.
+Run the script with /Users/federicolopez/LOCAL/GALIANI/AGENTS-METRICS/.venv/bin/python3 run.py.
+Leave the final script as run.py and its requested output in this directory.
+Save the final solution as run.py for Python, run.R for R, or run.do for Stata.
+Before submission, verify the statistical calculation using the supplied data.
+Check the estimation sample, observation count, and variable construction against the task.
+Check the estimator and uncertainty calculation against the stated specification.
+Run at least one independent numerical check of a central calculation.
+Use a separate calculation or a mathematical identity that applies to this task.
+Inspect any discrepancy and correct errors supported by these checks.
+After edits, rerun the final script and inspect its requested output.
+Save a short plain-text account of the checks and their results in verification.txt.
+Use only the task statement, supplied data, installed software, and files you create.
+After these checks, finish with DONE.
+Use only the supplied CSV files, installed software, and files you create in this directory.
+Do not read benchmark references, previous results, agent skills, or project instructions.
+Do not use Git, web tools, MCP servers, or other agents.

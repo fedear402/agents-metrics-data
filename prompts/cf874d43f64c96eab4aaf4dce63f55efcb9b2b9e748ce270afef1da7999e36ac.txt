@@ -1,0 +1,192 @@
+You are a careful econometrician completing a benchmark task.
+The dataset is provided as ./input.csv.
+One shared fixed dataset with 480 rows. Columns: id, y, x, z.
+
+Related example: Three transport choices with one covariate
+Separate example context: A separate simulated transport survey records unordered choices 0, 1, and 2. Fit a multinomial logit on an intercept and travel distance, with category 0 as base. Report the distance coefficient for category 2 and its probability at distance zero.
+Explanation of this example: Each nonbase outcome has a coefficient vector. The base has zero index. Map the fitted equation columns to outcome labels before extracting a named covariate. In statsmodels with pandas input, parameter column 0 represents outcome 1 and column 1 represents outcome 2. The example relabels a copy explicitly. R and Stata expose native outcome/equation names. Include all three indices in the probability denominator.
+```r
+d <- read.csv(text = "distance,choice
+-0.23930865243622787,0
+1.1929430547525757,1
+0.74796118109444487,0
+0.62887251358777208,1
+0.13685275862137891,1
+-0.1983541711452072,2
+1.2524534334680308,1
+-0.67322084842922858,1
+-1.5876224606395475,0
+-1.3683193347021594,1
+0.60412025497115629,1
+0.54646257533576093,0
+1.1244295007547469,2
+0.20651202132763455,1
+0.53095022905453471,0
+0.63899907578236836,0
+0.4344928495782871,2
+0.17315787080857792,2
+0.60363163101141426,0
+-1.3504263242627714,1
+-0.25329661198957287,1
+0.55364842863414265,2
+0.87195025119927938,1
+0.86448572628971942,1
+0.71788566952975974,1
+0.50581405835039484,0
+0.27093747842272831,0
+-0.35819400791809203,2
+-0.64142935960587066,0
+-0.0039111654275354041,2
+0.6280083565288942,1
+-1.9989068440885267,1
+1.9025432273322442,1
+0.082632907856688517,0
+1.4988195427757562,1
+0.73356516975149455,1
+-1.1354532885470288,0
+-0.15282813216289945,0
+0.57256389907736349,2
+-0.28050803608151353,1
+-0.6381977837431495,0
+-1.1176775609505205,0
+0.15150054739715871,0
+0.080563706837612853,0
+-0.74713106257178863,2
+-0.12829192099844744,0
+-0.004534309283304257,1
+1.2589080019491563,1
+0.27811994404624057,2
+-0.90500443559266242,2
+-0.94438971911935787,2
+0.78704141258457805,2
+1.2188306879521009,2
+-0.16132740870106294,0
+2.5055432221100178,1
+-0.18583725828527131,0
+-0.66156104040293806,0
+-0.59352066707808659,2
+0.61850021615750306,1
+0.77568429990212262,0
+0.98540871046322975,1
+0.089723345178403371,2
+0.057967329311622171,1
+0.1897775402701129,2
+-1.6920910164381313,1
+0.75910886285415102,0
+-0.73739832742885847,2
+-2.6767032618362103,2
+-0.162394147663556,0
+-1.320854951070445,0
+-1.675384949095134,2
+0.52388186404559245,0
+-0.79742967551912181,2
+-0.17138137257252281,0
+0.75482134272636514,1
+1.0911371968577541,1
+-0.49910573732507479,1
+-1.0141190687084924,0
+-1.0193797042139565,2
+-0.49504513678494177,1
+-1.0027680005752095,1
+0.68004121696133157,0
+-0.021712157225783787,2
+-0.42095457201519104,2
+0.21074082462133298,1
+-0.15444844145140899,2
+-0.21454532411898694,0
+-0.3575972024264793,1
+0.61181743198253102,1
+1.125189417912954,0
+0.56072911976973916,1
+1.2712409870021217,1
+-0.8505372984316254,2
+-1.280366228887416,2
+-0.86226352813005203,2
+-0.10191340060273095,2
+0.87459271458363907,1
+0.31547920669305901,2
+0.96231274711146864,0
+-0.33120724748902675,1
+0.11442588458828369,1
+-0.86209312282065897,2
+-1.4829446666768871,1
+-0.92362430823879937,1
+1.4320998196921306,1
+-0.68142945314146142,2
+-0.33177191764720815,1
+-0.79106106701311463,2
+0.16798422662341841,0
+-0.053367726644534277,2
+-1.2502851574018337,2
+-0.18039605606852879,0
+-0.5909336952658566,2
+1.2257223926946765,1
+-0.29556533805984381,1
+1.0327995767060905,1
+-0.036736582010987,2
+0.14063166014481851,0
+-0.93703412097799454,0
+0.71086240638870035,0")
+d$choice <- factor(d$choice, levels=0:2)
+# The first factor level is the base. Hess=TRUE uses the model likelihood Hessian.
+fit <- nnet::multinom(choice ~ distance, data=d, Hess=TRUE, trace=FALSE,
+                      maxit=1000, reltol=1e-12, abstol=1e-12)
+# Row names are outcome labels. Extract row "2", not a numeric column label.
+B <- coef(fit)
+V <- vcov(fit)
+indices <- c(0, B[,"(Intercept)"])
+p <- exp(indices-max(indices))/sum(exp(indices-max(indices)))
+stopifnot(abs(sum(p)-1)<1e-12)
+rows <- list(
+  list(term="distance_choice2", estimate=unname(B["2","distance"]), se=sqrt(V["2:distance","2:distance"]), n_obs=120L),
+  list(term="choice2_at_zero", estimate=unname(p[3]), se=NULL, n_obs=120L))
+jsonlite::write_json(list(task_id="multinomial_logit_separate_example", estimates=rows), "example_result.json", auto_unbox=TRUE, null="null", digits=16, pretty=TRUE)
+```
+Expected example_result.json:
+```json
+{
+  "task_id": "multinomial_logit_separate_example",
+  "estimates": [
+    {
+      "term": "distance_choice2",
+      "estimate": -0.4625772269819651,
+      "se": 0.28225907629686403,
+      "n_obs": 120
+    },
+    {
+      "term": "choice2_at_zero",
+      "estimate": 0.29697482699284955,
+      "se": null,
+      "n_obs": 120
+    }
+  ]
+}
+```
+
+
+Task: Estimate a multinomial logit model for y using an intercept, x, and z. Treat 0 as the base outcome. Outcomes 1 and 2 are unordered alternatives. Use maximum likelihood and conventional observed-information standard errors. Report x_cat1 and z_cat1 for the slopes in log(P(y=1)/P(y=0)). Report x_cat2 and z_cat2 for log(P(y=2)/P(y=0)). Also report prob_cat2_zero as the fitted probability of outcome 2 at x=0 and z=0, with se=null. Report n_obs as the full sample size for every row.
+
+Use Rscript. Prefer base R plus common econometrics packages such as AER, ivreg, sandwich, lmtest, survival, plm, vars, forecast, and jsonlite when needed. For IV/2SLS tasks, AER::ivreg or ivreg::ivreg with sandwich::vcovHC(..., type = "HC1") is available.
+
+Required output:
+  - Write a file `result.json` in the working directory with this shape:
+    {
+      "task_id": "broad_multinomial_logit",
+      "platform": "<python|r|stata>",
+      "estimates": [
+        {"term": "x_cat1", "estimate": <float>, "se": <float or null>, "n_obs": <int>},
+        {"term": "z_cat1", "estimate": <float>, "se": <float or null>, "n_obs": <int>},
+        {"term": "x_cat2", "estimate": <float>, "se": <float or null>, "n_obs": <int>},
+        {"term": "z_cat2", "estimate": <float>, "se": <float or null>, "n_obs": <int>},
+        {"term": "prob_cat2_zero", "estimate": <float>, "se": <float or null>, "n_obs": <int>}
+      ],
+      "method_metadata": {"estimator": "<string>", "vcov": "<string>"},
+      "diagnostics": {}
+    }
+  - Estimate names must be exactly: "x_cat1", "z_cat1", "x_cat2", "z_cat2", "prob_cat2_zero".
+  - Report numeric values to at least 6 significant digits when possible.
+  - Do not include extra prose in `result.json`.
+
+The evaluator executes your script later in a directory containing input.csv.
+Act only as a code generator. Do not use tools, inspect files, or execute code.
+Return exactly one fenced r code block and nothing else.

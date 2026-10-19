@@ -1,0 +1,16 @@
+Use R to solve the following task.
+
+Task:
+Use households.csv and census.csv. Keep all households with recipient=0. This includes ineligible households in both village treatment statuses. Fit weighted 2SLS with two endogenous columns dose*(1-eligible) and dose*eligible. Exogenous columns are 1-eligible, eligible, baseline*(1-eligible), and baseline*eligible. Instruments are these four columns plus instrument*(1-eligible) and instrument*eligible. Add no other intercept. Use weight as the regression weight. For each eligibility group, the spillover effect is its dose slope times the household-weighted mean dose among its retained observations. Report ineligible_effect and eligible_nonrecipient_effect. Average these two effects using nonrecipient_population from census.csv. Report population_effect. The counterfactual sets dose to zero for every retained household. Census totals determine only the final between-group weights. For every result, n_obs is the number of nonrecipient household rows used in estimation. The group effect equals the fitted dose slope times its weighted mean dose. Attribution to a zero-dose counterfactual is a stated synthetic convention.
+
+Data dictionary:
+households.csv: household = Synthetic household identifier; eligible = Eligibility-group indicator, zero or one; treated = Own village treatment indicator; recipient = Indicator for actually receiving the transfer; instrument = Supplied excluded instrument for dose; dose = Supplied treatment exposure; baseline = Supplied baseline covariate; weight = Positive observation weight for estimation and within-group averages; outcome = Synthetic dependent variable in the stated regression
+census.csv: eligible = Eligibility-group indicator, zero or one; nonrecipient_population = Census count used only for final group aggregation
+
+Read the supplied files: households.csv, census.csv.
+Return these quantities as named estimates: ineligible_effect, eligible_nonrecipient_effect, population_effect.
+Use jsonlite::write_json to write result.json with task_id "applied_nonrecipient_population_iv", platform "r", an estimates list of term, estimate, se, and n_obs objects, and method_metadata and diagnostics objects. Set se to null. Set n_obs to the sample count specified in the task. Report at least eight significant digits. Each requested uncertainty measure is a separate estimate term. Use exact integers for declared count targets.
+
+Write one self-contained R script. The evaluator runs it with the supplied CSV files in its working directory.
+Act only as a code generator. Do not use tools, inspect files, or execute code.
+Return exactly one fenced r code block and nothing else.

@@ -1,0 +1,76 @@
+You are a careful econometrician writing a single self-contained stata script.
+
+Dataset provided as `./input.csv`; original source file: `pilot_v4_var.csv`.
+Columns: t, y1, y2.
+
+Few-shot demonstration:
+The following worked example solves a related econometric task from the same
+family as the scored task below. It shows the expected implementation style
+and the labelled printed-result conventions on its own small inline data. The scored task
+is a different task: do not copy the demonstration's variable names, inline
+data, or numbers. The scored task must read ./input.csv and print the required ANSWER lines.
+
+Demonstration task: for a short quarterly sales series provided inline, estimate
+an AR(1) regression of sales on its first lag with an intercept by OLS. Report
+the lag coefficient as row ar1 and the one-step-ahead forecast as row forecast_next.
+
+```stata
+clear
+input sales
+102.0
+104.5
+103.8
+106.2
+108.0
+107.1
+109.4
+111.0
+110.2
+112.5
+114.1
+113.6
+end
+gen sales_lag = sales[_n-1]
+regress sales sales_lag
+local last = sales[_N]
+local fc = _b[_cons] + _b[sales_lag]*`last'
+local b1 = string(_b[sales_lag], "%21.12f")
+local se1 = string(_se[sales_lag], "%21.12f")
+local fcs = string(`fc', "%21.12f")
+local n = string(e(N), "%12.0f")
+local q = char(34)
+display "ANSWER: ar1 estimate=`b1' se=`se1' n_obs=`n'"
+display "ANSWER: forecast_next estimate=`fcs' se=. n_obs=`n'"
+```
+
+
+Task: Fit a two-variable VAR(2) with a constant. Under Cholesky identification with y1 ordered first, report the orthogonal IRF of y1 to a one-standard-deviation shock in y2 at horizon 4 as row irf_y1_to_y2_h4.
+
+Use Stata syntax in a do-file. Read the CSV with import delimited. Print labelled numeric results with display.
+
+Print one labelled line per required result to the Stata log:
+ANSWER: irf_y1_to_y2_h4 estimate=<number> se=<number or .> n_obs=<integer>
+Set linesize 255. This template shows valid Stata reporting syntax:
+display "ANSWER: term_name estimate=" %21.12f estimate_value " se=" %21.12f se_value " n_obs=" %12.0f n_value
+Replace the example names with computed scalars or expressions. For an unrequested standard error (called null in the task), print a single dot.
+Do not use %0.0f. No JSON file or JSON validation is required.
+
+You may use the shell to write, execute, inspect errors, and revise your program.
+Run the script with /Applications/StataNow/StataSE.app/Contents/MacOS/stata-se -b do run.do and inspect run.log if needed.
+Write run.do and execute it in batch mode. Leave run.log containing all required ANSWER lines.
+Save the final solution as run.py for Python, run.R for R, or run.do for Stata.
+Before submission, verify the statistical calculation using the supplied data.
+Check the estimation sample, observation count, and variable construction against the task.
+Check the estimator and uncertainty calculation against the stated specification.
+Run at least one independent numerical check of a central calculation.
+Use a separate calculation or a mathematical identity that applies to this task.
+Inspect any discrepancy and correct errors supported by these checks.
+After edits, rerun the final script and inspect its requested output.
+Save a short plain-text account of the checks and their results in verification.txt.
+Use only the task statement, supplied data, installed software, and files you create.
+After these checks, finish with DONE.
+
+Use only the supplied input.csv and files you create in this directory.
+Installed software and package resources are available.
+Do not read external agent skills, project instructions, prior results, or benchmark references.
+Do not create journals or use Git. Do not use MCP servers, web tools, or other agents.

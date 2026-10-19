@@ -1,0 +1,64 @@
+A smaller example uses separate synthetic data to illustrate the method.
+```stata
+clear all
+set more off
+set type double
+input group experience wage
+0 1 11
+0 2 13
+0 4 14
+0 6 18
+0 7 19
+1 2 14
+1 3 17
+1 5 21
+1 7 22
+1 9 28
+end
+foreach g in 0 1 {
+    quietly regress wage experience if group==`g'
+    scalar b`g'c=_b[_cons]
+    scalar b`g'x=_b[experience]
+    quietly summarize experience if group==`g',meanonly
+    scalar m`g'x=r(mean)
+    quietly summarize wage if group==`g',meanonly
+    scalar m`g'y=r(mean)
+}
+scalar wage_gap=m1y-m0y
+scalar explained_gap=(m1x-m0x)*b0x
+scalar unexplained_gap=(b1c-b0c)+m1x*(b1x-b0x)
+assert abs(wage_gap-explained_gap-unexplained_gap)<1e-10
+foreach term in wage_gap explained_gap unexplained_gap {
+    display "ANSWER: `term' estimate=" %24.16g `term' " se=NA n_obs=10"
+}
+exit, clear
+```
+
+Task:
+Use Stata. Read ./input.csv. Available columns: id, y, x, z, group.
+
+Decompose the difference in mean y between group 1 and group 0. Fit separate OLS regressions of y on an intercept, x, and z in each group. Use group 0 coefficients as the reference. Let Xbar_g include the intercept 1. Report gap=mean(y|group=1)-mean(y|group=0), explained=(Xbar_1-Xbar_0) times beta_0, and unexplained=Xbar_1 times (beta_1-beta_0). Also report explained_x=(mean(x|group=1)-mean(x|group=0))*beta_0_x. Include every row. Set se=null and n_obs to the full sample size for all rows. The components describe this regression decomposition and do not establish causal discrimination.
+
+Report the requested point estimates. Standard errors are not requested. Print one line per requested estimate. Use exactly this format, replacing <number> with the computed value. Report at least eight significant digits.
+ANSWER: gap estimate=<number>
+ANSWER: explained estimate=<number>
+ANSWER: unexplained estimate=<number>
+ANSWER: explained_x estimate=<number>
+
+Use the shell to write, execute, inspect, and revise your script.
+Run the script with /Applications/StataNow/StataSE.app/Contents/MacOS/stata-se -b do run.do.
+Leave the final script as run.do and its requested output in this directory.
+Save the final solution as run.py for Python, run.R for R, or run.do for Stata.
+Before submission, verify the statistical calculation using the supplied data.
+Check the estimation sample, observation count, and variable construction against the task.
+Check the estimator and uncertainty calculation against the stated specification.
+Run at least one independent numerical check of a central calculation.
+Use a separate calculation or a mathematical identity that applies to this task.
+Inspect any discrepancy and correct errors supported by these checks.
+After edits, rerun the final script and inspect its requested output.
+Save a short plain-text account of the checks and their results in verification.txt.
+Use only the task statement, supplied data, installed software, and files you create.
+After these checks, finish with DONE.
+Use only the supplied CSV files, installed software, and files you create in this directory.
+Do not read benchmark references, previous results, agent skills, or project instructions.
+Do not use Git, web tools, MCP servers, or other agents.

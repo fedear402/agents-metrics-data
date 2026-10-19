@@ -1,0 +1,32 @@
+You are a careful econometrician completing a benchmark task.
+The dataset is provided as ./input.csv.
+One shared fixed dataset with 480 rows. Columns: id, y, x, z.
+
+
+
+Task: Estimate a multinomial logit model for y using an intercept, x, and z. Treat 0 as the base outcome. Outcomes 1 and 2 are unordered alternatives. Use maximum likelihood and conventional observed-information standard errors. Report x_cat1 and z_cat1 for the slopes in log(P(y=1)/P(y=0)). Report x_cat2 and z_cat2 for log(P(y=2)/P(y=0)). Also report prob_cat2_zero as the fitted probability of outcome 2 at x=0 and z=0, with se=null. Report n_obs as the full sample size for every row.
+
+Use Rscript. Prefer base R plus common econometrics packages such as AER, ivreg, sandwich, lmtest, survival, plm, vars, forecast, and jsonlite when needed. For IV/2SLS tasks, AER::ivreg or ivreg::ivreg with sandwich::vcovHC(..., type = "HC1") is available.
+
+Required output:
+  - Write a file `result.json` in the working directory with this shape:
+    {
+      "task_id": "broad_multinomial_logit",
+      "platform": "<python|r|stata>",
+      "estimates": [
+        {"term": "x_cat1", "estimate": <float>, "se": <float or null>, "n_obs": <int>},
+        {"term": "z_cat1", "estimate": <float>, "se": <float or null>, "n_obs": <int>},
+        {"term": "x_cat2", "estimate": <float>, "se": <float or null>, "n_obs": <int>},
+        {"term": "z_cat2", "estimate": <float>, "se": <float or null>, "n_obs": <int>},
+        {"term": "prob_cat2_zero", "estimate": <float>, "se": <float or null>, "n_obs": <int>}
+      ],
+      "method_metadata": {"estimator": "<string>", "vcov": "<string>"},
+      "diagnostics": {}
+    }
+  - Estimate names must be exactly: "x_cat1", "z_cat1", "x_cat2", "z_cat2", "prob_cat2_zero".
+  - Report numeric values to at least 6 significant digits when possible.
+  - Do not include extra prose in `result.json`.
+
+The evaluator executes your script later in a directory containing input.csv.
+Act only as a code generator. Do not use tools, inspect files, or execute code.
+Return exactly one fenced r code block and nothing else.

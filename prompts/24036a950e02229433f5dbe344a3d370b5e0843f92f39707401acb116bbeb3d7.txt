@@ -1,0 +1,90 @@
+You are a careful econometrician completing a benchmark task.
+The dataset is provided as ./input.csv.
+250 ordered observations with columns time (1 through 250) and y.
+
+Related example: Three clinic forecasts with one-based time labels
+Separate example context: A clinic records nine daily visit totals in shuffled row order. Forecast times 7, 8, and 9. Each forecast uses exactly the six observed levels immediately before its date. Fit an OLS AR(1) with an intercept on the five consecutive pairs within each window. Refit at each forecast date using observed visits. Report all three forecasts and their three-date RMSE.
+Explanation of this example: Sort by the time column. Forecast time f is a one-based label. Select labels f-6 through f-1 inclusive. For f=7, levels at times 1 through 6 yield five pairs: (1,2), (2,3), (3,4), (4,5), and (5,6). Use the fitted intercept and slope with observed visits at time6 to forecast time7. The next window contains observed times 2 through 7. It uses observed visits at time7, not the earlier forecast. No regression or forecast predictor uses the outcome at its forecast date. Evaluate errors after forecasting. Each forecast has n_obs=5 regression pairs. RMSE has n_obs=3 evaluated dates. A time label is not a zero-based array position. If using an array sorted from time1, label f corresponds to position f-1.
+```stata
+version 19.0
+clear all
+set more off
+set linesize 255
+* Separate teaching data. Time values are one-based observation labels.
+input double time visits
+3 24
+1 21
+7 30
+5 27
+9 33
+2 18
+6 23
+8 25
+4 20
+end
+sort time
+tsset time
+generate double lagged_visits=L.visits
+local window_levels=6
+generate double forecast=.
+forvalues f=7/9 {
+    * Six past levels give five pairs. At f=7: (1,2),...,(5,6).
+    local first_response=`f'-`window_levels'+1
+    local last_response=`f'-1
+    quietly regress visits lagged_visits if inrange(time,`first_response',`last_response')
+    assert e(N)==`window_levels'-1
+    * Forecast f uses observed visits at f-1. No time-f outcome enters fitting.
+    quietly replace forecast=_b[_cons]+_b[lagged_visits]*lagged_visits if time==`f'
+}
+* Refit each date. Time8 uses observed time7, not forecast7.
+generate double squared_error=(visits-forecast)^2 if inrange(time,7,9)
+quietly summarize squared_error, meanonly
+scalar rmse=sqrt(r(mean))
+display "ANSWER: clinic_rmse estimate=" %21.15g rmse " se=NA n_obs=3"
+forvalues f=7/9 {
+    quietly summarize forecast if time==`f', meanonly
+    display "ANSWER: clinic_forecast_`f' estimate=" %21.15g r(mean) " se=NA n_obs=5"
+}
+```
+Expected printed output:
+```text
+ANSWER: clinic_rmse estimate=6.65447749868253 se=NA n_obs=3
+ANSWER: clinic_forecast_7 estimate=22.14 se=NA n_obs=5
+ANSWER: clinic_forecast_8 estimate=22.5447154471545 se=NA n_obs=5
+ANSWER: clinic_forecast_9 estimate=24.9353741496599 se=NA n_obs=5
+```
+
+
+Task: Sort input.csv by time. Construct one-step-ahead rolling OLS AR(1) forecasts for times f=101,...,250. For each forecast f, use exactly the 100 observed levels y_(f-100),...,y_(f-1). Fit y_s=a+b*y_(s-1) with an intercept on s=f-99,...,f-1, giving exactly 99 regression pairs. Forecast y_f as a_hat+b_hat*y_(f-1). Refit separately at every forecast date using observed values. Score RMSE=sqrt(sum_{f=101}^{250}(y_f-forecast_f)^2/150). Report terms rmse, forecast_101, forecast_150, forecast_200, and forecast_250. Set se=missing (.) for every term. For rmse set n_obs=150. For each forecast set n_obs=99, the number of regression pairs used to estimate that forecast's model.
+
+Use a Stata do-file. Read ./input.csv with import delimited.
+
+Print one labelled result line per required term to the Stata log:
+ANSWER: rmse estimate=<number> se=<number or .> n_obs=<integer>
+ANSWER: forecast_101 estimate=<number> se=<number or .> n_obs=<integer>
+ANSWER: forecast_150 estimate=<number> se=<number or .> n_obs=<integer>
+ANSWER: forecast_200 estimate=<number> se=<number or .> n_obs=<integer>
+ANSWER: forecast_250 estimate=<number> se=<number or .> n_obs=<integer>
+Use valid Stata formats. This template illustrates the reporting syntax:
+display "ANSWER: term_name estimate=" %21.12f estimate_value " se=" %21.12f se_value " n_obs=" %12.0f n_value
+Replace the example names with computed scalars or expressions. Use . for an unrequested standard error.
+Do not use %0.0f. Set linesize 255 to reduce wrapping. A JSON result file is not required.
+You may use the shell to write, execute, inspect errors, and revise your program.
+Run the script with /Applications/StataNow/StataSE.app/Contents/MacOS/stata-se -b do run.do and inspect run.log if needed.
+Write run.do and execute it in batch mode. Leave run.log containing all required ANSWER lines.
+Save the final solution as run.py for Python, run.R for R, or run.do for Stata.
+Before submission, verify the statistical calculation using the supplied data.
+Check the estimation sample, observation count, and variable construction against the task.
+Check the estimator and uncertainty calculation against the stated specification.
+Run at least one independent numerical check of a central calculation.
+Use a separate calculation or a mathematical identity that applies to this task.
+Inspect any discrepancy and correct errors supported by these checks.
+After edits, rerun the final script and inspect its requested output.
+Save a short plain-text account of the checks and their results in verification.txt.
+Use only the task statement, supplied data, installed software, and files you create.
+After these checks, finish with DONE.
+
+Use only the supplied input.csv and files you create in this directory.
+Installed software and package resources are available.
+Do not read external agent skills, project instructions, prior results, or benchmark references.
+Do not create journals or use Git. Do not use MCP servers, web tools, or other agents.

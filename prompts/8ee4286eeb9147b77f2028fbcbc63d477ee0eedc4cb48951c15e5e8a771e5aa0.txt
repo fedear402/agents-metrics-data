@@ -1,0 +1,84 @@
+You are a careful econometrician writing a single self-contained r script.
+
+Dataset provided as `./input.csv`; original source file: `pilot_v5_rdd.csv`.
+Columns: z, d, y.
+
+Few-shot demonstration:
+The following worked example solves a related econometric task from the same
+family as the scored task below. It shows the expected implementation style
+and the result.json conventions on its own small inline data. The scored task
+is a different task: do not copy the demonstration's variable names, inline
+data, or numbers. The scored task must read ./input.csv and write
+./result.json.
+
+Demonstration task: with an inline two-period dataset of treated and control
+stores, compute the canonical 2x2 difference-in-differences estimate from the
+four group-by-period means of sales. Report row did with se null.
+
+```r
+library(jsonlite)
+df <- data.frame(
+  store = c(1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6),
+  treated = c(1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0),
+  post = c(0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1),
+  sales = c(20.0, 26.0, 22.0, 27.5, 21.0, 26.5,
+            19.5, 21.0, 20.5, 22.5, 21.5, 23.0)
+)
+m11 <- mean(df$sales[df$treated == 1 & df$post == 1])
+m10 <- mean(df$sales[df$treated == 1 & df$post == 0])
+m01 <- mean(df$sales[df$treated == 0 & df$post == 1])
+m00 <- mean(df$sales[df$treated == 0 & df$post == 0])
+did <- (m11 - m10) - (m01 - m00)
+out <- list(
+  task_id = "demo_did",
+  platform = "r",
+  estimates = list(
+    list(term = "did", estimate = did, se = NA, n_obs = nrow(df))
+  ),
+  method_metadata = list(estimator = "2x2 DiD from cell means",
+                         vcov = "none"),
+  diagnostics = structure(list(), names = character(0))
+)
+write_json(out, "result.json", auto_unbox = TRUE)
+```
+
+
+Task: Using bandwidth h = 0.5 and triangular kernel weights, fit local linear regressions on each side of cutoff z = 0 and report the difference in intercepts as row late.
+
+Use Rscript. Prefer base R plus common econometrics packages such as AER, ivreg, sandwich, lmtest, survival, plm, vars, forecast, and jsonlite when needed. For IV/2SLS tasks, AER::ivreg or ivreg::ivreg with sandwich::vcovHC(..., type = "HC1") is available.
+
+Required output:
+  - Write a file `result.json` in the working directory with this shape:
+    {
+      "task_id": "rdd_sharp",
+      "platform": "<python|r|stata>",
+      "estimates": [
+        {"term": "late", "estimate": <float>, "se": <float or null>, "n_obs": <int>}
+      ],
+      "method_metadata": {"estimator": "<string>", "vcov": "<string>"},
+      "diagnostics": {}
+    }
+  - Estimate names must be exactly: "late".
+  - Report numeric values to at least 6 significant digits when possible.
+  - Do not include extra prose in `result.json`.
+
+
+You may use the shell to write, execute, inspect errors, and revise your program.
+Run the script with Rscript --vanilla run.R.
+Write and run a script. Leave result.json and the script in this directory.
+Save the final solution as run.py for Python, run.R for R, or run.do for Stata.
+Before submission, verify the statistical calculation using the supplied data.
+Check the estimation sample, observation count, and variable construction against the task.
+Check the estimator and uncertainty calculation against the stated specification.
+Run at least one independent numerical check of a central calculation.
+Use a separate calculation or a mathematical identity that applies to this task.
+Inspect any discrepancy and correct errors supported by these checks.
+After edits, rerun the final script and inspect its requested output.
+Save a short plain-text account of the checks and their results in verification.txt.
+Use only the task statement, supplied data, installed software, and files you create.
+After these checks, finish with DONE.
+
+Use only the supplied input.csv and files you create in this directory.
+Installed software and package resources are available.
+Do not read external agent skills, project instructions, prior results, or benchmark references.
+Do not create journals or use Git. Do not use MCP servers, web tools, or other agents.

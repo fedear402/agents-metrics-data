@@ -1,0 +1,49 @@
+Write a self-contained R script. Read ./input.csv.
+
+Task:
+Fit a Poisson hurdle model on all supplied rows. Model Pr(y>0|x,d) by logit with an intercept, x, and d. Conditional on y>0, fit a zero-truncated Poisson with log lambda=b0+b_x*x+b_d*d, using only positive observations. Its likelihood is the Poisson mass divided by 1-exp(-lambda). The unconditional mean is Pr(y>0)*lambda/(1-exp(-lambda)). Report mean_y, the equally weighted average unconditional fitted mean over all rows. Report ame_x, the average derivative of this unconditional mean with respect to continuous x, accounting for x in both fitted equations. Report effect_d, the average difference in this unconditional mean when d changes from zero to one in both equations. Keep x at its observed value. Also report prob_at_least_three, the equally weighted average fitted unconditional probability Pr(y>=3|x,d) over all supplied rows. This probability includes the hurdle probability and the zero-truncation adjustment. For all results, n_obs is the full dataset row count, including zeros.
+
+Reporting:
+Report point estimates only. Set se to null. Write numeric estimates and integer n_obs values in result.json with jsonlite::write_json. Use these exact term names: mean_y, ame_x, effect_d, prob_at_least_three. Report at least eight significant digits. The structure is:
+{
+  "task_id": "hard_poisson_hurdle_effects",
+  "platform": "r",
+  "estimates": [
+    {
+      "term": "mean_y",
+      "estimate": "<numeric value>",
+      "se": null,
+      "n_obs": "<integer>"
+    },
+    {
+      "term": "ame_x",
+      "estimate": "<numeric value>",
+      "se": null,
+      "n_obs": "<integer>"
+    },
+    {
+      "term": "effect_d",
+      "estimate": "<numeric value>",
+      "se": null,
+      "n_obs": "<integer>"
+    },
+    {
+      "term": "prob_at_least_three",
+      "estimate": "<numeric value>",
+      "se": null,
+      "n_obs": "<integer>"
+    }
+  ],
+  "method_metadata": {
+    "estimator": "<description>",
+    "vcov": "not requested"
+  },
+  "diagnostics": {}
+}
+
+Write result.json as a JSON object with task_id="hard_poisson_hurdle_effects", platform="r", and the requested estimates list.
+
+Write one self-contained r script.
+The evaluator executes it in a directory containing input.csv.
+Act only as a code generator. Do not use tools, inspect files, or execute code.
+Return exactly one fenced r code block and nothing else.

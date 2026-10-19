@@ -1,0 +1,47 @@
+A smaller example uses separate synthetic data to illustrate the method.
+```stata
+version 14
+clear all
+set more off
+* Two travel alternatives and one cost coefficient form a smaller choice problem.
+set seed 434
+set obs 120
+generate double cost0 = .2+2.8*runiform()
+generate double cost1 = .2+2.8*runiform()
+generate double dx = cost1-cost0
+generate byte y = runiform()<invlogit(.3-.9*dx)
+export delimited cost0 cost1 y using "example_stata_data.csv", replace
+quietly logit y dx
+scalar a = _b[_cons]
+scalar b = _b[dx]
+generate double u0 = b*cost0
+generate double u1 = a+b*cost1
+generate double v1 = a+b*cost1*.8
+generate double m0 = max(u0,u1)
+generate double mp = max(u0,v1)
+generate double oldsum = m0+ln(exp(u0-m0)+exp(u1-m0))
+generate double newsum = mp+ln(exp(u0-mp)+exp(v1-mp))
+generate double gain = (newsum-oldsum)/(-b)
+generate double weight = 1+(_n-1)/119
+quietly summarize gain [aw=weight], meanonly
+scalar wg = r(mean)
+display "ANSWER: cost_coefficient estimate=" %21.15g b
+display "ANSWER: welfare_gain estimate=" %21.15g wg
+```
+
+Use Stata to solve the following task.
+
+Task:
+Read ./input.csv. Its columns are person (person identifier), alternative (alternative identifier: 0, 1, or 2), chosen (1 for the chosen alternative and 0 otherwise), cost (alternative cost), quality (alternative quality attribute), and weight (person weight).
+
+The supplied weight is constant within each person. Normalize each weighted average by the sum of person weights.
+Each person has three alternatives 0, 1, and 2 and exactly one chosen alternative. Fit conditional logit by maximum likelihood with utility beta_cost*cost+beta_quality*quality+asc1*1(alternative==1)+asc2*1(alternative==2). Alternative 0 has zero intercept. Use all people and all their alternatives. Estimate without observation weights. Evaluate a policy that reduces each person's alternative-1 cost by 30 percent, with every quality and other cost unchanged. Keep fitted coefficients fixed. Report welfare_gain, the weighted mean across people of [logsumexp(policy utilities)-logsumexp(original utilities)]/(-beta_cost). Report share_change_alt1, the weighted mean change in alternative-1 choice probability. Use the provided person weight only for these two post-estimation averages. Report cost_coefficient. For every row, n_obs is the number of distinct people, not the number of alternatives.
+
+Print one line per requested estimate. Use exactly this format, replacing <number> with the computed value. Report at least eight significant digits.
+ANSWER: welfare_gain estimate=<number>
+ANSWER: share_change_alt1 estimate=<number>
+ANSWER: cost_coefficient estimate=<number>
+
+Write one self-contained Stata script. The evaluator runs it with the supplied CSV files in its working directory.
+Act only as a code generator. Do not use tools, inspect files, or execute code.
+Return exactly one fenced stata code block and nothing else.

@@ -1,0 +1,27 @@
+You are a careful econometrician writing a single self-contained stata script.
+
+Dataset provided as `./input.csv`; original source file: `pilot_v4_cox.csv`.
+Columns: subject, treat, x, t_obs, event.
+
+
+
+Task: Fit a Cox proportional-hazards model for (t_obs, event) on treat and x. Report log-hazard-ratio rows treat and x with model-based standard errors.
+
+Use Stata syntax in a do-file. Read the CSV with import delimited. Print labelled numeric results with display.
+
+Print one labelled line per required result to the Stata log:
+ANSWER: treat estimate=<number> se=<number or .> n_obs=<integer>
+ANSWER: x estimate=<number> se=<number or .> n_obs=<integer>
+Set linesize 255. This template shows valid Stata reporting syntax:
+display "ANSWER: term_name estimate=" %21.12f estimate_value " se=" %21.12f se_value " n_obs=" %12.0f n_value
+Replace the example names with computed scalars or expressions. For an unrequested standard error (called null in the task), print a single dot.
+Do not use %0.0f. No JSON file or JSON validation is required.
+
+The script will be executed with the working directory set to a folder that
+contains `input.csv`. Read the data from `./input.csv` using a relative path.
+The script must run end-to-end and print the required ANSWER lines to the Stata log.
+
+OUTPUT FORMAT - STRICT:
+Respond with exactly ONE fenced code block in stata and nothing else.
+No prose before or after. The fenced block must start with ```stata and end
+with ```.

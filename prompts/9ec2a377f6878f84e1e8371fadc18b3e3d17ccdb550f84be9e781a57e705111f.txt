@@ -1,0 +1,67 @@
+You are a careful econometrician writing a single self-contained stata script.
+
+Dataset provided as `./input.csv`; original source file: `pilot_v5_rdd.csv`.
+Columns: z, d, y.
+
+Few-shot demonstration:
+The following worked example solves a related econometric task from the same
+family as the scored task below. It shows the expected implementation style
+and the labelled printed-result conventions on its own small inline data. The scored task
+is a different task: do not copy the demonstration's variable names, inline
+data, or numbers. The scored task must read ./input.csv and print the required ANSWER lines.
+
+Demonstration task: with an inline two-period dataset of treated and control
+stores, compute the canonical 2x2 difference-in-differences estimate from the
+four group-by-period means of sales. Report row did with se null.
+
+```stata
+clear
+input store treated post sales
+1 1 0 20.0
+1 1 1 26.0
+2 1 0 22.0
+2 1 1 27.5
+3 1 0 21.0
+3 1 1 26.5
+4 0 0 19.5
+4 0 1 21.0
+5 0 0 20.5
+5 0 1 22.5
+6 0 0 21.5
+6 0 1 23.0
+end
+sum sales if treated == 1 & post == 1, meanonly
+local m11 = r(mean)
+sum sales if treated == 1 & post == 0, meanonly
+local m10 = r(mean)
+sum sales if treated == 0 & post == 1, meanonly
+local m01 = r(mean)
+sum sales if treated == 0 & post == 0, meanonly
+local m00 = r(mean)
+local did = (`m11' - `m10') - (`m01' - `m00')
+local ds = string(`did', "%21.12f")
+local ns = string(_N, "%12.0f")
+local q = char(34)
+display "ANSWER: did estimate=`ds' se=. n_obs=`ns'"
+```
+
+
+Task: Using bandwidth h = 0.5 and triangular kernel weights, fit local linear regressions on each side of cutoff z = 0 and report the difference in intercepts as row late.
+
+Use Stata syntax in a do-file. Read the CSV with import delimited. Print labelled numeric results with display.
+
+Print one labelled line per required result to the Stata log:
+ANSWER: late estimate=<number> se=<number or .> n_obs=<integer>
+Set linesize 255. This template shows valid Stata reporting syntax:
+display "ANSWER: term_name estimate=" %21.12f estimate_value " se=" %21.12f se_value " n_obs=" %12.0f n_value
+Replace the example names with computed scalars or expressions. For an unrequested standard error (called null in the task), print a single dot.
+Do not use %0.0f. No JSON file or JSON validation is required.
+
+The script will be executed with the working directory set to a folder that
+contains `input.csv`. Read the data from `./input.csv` using a relative path.
+The script must run end-to-end and print the required ANSWER lines to the Stata log.
+
+OUTPUT FORMAT - STRICT:
+Respond with exactly ONE fenced code block in stata and nothing else.
+No prose before or after. The fenced block must start with ```stata and end
+with ```.

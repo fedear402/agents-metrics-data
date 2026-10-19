@@ -1,0 +1,48 @@
+You are a careful econometrician completing a benchmark task.
+The dataset is provided as ./input.csv.
+250 ordered observations with columns time (1 through 250) and y.
+
+
+
+Task: Sort input.csv by time. Construct one-step-ahead rolling OLS AR(1) forecasts for times f=101,...,250. For each forecast f, use exactly the 100 observed levels y_(f-100),...,y_(f-1). Fit y_s=a+b*y_(s-1) with an intercept on s=f-99,...,f-1, giving exactly 99 regression pairs. Forecast y_f as a_hat+b_hat*y_(f-1). Refit separately at every forecast date using observed values. Score RMSE=sqrt(sum_{f=101}^{250}(y_f-forecast_f)^2/150). Report terms rmse, forecast_101, forecast_150, forecast_200, and forecast_250. Set se=null for every term. For rmse set n_obs=150. For each forecast set n_obs=99, the number of regression pairs used to estimate that forecast's model.
+
+Use Rscript. Prefer base R plus common econometrics packages such as AER, ivreg, sandwich, lmtest, survival, plm, vars, forecast, and jsonlite when needed. For IV/2SLS tasks, AER::ivreg or ivreg::ivreg with sandwich::vcovHC(..., type = "HC1") is available.
+
+Required output:
+  - Write a file `result.json` in the working directory with this shape:
+    {
+      "task_id": "hard_rolling",
+      "platform": "<python|r|stata>",
+      "estimates": [
+        {"term": "rmse", "estimate": <float>, "se": <float or null>, "n_obs": <int>},
+        {"term": "forecast_101", "estimate": <float>, "se": <float or null>, "n_obs": <int>},
+        {"term": "forecast_150", "estimate": <float>, "se": <float or null>, "n_obs": <int>},
+        {"term": "forecast_200", "estimate": <float>, "se": <float or null>, "n_obs": <int>},
+        {"term": "forecast_250", "estimate": <float>, "se": <float or null>, "n_obs": <int>}
+      ],
+      "method_metadata": {"estimator": "<string>", "vcov": "<string>"},
+      "diagnostics": {}
+    }
+  - Estimate names must be exactly: "rmse", "forecast_101", "forecast_150", "forecast_200", "forecast_250".
+  - Report numeric values to at least 6 significant digits when possible.
+  - Do not include extra prose in `result.json`.
+
+You may use the shell to write, execute, inspect errors, and revise your program.
+Run the script with Rscript --vanilla run.R.
+Write and run a script. Leave result.json and the script in this directory.
+Save the final solution as run.py for Python, run.R for R, or run.do for Stata.
+Before submission, verify the statistical calculation using the supplied data.
+Check the estimation sample, observation count, and variable construction against the task.
+Check the estimator and uncertainty calculation against the stated specification.
+Run at least one independent numerical check of a central calculation.
+Use a separate calculation or a mathematical identity that applies to this task.
+Inspect any discrepancy and correct errors supported by these checks.
+After edits, rerun the final script and inspect its requested output.
+Save a short plain-text account of the checks and their results in verification.txt.
+Use only the task statement, supplied data, installed software, and files you create.
+After these checks, finish with DONE.
+
+Use only the supplied input.csv and files you create in this directory.
+Installed software and package resources are available.
+Do not read external agent skills, project instructions, prior results, or benchmark references.
+Do not create journals or use Git. Do not use MCP servers, web tools, or other agents.

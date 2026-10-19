@@ -1,0 +1,32 @@
+You are a careful econometrician completing a benchmark task.
+The dataset is provided as ./input.csv.
+250 ordered observations with columns time (1 through 250) and y.
+
+
+
+Task: Sort input.csv by time. Construct one-step-ahead rolling OLS AR(1) forecasts for times f=101,...,250. For each forecast f, use exactly the 100 observed levels y_(f-100),...,y_(f-1). Fit y_s=a+b*y_(s-1) with an intercept on s=f-99,...,f-1, giving exactly 99 regression pairs. Forecast y_f as a_hat+b_hat*y_(f-1). Refit separately at every forecast date using observed values. Score RMSE=sqrt(sum_{f=101}^{250}(y_f-forecast_f)^2/150). Report terms rmse, forecast_101, forecast_150, forecast_200, and forecast_250. Set se=null for every term. For rmse set n_obs=150. For each forecast set n_obs=99, the number of regression pairs used to estimate that forecast's model.
+
+Use Python 3 with pandas and statsmodels or other standard scientific packages already available in the environment. Read the CSV with pandas and write JSON with json.dump.
+
+Required output:
+  - Write a file `result.json` in the working directory with this shape:
+    {
+      "task_id": "hard_rolling",
+      "platform": "<python|r|stata>",
+      "estimates": [
+        {"term": "rmse", "estimate": <float>, "se": <float or null>, "n_obs": <int>},
+        {"term": "forecast_101", "estimate": <float>, "se": <float or null>, "n_obs": <int>},
+        {"term": "forecast_150", "estimate": <float>, "se": <float or null>, "n_obs": <int>},
+        {"term": "forecast_200", "estimate": <float>, "se": <float or null>, "n_obs": <int>},
+        {"term": "forecast_250", "estimate": <float>, "se": <float or null>, "n_obs": <int>}
+      ],
+      "method_metadata": {"estimator": "<string>", "vcov": "<string>"},
+      "diagnostics": {}
+    }
+  - Estimate names must be exactly: "rmse", "forecast_101", "forecast_150", "forecast_200", "forecast_250".
+  - Report numeric values to at least 6 significant digits when possible.
+  - Do not include extra prose in `result.json`.
+
+The evaluator executes your script later in a directory containing input.csv.
+Act only as a code generator. Do not use tools, inspect files, or execute code.
+Return exactly one fenced python code block and nothing else.

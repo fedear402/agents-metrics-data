@@ -1,0 +1,25 @@
+You are a careful econometrician completing a benchmark task.
+The dataset is provided as ./input.csv.
+id, score centered at eligibility cutoff, participated, earnings. Simulated applicant data.
+
+
+
+Task: A training program becomes more accessible when an applicant's eligibility score reaches zero. The file contains id, score, participated (0 or 1), and earnings. Estimate the effect of participation at the eligibility cutoff using fuzzy regression discontinuity.
+
+Use cutoff zero and bandwidth 1 on each side. Include observations with abs(score)<1. Use triangular weights 1-abs(score). Fit separate local-linear slopes on the two sides, with intercepts. Use the same observations and weights for earnings and participation. Report the earnings discontinuity as reduced_form, the participation discontinuity as first_stage, and their ratio as treatment_effect. Each discontinuity is the right limit minus the left limit.
+
+Report conventional heteroskedasticity-robust HC0 standard errors with no degrees-of-freedom correction. Treat the bandwidth and weights as fixed. For treatment_effect, use the delta method and the joint covariance of the two discontinuity estimates from the same observations. Account for their covariance. Do not apply bias correction. Report n_obs as the total number of observations inside the bandwidth for every row.
+
+Use a Stata do-file. Read ./input.csv with import delimited.
+
+Print one labelled result line per required term to the Stata log:
+ANSWER: treatment_effect estimate=<number> se=<number or .> n_obs=<integer>
+ANSWER: reduced_form estimate=<number> se=<number or .> n_obs=<integer>
+ANSWER: first_stage estimate=<number> se=<number or .> n_obs=<integer>
+Use valid Stata formats. This template illustrates the reporting syntax:
+display "ANSWER: term_name estimate=" %21.12f estimate_value " se=" %21.12f se_value " n_obs=" %12.0f n_value
+Replace the example names with computed scalars or expressions. Use . for an unrequested standard error.
+Do not use %0.0f. Set linesize 255 to reduce wrapping. A JSON result file is not required.
+The evaluator executes your script later in a directory containing input.csv.
+Act only as a code generator. Do not use tools, inspect files, or execute code.
+Return exactly one fenced stata code block and nothing else.

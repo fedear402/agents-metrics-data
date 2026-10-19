@@ -1,0 +1,109 @@
+You are a careful econometrician completing a benchmark task.
+The dataset is provided as ./input.csv.
+id, score centered at eligibility cutoff, participated, earnings. Simulated applicant data.
+
+
+
+Related example: A weighted water-filter discontinuity with two group means
+Separate example context: Twelve households lie on either side of a water-filter voucher threshold. This simplified illustration uses two group means. It has no running-variable slopes. The supplied unequal weights are fixed. Estimate high-minus-low differences in clean-water days and filter use, their ratio, and empirical HC0 uncertainty.
+Explanation of this example: The design contains an intercept and a high-group indicator. The contrast [0,1] selects the high-minus-low difference in each outcome. First project each observation's coefficient contribution onto this contrast. Then form the joint covariance from the two resulting outcome contributions. Each contribution contains one weight, so its outer product contains the squared weight. The cross-outcome entry uses both residuals from the same household. The delta-method gradient combines both variances and their covariance. Use no degrees-of-freedom correction. A causal ratio interpretation requires additional identification assumptions.
+The example uses separate data and writes example_result.json. It uses the same estimates-row structure as the scored task, with its own task identifier and result names. The scored task below must read its own input.csv and write result.json.
+```python
+import json
+import numpy as np
+
+def report(rows):
+    output = {"task_id": EXAMPLE_ID, "estimates": rows}
+    with open("example_result.json", "w") as stream:
+        json.dump(output, stream, indent=2, allow_nan=False)
+
+EXAMPLE_ID = "water_filter_weighted_groups"
+# These fixed teaching data are separate from the scored task.
+above = np.repeat([0., 1.], 6)
+weights = np.array([1.,2.,1.,3.,2.,1.,2.,1.,3.,1.,2.,2.])
+filter_use = np.array([0.,0.,1.,0.,0.,1.,1.,1.,0.,1.,1.,1.])
+clean_days = np.array([8.,10.,12.,9.,11.,13.,16.,18.,11.,17.,20.,19.])
+X = np.column_stack([np.ones(len(above)), above])
+Y = np.column_stack([clean_days, filter_use])
+bread = np.linalg.inv(X.T @ (weights[:, None] * X))
+coefficients = bread @ X.T @ (weights[:, None] * Y)
+residuals = Y - X @ coefficients
+# With intercept and group indicator, this contrast selects high minus low.
+contrast = np.array([0., 1.])
+jumps = contrast @ coefficients
+# Each observation contributes to the two selected outcome contrasts.
+loading = weights * (X @ bread @ contrast)
+influence = loading[:, None] * residuals
+joint = influence.T @ influence
+outcome_jump, takeup_jump = jumps
+gradient = np.array([1 / takeup_jump, -outcome_jump / takeup_jump**2])
+ratio_se = np.sqrt(gradient @ joint @ gradient)
+rows = [
+    {"term": "clean_days_difference", "estimate": float(outcome_jump), "se": float(np.sqrt(joint[0,0])), "n_obs": 12},
+    {"term": "filter_use_difference", "estimate": float(takeup_jump), "se": float(np.sqrt(joint[1,1])), "n_obs": 12},
+    {"term": "filter_ratio", "estimate": float(outcome_jump / takeup_jump), "se": float(ratio_se), "n_obs": 12},
+    {"term": "difference_covariance", "estimate": float(joint[0,1]), "se": None, "n_obs": 12},
+]
+report(rows)
+```
+Expected example_result.json:
+```json
+{
+  "task_id": "water_filter_weighted_groups",
+  "estimates": [
+    {
+      "term": "clean_days_difference",
+      "estimate": 5.981818181818183,
+      "se": 1.7583031820231037,
+      "n_obs": 12
+    },
+    {
+      "term": "filter_use_difference",
+      "estimate": 0.5272727272727272,
+      "se": 0.260667498101754,
+      "n_obs": 12
+    },
+    {
+      "term": "filter_ratio",
+      "estimate": 11.3448275862069,
+      "se": 3.119535323428563,
+      "n_obs": 12
+    },
+    {
+      "term": "difference_covariance",
+      "estimate": 0.40244368554060483,
+      "se": null,
+      "n_obs": 12
+    }
+  ]
+}
+```
+
+Task: A training program becomes more accessible when an applicant's eligibility score reaches zero. The file contains id, score, participated (0 or 1), and earnings. Estimate the effect of participation at the eligibility cutoff using fuzzy regression discontinuity.
+
+Use cutoff zero and bandwidth 1 on each side. Include observations with abs(score)<1. Use triangular weights 1-abs(score). Fit separate local-linear slopes on the two sides, with intercepts. Use the same observations and weights for earnings and participation. Report the earnings discontinuity as reduced_form, the participation discontinuity as first_stage, and their ratio as treatment_effect. Each discontinuity is the right limit minus the left limit.
+
+Report conventional heteroskedasticity-robust HC0 standard errors with no degrees-of-freedom correction. Treat the bandwidth and weights as fixed. For treatment_effect, use the delta method and the joint covariance of the two discontinuity estimates from the same observations. Account for their covariance. Do not apply bias correction. Report n_obs as the total number of observations inside the bandwidth for every row.
+
+Use Python 3 with pandas and statsmodels or other standard scientific packages already available in the environment. Read the CSV with pandas and write JSON with json.dump.
+
+Required output:
+  - Write a file `result.json` in the working directory with this shape:
+    {
+      "task_id": "applied_fuzzy_rd",
+      "platform": "<python|r|stata>",
+      "estimates": [
+        {"term": "treatment_effect", "estimate": <float>, "se": <float or null>, "n_obs": <int>},
+        {"term": "reduced_form", "estimate": <float>, "se": <float or null>, "n_obs": <int>},
+        {"term": "first_stage", "estimate": <float>, "se": <float or null>, "n_obs": <int>}
+      ],
+      "method_metadata": {"estimator": "<string>", "vcov": "<string>"},
+      "diagnostics": {}
+    }
+  - Estimate names must be exactly: "treatment_effect", "reduced_form", "first_stage".
+  - Report numeric values to at least 6 significant digits when possible.
+  - Do not include extra prose in `result.json`.
+
+The evaluator executes your script later in a directory containing input.csv.
+Act only as a code generator. Do not use tools, inspect files, or execute code.
+Return exactly one fenced python code block and nothing else.

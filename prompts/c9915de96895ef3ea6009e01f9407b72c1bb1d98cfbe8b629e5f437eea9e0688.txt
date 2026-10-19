@@ -1,0 +1,17 @@
+Write a self-contained Stata script. Read ./input.csv.
+
+Task:
+Fit a heteroskedastic probit by maximum likelihood on all rows. The success probability is Phi((beta0+beta_x*x+beta_d*d)/exp(gamma_z*z)). The scale equation has z only and no intercept; therefore sigma=1 when z=0. This normalization is fixed. The mean equation includes an intercept. Report gamma_z. Report ame_x, the average derivative of the fitted success probability with respect to continuous x, holding d and z fixed. Report effect_d, the average fitted probability difference when d changes from 0 to 1, holding each row's x and z fixed. Use equal weights and all supplied rows for both averages. Set n_obs to the full row count for every result.
+
+Reporting:
+Report point estimates only. Print one line for each term. Use NA for se and the full row count for n_obs. Report at least eight significant digits.
+ANSWER: gamma_z estimate=<number> se=NA n_obs=<integer>
+ANSWER: ame_x estimate=<number> se=NA n_obs=<integer>
+ANSWER: effect_d estimate=<number> se=NA n_obs=<integer>
+
+Print the requested ANSWER lines to the Stata log.
+
+Write one self-contained stata script.
+The evaluator executes it in a directory containing input.csv.
+Act only as a code generator. Do not use tools, inspect files, or execute code.
+Return exactly one fenced stata code block and nothing else.

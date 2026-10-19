@@ -1,0 +1,144 @@
+You are a careful econometrician completing a benchmark task.
+The dataset is provided as ./input.csv.
+One shared fixed dataset with 400 rows. Columns: id, y, x, z.
+
+Related example: A censored laboratory reading with checked derivatives
+Separate example context: A laboratory records values below its detection threshold 1 as 1. Fit a Gaussian latent regression on an intercept and temperature using 100 separate simulated readings.
+Explanation of this example: Use native tobit to estimate the Gaussian coefficients and scale jointly. Readings censored at 1 contribute a normal probability. Uncensored readings contribute a normal density. Use the native observed-information covariance for slope uncertainty. This covariance includes estimation of the nuisance scale parameter. The reported scale is on its original positive scale. The selected Python version also checks custom likelihood derivatives. The native routine supplies those likelihood calculations here.
+```stata
+clear all
+set more off
+set linesize 255
+set type double
+input double temperature reading
+0.50430108149082398 1
+-0.82509710455329499 1.7689734473696068
+-1.0015673041762532 1
+-0.33730516495385282 1
+-0.83547358128331939 1
+0.097407192366693388 1.3846272122850043
+0.55741613822553282 3.1898827152563718
+0.34244714642912522 3.0291240585528976
+-0.82696963015020042 1.231296511498849
+0.86321107377397366 1.619926774484266
+-0.67750348935602323 1
+1.6110129861425639 2.7146823501363841
+0.76980251805263678 3.1412724213383552
+-0.66329313226719977 1
+-1.3016311619974588 1
+-0.14636356104689957 2.0357369735190187
+1.822698419680117 2.3842171922932969
+0.39753463325487126 1.0979299564524072
+-0.73677975041144139 1
+1.6761058726257589 2.8103596002296385
+-0.84578036699816561 1
+0.34001651027325741 2.3960441440589451
+0.78751139118504521 1.8607653675743638
+-0.10762564530630159 1.0262736047195467
+1.2686164769637076 2.008588476455321
+0.36615486647535311 1
+0.75784711361157853 1.2562598814325754
+-0.40036571294664997 1
+-0.16257446616426957 1.8369960913767835
+-0.73008292888245774 1
+0.49050843355786744 1
+0.22418632183136009 1.0429559254661367
+0.5571018778641772 1.0923516183172344
+1.7199988811850944 2.1637264886517031
+0.74705580439385189 3.7537689635709546
+2.6400286645299711 4.1541644325681046
+0.98419149999273114 3.0020509310123296
+0.24786983464076806 2.1390032711707319
+-0.6954169980374838 1.5919157624947229
+0.34367708055591351 1.6588653371328972
+-0.45904279657346075 1.3123000577959123
+0.11590534049293545 1.8125627807496343
+0.067531685891776896 1
+-0.42808064968732629 1
+-0.57772683247734369 1
+-0.0040300957660644714 1.6921738850314556
+-0.069336549393105171 1.7708487821371253
+0.72528811864247744 2.6229291664172885
+0.59148922036536689 1
+-0.57732977064712354 1.7109599760282754
+-0.35943422059802688 1.3718038873936012
+0.058071741064883282 1
+-0.21950980576741316 1.0746963120532562
+1.2142463993380392 2.1795992132145514
+1.3522771840431749 2.283968743348344
+0.56709489889622977 2.0502567950604491
+0.40349328748676733 1.1726378726299203
+2.0280797975720146 2.7086722839126711
+-0.2755231152088507 1
+0.47804953426741342 1.293696145849234
+0.61564099566621155 1.4521700629609469
+-0.39867075359826337 1.3212722929054324
+1.3736805835192265 1.9482399309440257
+-0.54591542330534981 1.2002155175702378
+0.15785189741283023 1
+-1.2037711191488982 1
+-1.6560737843075133 1
+-0.68019427172754243 1.1204940028461055
+-0.56917596684798522 1
+0.4916028080835822 1.7950867223966125
+0.4685637828402045 1.4343589660384661
+1.4996975540525976 1.5777401979860555
+1.0427523456384955 1
+0.2381568337470302 2.073092252015746
+-2.3372669827834622 1
+-0.87488856454460362 1
+0.14308050262379479 2.4035627233641446
+1.3785462363321481 2.1403163872150035
+-1.1503168894991922 1.7067545390129646
+-0.43352475815471997 1
+-0.33543722691429817 1
+0.28364767795513512 1.5898006906836684
+0.31804621838428543 1.7307021652767702
+-0.33394557411025316 1.5879044579363708
+-0.12970963095184174 1.8641274681890192
+0.40973667964576138 1.9191965238935127
+-0.20151093304735004 1.0833320651401259
+-0.78724619483899982 1
+-0.87890487843292664 1
+2.2107271239171373 2.5425332671383778
+0.93027137520555592 1.2252341114853591
+-0.55322941305998452 1
+0.44270466923068486 2.5785686711151996
+0.26888906699171228 1.6103767397831703
+0.58911109270467699 3.3739011193116948
+1.007143731445868 1.7651994077626914
+-0.72184641779524628 1
+-1.0451763782351813 1
+1.8675807314730712 2.1429762647057253
+-0.49052697263357625 2.2060160180386186
+end
+* Native censored-normal maximum likelihood at the laboratory threshold.
+tobit reading temperature, ll(1) tolerance(1e-10) nrtolerance(1e-10)
+* Native observed-information covariance includes the jointly estimated scale.
+* StataNow reports residual variance. Its positive square root is the latent scale.
+display "ANSWER: temperature_slope estimate=" %21.15g (_b[temperature]) " se=" %21.15g (_se[temperature]) " n_obs=100"
+display "ANSWER: latent_scale estimate=" %21.15g (sqrt(_b[/var(e.reading)])) " se=" "NA" " n_obs=100"
+```
+Expected printed output:
+```text
+ANSWER: temperature_slope estimate=0.735967937165834 se=0.0945742039859813 n_obs=100
+ANSWER: latent_scale estimate=0.718174038433304 se=NA n_obs=100
+```
+
+
+Task: The observed expenditure y is left censored at zero. Fit a homoskedastic Gaussian Tobit model for latent y using an intercept, x, and z. Include every row, including observations with y=0. Use maximum likelihood with lower censoring point 0 and no upper censoring. Report latent-equation coefficients const, x, and z with conventional observed-information standard errors from the jointly estimated likelihood. Report sigma, the standard deviation of the latent Gaussian disturbance, with se=missing (.). Report the full sample size as n_obs for every row.
+
+Use a Stata do-file. Read ./input.csv with import delimited.
+
+Print one labelled result line per required term to the Stata log:
+ANSWER: const estimate=<number> se=<number or .> n_obs=<integer>
+ANSWER: x estimate=<number> se=<number or .> n_obs=<integer>
+ANSWER: z estimate=<number> se=<number or .> n_obs=<integer>
+ANSWER: sigma estimate=<number> se=<number or .> n_obs=<integer>
+Use valid Stata formats. This template illustrates the reporting syntax:
+display "ANSWER: term_name estimate=" %21.12f estimate_value " se=" %21.12f se_value " n_obs=" %12.0f n_value
+Replace the example names with computed scalars or expressions. Use . for an unrequested standard error.
+Do not use %0.0f. Set linesize 255 to reduce wrapping. A JSON result file is not required.
+The evaluator executes your script later in a directory containing input.csv.
+Act only as a code generator. Do not use tools, inspect files, or execute code.
+Return exactly one fenced stata code block and nothing else.

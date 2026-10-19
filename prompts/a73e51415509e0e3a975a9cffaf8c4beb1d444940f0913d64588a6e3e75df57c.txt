@@ -1,0 +1,79 @@
+You are a careful econometrician writing a single self-contained python script.
+
+Dataset provided as `./input.csv`; original source file: `pilot_v2.csv`.
+Columns include id, x1, x2, y_iv, x1_iv, z, cluster, y_panel, exposure, and y_count.
+
+Few-shot demonstration:
+The following worked example solves a related econometric task from the same
+family as the scored task below. It shows the expected implementation style
+and the result.json conventions on its own small inline data. The scored task
+is a different task: do not copy the demonstration's variable names, inline
+data, or numbers. The scored task must read ./input.csv and write
+./result.json.
+
+Demonstration task: with inline data on a binary purchase outcome and household
+income, estimate a binary GLM with a complementary log-log link and an
+intercept. Report coefficient-scale rows const and income with asymptotic standard errors.
+
+```python
+import json
+import pandas as pd
+import statsmodels.api as sm
+
+df = pd.DataFrame({
+    "purchase": [0, 0, 0, 1, 0, 1, 1, 1, 1, 0],
+    "income": [1.2, 1.8, 2.0, 2.4, 2.6, 3.0, 3.5, 4.0, 4.4, 2.2],
+})
+X = sm.add_constant(df[["income"]])
+family = sm.families.Binomial(link=sm.families.links.CLogLog())
+fit = sm.GLM(df["purchase"], X, family=family).fit()
+out = {
+    "task_id": "demo_cloglog",
+    "platform": "python",
+    "estimates": [
+        {"term": "const", "estimate": float(fit.params["const"]),
+         "se": float(fit.bse["const"]), "n_obs": int(fit.nobs)},
+        {"term": "income", "estimate": float(fit.params["income"]),
+         "se": float(fit.bse["income"]), "n_obs": int(fit.nobs)},
+    ],
+    "method_metadata": {"estimator": "binomial GLM cloglog link",
+                        "vcov": "asymptotic"},
+    "diagnostics": {},
+}
+with open("result.json", "w") as f:
+    json.dump(out, f)
+```
+
+
+Task: Estimate a Poisson regression of y_count on x1 and x2 with an intercept and an offset equal to the natural log of exposure. Report rows const, x1, and x2 with asymptotic model-based standard errors.
+
+Use Python 3 with pandas and statsmodels or other standard scientific packages already available in the environment. Read the CSV with pandas and write JSON with json.dump.
+
+Required output:
+  - Write a file `result.json` in the working directory with this shape:
+    {
+      "task_id": "poisson_offset",
+      "platform": "<python|r|stata>",
+      "estimates": [
+        {"term": "const", "estimate": <float>, "se": <float or null>, "n_obs": <int>},
+        {"term": "x1", "estimate": <float>, "se": <float or null>, "n_obs": <int>},
+        {"term": "x2", "estimate": <float>, "se": <float or null>, "n_obs": <int>}
+      ],
+      "method_metadata": {"estimator": "<string>", "vcov": "<string>"},
+      "diagnostics": {}
+    }
+  - Estimate names must be exactly: "const", "x1", "x2".
+  - Report numeric values to at least 6 significant digits when possible.
+  - Do not include extra prose in `result.json`.
+
+
+The script will be executed with the working directory set to a folder that
+contains `input.csv`. Read the data from `./input.csv` using a relative path.
+The script must run end-to-end and produce `result.json` in the same folder.
+
+OUTPUT FORMAT - STRICT:
+Respond with exactly ONE fenced code block in python and nothing else.
+No prose before or after. The fenced block must start with ```python and end
+with ```.
+
+IMPORTANT — code generation only: input.csv is NOT in your current directory right now, and you must NOT run any commands or read any file. Your script will be executed later in a directory that contains input.csv. Return ONLY the fenced code block.

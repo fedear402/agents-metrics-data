@@ -1,0 +1,42 @@
+Write a self-contained Stata script. Read ./input.csv.
+
+Example on separate small data. This simpler example illustrates a related calculation.
+```stata
+clear
+input double x
+-0.5
+0.5
+1
+end
+* Known beta=(0.2,0.6), sigma=1 in a simpler truncated model.
+generate double mu = 0.2+0.6*x
+generate double a = -mu
+generate double lam = normalden(a)/normal(-a)
+generate double conditional_mean = mu+lam
+generate double derivative = 0.6*(1+a*lam-lam^2)
+quietly summarize conditional_mean
+display "mean_observed " %15.10f r(mean)
+quietly summarize derivative
+display "ame_x " %15.10f r(mean)
+```
+The example prints:
+```text
+mean_observed 0.9797797768
+ame_x 0.2798355479
+```
+
+Task:
+The file contains only observations with y>0 from a population model y*=beta0+beta_x*x+beta_z*z+epsilon, with epsilon normal and constant unknown standard deviation sigma. The observed y equals y*. Fit the left-truncated normal model conditional on y*>0 by maximum likelihood on every supplied row. This is truncation: unobserved units are absent. Include an intercept. The log likelihood for one observed row is log phi((y-mu)/sigma)-log sigma-log Phi(mu/sigma), where mu is the linear index. Report latent_x, the estimated beta_x. Report mean_observed, the average fitted conditional mean E[y*|y*>0,x,z] over the supplied rows. Report ame_x, the average derivative of that same conditional mean with respect to continuous x, holding z fixed. Use each supplied row's covariates and equal weights. Set n_obs to the supplied row count for every result.
+
+Reporting:
+Report point estimates only. Print one line for each term. Use NA for se and the full row count for n_obs. Report at least eight significant digits.
+ANSWER: mean_observed estimate=<number> se=NA n_obs=<integer>
+ANSWER: ame_x estimate=<number> se=NA n_obs=<integer>
+ANSWER: latent_x estimate=<number> se=NA n_obs=<integer>
+
+Print the requested ANSWER lines to the Stata log.
+
+Write one self-contained stata script.
+The evaluator executes it in a directory containing input.csv.
+Act only as a code generator. Do not use tools, inspect files, or execute code.
+Return exactly one fenced stata code block and nothing else.

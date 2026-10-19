@@ -1,0 +1,78 @@
+Use Python to solve the following task.
+
+A simpler example uses separate data and illustrates the method.
+```python
+import numpy as np
+from scipy.special import expit,logsumexp
+from scipy.optimize import minimize
+# Two travel alternatives and one cost coefficient form a smaller choice problem.
+rng=np.random.default_rng(434);cost=rng.uniform(0.2,3,size=(120,2));dx=cost[:,1]-cost[:,0]
+y=rng.binomial(1,expit(0.3-0.9*dx))
+X=np.column_stack([np.ones(len(y)),dx])
+fit=minimize(lambda b:float(np.logaddexp(0,X@b).sum()-y@(X@b)),[0.,-0.5],jac=lambda b:X.T@(expit(X@b)-y),method='BFGS')
+a,b=fit.x;assert np.max(np.abs(X.T@(expit(X@fit.x)-y)))<1e-4
+old=np.column_stack([b*cost[:,0],a+b*cost[:,1]]);policy=old.copy();policy[:,1]=a+b*cost[:,1]*0.8
+weights=np.linspace(1,2,len(y))
+gain=(logsumexp(policy,axis=1)-logsumexp(old,axis=1))/(-b)
+print({'cost_coefficient':float(b),'welfare_gain':float(np.average(gain,weights=weights))})
+```
+Its output is:
+```text
+{'cost_coefficient': -1.5192195242160569, 'welfare_gain': 0.16701666046239277}
+```
+
+Task:
+Read ./input.csv. Its columns are person (person identifier), alternative (alternative identifier: 0, 1, or 2), chosen (1 for the chosen alternative and 0 otherwise), cost (alternative cost), quality (alternative quality attribute), and weight (person weight).
+
+The supplied weight is constant within each person. Normalize each weighted average by the sum of person weights.
+Each person has three alternatives 0, 1, and 2 and exactly one chosen alternative. Fit conditional logit by maximum likelihood with utility beta_cost*cost+beta_quality*quality+asc1*1(alternative==1)+asc2*1(alternative==2). Alternative 0 has zero intercept. Use all people and all their alternatives. Estimate without observation weights. Evaluate a policy that reduces each person's alternative-1 cost by 30 percent, with every quality and other cost unchanged. Keep fitted coefficients fixed. Report welfare_gain, the weighted mean across people of [logsumexp(policy utilities)-logsumexp(original utilities)]/(-beta_cost). Report share_change_alt1, the weighted mean change in alternative-1 choice probability. Use the provided person weight only for these two post-estimation averages. Report cost_coefficient. For every row, n_obs is the number of distinct people, not the number of alternatives.
+
+Reporting:
+Report point estimates only. Set se to null. Write numeric estimates and integer n_obs values in result.json with json.dump. Use these exact term names: welfare_gain, share_change_alt1, cost_coefficient. Report at least eight significant digits. The structure is:
+{
+  "task_id": "hard_conditional_logit_welfare",
+  "platform": "python",
+  "estimates": [
+    {
+      "term": "welfare_gain",
+      "estimate": "<numeric value>",
+      "se": null,
+      "n_obs": "<integer>"
+    },
+    {
+      "term": "share_change_alt1",
+      "estimate": "<numeric value>",
+      "se": null,
+      "n_obs": "<integer>"
+    },
+    {
+      "term": "cost_coefficient",
+      "estimate": "<numeric value>",
+      "se": null,
+      "n_obs": "<integer>"
+    }
+  ],
+  "method_metadata": {
+    "estimator": "<description>",
+    "vcov": "not requested"
+  },
+  "diagnostics": {}
+}
+
+Use the shell to write, execute, inspect, and revise your script.
+Run the script with /Users/federicolopez/LOCAL/GALIANI/AGENTS-METRICS/.venv/bin/python3 run.py.
+Leave the final script as run.py and its requested output in this directory.
+Save the final solution as run.py for Python, run.R for R, or run.do for Stata.
+Before submission, verify the statistical calculation using the supplied data.
+Check the estimation sample, observation count, and variable construction against the task.
+Check the estimator and uncertainty calculation against the stated specification.
+Run at least one independent numerical check of a central calculation.
+Use a separate calculation or a mathematical identity that applies to this task.
+Inspect any discrepancy and correct errors supported by these checks.
+After edits, rerun the final script and inspect its requested output.
+Save a short plain-text account of the checks and their results in verification.txt.
+Use only the task statement, supplied data, installed software, and files you create.
+After these checks, finish with DONE.
+Use only the supplied CSV files, installed software, and files you create in this directory.
+Do not read benchmark references, previous results, agent skills, or project instructions.
+Do not use Git, web tools, MCP servers, or other agents.

@@ -1,0 +1,119 @@
+You are a careful econometrician completing a benchmark task.
+The dataset is provided as ./input.csv.
+Exact CSV columns: `date`, `sales`, and `vix`. The columns `sales` and `vix` contain positive values. Simulated consecutive weekday trading observations.
+
+Related example: Two lagged fuel changes and cumulative shipment uncertainty
+Separate example context: A delivery depot has 24 separate weekday observations. The exact columns are date, fuel_index, and shipments. The last two columns contain positive values. Regress log shipments on an intercept and the first two observed-row lags of log fuel-index changes. Report both lag coefficients and their sum. Use Bartlett Newey-West covariance with maximum lag two and correction N/(N-3). This is an association calculation.
+Explanation of this example: Sort dates first. At observation t, the regressors are log(fuel[t-1])-log(fuel[t-2]) and log(fuel[t-2])-log(fuel[t-3]). The first usable outcome is observation four, leaving 21 rows. Friday-to-Monday is one observed-row step. OLS uses these aligned rows. Form HAC from chronological residual scores, using lag weights 2/3 and 1/3. Apply N/(N-3), because the model has three coefficients. The cumulative-response variance is V[1,1]+V[2,2]+2*V[1,2]. The contrast [0,1,1] excludes the intercept and includes this covariance. Keep regression lag count, HAC lag count, parameter count, and usable sample size as separate quantities.
+```stata
+version 19.0
+clear all
+set more off
+set linesize 255
+* Separate teaching data: 24 observed weekdays, deliberately reversed.
+input str10 date_text double fuel_index shipments
+"2024-03-05" 124 243
+"2024-03-04" 121 241
+"2024-03-01" 122 237
+"2024-02-29" 119 239
+"2024-02-28" 120 233
+"2024-02-27" 118 236
+"2024-02-26" 114 234
+"2024-02-23" 117 228
+"2024-02-22" 115 232
+"2024-02-21" 112 231
+"2024-02-20" 113 225
+"2024-02-19" 110 229
+"2024-02-16" 111 227
+"2024-02-15" 109 222
+"2024-02-14" 106 226
+"2024-02-13" 108 223
+"2024-02-12" 105 219
+"2024-02-09" 103 221
+"2024-02-08" 104 216
+"2024-02-07" 101 218
+"2024-02-06" 102 215
+"2024-02-05" 99 211
+"2024-02-02" 100 214
+"2024-02-01" 98 210
+end
+generate double day=date(date_text,"YMD")
+* Sort before differences and lags. Time indexes observed weekdays.
+sort day
+generate int observation=_n
+tsset observation
+generate double log_fuel=log(fuel_index)
+generate double fuel_change=D.log_fuel
+generate double change_lag1=L.fuel_change
+generate double change_lag2=L2.fuel_change
+generate double log_shipments=log(shipments)
+* Use changes at t-1 and t-2. Differencing plus two lags removes three rows.
+keep if !missing(log_shipments,change_lag1,change_lag2)
+mata:
+X=(J(st_nobs(),1,1),st_data(.,("change_lag1","change_lag2")))
+y=st_data(.,"log_shipments")
+coefficients=qrsolve(X,y)
+residuals=y-X*coefficients
+N=rows(X)
+p=cols(X)
+scores=X:*residuals
+hac_lags=2
+meat=scores'*scores
+for (j=1;j<=hac_lags;j++) {
+    lag_product=scores[|j+1,1\N,p|]'*scores[|1,1\N-j,p|]
+    meat=meat+(1-j/(hac_lags+1))*(lag_product+lag_product')
+}
+bread=invsym(X'*X)
+covariance=N/(N-p)*bread*meat*bread
+// Exclude the intercept. Include cross-covariances in the sum variance.
+contrast=(0\1\1)
+cumulative=contrast'*coefficients
+cumulative_se=sqrt(contrast'*covariance*contrast)
+printf("ANSWER: depot_cumulative estimate=%21.15g se=%21.15g n_obs=%9.0f\n",cumulative,cumulative_se,N)
+printf("ANSWER: depot_lag1 estimate=%21.15g se=%21.15g n_obs=%9.0f\n",coefficients[2],sqrt(covariance[2,2]),N)
+printf("ANSWER: depot_lag2 estimate=%21.15g se=%21.15g n_obs=%9.0f\n",coefficients[3],sqrt(covariance[3,3]),N)
+end
+```
+Expected printed output:
+```text
+ANSWER: depot_cumulative estimate=0.489017805332153 se=0.535779835717521 n_obs=21
+ANSWER: depot_lag1 estimate=0.262047017247668 se=0.336255709155476 n_obs=21
+ANSWER: depot_lag2 estimate=0.226970788084485 se=0.247125153938914 n_obs=21
+```
+
+
+Task: The file contains consecutive trading observations with date, sales, and vix. Sales measure aggregate stock sales. Vix measures market volatility. Estimate the cumulative association between past changes in volatility and current log sales.
+
+Sort by date. Define the volatility change as the first difference of natural log(vix) across consecutive trading observations. Regress natural log(sales) on an intercept and lags 1 through 15 of this change. Lags refer to trading observations, including across weekends. Use every observation with the complete set of lagged changes. Report the sum of the fifteen coefficients as cumulative_response. Also report coefficients lag_1 and lag_15.
+
+Use Newey-West heteroskedasticity and autocorrelation robust covariance with maximum lag 15 and Bartlett weights 1-j/16 for lag j. Multiply the covariance by N/(N-16), where N is the regression sample size. Use the full coefficient covariance matrix for the cumulative-response standard error. Report standard errors and n_obs for all three rows.
+
+Use a Stata do-file. Read ./input.csv with import delimited.
+
+Print one labelled result line per required term to the Stata log:
+ANSWER: cumulative_response estimate=<number> se=<number or .> n_obs=<integer>
+ANSWER: lag_1 estimate=<number> se=<number or .> n_obs=<integer>
+ANSWER: lag_15 estimate=<number> se=<number or .> n_obs=<integer>
+Use valid Stata formats. This template illustrates the reporting syntax:
+display "ANSWER: term_name estimate=" %21.12f estimate_value " se=" %21.12f se_value " n_obs=" %12.0f n_value
+Replace the example names with computed scalars or expressions. Use . for an unrequested standard error.
+Do not use %0.0f. Set linesize 255 to reduce wrapping. A JSON result file is not required.
+You may use the shell to write, execute, inspect errors, and revise your program.
+Run the script with /Applications/StataNow/StataSE.app/Contents/MacOS/stata-se -b do run.do and inspect run.log if needed.
+Write run.do and execute it in batch mode. Leave run.log containing all required ANSWER lines.
+Save the final solution as run.py for Python, run.R for R, or run.do for Stata.
+Before submission, verify the statistical calculation using the supplied data.
+Check the estimation sample, observation count, and variable construction against the task.
+Check the estimator and uncertainty calculation against the stated specification.
+Run at least one independent numerical check of a central calculation.
+Use a separate calculation or a mathematical identity that applies to this task.
+Inspect any discrepancy and correct errors supported by these checks.
+After edits, rerun the final script and inspect its requested output.
+Save a short plain-text account of the checks and their results in verification.txt.
+Use only the task statement, supplied data, installed software, and files you create.
+After these checks, finish with DONE.
+
+Use only the supplied input.csv and files you create in this directory.
+Installed software and package resources are available.
+Do not read external agent skills, project instructions, prior results, or benchmark references.
+Do not create journals or use Git. Do not use MCP servers, web tools, or other agents.

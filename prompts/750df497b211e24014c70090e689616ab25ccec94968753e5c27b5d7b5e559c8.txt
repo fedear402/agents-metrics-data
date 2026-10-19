@@ -1,0 +1,158 @@
+You are a careful econometrician completing a benchmark task.
+The dataset is provided as ./input.csv.
+One shared fixed dataset with 420 rows. Columns: id, y, x, z.
+
+Related example: An ordered satisfaction response with one covariate
+Separate example context: A separate simulated survey records satisfaction categories 1, 2, and 3 and one service-speed covariate. Fit an ordered logit without an additional intercept. Report the slope and the probability of category 3 at speed zero.
+Explanation of this example: Two ordered cutpoints provide location parameters. A separate free intercept would duplicate location. The native routine reports actual cutpoints directly. At speed zero, the highest-category probability is one minus the logistic CDF at the second cutpoint. Use the native likelihood covariance for slope uncertainty.
+```r
+d <- read.csv(text = "speed,category
+1.6480031775062083,3
+-0.79654089473893419,3
+-1.104464688535105,2
+-0.32607200281111165,1
+1.8303187940089758,3
+0.26061911560261475,1
+0.44084004247426123,1
+0.43221778121516885,3
+-1.0278118947406008,1
+-0.54016827503121612,2
+-1.1987571682341729,2
+0.10181384147660234,1
+-0.15136563220662783,3
+-0.11828409395393713,1
+0.088145269878948149,1
+0.27573581664302022,3
+0.029362766450005021,3
+1.221271322683761,1
+0.58815349544266371,1
+-0.14292843936543817,1
+0.95571874246780619,1
+0.82596603855359818,3
+-0.48615723250541926,3
+0.12236990963699111,2
+0.33916246311735376,2
+-0.71690734055070315,3
+0.98663776388928071,1
+-0.12864739007285611,2
+0.81366540079025151,1
+1.4545250083331998,2
+-0.91680622477906526,3
+-1.8961501423034226,1
+-1.3571054502805009,3
+-0.386948740767876,1
+1.9693448452461302,3
+-1.151482887498386,2
+0.97951762110706375,1
+1.4364227374970069,3
+-0.043159676130574219,3
+-0.50794382013040051,1
+0.74149824966506772,3
+-0.11188068954381473,1
+-0.4048871194110733,3
+-0.42428479705543759,3
+1.9877213185630604,2
+-0.26008139422011683,1
+-2.2185545435805212,2
+-2.3213061409791611,1
+-0.45821528643205495,1
+0.12562678857057683,1
+0.45209372548428978,2
+-0.63492303092840874,1
+-0.3504269258015959,1
+0.39753717740930944,2
+1.7612446875992909,3
+0.2235072809692199,2
+-2.4407610652682536,1
+0.53532245989809524,2
+-0.10200243654884882,2
+0.56755589574626275,2
+-0.92946134013733217,1
+-0.88870039202695605,1
+0.37972424350784617,1
+0.22328860501685388,2
+0.54366294223871092,3
+0.16090715079729767,2
+-1.1299550297771037,1
+-0.53134396418434182,1
+0.76230709981191236,3
+-1.2810445928815868,1
+1.6120547679928912,3
+1.4063145807201793,2
+-0.6644244932974156,1
+0.27672654579167089,2
+0.67845826200578618,3
+-0.90162720016101117,1
+-1.6145816585919475,1
+-0.6134137863561,2
+-0.75638415422530036,3
+-1.0928252686516793,3
+-0.35533004662821627,2
+1.438546010632288,1
+2.8070955540910649,2
+-0.32740361083348563,2
+-0.65760262263325908,1
+0.19937100388363829,2
+-3.3914066341633999,1
+0.83511991507253236,3
+-0.21057428185285534,1
+-0.57387519040242985,2")
+# The cutpoints supply location. polr does not add a separate free intercept.
+d$category <- ordered(d$category, levels=1:3)
+fit <- MASS::polr(category ~ speed, data=d, method="logistic", Hess=TRUE,
+                  control=list(reltol=1e-12, maxit=1000))
+V <- vcov(fit)
+# polr reports actual ordered cutpoints, not log spacings.
+stopifnot(fit$zeta[1] < fit$zeta[2])
+probability <- 1-plogis(fit$zeta[2])
+rows <- list(
+  list(term="speed_slope", estimate=unname(coef(fit)["speed"]), se=sqrt(V["speed","speed"]), n_obs=90L),
+  list(term="high_at_zero", estimate=unname(probability), se=NULL, n_obs=90L))
+jsonlite::write_json(list(task_id="ordered_logit_separate_example", estimates=rows), "example_result.json", auto_unbox=TRUE, null="null", digits=16, pretty=TRUE)
+```
+Expected example_result.json:
+```json
+{
+  "task_id": "ordered_logit_separate_example",
+  "estimates": [
+    {
+      "term": "speed_slope",
+      "estimate": 0.5293805022569584,
+      "se": 0.19949875013809112,
+      "n_obs": 90
+    },
+    {
+      "term": "high_at_zero",
+      "estimate": 0.2788147485157594,
+      "se": null,
+      "n_obs": 90
+    }
+  ]
+}
+```
+
+
+Task: Estimate an ordered logit model for y, whose categories are ordered 1, 2, 3. Use x and z as covariates. Estimate two free cutpoints and no separate intercept. Use maximum likelihood and conventional observed-information standard errors. Report slope rows x and z. Also report prob_high as the fitted probability of category 3 for x=1 and z=0, with se=null. Use all observations and report their number as n_obs for every row.
+
+Use Rscript. Prefer base R plus common econometrics packages such as AER, ivreg, sandwich, lmtest, survival, plm, vars, forecast, and jsonlite when needed. For IV/2SLS tasks, AER::ivreg or ivreg::ivreg with sandwich::vcovHC(..., type = "HC1") is available.
+
+Required output:
+  - Write a file `result.json` in the working directory with this shape:
+    {
+      "task_id": "broad_ordered_logit",
+      "platform": "<python|r|stata>",
+      "estimates": [
+        {"term": "x", "estimate": <float>, "se": <float or null>, "n_obs": <int>},
+        {"term": "z", "estimate": <float>, "se": <float or null>, "n_obs": <int>},
+        {"term": "prob_high", "estimate": <float>, "se": <float or null>, "n_obs": <int>}
+      ],
+      "method_metadata": {"estimator": "<string>", "vcov": "<string>"},
+      "diagnostics": {}
+    }
+  - Estimate names must be exactly: "x", "z", "prob_high".
+  - Report numeric values to at least 6 significant digits when possible.
+  - Do not include extra prose in `result.json`.
+
+The evaluator executes your script later in a directory containing input.csv.
+Act only as a code generator. Do not use tools, inspect files, or execute code.
+Return exactly one fenced r code block and nothing else.

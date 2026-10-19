@@ -1,0 +1,76 @@
+You are a careful econometrician writing a single self-contained python script.
+
+Dataset provided as `./input.csv`; original source file: `pilot_v5_rdd.csv`.
+Columns: z, d, y.
+
+Few-shot demonstration:
+The following worked example solves a related econometric task from the same
+family as the scored task below. It shows the expected implementation style
+and the result.json conventions on its own small inline data. The scored task
+is a different task: do not copy the demonstration's variable names, inline
+data, or numbers. The scored task must read ./input.csv and write
+./result.json.
+
+Demonstration task: with an inline two-period dataset of treated and control
+stores, compute the canonical 2x2 difference-in-differences estimate from the
+four group-by-period means of sales. Report row did with se null.
+
+```python
+import json
+import pandas as pd
+
+df = pd.DataFrame({
+    "store": [1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6],
+    "treated": [1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0],
+    "post": [0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1],
+    "sales": [20.0, 26.0, 22.0, 27.5, 21.0, 26.5,
+              19.5, 21.0, 20.5, 22.5, 21.5, 23.0],
+})
+means = df.groupby(["treated", "post"])["sales"].mean()
+did = (means[1, 1] - means[1, 0]) - (means[0, 1] - means[0, 0])
+out = {
+    "task_id": "demo_did",
+    "platform": "python",
+    "estimates": [
+        {"term": "did", "estimate": float(did), "se": None,
+         "n_obs": int(len(df))},
+    ],
+    "method_metadata": {"estimator": "2x2 DiD from cell means",
+                        "vcov": "none"},
+    "diagnostics": {},
+}
+with open("result.json", "w") as f:
+    json.dump(out, f)
+```
+
+
+Task: Using bandwidth h = 0.5 and triangular kernel weights, fit local linear regressions on each side of cutoff z = 0 and report the difference in intercepts as row late.
+
+Use Python 3 with pandas and statsmodels or other standard scientific packages already available in the environment. Read the CSV with pandas and write JSON with json.dump.
+
+Required output:
+  - Write a file `result.json` in the working directory with this shape:
+    {
+      "task_id": "rdd_sharp",
+      "platform": "<python|r|stata>",
+      "estimates": [
+        {"term": "late", "estimate": <float>, "se": <float or null>, "n_obs": <int>}
+      ],
+      "method_metadata": {"estimator": "<string>", "vcov": "<string>"},
+      "diagnostics": {}
+    }
+  - Estimate names must be exactly: "late".
+  - Report numeric values to at least 6 significant digits when possible.
+  - Do not include extra prose in `result.json`.
+
+
+The script will be executed with the working directory set to a folder that
+contains `input.csv`. Read the data from `./input.csv` using a relative path.
+The script must run end-to-end and produce `result.json` in the same folder.
+
+OUTPUT FORMAT - STRICT:
+Respond with exactly ONE fenced code block in python and nothing else.
+No prose before or after. The fenced block must start with ```python and end
+with ```.
+
+IMPORTANT — code generation only: input.csv is NOT in your current directory right now, and you must NOT run any commands or read any file. Your script will be executed later in a directory that contains input.csv. Return ONLY the fenced code block.

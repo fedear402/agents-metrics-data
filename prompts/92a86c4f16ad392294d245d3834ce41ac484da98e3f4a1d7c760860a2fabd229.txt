@@ -1,0 +1,127 @@
+You are a careful econometrician completing a benchmark task.
+The dataset is provided as ./input.csv.
+One shared fixed dataset with 240 rows. Columns: y, endog, x, z1, z2.
+
+Related example: Anderson-Rubin inversion with two encouragement instruments
+Separate example context: Ten separate teaching farms provide two encouragement assignments, fertilizer dose, and harvest. Assume both assignments satisfy the instrument conditions. Include an intercept and invert the homoskedastic joint F test.
+Explanation of this example: Let q count excluded instruments and df=n-p count residual degrees of freedom in the unrestricted regression. F(beta)=((SSR_R(beta)-SSR_U(beta))/q)/(SSR_U(beta)/df). Acceptance is SSR_R-(1+q*critical/df)*SSR_U<=0. Expand this into A*beta^2+B*beta+C<=0. For two distinct real boundaries, A>0 accepts the interval and A<0 accepts the outer rays. Derive the sign and membership from the example data. Other data can require separate degenerate-set handling.
+```r
+d <- read.csv(text = "encouragement,reminder,dose,harvest
+-2,-1,1.2,3.1000000000000001
+-1.5,0.80000000000000004,1.8,3.5
+-1,-0.59999999999999998,1.5,3
+-0.5,0.40000000000000002,2.7999999999999998,5.2000000000000002
+0,-0.20000000000000001,2.7000000000000002,4
+0.5,0.10000000000000001,3.7000000000000002,5.5999999999999996
+1,0.29999999999999999,3.3999999999999999,5.4000000000000004
+1.5,-0.5,4.2000000000000002,6.7999999999999998
+2,0.69999999999999996,4.5,6.5
+2.5,-0.90000000000000002,5.2999999999999998,8")
+n <- nrow(d)
+restricted <- cbind(1)
+ry <- residuals(lm(harvest~1,data=d)); rd <- residuals(lm(dose~1,data=d))
+full_y <- lm(harvest~encouragement+reminder,data=d)
+full_d <- lm(dose~encouragement+reminder,data=d)
+uy <- residuals(full_y); ud <- residuals(full_d)
+q <- 2L; df <- df.residual(full_y)
+critical <- qf(.95,q,df)
+# Joint F divides the reduction in SSR by q, not one.
+k <- q*critical/df
+A <- sum(rd^2)-(1+k)*sum(ud^2)
+B <- -2*(sum(ry*rd)-(1+k)*sum(uy*ud))
+C <- sum(ry^2)-(1+k)*sum(uy^2)
+stopifnot(abs(A)>1e-10,B^2-4*A*C>0)
+bounds <- sort(Re(polyroot(c(C,B,A)))) # Ascending polynomial powers in R.
+unbounded <- as.integer(A<0)
+# A>0 accepts the interval. A<0 accepts the two outer rays.
+accepts <- function(beta) A*beta^2+B*beta+C<=0
+for (b in bounds) {
+  transformed <- d$harvest-b*d$dose
+  restricted_fit <- lm(transformed~1,data=d)
+  full_fit <- lm(transformed~encouragement+reminder,data=d)
+  F <- ((deviance(restricted_fit)-deviance(full_fit))/q)/(deviance(full_fit)/df)
+  stopifnot(abs(F-critical)<1e-8)
+}
+rows <- list(
+  list(term="fertilizer_boundary_low", estimate=unname(bounds[1]), se=NULL, n_obs=10L),
+  list(term="fertilizer_boundary_high", estimate=unname(bounds[2]), se=NULL, n_obs=10L),
+  list(term="fertilizer_accepts_zero", estimate=unname(as.integer(accepts(0))), se=NULL, n_obs=10L),
+  list(term="fertilizer_unbounded", estimate=unname(unbounded), se=NULL, n_obs=10L))
+jsonlite::write_json(list(task_id="fertilizer_two_encouragement_ar", estimates=rows), "example_result.json", auto_unbox=TRUE, null="null", digits=16, pretty=TRUE)
+```
+Expected example_result.json:
+```json
+{
+  "task_id": "fertilizer_two_encouragement_ar",
+  "estimates": [
+    {
+      "term": "fertilizer_boundary_low",
+      "estimate": 0.8599525486823083,
+      "se": null,
+      "n_obs": 10
+    },
+    {
+      "term": "fertilizer_boundary_high",
+      "estimate": 1.445925596937411,
+      "se": null,
+      "n_obs": 10
+    },
+    {
+      "term": "fertilizer_accepts_zero",
+      "estimate": 0,
+      "se": null,
+      "n_obs": 10
+    },
+    {
+      "term": "fertilizer_unbounded",
+      "estimate": 0,
+      "se": null,
+      "n_obs": 10
+    }
+  ]
+}
+```
+
+
+Task: Estimate the 95 percent Anderson-Rubin confidence set for the coefficient beta of endog in y = intercept + beta*endog + gamma*x + error, using excluded instruments z1 and z2. For each candidate beta, regress y-beta*endog on an intercept, x, z1, and z2. Use the conventional homoskedastic joint F test of both excluded-instrument coefficients, with numerator degrees of freedom 2 and denominator n-4. Accept beta when F is at most the 95th percentile of that F distribution. Invert this test over the entire real line, without a bounded search grid. The data yield two finite boundary points. Report their smaller and larger values as boundary_low and boundary_high. Report accepts_zero as 1 if zero belongs to the confidence set, otherwise 0. Report unbounded as 1 if the set includes arbitrarily large positive or negative beta values, otherwise 0. Report ar_f_at_one as the test statistic at beta=1. Use se=null and the full sample size as n_obs for every row. Determine set membership from the test inequality. A disjoint set is possible.
+
+Use Rscript. Prefer base R plus common econometrics packages such as AER, ivreg, sandwich, lmtest, survival, plm, vars, forecast, and jsonlite when needed. For IV/2SLS tasks, AER::ivreg or ivreg::ivreg with sandwich::vcovHC(..., type = "HC1") is available.
+
+Required output:
+  - Write a file `result.json` in the working directory with this shape:
+    {
+      "task_id": "broad_ar_confidence_set",
+      "platform": "<python|r|stata>",
+      "estimates": [
+        {"term": "boundary_low", "estimate": <float>, "se": <float or null>, "n_obs": <int>},
+        {"term": "boundary_high", "estimate": <float>, "se": <float or null>, "n_obs": <int>},
+        {"term": "accepts_zero", "estimate": <float>, "se": <float or null>, "n_obs": <int>},
+        {"term": "unbounded", "estimate": <float>, "se": <float or null>, "n_obs": <int>},
+        {"term": "ar_f_at_one", "estimate": <float>, "se": <float or null>, "n_obs": <int>}
+      ],
+      "method_metadata": {"estimator": "<string>", "vcov": "<string>"},
+      "diagnostics": {}
+    }
+  - Estimate names must be exactly: "boundary_low", "boundary_high", "accepts_zero", "unbounded", "ar_f_at_one".
+  - Report numeric values to at least 6 significant digits when possible.
+  - Do not include extra prose in `result.json`.
+
+You may use the shell to write, execute, inspect errors, and revise your program.
+Run the script with Rscript --vanilla run.R.
+Write and run a script. Leave result.json and the script in this directory.
+Save the final solution as run.py for Python, run.R for R, or run.do for Stata.
+Before submission, verify the statistical calculation using the supplied data.
+Check the estimation sample, observation count, and variable construction against the task.
+Check the estimator and uncertainty calculation against the stated specification.
+Run at least one independent numerical check of a central calculation.
+Use a separate calculation or a mathematical identity that applies to this task.
+Inspect any discrepancy and correct errors supported by these checks.
+After edits, rerun the final script and inspect its requested output.
+Save a short plain-text account of the checks and their results in verification.txt.
+Use only the task statement, supplied data, installed software, and files you create.
+After these checks, finish with DONE.
+
+Use only the supplied input.csv and files you create in this directory.
+Installed software and package resources are available.
+Do not read external agent skills, project instructions, prior results, or benchmark references.
+Do not create journals or use Git. Do not use MCP servers, web tools, or other agents.

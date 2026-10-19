@@ -1,0 +1,23 @@
+Use Stata to solve the following task.
+
+Task:
+Use every CSV supplied for this task. Join trade.code to crosswalk.code. Missing area-industry employment cells mean zero. There are four industries. National industry employment is the sum across all supplied areas, within period and vintage. For each area-period, construct x=sum_j[(base area-industry employment/base total_employment)*(us_change/national base industry employment)/(price_index/100)/1000*(10/years)]. Construct z by replacing base with early and us_change with other_change everywhere. Trade changes are nominal dollars over the stated interval. The resulting exposures are thousands of real dollars per worker per decade. Outcome change_pp is already a decadal percentage-point change. Estimate weighted 2SLS on all 72 area-period observations: change_pp on an intercept, period, control, and x. Instrument x with z. Include all three exogenous columns as instruments. Use base-vintage population as the regression weight. Report the x coefficient, x for area 0 in each period, and z for area 0 in period 0. The task defines its denominator and interval conventions explicitly. Each code maps to exactly one industry. Within each period, each industry has one trade-code row. Price_index and years are constant within period. All national industry employment denominators are positive. Set n_obs to the number of area-period estimation rows.
+
+Data dictionary:
+crosswalk.csv: code = Trade-code key for the industry crosswalk; industry = Industry identifier
+trade.csv: period = Calendar period or interval identifier as defined in the task; code = Trade-code key for the industry crosswalk; us_change = Nominal import change for the focal country in dollars; other_change = Nominal import change in the instrument countries, in dollars; price_index = Price deflator, with base value 100; years = Interval length in years
+areas.csv: area = Synthetic area identifier; period = Calendar period or interval identifier as defined in the task; vintage = Employment measurement date: base or early; total_employment = Total employment, including industries outside the listed manufacturing sectors; population = Base-vintage population used as the regression weight
+employment.csv: area = Synthetic area identifier; period = Calendar period or interval identifier as defined in the task; vintage = Employment measurement date: base or early; industry = Industry identifier; employment = Area-industry employment; omitted cells contain zero
+outcomes.csv: area = Synthetic area identifier; period = Calendar period or interval identifier as defined in the task; control = Supplied exogenous control; change_pp = Outcome change already expressed in percentage points per decade
+
+Read the supplied files: crosswalk.csv, trade.csv, areas.csv, employment.csv, outcomes.csv.
+Return these quantities as named estimates: iv_slope, exposure_area0_period0, exposure_area0_period1, instrument_area0_period0.
+Print one line per estimate using this format. Use the sample count specified in the task. Report at least eight significant digits. Each requested uncertainty measure is a separate estimate term. Use exact integers for declared count targets.
+ANSWER: iv_slope estimate=<number> se=NA n_obs=<integer>
+ANSWER: exposure_area0_period0 estimate=<number> se=NA n_obs=<integer>
+ANSWER: exposure_area0_period1 estimate=<number> se=NA n_obs=<integer>
+ANSWER: instrument_area0_period0 estimate=<number> se=NA n_obs=<integer>
+
+Write one self-contained Stata script. The evaluator runs it with the supplied CSV files in its working directory.
+Act only as a code generator. Do not use tools, inspect files, or execute code.
+Return exactly one fenced stata code block and nothing else.

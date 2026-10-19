@@ -1,0 +1,26 @@
+Use R to solve the following task.
+
+Task:
+Read input.csv from the current directory. Its columns are unit (unit identifier), period (calendar period), y (outcome), x (endogenous regressor), and z (excluded instrument).
+
+Estimate y responses at h=0,1,2 using 2SLS local projections. Each origin (unit,t) must have that same unit observed at calendar t-1,t,t+1,t+2. Use this common sample for every horizon. For each h, regress y_(t+h) on endogenous x_t, y_(t-1), unit fixed effects, and origin-period fixed effects. Include an intercept and omit one category from each fixed-effect set. The only excluded instrument is z_t. All included exogenous regressors instrument themselves. Report x coefficients as lp_h0,lp_h1,lp_h2. Do not treat adjacent stored rows as adjacent calendar periods. The sample count is the number of retained origin rows.
+
+Report these terms: lp_h0, lp_h1, lp_h2. Return each requested number as an estimate. Standard errors are not requested. Set se to null. Set n_obs to 481, the sample count defined above. Use jsonlite::write_json to write result.json with task_id "hard_panel_lp_iv", platform "r", an estimates list of term, estimate, se, and n_obs objects, and method_metadata and diagnostics objects. Set se to null. Set n_obs to the sample count specified in the task. Report at least eight significant digits. Each requested uncertainty measure is a separate estimate term. Use exact integers for declared count targets.
+
+Use the shell to write, execute, inspect, and revise your script.
+Run the script with Rscript --vanilla run.R.
+Leave the final script as run.R and its requested output in this directory.
+Save the final solution as run.py for Python, run.R for R, or run.do for Stata.
+Before submission, verify the statistical calculation using the supplied data.
+Check the estimation sample, observation count, and variable construction against the task.
+Check the estimator and uncertainty calculation against the stated specification.
+Run at least one independent numerical check of a central calculation.
+Use a separate calculation or a mathematical identity that applies to this task.
+Inspect any discrepancy and correct errors supported by these checks.
+After edits, rerun the final script and inspect its requested output.
+Save a short plain-text account of the checks and their results in verification.txt.
+Use only the task statement, supplied data, installed software, and files you create.
+After these checks, finish with DONE.
+Use only the supplied CSV files, installed software, and files you create in this directory.
+Do not read benchmark references, previous results, agent skills, or project instructions.
+Do not use Git, web tools, MCP servers, or other agents.

@@ -1,0 +1,65 @@
+You are a careful econometrician writing a single self-contained stata script.
+
+Dataset provided as `./input.csv`; original source file: `pilot_v5_collinear.csv`.
+Columns: y, x1, x2, x3, x4, x5.
+
+Few-shot demonstration:
+The following worked example solves a related econometric task from the same
+family as the scored task below. It shows the expected implementation style
+and the labelled printed-result conventions on its own small inline data. The scored task
+is a different task: do not copy the demonstration's variable names, inline
+data, or numbers. The scored task must read ./input.csv and print the required ANSWER lines.
+
+Demonstration task: fit OLS of resp on w1 and w2 with an intercept on inline
+data and compute the leverage (hat) value of each observation. Report the
+maximum leverage as row max_leverage and its zero-based row index as row max_leverage_obs.
+
+```stata
+clear
+input resp w1 w2
+3.1 1.0 0.5
+4.0 1.5 0.7
+4.8 2.0 0.6
+6.2 2.5 1.1
+5.9 3.0 0.9
+7.4 3.5 1.3
+8.1 4.0 1.2
+9.0 9.0 1.0
+end
+regress resp w1 w2
+predict hat, hat
+gen obs0 = _n - 1
+gsort -hat
+local maxh = string(hat[1], "%21.12f")
+local maxi = string(obs0[1], "%12.0f")
+local n = string(e(N), "%12.0f")
+local q = char(34)
+display "ANSWER: max_leverage estimate=`maxh' se=. n_obs=`n'"
+display "ANSWER: max_leverage_obs estimate=`maxi' se=. n_obs=`n'"
+```
+
+
+Task: For the linear model y on x1, x2, x3, x4, and x5, compute the VIF for each regressor. Report rows vif_x1, vif_x2, vif_x3, vif_x4, and vif_x5.
+
+Use Stata syntax in a do-file. Read the CSV with import delimited. Print labelled numeric results with display.
+
+Print one labelled line per required result to the Stata log:
+ANSWER: vif_x1 estimate=<number> se=<number or .> n_obs=<integer>
+ANSWER: vif_x2 estimate=<number> se=<number or .> n_obs=<integer>
+ANSWER: vif_x3 estimate=<number> se=<number or .> n_obs=<integer>
+ANSWER: vif_x4 estimate=<number> se=<number or .> n_obs=<integer>
+ANSWER: vif_x5 estimate=<number> se=<number or .> n_obs=<integer>
+Set linesize 255. This template shows valid Stata reporting syntax:
+display "ANSWER: term_name estimate=" %21.12f estimate_value " se=" %21.12f se_value " n_obs=" %12.0f n_value
+Replace the example names with computed scalars or expressions. For an unrequested standard error (called null in the task), print a single dot.
+Do not use %0.0f. No JSON file or JSON validation is required.
+
+The script will be executed with the working directory set to a folder that
+contains `input.csv`. Read the data from `./input.csv` using a relative path.
+The script must run end-to-end and print the required ANSWER lines to the Stata log.
+
+OUTPUT FORMAT - STRICT:
+Respond with exactly ONE fenced code block in stata and nothing else.
+No prose before or after. The fenced block must start with ```stata and end
+with ```.
+Code generation only. input.csv is not in your current directory. Do not use tools or read files. The evaluator executes your script later with input.csv. Return only the fenced script.

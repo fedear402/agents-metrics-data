@@ -1,0 +1,12 @@
+Use Python to solve the following task.
+
+Task:
+Read input.csv from the current directory. Its columns are unit (unit identifier), period (calendar period), y (outcome), x (endogenous regressor), and z (excluded instrument).
+
+Estimate y responses at h=0,1,2 using 2SLS local projections. Each origin (unit,t) must have that same unit observed at calendar t-1,t,t+1,t+2. Use this common sample for every horizon. For each h, regress y_(t+h) on endogenous x_t, y_(t-1), unit fixed effects, and origin-period fixed effects. Include an intercept and omit one category from each fixed-effect set. The only excluded instrument is z_t. All included exogenous regressors instrument themselves. Report x coefficients as lp_h0,lp_h1,lp_h2. Do not treat adjacent stored rows as adjacent calendar periods. The sample count is the number of retained origin rows.
+
+Report these terms: lp_h0, lp_h1, lp_h2. Return each requested number as an estimate. Standard errors are not requested. Set se to null. Set n_obs to 481, the sample count defined above. Use json.dump to write result.json with task_id "hard_panel_lp_iv", platform "python", estimates (a list of term, estimate, se, n_obs objects), method_metadata (an object), and diagnostics (an object). Report at least eight significant digits. Use the supplied input.csv and installed numpy, pandas, scipy, statsmodels, and linearmodels.
+
+Write one self-contained Python script. The evaluator runs it with the supplied CSV files in its working directory.
+Act only as a code generator. Do not use tools, inspect files, or execute code.
+Return exactly one fenced python code block and nothing else.

@@ -1,0 +1,86 @@
+You are a careful econometrician writing a single self-contained python script.
+
+Dataset provided as `./input.csv`; original source file: `pilot_v5_anova.csv`.
+Columns: group, y.
+
+Few-shot demonstration:
+The following worked example solves a related econometric task from the same
+family as the scored task below. It shows the expected implementation style
+and the result.json conventions on its own small inline data. The scored task
+is a different task: do not copy the demonstration's variable names, inline
+data, or numbers. The scored task must read ./input.csv and write
+./result.json.
+
+Demonstration task: with inline data on study hours and exam score, compute the
+Pearson correlation and the two-sided t test of zero correlation with n - 2
+degrees of freedom. Report rows r, t_stat, and p_val.
+
+```python
+import json
+import numpy as np
+from scipy import stats
+
+hours = np.array([2.0, 3.5, 5.0, 6.0, 7.5, 9.0, 10.0, 12.0])
+score = np.array([55.0, 60.0, 62.0, 68.0, 70.0, 74.0, 79.0, 83.0])
+n = len(hours)
+r, p_val = stats.pearsonr(hours, score)
+t_stat = r * np.sqrt(n - 2) / np.sqrt(1 - r**2)
+out = {
+    "task_id": "demo_corr",
+    "platform": "python",
+    "estimates": [
+        {"term": "r", "estimate": float(r), "se": None, "n_obs": n},
+        {"term": "t_stat", "estimate": float(t_stat), "se": None, "n_obs": n},
+        {"term": "p_val", "estimate": float(p_val), "se": None, "n_obs": n},
+    ],
+    "method_metadata": {"estimator": "Pearson correlation t test",
+                        "vcov": "none"},
+    "diagnostics": {},
+}
+with open("result.json", "w") as f:
+    json.dump(out, f)
+```
+
+
+Task: Run a one-way ANOVA of y by group. Report the omnibus F statistic, numerator degrees of freedom, denominator degrees of freedom, and p-value as rows F, df_num, df_den, and p_value.
+
+Use Python 3 with pandas and statsmodels or other standard scientific packages already available in the environment. Read the CSV with pandas and write JSON with json.dump.
+
+Required output:
+  - Write a file `result.json` in the working directory with this shape:
+    {
+      "task_id": "anova_oneway",
+      "platform": "<python|r|stata>",
+      "estimates": [
+        {"term": "F", "estimate": <float>, "se": <float or null>, "n_obs": <int>},
+        {"term": "df_num", "estimate": <float>, "se": <float or null>, "n_obs": <int>},
+        {"term": "df_den", "estimate": <float>, "se": <float or null>, "n_obs": <int>},
+        {"term": "p_value", "estimate": <float>, "se": <float or null>, "n_obs": <int>}
+      ],
+      "method_metadata": {"estimator": "<string>", "vcov": "<string>"},
+      "diagnostics": {}
+    }
+  - Estimate names must be exactly: "F", "df_num", "df_den", "p_value".
+  - Report numeric values to at least 6 significant digits when possible.
+  - Do not include extra prose in `result.json`.
+
+
+You may use the shell to write, execute, inspect errors, and revise your program.
+Run the script with /Users/federicolopez/LOCAL/GALIANI/AGENTS-METRICS/.venv/bin/python3 run.py.
+Write and run a script. Leave result.json and the script in this directory.
+Save the final solution as run.py for Python, run.R for R, or run.do for Stata.
+Before submission, verify the statistical calculation using the supplied data.
+Check the estimation sample, observation count, and variable construction against the task.
+Check the estimator and uncertainty calculation against the stated specification.
+Run at least one independent numerical check of a central calculation.
+Use a separate calculation or a mathematical identity that applies to this task.
+Inspect any discrepancy and correct errors supported by these checks.
+After edits, rerun the final script and inspect its requested output.
+Save a short plain-text account of the checks and their results in verification.txt.
+Use only the task statement, supplied data, installed software, and files you create.
+After these checks, finish with DONE.
+
+Use only the supplied input.csv and files you create in this directory.
+Installed software and package resources are available.
+Do not read external agent skills, project instructions, prior results, or benchmark references.
+Do not create journals or use Git. Do not use MCP servers, web tools, or other agents.

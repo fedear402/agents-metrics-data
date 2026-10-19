@@ -1,0 +1,42 @@
+Task:
+Use Python. Read ./input.csv. Available columns: id, time, g, y.
+
+Construct separate cohort-specific difference-in-differences comparisons for adoption cohorts g=3,5,7. g=0 denotes never treated. For cohort c, retain calendar times c-2 through c+2. Eligible units have g=c, g=0, or g>c+2. Within that comparison, retain only units observed at all five window times. Do this balance check separately for each cohort. Define did=1 for units with g=c at times at least c, and 0 otherwise. Regress y on did, unit fixed effects, and calendar-time fixed effects separately for each cohort. Report the did coefficients as att_g3, att_g5, att_g7. No standard errors are requested. Their n_obs is the number of retained unit-time rows in that cohort comparison, including controls. Then report att_weighted as the weighted average of those three coefficients, using each comparison's number of retained treated units as its weight. For att_weighted, n_obs is the sum of the three comparison row counts, including rows reused across comparisons. Use se=null for every row. Do not fit a single unweighted regression to concatenated comparisons. The columns are id (unit), time (calendar period), g (adoption period), and y (outcome). Missing observations are absent rows. No retained row has a missing outcome. Unit-time keys are unique. Calendar times run from 1 through 10.
+
+Report the requested point estimates. Standard errors are not requested. Use json.dump to write result.json with the following structure. Replace each <number> with the computed value. Report at least eight significant digits.
+{
+  "task_id": "broad_cohort_stack",
+  "platform": "python",
+  "estimates": [
+    {
+      "term": "att_g3",
+      "estimate": "<number>",
+      "se": null,
+      "n_obs": 375
+    },
+    {
+      "term": "att_g5",
+      "estimate": "<number>",
+      "se": null,
+      "n_obs": 275
+    },
+    {
+      "term": "att_g7",
+      "estimate": "<number>",
+      "se": null,
+      "n_obs": 315
+    },
+    {
+      "term": "att_weighted",
+      "estimate": "<number>",
+      "se": null,
+      "n_obs": 965
+    }
+  ],
+  "method_metadata": {},
+  "diagnostics": {}
+}
+
+Write one self-contained Python script. The evaluator runs it with the supplied CSV files in its working directory.
+Act only as a code generator. Do not use tools, inspect files, or execute code.
+Return exactly one fenced python code block and nothing else.

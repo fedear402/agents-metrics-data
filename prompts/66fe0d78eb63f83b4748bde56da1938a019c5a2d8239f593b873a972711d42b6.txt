@@ -1,0 +1,33 @@
+Use R to solve the following task.
+
+Task:
+Workers belong to cohorts. Each cohort-month forms its own risk set. All workers enter before month one. Cohorts have independent baseline exit odds. training is a fixed binary covariate. end_month records either employment exit or right censoring. event=1 indicates employment exit. At each month, include workers whose end_month is at least that month. Evaluate all exits jointly before removing same-month censored workers. Remove both groups before the next month. No worker reenters.
+
+Estimate Cox's discrete-time conditional odds model. Its coefficient beta multiplies training. For a risk set R with d observed exits and observed training sum S, the conditional log likelihood is beta*S-log(sum_A exp(beta*sum_{j in A} training_j)). The sum covers all distinct size-d subsets of R. Add contributions across cohorts and months with at least one exit. Use exact enumeration or an elementary symmetric polynomial recursion. Maximize over beta in [-4,4].
+
+Return beta, exp(beta) as the conditional odds ratio, and the exact log likelihood without additional constants. At the fitted coefficient, return the conditional probability, given its exit count, that exactly the observed set of workers exits in cohort 0, month 1. This is the probability of those named workers, without multiplying by the number of sets with the same training sum. Also return its natural logarithm. The odds ratio is a conditional discrete-time quantity. For every result, n_obs is the number of input worker rows.
+
+Data dictionary:
+input.csv: cohort = Independent cohort-specific risk set identifier; worker = Worker identifier within the cohort; training = Fixed binary training covariate; end_month = Month of employment exit or censoring; event = One for an exit; zero for right censoring
+
+Read the supplied files: input.csv.
+Return these quantities as named estimates: training_coefficient, conditional_odds_ratio, log_likelihood, first_event_set_probability, first_event_set_log_probability.
+Use jsonlite::write_json to write result.json with task_id "lp11_duration", platform "r", an estimates list of term, estimate, se, and n_obs objects, and method_metadata and diagnostics objects. Set se to null. Set n_obs to the sample count specified in the task. Report at least eight significant digits. Each requested uncertainty measure is a separate estimate term. Use exact integers for declared count targets.
+
+Use the shell to write, execute, inspect, and revise your script.
+Run the script with Rscript --vanilla run.R.
+Leave the final script as run.R and its requested output in this directory.
+Save the final solution as run.py for Python, run.R for R, or run.do for Stata.
+Before submission, verify the statistical calculation using the supplied data.
+Check the estimation sample, observation count, and variable construction against the task.
+Check the estimator and uncertainty calculation against the stated specification.
+Run at least one independent numerical check of a central calculation.
+Use a separate calculation or a mathematical identity that applies to this task.
+Inspect any discrepancy and correct errors supported by these checks.
+After edits, rerun the final script and inspect its requested output.
+Save a short plain-text account of the checks and their results in verification.txt.
+Use only the task statement, supplied data, installed software, and files you create.
+After these checks, finish with DONE.
+Use only the supplied CSV files, installed software, and files you create in this directory.
+Do not read benchmark references, previous results, agent skills, or project instructions.
+Do not use Git, web tools, MCP servers, or other agents.

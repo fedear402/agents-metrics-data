@@ -1,0 +1,87 @@
+Use Stata to solve the following task.
+
+A smaller example uses separate synthetic data to illustrate the method.
+```stata
+clear all
+set more off
+set type double
+clear
+input double (unit period x z y)
+0 0 2.587117820488722 2.406309169294222 3.81527479462159
+0 1 -0.2157212901895262 -0.6393159419710626 0.9785489522074566
+0 2 -0.8774940625282233 -0.7557571877442736 -1.045084468246565
+0 3 -0.9113309223331579 -0.7308553198919091 -1.035919205136227
+0 4 -0.8569004520367206 -1.12568644331306 0.3579943905431128
+0 5 0.5235029245213252 0.3114103102658837 2.210785337516326
+0 6 0.7841436841865896 0.6184234039726011 2.633687489977538
+0 7 0.886007134784958 1.004887213051336 2.254609079554502
+0 8 0.6950946955755221 0.10599536297093 3.976371435759659
+0 9 0.4200471892849204 0.4737371370724687 2.211836476601526
+1 0 -0.06744870833680727 0.3921189374178837 -0.2366024352245769
+1 1 -0.4848383723781913 -0.4789967982005485 0.5551061804642444
+1 2 -1.253260942938876 -1.405938035150324 0.1524535047080803
+1 3 -0.7768934568542538 -1.179978635270158 1.59775145212923
+1 5 0.2511084992624663 0.02973520497612432 2.879874284757061
+1 6 0.4062359889118674 0.332900798803716 2.911444760855806
+1 7 -1.233501656532947 -1.571640041871214 1.641793809852837
+1 8 -0.8771999809166523 -1.361411592214729 2.670169053053544
+1 9 -0.7460239925311399 -0.1852180944129588 0.4281540644140651
+2 0 -0.8859970248012914 -0.7017819810235009 0.387666258313845
+2 1 -0.6768718311004736 -0.7641062758971169 1.538152731560993
+2 2 -1.102729198555864 -1.254046651294706 1.344745673724484
+2 3 -0.2406502349137647 -0.2667421749955064 2.352384544816461
+2 4 0.3797600543732131 0.3621061097008055 3.337822932366196
+2 5 2.403705636581248 2.059545858490241 6.985216772783142
+2 6 -0.9234443839619539 -1.174014169535309 2.625946764782848
+2 7 -1.318462724146032 -1.500129344690796 2.140165009972068
+2 8 -0.366197652074842 -0.5532781370160429 3.591644264655708
+2 9 2.52691504879251 2.113298506734278 8.119030918575843
+3 0 -2.059339366643046 -1.671699095192735 -0.6462418552617368
+3 1 1.498643779194665 1.145019076609728 6.032298669415406
+3 2 -0.1416025654670366 -0.5456060936203698 4.225925485276186
+3 3 -0.1540821581493929 0.5630563440981163 1.606846938787016
+3 4 0.05932593491652027 0.3867737638292887 3.058504143109555
+3 5 -0.1507519273387531 0.03691087169340228 3.334865496879233
+3 6 -1.537788550632191 -1.351658412792895 1.735549539579911
+3 7 -0.3223179525554433 0.2168467272045781 2.633074962277871
+3 8 0.0874753226450492 0.5026960521365299 3.675666095709862
+3 9 -1.39983358227717 -0.9504613068591614 1.856785654494658
+end
+xtset unit period
+gen double lag_y=L.y
+gen double lead1=F.y
+keep if !missing(lag_y,y,lead1)
+ivregress 2sls y lag_y i.unit i.period (x=z)
+display "ANSWER lp_h0 " %24.16g (_b[x])
+ivregress 2sls lead1 lag_y i.unit i.period (x=z)
+display "ANSWER lp_h1 " %24.16g (_b[x])
+exit, clear
+```
+
+Task:
+Read input.csv from the current directory. Its columns are unit (unit identifier), period (calendar period), y (outcome), x (endogenous regressor), and z (excluded instrument).
+
+Estimate y responses at h=0,1,2 using 2SLS local projections. Each origin (unit,t) must have that same unit observed at calendar t-1,t,t+1,t+2. Use this common sample for every horizon. For each h, regress y_(t+h) on endogenous x_t, y_(t-1), unit fixed effects, and origin-period fixed effects. Include an intercept and omit one category from each fixed-effect set. The only excluded instrument is z_t. All included exogenous regressors instrument themselves. Report x coefficients as lp_h0,lp_h1,lp_h2. Do not treat adjacent stored rows as adjacent calendar periods. The sample count is the number of retained origin rows.
+
+Report these terms: lp_h0, lp_h1, lp_h2. Return each requested number as an estimate. Standard errors are not requested. Set se to null. Set n_obs to 481, the sample count defined above. Print one line per estimate using this format. Use the sample count specified in the task. Report at least eight significant digits. Each requested uncertainty measure is a separate estimate term. Use exact integers for declared count targets.
+ANSWER: lp_h0 estimate=<number> se=NA n_obs=<integer>
+ANSWER: lp_h1 estimate=<number> se=NA n_obs=<integer>
+ANSWER: lp_h2 estimate=<number> se=NA n_obs=<integer>
+
+Use the shell to write, execute, inspect, and revise your script.
+Run the script with /Applications/StataNow/StataSE.app/Contents/MacOS/stata-se -b do run.do.
+Leave the final script as run.do and its requested output in this directory.
+Save the final solution as run.py for Python, run.R for R, or run.do for Stata.
+Before submission, verify the statistical calculation using the supplied data.
+Check the estimation sample, observation count, and variable construction against the task.
+Check the estimator and uncertainty calculation against the stated specification.
+Run at least one independent numerical check of a central calculation.
+Use a separate calculation or a mathematical identity that applies to this task.
+Inspect any discrepancy and correct errors supported by these checks.
+After edits, rerun the final script and inspect its requested output.
+Save a short plain-text account of the checks and their results in verification.txt.
+Use only the task statement, supplied data, installed software, and files you create.
+After these checks, finish with DONE.
+Use only the supplied CSV files, installed software, and files you create in this directory.
+Do not read benchmark references, previous results, agent skills, or project instructions.
+Do not use Git, web tools, MCP servers, or other agents.

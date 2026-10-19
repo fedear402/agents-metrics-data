@@ -1,0 +1,30 @@
+You are a careful econometrician completing a benchmark task.
+The dataset is provided as ./input.csv.
+One shared fixed dataset with 420 rows. Columns: id, y, x, z.
+
+
+
+Task: Estimate an ordered logit model for y, whose categories are ordered 1, 2, 3. Use x and z as covariates. Estimate two free cutpoints and no separate intercept. Use maximum likelihood and conventional observed-information standard errors. Report slope rows x and z. Also report prob_high as the fitted probability of category 3 for x=1 and z=0, with se=null. Use all observations and report their number as n_obs for every row.
+
+Use Python 3 with pandas and statsmodels or other standard scientific packages already available in the environment. Read the CSV with pandas and write JSON with json.dump.
+
+Required output:
+  - Write a file `result.json` in the working directory with this shape:
+    {
+      "task_id": "broad_ordered_logit",
+      "platform": "<python|r|stata>",
+      "estimates": [
+        {"term": "x", "estimate": <float>, "se": <float or null>, "n_obs": <int>},
+        {"term": "z", "estimate": <float>, "se": <float or null>, "n_obs": <int>},
+        {"term": "prob_high", "estimate": <float>, "se": <float or null>, "n_obs": <int>}
+      ],
+      "method_metadata": {"estimator": "<string>", "vcov": "<string>"},
+      "diagnostics": {}
+    }
+  - Estimate names must be exactly: "x", "z", "prob_high".
+  - Report numeric values to at least 6 significant digits when possible.
+  - Do not include extra prose in `result.json`.
+
+The evaluator executes your script later in a directory containing input.csv.
+Act only as a code generator. Do not use tools, inspect files, or execute code.
+Return exactly one fenced python code block and nothing else.

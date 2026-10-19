@@ -1,0 +1,17 @@
+Use Python to solve the following task.
+
+Task:
+Estimate Poisson pseudo maximum likelihood for trade. The index contains agreement, pair fixed effects, exporter-year fixed effects, and importer-year fixed effects. Use the supplied identifiers. All country pairs, including equal exporter and importer identifiers, are synthetic trading units. Detect every separated zero observation. A separation direction h satisfies Xh=0 on positive outcomes and Xh<=0 on zeros. A zero is separated if some such direction gives its index a strict negative value. Remove these observations. Retain ordinary zeros. Resolve collinear dummy columns without changing the policy span.
+
+Return the agreement coefficient and exp(coefficient)-1. Compute its sandwich standard error clustered by pair. Use bread inverse(X' diag(mu) X) and cluster scores sum_i X_i*(y_i-mu_i). Multiply the covariance by G/(G-1)*(N-1)/(N-K). N is the retained sample size, G the retained pair count, and K the retained design rank including all fixed effects. Return retained observations, separated observations, and retained zero observations. For every result, n_obs is N, the retained estimation sample size.
+
+Data dictionary:
+input.csv: exporter = Synthetic exporter identifier; importer = Synthetic importer identifier; year = Calendar year identifier; pair = Exporter-importer pair identifier and covariance cluster; exporter_year = Exporter-year fixed-effect identifier; importer_year = Importer-year fixed-effect identifier; agreement = Trade-agreement indicator; trade = Nonnegative trade outcome
+
+Read the supplied files: input.csv.
+Return these quantities as named estimates: agreement_coefficient, proportional_mean_change, pair_cluster_se, retained_observations, separated_observations, retained_zero_observations.
+Use json.dump to write result.json with task_id "lp04_ppml", platform "python", an estimates list of term, estimate, se, and n_obs objects, and method_metadata and diagnostics objects. Set se to null. Set n_obs to the sample count specified in the task. Report at least eight significant digits. Each requested uncertainty measure is a separate estimate term. Use exact integers for declared count targets.
+
+Write one self-contained Python script. The evaluator runs it with the supplied CSV files in its working directory.
+Act only as a code generator. Do not use tools, inspect files, or execute code.
+Return exactly one fenced python code block and nothing else.

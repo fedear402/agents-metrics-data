@@ -1,0 +1,86 @@
+You are a careful econometrician writing a single self-contained python script.
+
+Dataset provided as `./input.csv`; original source file: `pilot_v4_arima.csv`.
+Columns: t, y.
+
+Few-shot demonstration:
+The following worked example solves a related econometric task from the same
+family as the scored task below. It shows the expected implementation style
+and the result.json conventions on its own small inline data. The scored task
+is a different task: do not copy the demonstration's variable names, inline
+data, or numbers. The scored task must read ./input.csv and write
+./result.json.
+
+Demonstration task: for a short quarterly sales series provided inline, estimate
+an AR(1) regression of sales on its first lag with an intercept by OLS. Report
+the lag coefficient as row ar1 and the one-step-ahead forecast as row forecast_next.
+
+```python
+import json
+import pandas as pd
+import statsmodels.api as sm
+
+sales = pd.Series([102.0, 104.5, 103.8, 106.2, 108.0, 107.1,
+                   109.4, 111.0, 110.2, 112.5, 114.1, 113.6])
+df = pd.DataFrame({"sales": sales, "sales_lag": sales.shift(1)}).dropna()
+X = sm.add_constant(df[["sales_lag"]])
+fit = sm.OLS(df["sales"], X).fit()
+fc = float(fit.params["const"] + fit.params["sales_lag"] * sales.iloc[-1])
+out = {
+    "task_id": "demo_ar1",
+    "platform": "python",
+    "estimates": [
+        {"term": "ar1", "estimate": float(fit.params["sales_lag"]),
+         "se": float(fit.bse["sales_lag"]), "n_obs": int(fit.nobs)},
+        {"term": "forecast_next", "estimate": fc, "se": None,
+         "n_obs": int(fit.nobs)},
+    ],
+    "method_metadata": {"estimator": "AR(1) by OLS", "vcov": "classical"},
+    "diagnostics": {},
+}
+with open("result.json", "w") as f:
+    json.dump(out, f)
+```
+
+
+Task: Fit ARIMA(1,1,1) to the level series y by maximum likelihood, including no constant or drift term. Report the one-step-ahead forecast of y in levels for t = 251 and the 95 percent prediction interval bounds as rows named forecast, lower_95, and upper_95.
+
+Use Python 3 with pandas and statsmodels or other standard scientific packages already available in the environment. Read the CSV with pandas and write JSON with json.dump.
+
+Required output:
+  - Write a file `result.json` in the working directory with this shape:
+    {
+      "task_id": "arima_forecast",
+      "platform": "<python|r|stata>",
+      "estimates": [
+        {"term": "forecast", "estimate": <float>, "se": <float or null>, "n_obs": <int>},
+        {"term": "lower_95", "estimate": <float>, "se": <float or null>, "n_obs": <int>},
+        {"term": "upper_95", "estimate": <float>, "se": <float or null>, "n_obs": <int>}
+      ],
+      "method_metadata": {"estimator": "<string>", "vcov": "<string>"},
+      "diagnostics": {}
+    }
+  - Estimate names must be exactly: "forecast", "lower_95", "upper_95".
+  - Report numeric values to at least 6 significant digits when possible.
+  - Do not include extra prose in `result.json`.
+
+
+You may use the shell to write, execute, inspect errors, and revise your program.
+Run the script with /Users/federicolopez/LOCAL/GALIANI/AGENTS-METRICS/.venv/bin/python3 run.py.
+Write and run a script. Leave result.json and the script in this directory.
+Save the final solution as run.py for Python, run.R for R, or run.do for Stata.
+Before submission, verify the statistical calculation using the supplied data.
+Check the estimation sample, observation count, and variable construction against the task.
+Check the estimator and uncertainty calculation against the stated specification.
+Run at least one independent numerical check of a central calculation.
+Use a separate calculation or a mathematical identity that applies to this task.
+Inspect any discrepancy and correct errors supported by these checks.
+After edits, rerun the final script and inspect its requested output.
+Save a short plain-text account of the checks and their results in verification.txt.
+Use only the task statement, supplied data, installed software, and files you create.
+After these checks, finish with DONE.
+
+Use only the supplied input.csv and files you create in this directory.
+Installed software and package resources are available.
+Do not read external agent skills, project instructions, prior results, or benchmark references.
+Do not create journals or use Git. Do not use MCP servers, web tools, or other agents.

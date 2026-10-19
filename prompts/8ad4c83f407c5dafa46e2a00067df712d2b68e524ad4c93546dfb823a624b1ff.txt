@@ -1,0 +1,94 @@
+You are a careful econometrician completing a benchmark task.
+The dataset is provided as ./input.csv.
+id, score centered at eligibility cutoff, participated, earnings. Simulated applicant data.
+
+Related example: A weighted water-filter discontinuity with two group means
+Separate example context: Twelve households lie on either side of a water-filter voucher threshold. This simplified illustration uses two group means. It has no running-variable slopes. The supplied unequal weights are fixed. Estimate high-minus-low differences in clean-water days and filter use, their ratio, and empirical HC0 uncertainty.
+Explanation of this example: The design contains an intercept and a high-group indicator. The contrast [0,1] selects the high-minus-low difference in each outcome. First project each observation's coefficient contribution onto this contrast. Then form the joint covariance from the two resulting outcome contributions. Each contribution contains one weight, so its outer product contains the squared weight. The cross-outcome entry uses both residuals from the same household. The delta-method gradient combines both variances and their covariance. Use no degrees-of-freedom correction. A causal ratio interpretation requires additional identification assumptions.
+```stata
+version 19.0
+clear all
+set more off
+set linesize 255
+* Fixed teaching data, separate from the scored task.
+input double above weights filter_use clean_days
+0 1 0 8
+0 2 0 10
+0 1 1 12
+0 3 0 9
+0 2 0 11
+0 1 1 13
+1 2 1 16
+1 1 1 18
+1 3 0 11
+1 1 1 17
+1 2 1 20
+1 2 1 19
+end
+mata:
+above=st_data(.,"above")
+w=st_data(.,"weights")
+Y=st_data(.,("clean_days","filter_use"))
+X=(J(rows(Y),1,1),above)
+bread=invsym(X'*(w:*X))
+coefficients=bread*X'*(w:*Y)
+residuals=Y-X*coefficients
+// Intercept plus indicator: this contrast selects high minus low.
+contrast=(0\1)
+jumps=contrast'*coefficients
+loading=w:*(X*bread*contrast)
+influence=loading:*residuals
+// Each contribution contains one weight; the outer product squares it.
+joint=influence'*influence
+gradient=(1/jumps[2]\-jumps[1]/jumps[2]^2)
+ratio_se=sqrt(gradient'*joint*gradient)
+printf("ANSWER: clean_days_difference estimate=%21.15g se=%21.15g n_obs=12\n",jumps[1],sqrt(joint[1,1]))
+printf("ANSWER: filter_use_difference estimate=%21.15g se=%21.15g n_obs=12\n",jumps[2],sqrt(joint[2,2]))
+printf("ANSWER: filter_ratio estimate=%21.15g se=%21.15g n_obs=12\n",jumps[1]/jumps[2],ratio_se)
+printf("ANSWER: difference_covariance estimate=%21.15g se=NA n_obs=12\n",joint[1,2])
+end
+```
+Expected printed output:
+```text
+ANSWER: clean_days_difference estimate=5.98181818181818 se=1.7583031820231 n_obs=12
+ANSWER: filter_use_difference estimate=0.527272727272727 se=0.260667498101754 n_obs=12
+ANSWER: filter_ratio estimate=11.3448275862069 se=3.11953532342856 n_obs=12
+ANSWER: difference_covariance estimate=0.402443685540605 se=NA n_obs=12
+```
+
+
+Task: A training program becomes more accessible when an applicant's eligibility score reaches zero. The file contains id, score, participated (0 or 1), and earnings. Estimate the effect of participation at the eligibility cutoff using fuzzy regression discontinuity.
+
+Use cutoff zero and bandwidth 1 on each side. Include observations with abs(score)<1. Use triangular weights 1-abs(score). Fit separate local-linear slopes on the two sides, with intercepts. Use the same observations and weights for earnings and participation. Report the earnings discontinuity as reduced_form, the participation discontinuity as first_stage, and their ratio as treatment_effect. Each discontinuity is the right limit minus the left limit.
+
+Report conventional heteroskedasticity-robust HC0 standard errors with no degrees-of-freedom correction. Treat the bandwidth and weights as fixed. For treatment_effect, use the delta method and the joint covariance of the two discontinuity estimates from the same observations. Account for their covariance. Do not apply bias correction. Report n_obs as the total number of observations inside the bandwidth for every row.
+
+Use a Stata do-file. Read ./input.csv with import delimited.
+
+Print one labelled result line per required term to the Stata log:
+ANSWER: treatment_effect estimate=<number> se=<number or .> n_obs=<integer>
+ANSWER: reduced_form estimate=<number> se=<number or .> n_obs=<integer>
+ANSWER: first_stage estimate=<number> se=<number or .> n_obs=<integer>
+Use valid Stata formats. This template illustrates the reporting syntax:
+display "ANSWER: term_name estimate=" %21.12f estimate_value " se=" %21.12f se_value " n_obs=" %12.0f n_value
+Replace the example names with computed scalars or expressions. Use . for an unrequested standard error.
+Do not use %0.0f. Set linesize 255 to reduce wrapping. A JSON result file is not required.
+You may use the shell to write, execute, inspect errors, and revise your program.
+Run the script with /Applications/StataNow/StataSE.app/Contents/MacOS/stata-se -b do run.do and inspect run.log if needed.
+Write run.do and execute it in batch mode. Leave run.log containing all required ANSWER lines.
+Save the final solution as run.py for Python, run.R for R, or run.do for Stata.
+Before submission, verify the statistical calculation using the supplied data.
+Check the estimation sample, observation count, and variable construction against the task.
+Check the estimator and uncertainty calculation against the stated specification.
+Run at least one independent numerical check of a central calculation.
+Use a separate calculation or a mathematical identity that applies to this task.
+Inspect any discrepancy and correct errors supported by these checks.
+After edits, rerun the final script and inspect its requested output.
+Save a short plain-text account of the checks and their results in verification.txt.
+Use only the task statement, supplied data, installed software, and files you create.
+After these checks, finish with DONE.
+
+Use only the supplied input.csv and files you create in this directory.
+Installed software and package resources are available.
+Do not read external agent skills, project instructions, prior results, or benchmark references.
+Do not create journals or use Git. Do not use MCP servers, web tools, or other agents.
