@@ -5,3 +5,5 @@ tasks/     One folder per task: the input dataset and the reference output (refe
 runs/      Run records: prompts, model responses, scripts, logs, and outputs. One archive per model, language, and
            agency condition (tar.xz). After extraction, the run folders sit at the paths in runs.csv, column
            record_path.
+code/      reproduce.py recomputes the Table 1 contrasts and the main rates from analysis/ and checks the contrasts
+           against analysis/regression_contrasts.csv. requirements.txt lists the Python packages.
