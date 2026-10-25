@@ -1,13 +1,37 @@
-prompt,agency,n,successes,success_pct,success_pct_lo,success_pct_hi,tasks,bootstrap_draws,bootstrap_seed,interval,panel
-few_shot,agent,1200,1194,99.5,98.75,100.0,40,4000,20260925,"95 percent percentile, task cluster bootstrap",Claude Sonnet 4.6
-few_shot,chatbot,1200,1011,84.25,79.16666666666667,89.33333333333333,40,4000,20260925,"95 percent percentile, task cluster bootstrap",Claude Sonnet 4.6
-few_shot,self_repair,1200,1130,94.16666666666667,90.66666666666667,97.08541666666667,40,4000,20260925,"95 percent percentile, task cluster bootstrap",Claude Sonnet 4.6
-zero_shot,agent,1200,1186,98.83333333333333,97.75,99.66666666666667,40,4000,20260925,"95 percent percentile, task cluster bootstrap",Claude Sonnet 4.6
-zero_shot,chatbot,1200,942,78.5,73.16666666666667,83.58333333333333,40,4000,20260925,"95 percent percentile, task cluster bootstrap",Claude Sonnet 4.6
-zero_shot,self_repair,1200,1115,92.91666666666667,90.0,95.5,40,4000,20260925,"95 percent percentile, task cluster bootstrap",Claude Sonnet 4.6
-few_shot,agent,1200,1150,95.83333333333334,93.66666666666667,97.66666666666667,40,4000,20260925,"95 percent percentile, task cluster bootstrap",GPT-5.6 Luna
-few_shot,chatbot,1200,971,80.91666666666667,75.75,85.66666666666667,40,4000,20260925,"95 percent percentile, task cluster bootstrap",GPT-5.6 Luna
-few_shot,self_repair,1200,1110,92.5,89.33333333333333,95.25,40,4000,20260925,"95 percent percentile, task cluster bootstrap",GPT-5.6 Luna
-zero_shot,agent,1200,1132,94.33333333333334,90.83333333333333,97.16666666666667,40,4000,20260925,"95 percent percentile, task cluster bootstrap",GPT-5.6 Luna
-zero_shot,chatbot,1200,883,73.58333333333333,67.08333333333333,79.66666666666667,40,4000,20260925,"95 percent percentile, task cluster bootstrap",GPT-5.6 Luna
-zero_shot,self_repair,1200,1058,88.16666666666667,83.5,92.16875000000002,40,4000,20260925,"95 percent percentile, task cluster bootstrap",GPT-5.6 Luna
+prompt,agency,n,successes,success_pct,success_pct_lo,success_pct_hi,tasks,bootstrap_draws,bootstrap_seed,interval,model
+few_shot,agent,1200,1194,99.5,98.75,100.0,40,4000,20260925,"95 percent percentile, task cluster bootstrap",sonnet
+few_shot,chatbot,1200,1011,84.25,79.16666666666667,89.33333333333333,40,4000,20260925,"95 percent percentile, task cluster bootstrap",sonnet
+few_shot,self_repair,1200,1130,94.16666666666667,90.66666666666667,97.08541666666667,40,4000,20260925,"95 percent percentile, task cluster bootstrap",sonnet
+zero_shot,agent,1200,1186,98.83333333333333,97.75,99.66666666666667,40,4000,20260925,"95 percent percentile, task cluster bootstrap",sonnet
+zero_shot,chatbot,1200,942,78.5,73.16666666666667,83.58333333333333,40,4000,20260925,"95 percent percentile, task cluster bootstrap",sonnet
+zero_shot,self_repair,1200,1115,92.91666666666667,90.0,95.5,40,4000,20260925,"95 percent percentile, task cluster bootstrap",sonnet
+few_shot,agent,1200,1150,95.83333333333334,93.66666666666667,97.66666666666667,40,4000,20260925,"95 percent percentile, task cluster bootstrap",luna
+few_shot,chatbot,1200,971,80.91666666666667,75.75,85.66666666666667,40,4000,20260925,"95 percent percentile, task cluster bootstrap",luna
+few_shot,self_repair,1200,1110,92.5,89.33333333333333,95.25,40,4000,20260925,"95 percent percentile, task cluster bootstrap",luna
+zero_shot,agent,1200,1132,94.33333333333334,90.83333333333333,97.16666666666667,40,4000,20260925,"95 percent percentile, task cluster bootstrap",luna
+zero_shot,chatbot,1200,883,73.58333333333333,67.08333333333333,79.66666666666667,40,4000,20260925,"95 percent percentile, task cluster bootstrap",luna
+zero_shot,self_repair,1200,1058,88.16666666666667,83.5,92.16875000000002,40,4000,20260925,"95 percent percentile, task cluster bootstrap",luna
+few_shot,agent,1200,1199,99.91666666666667,99.75,100.0,40,4000,20260925,"95 percent percentile, task cluster bootstrap",haiku
+few_shot,chatbot,1200,1079,89.91666666666667,86.16666666666667,93.25,40,4000,20260925,"95 percent percentile, task cluster bootstrap",haiku
+few_shot,self_repair,1200,1180,98.33333333333333,97.16666666666667,99.33333333333333,40,4000,20260925,"95 percent percentile, task cluster bootstrap",haiku
+zero_shot,agent,1200,1191,99.25,98.58333333333333,99.83333333333333,40,4000,20260925,"95 percent percentile, task cluster bootstrap",haiku
+zero_shot,chatbot,1200,1043,86.91666666666666,82.83333333333333,90.75,40,4000,20260925,"95 percent percentile, task cluster bootstrap",haiku
+zero_shot,self_repair,1200,1158,96.5,94.5,98.16666666666667,40,4000,20260925,"95 percent percentile, task cluster bootstrap",haiku
+few_shot,agent,1200,1142,95.16666666666667,93.16666666666667,97.08333333333333,40,4000,20260925,"95 percent percentile, task cluster bootstrap",luna6
+few_shot,chatbot,1200,948,79.0,73.25,84.83333333333333,40,4000,20260925,"95 percent percentile, task cluster bootstrap",luna6
+few_shot,self_repair,1200,1080,90.0,86.58333333333333,93.0,40,4000,20260925,"95 percent percentile, task cluster bootstrap",luna6
+zero_shot,agent,1200,1113,92.75,89.75,95.41666666666667,40,4000,20260925,"95 percent percentile, task cluster bootstrap",luna6
+zero_shot,chatbot,1200,840,70.0,63.083333333333336,76.91666666666667,40,4000,20260925,"95 percent percentile, task cluster bootstrap",luna6
+zero_shot,self_repair,1200,1028,85.66666666666667,79.58333333333333,90.83333333333333,40,4000,20260925,"95 percent percentile, task cluster bootstrap",luna6
+few_shot,agent,1200,1197,99.75,99.33333333333333,100.0,40,4000,20260925,"95 percent percentile, task cluster bootstrap",opus
+few_shot,chatbot,1200,1167,97.25,95.16666666666667,98.91666666666667,40,4000,20260925,"95 percent percentile, task cluster bootstrap",opus
+few_shot,self_repair,1200,1193,99.41666666666666,98.58333333333333,99.91666666666667,40,4000,20260925,"95 percent percentile, task cluster bootstrap",opus
+zero_shot,agent,1200,1200,100.0,100.0,100.0,40,4000,20260925,"95 percent percentile, task cluster bootstrap",opus
+zero_shot,chatbot,1200,1166,97.16666666666667,94.58333333333333,99.16666666666667,40,4000,20260925,"95 percent percentile, task cluster bootstrap",opus
+zero_shot,self_repair,1200,1190,99.16666666666667,98.16666666666667,99.91666666666667,40,4000,20260925,"95 percent percentile, task cluster bootstrap",opus
+few_shot,agent,1200,1199,99.91666666666667,99.75,100.0,40,4000,20260925,"95 percent percentile, task cluster bootstrap",sol
+few_shot,chatbot,1200,1095,91.25,87.91666666666667,94.41666666666667,40,4000,20260925,"95 percent percentile, task cluster bootstrap",sol
+few_shot,self_repair,1200,1177,98.08333333333333,96.16666666666667,99.5,40,4000,20260925,"95 percent percentile, task cluster bootstrap",sol
+zero_shot,agent,1200,1197,99.75,99.41666666666667,100.0,40,4000,20260925,"95 percent percentile, task cluster bootstrap",sol
+zero_shot,chatbot,1200,1065,88.75,84.91458333333334,92.25,40,4000,20260925,"95 percent percentile, task cluster bootstrap",sol
+zero_shot,self_repair,1200,1171,97.58333333333333,96.0,98.83333333333333,40,4000,20260925,"95 percent percentile, task cluster bootstrap",sol
