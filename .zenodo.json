@@ -1,0 +1,11 @@
+{
+  "title": "Data and code for: AI Agents and Prompt Engineering in Econometric Coding",
+  "upload_type": "dataset",
+  "description": "Run records, task inputs, reference outputs, analysis data, and the code of the study (data simulation, reference implementations, the harness that ran the models, scoring, and analysis) for 43,200 runs of six large language models on 40 econometric tasks in Stata, R, and Python. CONTENTS.txt describes the folders.",
+  "creators": [
+    {"name": "Galiani, Sebastian", "affiliation": "Tulane University; National Bureau of Economic Research"},
+    {"name": "López, Federico A.", "affiliation": "Universidad de San Andrés"},
+    {"name": "Sosa, Raul A.", "affiliation": "Universidad de San Andrés"}
+  ],
+  "keywords": ["large language models", "AI agents", "econometric software", "Stata", "R", "Python"]
+}
