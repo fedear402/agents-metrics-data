@@ -1,0 +1,65 @@
+{
+  "label": "Chosen pacing limits for collections on the Claude Max and ChatGPT Pro subscriptions. These values are settings. They are not measured provider limits.",
+  "state_dir": "data/collections/usage_watch",
+  "resume_margin_seconds": 60,
+  "recheck_seconds": 60,
+  "unknown_reset_retry_seconds": 900,
+  "log_every_seconds": 300,
+  "providers": {
+    "claude": {
+      "models": [
+        "sonnet",
+        "sonnet55"
+      ],
+      "thresholds": {
+        "five_hour": {
+          "slow_at": 0.95,
+          "pause_at": 0.95
+        },
+        "seven_day": {
+          "slow_at": 0.98,
+          "pause_at": 0.98
+        },
+        "default": {
+          "slow_at": 0.95,
+          "pause_at": 0.95
+        }
+      },
+      "pause_on_extra_usage": true,
+      "slow_spacing_seconds": 30,
+      "stale_after_seconds": 1800
+    },
+    "codex": {
+      "models": [
+        "luna"
+      ],
+      "model_slugs": [
+        "gpt-5.6-luna"
+      ],
+      "thresholds": {
+        "seven_day": {
+          "slow_at": 0.97,
+          "pause_at": 0.97
+        },
+        "five_hour": {
+          "slow_at": 0.95,
+          "pause_at": 0.95
+        },
+        "default": {
+          "slow_at": 0.97,
+          "pause_at": 0.97
+        }
+      },
+      "pause_on_extra_usage": true,
+      "slow_spacing_seconds": 10,
+      "stale_after_seconds": 900,
+      "poll_seconds": 120,
+      "poll_seconds_paused": 300,
+      "poll_timeout_seconds": 30,
+      "command": [
+        "codex",
+        "app-server"
+      ]
+    }
+  }
+}

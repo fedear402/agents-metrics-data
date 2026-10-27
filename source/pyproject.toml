@@ -1,0 +1,60 @@
+[project]
+name = "agents-metrics"
+version = "0.1.0"
+description = "Research workspace for an LLM econometric-code benchmark."
+requires-python = ">=3.12"
+dependencies = [
+    "pydantic>=2.7",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.0",
+    "ruff>=0.6",
+    # Scientific stack pinned to the canonical host versions that generated the
+    # reference outputs (docker/requirements-pinned.txt), so the test suite —
+    # which imports the MC generators — runs under `uv run pytest` unmodified.
+    "numpy==2.4.2",
+    "pandas==3.0.0",
+    "scipy==1.18.0",
+    "statsmodels==0.14.6",
+    "linearmodels==6.1",
+    # Exhibit builders and test_paper_exhibits.py import it; pinned to the host
+    # version that renders the manuscript figures.
+    "matplotlib==3.11.0",
+]
+# Standard packages for collection runs (decision 7). Resolved with every dev
+# pin above held; see code/benchmark/collection_environment/README.md.
+collection = [
+    "lifelines==0.30.0",
+    "scikit-learn==1.9.1",
+    "numdifftools==0.11.1",
+    "pyfixest==0.60.0",
+    "differences==0.3.0",
+    "rdrobust==2.1.0",
+    "arch==8.0.0",
+    "csdid==0.4.2",
+    "drdid==1.1.6",
+    # Available to agents, never named in a prompt (decision 2026-09-29).
+    # py4etrics needs statsmodels 0.14.x (it imports statsmodels.tools.decorators).
+    "py4etrics==0.1.9",
+    "ivmodels==0.10.0",
+]
+
+[tool.ruff]
+line-length = 88
+target-version = "py312"
+
+[tool.pytest.ini_options]
+pythonpath = ["code"]
+testpaths = ["code/benchmark/tests"]
+markers = [
+    "live: integration tests that hit live SDKs; opt-in via -m live",
+]
+
+[tool.uv]
+package = false
+# The collection group holds the standard packages that collection runs may
+# import (code/benchmark/collection_environment/). It is a default group, so
+# `uv sync` keeps it in .venv. It must not change any dev pin above.
+default-groups = ["dev", "collection"]

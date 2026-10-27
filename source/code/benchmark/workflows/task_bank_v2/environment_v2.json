@@ -1,0 +1,126 @@
+{
+  "purpose": "Packages to install in the shared execution environment before any task bank v2 collection. preflight_v2.py checks them without installing. Install only after a decision; each install changes the environment that prospective manifests pin.",
+  "measured_at": "2026-09-23",
+  "sources": [
+    "quality_reports/audits/2026-09-23_run-design-and-library-use/SYNTHESIS.md (Packages section)",
+    "quality_reports/audits/2026-09-23_run-design-and-library-use/work/run-design/package_table_output.txt",
+    "data/task_candidates/2026-09-23_v2/*/CHANGES.json and environment.json (P11 lists present on 2026-09-23 19:40; rerun prepare.py to collect later lists under p11_packages)"
+  ],
+  "pinned_must_not_change": {
+    "python": {"numpy": "2.4.2", "pandas": "3.0.0", "scipy": "1.18.0", "statsmodels": "0.14.6", "linearmodels": "6.1", "matplotlib": "3.11.0"},
+    "r": "Every existing row of installed.packages() (prospective_collect_unlimited_additions.additive_packages rejects changed or removed rows).",
+    "stata": "Every file hash under the base, site, plus, personal, and oldplace ado folders is pinned per manifest (prospective_collect.native_environment). Install before preparing manifests."
+  },
+  "packages": [
+    {
+      "language": "python", "package": "lifelines", "version": "0.30.0", "priority": "required",
+      "reason": "20 Sonnet Python chatbot final failures on cox_hazard; 20 self-repair and 11 agent runs hit the missing import.",
+      "install": "uv add 'lifelines==0.30.0'",
+      "check_import": "lifelines",
+      "resolver_note": "uv pip install --dry-run: lifelines 0.30.3 (latest) downgrades pandas 3.0.0 to 2.3.3. With pandas==3.0.0 held, uv resolves lifelines 0.30.0 plus autograd 1.9.1 and autograd-gamma 0.5.0. One CoxPHFitter fit ran under pandas 3.0.0 in an ephemeral uv environment. Wider compatibility is unmeasured."
+    },
+    {
+      "language": "python", "package": "scikit-learn", "version": "1.9.1", "priority": "recommended",
+      "reason": "4 Sonnet Python chatbot final failures; 15 agent runs hit the missing import.",
+      "install": "uv add 'scikit-learn==1.9.1'",
+      "check_import": "sklearn",
+      "resolver_note": "Resolves with the pins held. Adds joblib 1.6.0, threadpoolctl 3.7.0, cloudpickle 3.1.2."
+    },
+    {
+      "language": "python", "package": "numdifftools", "version": "0.11.1", "priority": "recommended",
+      "reason": "1 self-repair round and 8 agent runs hit the missing import (numerical Hessians for hand-written likelihoods).",
+      "install": "uv add 'numdifftools==0.11.1'",
+      "check_import": "numdifftools",
+      "resolver_note": "Resolves with the pins held."
+    },
+    {
+      "language": "python", "package": "scikit-survival", "version": "0.28.0", "priority": "decision",
+      "reason": "2 self-repair rounds and 1 agent run hit the missing import. No final failure.",
+      "install": "uv add 'scikit-survival==0.28.0'",
+      "check_import": "sksurv",
+      "resolver_note": "Resolves with the pins held. Adds scikit-learn, osqp, numexpr, jinja2."
+    },
+    {
+      "language": "r", "package": "truncreg", "version": "0.2-5", "priority": "required",
+      "reason": "Natural R route for hard_truncated_normal_effects v2 (CHANGES.json P11). 2 v1 Sonnet R agent runs tried it.",
+      "install": "Rscript -e 'install.packages(\"truncreg\", repos = \"https://cloud.r-project.org\")'",
+      "check_library": "truncreg",
+      "resolver_note": "No new dependencies beyond installed packages (CRAN index read 2026-09-23)."
+    },
+    {
+      "language": "r", "package": "mlogit", "version": "2.0-0", "priority": "recommended",
+      "reason": "3 Sonnet R agent runs hit the missing package (broad_multinomial_logit, hard_conditional_logit_welfare routes).",
+      "install": "Rscript -e 'install.packages(\"mlogit\", repos = \"https://cloud.r-project.org\")'",
+      "check_library": "mlogit",
+      "resolver_note": "Adds dfidx, micsr, CompQuadForm. No installed package needs a newer version."
+    },
+    {
+      "language": "r", "package": "ordinal", "version": "2026.7-26", "priority": "recommended",
+      "reason": "1 Sonnet R agent run hit the missing package (broad_ordered_logit route).",
+      "install": "Rscript -e 'install.packages(\"ordinal\", repos = \"https://cloud.r-project.org\")'",
+      "check_library": "ordinal",
+      "resolver_note": "Adds ucminf."
+    },
+    {
+      "language": "r", "package": "combinat", "version": "0.0-9", "priority": "recommended",
+      "reason": "3 Sonnet R agent runs hit the missing package (lp11_duration subset enumeration).",
+      "install": "Rscript -e 'install.packages(\"combinat\", repos = \"https://cloud.r-project.org\")'",
+      "check_library": "combinat",
+      "resolver_note": "No new dependencies."
+    },
+    {
+      "language": "r", "package": "tidyverse", "version": "2.0.0", "priority": "decision",
+      "reason": "4 Sonnet R chatbot final failures from library(tidyverse). Its component packages are not all installed either.",
+      "install": "Rscript -e 'install.packages(\"tidyverse\", repos = \"https://cloud.r-project.org\")'",
+      "check_library": "tidyverse",
+      "resolver_note": "Adds 17 packages (dbplyr, googledrive, googlesheets4, httr, ragg, rvest, systemfonts, textshaping, and others). Binary availability for ragg and textshaping on this Mac is unmeasured."
+    },
+    {
+      "language": "r", "package": "glmx", "version": "0.2-3", "priority": "required",
+      "reason": "Named with an install command in the hard_heteroskedastic_probit v2 P11 list (natural R heteroskedastic probit route).",
+      "install": "Rscript -e 'install.packages(\"glmx\", repos = \"https://cloud.r-project.org\")'",
+      "check_library": "glmx",
+      "resolver_note": "No new dependencies (CRAN index read 2026-09-23)."
+    },
+    {
+      "language": "r", "package": "marginaleffects", "version": "1.0.0", "priority": "required",
+      "reason": "Named with an install command in the pilot_probit_interaction_ame v2 P11 list.",
+      "install": "Rscript -e 'install.packages(\"marginaleffects\", repos = \"https://cloud.r-project.org\")'",
+      "check_library": "marginaleffects",
+      "resolver_note": "Adds checkmate and insight."
+    },
+    {
+      "language": "r", "package": "ShiftShareSE", "version": "1.1.0", "priority": "decision",
+      "reason": "Listed as missing in the applied_shift_share v2 P11 list without an install command.",
+      "install": "Rscript -e 'install.packages(\"ShiftShareSE\", repos = \"https://cloud.r-project.org\")'",
+      "check_library": "ShiftShareSE",
+      "resolver_note": "No new dependencies."
+    },
+    {
+      "language": "stata", "package": "ssaggregate", "version": "SSC current", "priority": "decision",
+      "reason": "Listed as missing in the applied_shift_share v2 P11 list without an install command.",
+      "install": "printf 'ssc install ssaggregate\\n' > /private/tmp/install_ssaggregate.do && cd /private/tmp && /Applications/StataNow/StataSE.app/Contents/MacOS/stata-se -b do install_ssaggregate.do",
+      "check_command": "ssaggregate"
+    },
+    {
+      "language": "stata", "package": "distinct", "version": "SSC current", "priority": "recommended",
+      "reason": "1 Sonnet Stata chatbot final failure; 1 self-repair and 1 agent run hit the missing command.",
+      "install": "printf 'ssc install distinct\\n' > /private/tmp/install_distinct.do && cd /private/tmp && /Applications/StataNow/StataSE.app/Contents/MacOS/stata-se -b do install_distinct.do",
+      "check_command": "distinct"
+    },
+    {
+      "language": "stata", "package": "drdid", "version": ">= 1.91", "priority": "decision",
+      "reason": "staggered_did v2 environment.json: the installed csdid 1.81 stops with 'Program DRDID is outdated' r(101). Built-in xthdidregress works. Options: update drdid, or leave csdid broken and record it.",
+      "install": "printf 'ssc install drdid, replace\\n' > /private/tmp/install_drdid.do && cd /private/tmp && /Applications/StataNow/StataSE.app/Contents/MacOS/stata-se -b do install_drdid.do",
+      "check_command": "drdid",
+      "check_min_version": "1.91"
+    }
+  ],
+  "not_installed_by_design": [
+    {"language": "python", "package": "csdid (Python port), differences, pyfixest", "tasks": ["staggered_did"], "note": "Listed as missing in staggered_did/environment.json. The v2 group-means route needs none. Installing is optional."},
+    {"language": "python", "package": "pylogit, xlogit, biogeme", "tasks": ["hard_conditional_logit_welfare"], "note": "Listed as missing in the v2 P11 list. Decision: a hand-written likelihood or statsmodels ConditionalLogit is the installed route."},
+    {"language": "r", "package": "apollo, gmnl", "tasks": ["hard_conditional_logit_welfare"], "note": "Listed as missing in the v2 P11 list. mlogit (above) and survival::clogit cover the natural route."}
+  ],
+  "p11_snapshot": "prepare.py dry run at 19:41 collected P11 entries from 10 of 40 packages. Rerun prepare.py after the builders finish and compare its p11_packages field with this file.",
+  "install_order": "Python (uv add, then uv sync and a check that the pinned versions are unchanged), then R, then Stata. Run preflight_v2.py after each group. Prepare manifests only after the last install, because manifests pin the native environment."
+}

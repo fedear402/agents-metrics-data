@@ -1,0 +1,139 @@
+
+  ___  ____  ____  ____  ____ ®
+ /__    /   ____/   /   ____/      StataNow 19.5
+___/   /   /___/   /   /___/       SE—Standard Edition
+
+ Statistics and Data Science       Copyright 1985-2025 StataCorp LLC
+                                   StataCorp
+                                   4905 Lakeway Drive
+                                   College Station, Texas 77845 USA
+                                   800-782-8272        https://www.stata.com
+                                   979-696-4600        service@stata.com
+
+Stata license: Unlimited-user network, expiring 14 Jul 2026
+Serial number: [redacted serial]
+  Licensed to: Federico López
+               Universidad de San Andrés
+
+Notes:
+      1. Stata is running in batch mode.
+      2. Unicode is supported; see help unicode_advice.
+      3. Maximum number of variables is set to 5,000 but can be increased;
+          see help set_maxvar.
+
+. do code/pilot/manual_references/var_irf/manual_stata.do 
+
+. * Manual reference for T21 (VAR(2) orthogonal IRF, y1 response to y2 shock, h
+> =4) — Stata.
+. clear all
+
+. set more off
+
+. 
+. local data_path "code/pilot/data/pilot_v4_var.csv"
+
+. capture confirm file "`data_path'"
+
+. if _rc != 0 local data_path "../../data/pilot_v4_var.csv"
+
+. import delimited "`data_path'", clear
+(encoding automatically selected: ISO-8859-1)
+(3 vars, 200 obs)
+
+. 
+. tsset t
+
+Time variable: t, 1 to 200
+        Delta: 1 unit
+
+. * Fit VAR(2) with constant. Equation order y1 then y2 (so a y2 shock has no
+. * contemporaneous effect on y1 under Cholesky).
+. var y1 y2, lags(1/2)
+
+Vector autoregression
+
+Sample: 3 thru 200                              Number of obs     =        198
+Log likelihood =  -541.6328                     AIC               =   5.572049
+FPE            =   .9015102                     HQIC              =    5.63927
+Det(Sigma_ml)  =   .8148791                     SBIC              =   5.738123
+
+Equation           Parms      RMSE     R-sq      chi2     P>chi2
+----------------------------------------------------------------
+y1                    5     1.01685   0.5123   207.9896   0.0000
+y2                    5       .9124   0.2282   58.54243   0.0000
+----------------------------------------------------------------
+
+------------------------------------------------------------------------------
+             | Coefficient  Std. err.      z    P>|z|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+y1           |
+          y1 |
+         L1. |    .562193   .0696669     8.07   0.000     .4256484    .6987376
+         L2. |   .2040976   .0695441     2.93   0.003     .0677937    .3404016
+             |
+          y2 |
+         L1. |   .1814685   .0775896     2.34   0.019     .0293956    .3335414
+         L2. |  -.0456189   .0773046    -0.59   0.555     -.197133    .1058953
+             |
+       _cons |  -.0286176   .0719386    -0.40   0.691    -.1696147    .1123795
+-------------+----------------------------------------------------------------
+y2           |
+          y1 |
+         L1. |   .0607512    .062511     0.97   0.331    -.0617681    .1832705
+         L2. |  -.1687005   .0624008    -2.70   0.007    -.2910039   -.0463971
+             |
+          y2 |
+         L1. |   .4495356   .0696199     6.46   0.000      .313083    .5859881
+         L2. |  -.0759794   .0693641    -1.10   0.273    -.2119306    .0599719
+             |
+       _cons |  -.0621423   .0645494    -0.96   0.336    -.1886567    .0643721
+------------------------------------------------------------------------------
+
+. local n_obs = e(N)
+
+. 
+. * Build the IRF set; the equation order matches Cholesky order y1 -> y2.
+. tempfile irf_set
+
+. quietly irf create var_irf, set(`irf_set', replace) step(10) order(y1 y2)
+
+. 
+. * Open the IRF result dataset and pull out the OIRF value at step 4
+. * (impulse = y2, response = y1).
+. preserve
+
+. use `irf_set'.irf, clear
+
+. quietly summarize oirf if impulse == "y2" & response == "y1" & step == 4
+
+. local val = r(mean)
+
+. restore
+
+. 
+. display ""
+
+
+. display "Stata reference T21 (VAR(2) orth. IRF y1 ← y2, h=4):"
+Stata reference T21 (VAR(2) orth. IRF y1 ← y2, h=4):
+
+. display "  irf_y1_to_y2_h4 = " %12.6f `val'
+  irf_y1_to_y2_h4 =     0.080703
+
+. display "  lag_order      = 2"
+  lag_order      = 2
+
+. display "  identification = Cholesky, y1 ordered first"
+  identification = Cholesky, y1 ordered first
+
+. display "  n_obs          = " `n_obs'
+  n_obs          = 198
+
+. display "JSON_RESULT: " `"{"platform":"stata","irf_y1_to_y2_h4":"' %12.6f `va
+> l' `","lag_order":2,"identification":"Cholesky, y1 ordered first","n_obs":"' 
+> `n_obs' `"}"'
+JSON_RESULT: {"platform":"stata","irf_y1_to_y2_h4":    0.080703,"lag_order":2,"
+> identification":"Cholesky, y1 ordered first","n_obs":198}
+
+. 
+end of do-file

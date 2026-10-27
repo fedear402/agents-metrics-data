@@ -1,0 +1,102 @@
+
+  ___  ____  ____  ____  ____ ®
+ /__    /   ____/   /   ____/      StataNow 19.5
+___/   /   /___/   /   /___/       SE—Standard Edition
+
+ Statistics and Data Science       Copyright 1985-2025 StataCorp LLC
+                                   StataCorp
+                                   4905 Lakeway Drive
+                                   College Station, Texas 77845 USA
+                                   800-782-8272        https://www.stata.com
+                                   979-696-4600        service@stata.com
+
+Stata license: Unlimited-user network, expiring 14 Jul 2026
+Serial number: [redacted serial]
+  Licensed to: Federico López
+               Universidad de San Andrés
+
+Notes:
+      1. Stata is running in batch mode.
+      2. Unicode is supported; see help unicode_advice.
+      3. Maximum number of variables is set to 5,000 but can be increased;
+          see help set_maxvar.
+
+. do code/pilot/manual_references/ols_robust/manual_stata.do 
+
+. * Manual reference for T01 (OLS with HC1 robust SE) — Stata.
+. clear all
+
+. set more off
+
+. 
+. local data_path "code/pilot/data/pilot.csv"
+
+. capture confirm file "`data_path'"
+
+. if _rc != 0 local data_path "../../data/pilot.csv"
+
+. import delimited "`data_path'", clear
+(encoding automatically selected: ISO-8859-9)
+(6 vars, 2,000 obs)
+
+. 
+. regress y_lin x1 x2, vce(robust)
+
+Linear regression                               Number of obs     =      2,000
+                                                F(2, 1997)        =     341.62
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.2648
+                                                Root MSE          =     .98072
+
+------------------------------------------------------------------------------
+             |               Robust
+       y_lin | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+          x1 |    .492664   .0228066    21.60   0.000     .4479368    .5373912
+          x2 |  -.3219114   .0212722   -15.13   0.000    -.3636294   -.2801933
+       _cons |   1.011577   .0219543    46.08   0.000     .9685209    1.054632
+------------------------------------------------------------------------------
+
+. local b_const = _b[_cons]
+
+. local se_const = _se[_cons]
+
+. local b_x1 = _b[x1]
+
+. local se_x1 = _se[x1]
+
+. local b_x2 = _b[x2]
+
+. local se_x2 = _se[x2]
+
+. local n_obs = e(N)
+
+. 
+. display ""
+
+
+. display "Stata reference T01 (OLS HC1):"
+Stata reference T01 (OLS HC1):
+
+. display "  const   = " %12.6f `b_const' "  SE = " %12.6f `se_const'
+  const   =     1.011577  SE =     0.021954
+
+. display "  x1      = " %12.6f `b_x1' "  SE = " %12.6f `se_x1'
+  x1      =     0.492664  SE =     0.022807
+
+. display "  x2      = " %12.6f `b_x2' "  SE = " %12.6f `se_x2'
+  x2      =    -0.321911  SE =     0.021272
+
+. display "  n_obs   = " `n_obs'
+  n_obs   = 2000
+
+. display "JSON_RESULT: " `"{"platform":"stata","const":"' %12.6f `b_const' `",
+> "se_const":"' %12.6f `se_const' `","x1":"' %12.6f `b_x1' `","se_x1":"' %12.6f
+>  `se_x1' `","x2":"' %12.6f `b_x2' `","se_x2":"' %12.6f `se_x2' `","n_obs":"' 
+> `n_obs' `"}"'
+JSON_RESULT: {"platform":"stata","const":    1.011577,"se_const":    0.021954,"
+> x1":    0.492664,"se_x1":    0.022807,"x2":   -0.321911,"se_x2":    0.021272,
+> "n_obs":2000}
+
+. 
+end of do-file

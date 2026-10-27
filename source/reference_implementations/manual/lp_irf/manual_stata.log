@@ -1,0 +1,82 @@
+
+  ___  ____  ____  ____  ____ ®
+ /__    /   ____/   /   ____/      StataNow 19.5
+___/   /   /___/   /   /___/       SE—Standard Edition
+
+ Statistics and Data Science       Copyright 1985-2025 StataCorp LLC
+                                   StataCorp
+                                   4905 Lakeway Drive
+                                   College Station, Texas 77845 USA
+                                   800-782-8272        https://www.stata.com
+                                   979-696-4600        service@stata.com
+
+Stata license: Unlimited-user network, expiring 14 Jul 2026
+Serial number: [redacted serial]
+  Licensed to: Federico López
+               Universidad de San Andrés
+
+Notes:
+      1. Stata is running in batch mode.
+      2. Unicode is supported; see help unicode_advice.
+      3. Maximum number of variables is set to 5,000 but can be increased;
+          see help set_maxvar.
+
+. do code/pilot/manual_references/lp_irf/manual_stata.do 
+
+. * Manual reference for T19 (local-projection IRF at h=4, NW SE) — Stata.
+. clear all
+
+. set more off
+
+. local data_path "code/pilot/data/pilot_v5_lp.csv"
+
+. capture confirm file "`data_path'"
+
+. if _rc != 0 local data_path "../../data/pilot_v5_lp.csv"
+
+. import delimited "`data_path'", clear
+(encoding automatically selected: ISO-8859-1)
+(3 vars, 250 obs)
+
+. 
+. tsset t
+
+Time variable: t, 1 to 250
+        Delta: 1 unit
+
+. local h = 4
+
+. gen double y_lead = F`h'.y
+(4 missing values generated)
+
+. gen double y_lag = L.y
+(1 missing value generated)
+
+. newey y_lead shock y_lag, lag(`h')
+
+Regression with Newey–West standard errors      Number of obs     =        245
+Maximum lag = 4                                 F(  2,       242) =       5.69
+                                                Prob > F          =     0.0038
+
+------------------------------------------------------------------------------
+             |             Newey–West
+      y_lead | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+       shock |    .112672    .084475     1.33   0.184     -.053728    .2790721
+       y_lag |   .2423904   .0752518     3.22   0.001     .0941582    .3906225
+       _cons |    .121286   .1346058     0.90   0.368    -.1438625    .3864345
+------------------------------------------------------------------------------
+
+. local b = _b[shock]
+
+. local se = _se[shock]
+
+. local n_used = e(N)
+
+. display "JSON_RESULT: " `"{"platform":"stata","irf_h4":"' %12.6f `b' `","se_i
+> rf_h4":"' %12.6f `se' `","horizon":"' `h' `","n_used":"' `n_used' `"}"'
+JSON_RESULT: {"platform":"stata","irf_h4":    0.112672,"se_irf_h4":    0.084475
+> ,"horizon":4,"n_used":245}
+
+. 
+end of do-file

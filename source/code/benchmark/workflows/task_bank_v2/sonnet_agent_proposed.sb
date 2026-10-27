@@ -1,0 +1,41 @@
+;; PROPOSED, NOT APPLIED. Inner profile for the Sonnet agent (claude -p --tools Bash) only.
+;; The current guard (data/production/paper22_2026-09-18/work/environment_recovery/
+;; shared_python_write_deny.sb) wraps the whole collector, so it cannot deny reads of the
+;; repository without also blocking the collector. This profile would wrap only the
+;; provider subprocess. Wiring it in needs a runtime change and a decision record.
+;; Use: sandbox-exec -f sonnet_agent_proposed.sb -D WORKDIR=<run folder> -D ROOT=<repo> -D HOME=<home> claude ...
+;; Network stays open: seatbelt cannot filter by host name, and the claude process needs the API.
+(version 1)
+(allow default)
+
+;; Shared installations and project files: no writes.
+(deny file-write*
+  (subpath (param "ROOT"))
+  (subpath "/opt/homebrew")
+  (subpath "/Library/Frameworks/R.framework")
+  (subpath "/Applications/StataNow")
+  (subpath "/Applications/Stata")
+  (subpath (string-append (param "HOME") "/Library/R"))
+  (subpath (string-append (param "HOME") "/Library/Application Support/Stata"))
+  (subpath (string-append (param "HOME") "/Documents/Stata"))
+  (subpath (string-append (param "HOME") "/ado"))
+  (subpath (string-append (param "HOME") "/.local"))
+  (subpath (string-append (param "HOME") "/Library/CloudStorage")))
+
+;; References, prior runs, audits, skills, and other runs' folders: no reads.
+(deny file-read*
+  (subpath (string-append (param "ROOT") "/data"))
+  (subpath (string-append (param "ROOT") "/code"))
+  (subpath (string-append (param "ROOT") "/quality_reports"))
+  (subpath (string-append (param "ROOT") "/paper"))
+  (subpath (string-append (param "ROOT") "/reference_implementations"))
+  (subpath (string-append (param "ROOT") "/literature"))
+  (subpath (string-append (param "ROOT") "/journal"))
+  (subpath (string-append (param "HOME") "/.agents"))
+  (subpath (string-append (param "HOME") "/ARCHIVE"))
+  (subpath (string-append (param "HOME") "/.claude/projects"))
+  (subpath (string-append (param "HOME") "/Library/CloudStorage"))
+  (regex #"^/private/tmp/prospective_task_"))
+
+;; The run's own folder stays readable and writable. Later rules take precedence.
+(allow file-read* file-write* (subpath (param "WORKDIR")))

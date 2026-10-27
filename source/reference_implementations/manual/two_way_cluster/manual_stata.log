@@ -1,0 +1,105 @@
+
+  ___  ____  ____  ____  ____ ®
+ /__    /   ____/   /   ____/      StataNow 19.5
+___/   /   /___/   /   /___/       SE—Standard Edition
+
+ Statistics and Data Science       Copyright 1985-2025 StataCorp LLC
+                                   StataCorp
+                                   4905 Lakeway Drive
+                                   College Station, Texas 77845 USA
+                                   800-782-8272        https://www.stata.com
+                                   979-696-4600        service@stata.com
+
+Stata license: Unlimited-user network, expiring 14 Jul 2026
+Serial number: [redacted serial]
+  Licensed to: Federico López
+               Universidad de San Andrés
+
+Notes:
+      1. Stata is running in batch mode.
+      2. Unicode is supported; see help unicode_advice.
+      3. Maximum number of variables is set to 5,000 but can be increased;
+          see help set_maxvar.
+
+. do code/pilot/manual_references/two_way_cluster/manual_stata.do 
+
+. * Manual reference for T04 (OLS with two-way cluster-robust SE, CGM) — Stata.
+. clear all
+
+. set more off
+
+. 
+. local data_path "code/pilot/data/pilot_v3.csv"
+
+. capture confirm file "`data_path'"
+
+. if _rc != 0 local data_path "../../data/pilot_v3.csv"
+
+. import delimited "`data_path'", clear
+(encoding automatically selected: ISO-8859-1)
+(11 vars, 2,000 obs)
+
+. 
+. * Two-way clustering via the user-written reghdfe/ivreg2 or via Petersen's
+. * approach. Stata's `regress, vce(cluster ...)` is one-way only, so we
+. * implement CGM manually: V_2way = V_firm + V_year - V_intersection.
+. gen long intersection_id = firm * 100 + year   // unique per (firm, year) cel
+> l
+
+. quietly regress y_twocluster x, vce(cluster firm)
+
+. matrix V_firm = e(V)
+
+. local n = e(N)
+
+. local k = e(rank)
+
+. quietly regress y_twocluster x, vce(cluster year)
+
+. matrix V_year = e(V)
+
+. quietly regress y_twocluster x, vce(cluster intersection_id)
+
+. matrix V_inter = e(V)
+
+. matrix V_2way = V_firm + V_year - V_inter
+
+. 
+. * Re-fit baseline regression to expose coefficients without per-call vce over
+> head.
+. quietly regress y_twocluster x
+
+. local b_const = _b[_cons]
+
+. local b_x    = _b[x]
+
+. local se_const = sqrt(V_2way["_cons", "_cons"])
+
+. local se_x    = sqrt(V_2way["x", "x"])
+
+. local n_obs = e(N)
+
+. 
+. display ""
+
+
+. display "Stata reference T04 (OLS 2-way cluster, CGM):"
+Stata reference T04 (OLS 2-way cluster, CGM):
+
+. display "  const = " %12.6f `b_const' "  SE = " %12.6f `se_const'
+  const =     1.017456  SE =     0.153472
+
+. display "  x     = " %12.6f `b_x' "  SE = " %12.6f `se_x'
+  x     =     0.553190  SE =     0.016648
+
+. display "  n_obs = " `n_obs'
+  n_obs = 2000
+
+. display "JSON_RESULT: " `"{"platform":"stata","const":"' %12.6f `b_const' `",
+> "se_const":"' %12.6f `se_const' `","x":"' %12.6f `b_x' `","se_x":"' %12.6f `s
+> e_x' `","n_obs":"' `n_obs' `"}"'
+JSON_RESULT: {"platform":"stata","const":    1.017456,"se_const":    0.153472,"
+> x":    0.553190,"se_x":    0.016648,"n_obs":2000}
+
+. 
+end of do-file

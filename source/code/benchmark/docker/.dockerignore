@@ -1,0 +1,16 @@
+# Keep the build context tiny: only the files the Dockerfile COPYs.
+# The build context is code/benchmark/docker/ — never the repo root — so the
+# repo, data/, and data/references/ are NOT part of any image layer.
+*
+!Dockerfile
+!requirements-pinned.txt
+!install_r_packages.R
+!entrypoint.sh
+!init-firewall.sh
+
+# By default the Stata installer tarball and license are NOT sent to the build
+# context (the Stata block in the Dockerfile is commented out). To build a
+# Stata-enabled image, add the artifacts under stata/ and un-ignore them here:
+#   !stata/Stata18Linux64.tar.gz
+#   !stata/stata.lic
+# Never push/share a resulting image: it embeds a node-locked Stata license.

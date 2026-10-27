@@ -1,0 +1,14 @@
+new weakiv rc=0
+new avar rc=0
+new twostepweakiv rc=0
+new ivreghdfe rc=0
+new xtivreg2 rc=0
+new oaxaca rc=0
+new distinct rc=0
+new moremata rc=0
+new jwdid rc=0
+new eventstudyinteract rc=0
+new sdid rc=0
+new ppml rc=0
+new ssaggregate rc=0
+update drdid rc=0

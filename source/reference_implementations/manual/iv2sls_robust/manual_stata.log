@@ -1,0 +1,94 @@
+
+  ___  ____  ____  ____  ____ ®
+ /__    /   ____/   /   ____/      StataNow 19.5
+___/   /   /___/   /   /___/       SE—Standard Edition
+
+ Statistics and Data Science       Copyright 1985-2025 StataCorp LLC
+                                   StataCorp
+                                   4905 Lakeway Drive
+                                   College Station, Texas 77845 USA
+                                   800-782-8272        https://www.stata.com
+                                   979-696-4600        service@stata.com
+
+Stata license: Unlimited-user network, expiring 14 Jul 2026
+Serial number: [redacted serial]
+  Licensed to: Federico López
+               Universidad de San Andrés
+
+Notes:
+      1. Stata is running in batch mode.
+      2. Unicode is supported; see help unicode_advice.
+      3. Maximum number of variables is set to 5,000 but can be increased;
+          see help set_maxvar.
+
+. do code/pilot/manual_references/iv2sls_robust/manual_stata.do 
+
+. * Manual reference for T15 (just-identified 2SLS with robust SE) — Stata.
+. clear all
+
+. set more off
+
+. 
+. local data_path "code/pilot/data/pilot_v2.csv"
+
+. capture confirm file "`data_path'"
+
+. if _rc != 0 local data_path "../../data/pilot_v2.csv"
+
+. import delimited "`data_path'", clear
+(encoding automatically selected: ISO-8859-1)
+(13 vars, 2,000 obs)
+
+. 
+. ivregress 2sls y_iv (x1_iv = z), vce(robust)
+
+Instrumental-variables 2SLS regression            Number of obs   =      2,000
+                                                  Wald chi2(1)    =     336.13
+                                                  Prob > chi2     =     0.0000
+                                                  R-squared       =     0.3378
+                                                  Root MSE        =      1.107
+
+------------------------------------------------------------------------------
+             |               Robust
+        y_iv | Coefficient  std. err.      z    P>|z|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+       x1_iv |   .7916683   .0431804    18.33   0.000     .7070363    .8763004
+       _cons |   .9696202   .0247564    39.17   0.000     .9210985    1.018142
+------------------------------------------------------------------------------
+Endogenous: x1_iv
+Exogenous:  z
+
+. local b_const = _b[_cons]
+
+. local se_const = _se[_cons]
+
+. local b_x1iv = _b[x1_iv]
+
+. local se_x1iv = _se[x1_iv]
+
+. local n_obs = e(N)
+
+. 
+. display ""
+
+
+. display "Stata reference T15 (2SLS robust):"
+Stata reference T15 (2SLS robust):
+
+. display "  const   = " %12.6f `b_const' "  SE = " %12.6f `se_const'
+  const   =     0.969620  SE =     0.024756
+
+. display "  x1_iv   = " %12.6f `b_x1iv' "  SE = " %12.6f `se_x1iv'
+  x1_iv   =     0.791668  SE =     0.043180
+
+. display "  n_obs   = " `n_obs'
+  n_obs   = 2000
+
+. display "JSON_RESULT: " `"{"platform":"stata","const":"' %12.6f `b_const' `",
+> "se_const":"' %12.6f `se_const' `","x1_iv":"' %12.6f `b_x1iv' `","se_x1_iv":"
+> ' %12.6f `se_x1iv' `","n_obs":"' `n_obs' `"}"'
+JSON_RESULT: {"platform":"stata","const":    0.969620,"se_const":    0.024756,"
+> x1_iv":    0.791668,"se_x1_iv":    0.043180,"n_obs":2000}
+
+. 
+end of do-file

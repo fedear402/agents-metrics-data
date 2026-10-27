@@ -1,0 +1,106 @@
+
+  ___  ____  ____  ____  ____ ®
+ /__    /   ____/   /   ____/      StataNow 19.5
+___/   /   /___/   /   /___/       SE—Standard Edition
+
+ Statistics and Data Science       Copyright 1985-2025 StataCorp LLC
+                                   StataCorp
+                                   4905 Lakeway Drive
+                                   College Station, Texas 77845 USA
+                                   800-782-8272        https://www.stata.com
+                                   979-696-4600        service@stata.com
+
+Stata license: Unlimited-user network, expiring 14 Jul 2026
+Serial number: [redacted serial]
+  Licensed to: Federico López
+               Universidad de San Andrés
+
+Notes:
+      1. Stata is running in batch mode.
+      2. Unicode is supported; see help unicode_advice.
+      3. Maximum number of variables is set to 5,000 but can be increased;
+          see help set_maxvar.
+
+. do code/pilot/manual_references/probit/manual_stata.do 
+
+. * Manual reference for T11 (binary probit on the pilot v1 dataset) — Stata.
+. clear all
+
+. set more off
+
+. 
+. local data_path "code/pilot/data/pilot.csv"
+
+. capture confirm file "`data_path'"
+
+. if _rc != 0 local data_path "../../data/pilot.csv"
+
+. import delimited "`data_path'", clear
+(encoding automatically selected: ISO-8859-9)
+(6 vars, 2,000 obs)
+
+. 
+. probit y_bin_probit x1 x2
+
+Iteration 0:  Log likelihood = -1383.3769  
+Iteration 1:  Log likelihood =   -1177.52  
+Iteration 2:  Log likelihood = -1176.5461  
+Iteration 3:  Log likelihood = -1176.5456  
+Iteration 4:  Log likelihood = -1176.5456  
+
+Probit regression                                       Number of obs =  2,000
+                                                        LR chi2(2)    = 413.66
+                                                        Prob > chi2   = 0.0000
+Log likelihood = -1176.5456                             Pseudo R2     = 0.1495
+
+------------------------------------------------------------------------------
+y_bin_probit | Coefficient  Std. err.      z    P>|z|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+          x1 |   .5882143   .0345248    17.04   0.000      .520547    .6558816
+          x2 |  -.2932322   .0306403    -9.57   0.000    -.3532861   -.2331782
+       _cons |   .1099573   .0301253     3.65   0.000     .0509129    .1690017
+------------------------------------------------------------------------------
+
+. local b_const = _b[_cons]
+
+. local se_const = _se[_cons]
+
+. local b_x1 = _b[x1]
+
+. local se_x1 = _se[x1]
+
+. local b_x2 = _b[x2]
+
+. local se_x2 = _se[x2]
+
+. local n_obs = e(N)
+
+. 
+. display ""
+
+
+. display "Stata reference probit:"
+Stata reference probit:
+
+. display "  const = " %12.6f `b_const' "  SE = " %12.6f `se_const'
+  const =     0.109957  SE =     0.030125
+
+. display "  x1    = " %12.6f `b_x1' "  SE = " %12.6f `se_x1'
+  x1    =     0.588214  SE =     0.034525
+
+. display "  x2    = " %12.6f `b_x2' "  SE = " %12.6f `se_x2'
+  x2    =    -0.293232  SE =     0.030640
+
+. display "  n_obs = " `n_obs'
+  n_obs = 2000
+
+. display "JSON_RESULT: " `"{"platform":"stata","const":"' %12.6f `b_const' `",
+> "se_const":"' %12.6f `se_const' `","x1":"' %12.6f `b_x1' `","se_x1":"' %12.6f
+>  `se_x1' `","x2":"' %12.6f `b_x2' `","se_x2":"' %12.6f `se_x2' `","n_obs":"' 
+> `n_obs' `"}"'
+JSON_RESULT: {"platform":"stata","const":    0.109957,"se_const":    0.030125,"
+> x1":    0.588214,"se_x1":    0.034525,"x2":   -0.293232,"se_x2":    0.030640,
+> "n_obs":2000}
+
+. 
+end of do-file

@@ -1,0 +1,74 @@
+
+  ___  ____  ____  ____  ____ ®
+ /__    /   ____/   /   ____/      StataNow 19.5
+___/   /   /___/   /   /___/       SE—Standard Edition
+
+ Statistics and Data Science       Copyright 1985-2025 StataCorp LLC
+                                   StataCorp
+                                   4905 Lakeway Drive
+                                   College Station, Texas 77845 USA
+                                   800-782-8272        https://www.stata.com
+                                   979-696-4600        service@stata.com
+
+Stata license: Unlimited-user network, expiring 14 Jul 2026
+Serial number: [redacted serial]
+  Licensed to: Federico López
+               Universidad de San Andrés
+
+Notes:
+      1. Stata is running in batch mode.
+      2. Unicode is supported; see help unicode_advice.
+      3. Maximum number of variables is set to 5,000 but can be increased;
+          see help set_maxvar.
+
+. do code/pilot/manual_references/rdd_sharp/manual_stata.do 
+
+. * Manual reference for T18 (sharp RD, local-linear, triangular kernel, h=0.5)
+>  — Stata.
+. clear all
+
+. set more off
+
+. local data_path "code/pilot/data/pilot_v5_rdd.csv"
+
+. capture confirm file "`data_path'"
+
+. if _rc != 0 local data_path "../../data/pilot_v5_rdd.csv"
+
+. import delimited "`data_path'", clear
+(encoding automatically selected: ISO-8859-1)
+(3 vars, 1,000 obs)
+
+. 
+. local h = 0.5
+
+. gen byte inband = abs(z) < `h'
+
+. gen double w = 1 - abs(z) / `h' if inband
+(506 missing values generated)
+
+. quietly count if inband
+
+. local n_band = r(N)
+
+. local n_obs = _N
+
+. 
+. quietly regress y z [aweight=w] if inband & z >= 0
+
+. local mu_r = _b[_cons]
+
+. quietly regress y z [aweight=w] if inband & z < 0
+
+. local mu_l = _b[_cons]
+
+. local late = `mu_r' - `mu_l'
+
+. display "JSON_RESULT: " `"{"platform":"stata","late":"' %12.6f `late' `","ban
+> dwidth":"' %6.4f `h' `","n_inside_band":"' `n_band' `","n_obs":"' `n_obs' `"}
+> "'
+JSON_RESULT: {"platform":"stata","late":    0.968884,"bandwidth":0.5000,"n_insi
+> de_band":494,"n_obs":1000}
+
+. 
+end of do-file

@@ -1,0 +1,106 @@
+
+  ___  ____  ____  ____  ____ ®
+ /__    /   ____/   /   ____/      StataNow 19.5
+___/   /   /___/   /   /___/       SE—Standard Edition
+
+ Statistics and Data Science       Copyright 1985-2025 StataCorp LLC
+                                   StataCorp
+                                   4905 Lakeway Drive
+                                   College Station, Texas 77845 USA
+                                   800-782-8272        https://www.stata.com
+                                   979-696-4600        service@stata.com
+
+Stata license: Unlimited-user network, expiring 14 Jul 2026
+Serial number: [redacted serial]
+  Licensed to: Federico López
+               Universidad de San Andrés
+
+Notes:
+      1. Stata is running in batch mode.
+      2. Unicode is supported; see help unicode_advice.
+      3. Maximum number of variables is set to 5,000 but can be increased;
+          see help set_maxvar.
+
+. do code/pilot/manual_references/logit/manual_stata.do 
+
+. * Manual reference for T11-precursor (binary logit on the pilot v1 dataset) —
+>  Stata.
+. clear all
+
+. set more off
+
+. 
+. local data_path "code/pilot/data/pilot.csv"
+
+. capture confirm file "`data_path'"
+
+. if _rc != 0 local data_path "../../data/pilot.csv"
+
+. import delimited "`data_path'", clear
+(encoding automatically selected: ISO-8859-9)
+(6 vars, 2,000 obs)
+
+. 
+. logit y_bin_logit x1 x2
+
+Iteration 0:  Log likelihood = -1381.9352  
+Iteration 1:  Log likelihood = -1230.7381  
+Iteration 2:  Log likelihood = -1230.4153  
+Iteration 3:  Log likelihood = -1230.4152  
+
+Logistic regression                                     Number of obs =  2,000
+                                                        LR chi2(2)    = 303.04
+                                                        Prob > chi2   = 0.0000
+Log likelihood = -1230.4152                             Pseudo R2     = 0.1096
+
+------------------------------------------------------------------------------
+ y_bin_logit | Coefficient  Std. err.      z    P>|z|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+          x1 |   .7916227    .055564    14.25   0.000     .6827193    .9005261
+          x2 |  -.4005204   .0493372    -8.12   0.000    -.4972196   -.3038212
+       _cons |   .1928384   .0486153     3.97   0.000     .0975541    .2881227
+------------------------------------------------------------------------------
+
+. local b_const = _b[_cons]
+
+. local se_const = _se[_cons]
+
+. local b_x1 = _b[x1]
+
+. local se_x1 = _se[x1]
+
+. local b_x2 = _b[x2]
+
+. local se_x2 = _se[x2]
+
+. local n_obs = e(N)
+
+. 
+. display ""
+
+
+. display "Stata reference logit:"
+Stata reference logit:
+
+. display "  const = " %12.6f `b_const' "  SE = " %12.6f `se_const'
+  const =     0.192838  SE =     0.048615
+
+. display "  x1    = " %12.6f `b_x1' "  SE = " %12.6f `se_x1'
+  x1    =     0.791623  SE =     0.055564
+
+. display "  x2    = " %12.6f `b_x2' "  SE = " %12.6f `se_x2'
+  x2    =    -0.400520  SE =     0.049337
+
+. display "  n_obs = " `n_obs'
+  n_obs = 2000
+
+. display "JSON_RESULT: " `"{"platform":"stata","const":"' %12.6f `b_const' `",
+> "se_const":"' %12.6f `se_const' `","x1":"' %12.6f `b_x1' `","se_x1":"' %12.6f
+>  `se_x1' `","x2":"' %12.6f `b_x2' `","se_x2":"' %12.6f `se_x2' `","n_obs":"' 
+> `n_obs' `"}"'
+JSON_RESULT: {"platform":"stata","const":    0.192838,"se_const":    0.048615,"
+> x1":    0.791623,"se_x1":    0.055564,"x2":   -0.400520,"se_x2":    0.049337,
+> "n_obs":2000}
+
+. 
+end of do-file

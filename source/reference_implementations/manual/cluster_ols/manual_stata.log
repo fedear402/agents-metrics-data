@@ -1,0 +1,103 @@
+
+  ___  ____  ____  ____  ____ ®
+ /__    /   ____/   /   ____/      StataNow 19.5
+___/   /   /___/   /   /___/       SE—Standard Edition
+
+ Statistics and Data Science       Copyright 1985-2025 StataCorp LLC
+                                   StataCorp
+                                   4905 Lakeway Drive
+                                   College Station, Texas 77845 USA
+                                   800-782-8272        https://www.stata.com
+                                   979-696-4600        service@stata.com
+
+Stata license: Unlimited-user network, expiring 14 Jul 2026
+Serial number: [redacted serial]
+  Licensed to: Federico López
+               Universidad de San Andrés
+
+Notes:
+      1. Stata is running in batch mode.
+      2. Unicode is supported; see help unicode_advice.
+      3. Maximum number of variables is set to 5,000 but can be increased;
+          see help set_maxvar.
+
+. do code/pilot/manual_references/cluster_ols/manual_stata.do 
+
+. * Manual reference for T03 (OLS with one-way cluster-robust SE) — Stata.
+. clear all
+
+. set more off
+
+. 
+. local data_path "code/pilot/data/pilot_v2.csv"
+
+. capture confirm file "`data_path'"
+
+. if _rc != 0 local data_path "../../data/pilot_v2.csv"
+
+. import delimited "`data_path'", clear
+(encoding automatically selected: ISO-8859-1)
+(13 vars, 2,000 obs)
+
+. 
+. regress y_panel x1 x2, vce(cluster cluster)
+
+Linear regression                               Number of obs     =      2,000
+                                                F(2, 49)          =     297.73
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.2279
+                                                Root MSE          =     1.3114
+
+                               (Std. err. adjusted for 50 clusters in cluster)
+------------------------------------------------------------------------------
+             |               Robust
+     y_panel | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+          x1 |   .6966359   .0295023    23.61   0.000     .6373488    .7559229
+          x2 |  -.1800308   .0278718    -6.46   0.000    -.2360412   -.1240204
+       _cons |   .6096815    .121865     5.00   0.000     .3647845    .8545784
+------------------------------------------------------------------------------
+
+. local b_const = _b[_cons]
+
+. local se_const = _se[_cons]
+
+. local b_x1 = _b[x1]
+
+. local se_x1 = _se[x1]
+
+. local b_x2 = _b[x2]
+
+. local se_x2 = _se[x2]
+
+. local n_obs = e(N)
+
+. 
+. display ""
+
+
+. display "Stata reference T03 (one-way cluster OLS):"
+Stata reference T03 (one-way cluster OLS):
+
+. display "  const = " %12.6f `b_const' "  SE = " %12.6f `se_const'
+  const =     0.609681  SE =     0.121865
+
+. display "  x1    = " %12.6f `b_x1' "  SE = " %12.6f `se_x1'
+  x1    =     0.696636  SE =     0.029502
+
+. display "  x2    = " %12.6f `b_x2' "  SE = " %12.6f `se_x2'
+  x2    =    -0.180031  SE =     0.027872
+
+. display "  n_obs = " `n_obs'
+  n_obs = 2000
+
+. display "JSON_RESULT: " `"{"platform":"stata","const":"' %12.6f `b_const' `",
+> "se_const":"' %12.6f `se_const' `","x1":"' %12.6f `b_x1' `","se_x1":"' %12.6f
+>  `se_x1' `","x2":"' %12.6f `b_x2' `","se_x2":"' %12.6f `se_x2' `","n_obs":"' 
+> `n_obs' `"}"'
+JSON_RESULT: {"platform":"stata","const":    0.609681,"se_const":    0.121865,"
+> x1":    0.696636,"se_x1":    0.029502,"x2":   -0.180031,"se_x2":    0.027872,
+> "n_obs":2000}
+
+. 
+end of do-file

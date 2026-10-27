@@ -1,0 +1,42 @@
+{
+  "clearer_examples": {
+    "source": "quality_reports/reports/2026-09-16_clearer-examples/src/collector/collector.py",
+    "sha256": "57ff51d7fc82dde2a9b47b18ee95d125b8ca300e140882902c48ed29affdeef1"
+  },
+  "expanded_recovery": {
+    "source": "quality_reports/reports/2026-09-16_expanded-prompt-evaluation/src/recovery/collector.py",
+    "sha256": "3c021b0c7f8ae17010dfd2aa79a8fb00d18b55fb21ce47504e77eed77615fa12"
+  },
+  "expanded": {
+    "source": "quality_reports/reports/2026-09-16_expanded-prompt-evaluation/src/collector/collector.py",
+    "sha256": "ae60726890a6c44d451d271335e61b58f8a429f5f9e0f8c9cae8fe9ae7f1820b"
+  },
+  "prompt_variation": {
+    "source": "quality_reports/reports/2026-09-16_prompt-variation-reps/src/collector/collector.py",
+    "sha256": "d7f694edbb63cfd40eec7704b397920d8fd8cea82ad117b1dff6e2cb20da2acf"
+  },
+  "corrected": {
+    "source": "quality_reports/reports/2026-09-16_format-prompt-experiments/src/collector_correction/collector.py",
+    "sha256": "a535b2ec98ab4df76ea66385c7eba6fc385f84041ada87bccdc563a0af2182f9"
+  },
+  "collector": {
+    "source": "quality_reports/reports/2026-09-16_two-prompt-recheck/src/collector_v3/collector.py",
+    "sha256": "e08a09104629b2dba0968713f3c020322c793a9b032f08bc9ba72c4fe28e7e83"
+  },
+  "runner": {
+    "source": "quality_reports/reports/2026-09-14_luna-hard-five-seven/src/runner.py",
+    "sha256": "f045f180fb16490c236d706ad9e3ff248a1ad2e93770e98df5db28bf9c74bde2"
+  },
+  "production_statistics": {
+    "source": "quality_reports/reports/2026-09-17_complete-checkpoint-package/src/build_statistics.py",
+    "sha256": "4d585903a0990821460627ef815201a05e516c1a3be97452c1961eff568a818c"
+  },
+  "saved_response_analysis": {
+    "source": "quality_reports/reports/2026-09-19_completion-and-candidates/src/workflows/analyze_original10.py",
+    "sha256": "98193895c631676112653d1dbb8efc39facb11195a6c8de99ec5550f9bf3115b"
+  },
+  "historical_figures": {
+    "source": "quality_reports/reports/2026-09-17_complete-checkpoint-package/src/figures/build.py",
+    "sha256": "52dee02b59c8bf70e12dbbac1c94cc1f6e867ebea1b9d024a30e64e85d2c65c8"
+  }
+}

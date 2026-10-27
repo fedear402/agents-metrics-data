@@ -1,0 +1,101 @@
+
+  ___  ____  ____  ____  ____ ®
+ /__    /   ____/   /   ____/      StataNow 19.5
+___/   /   /___/   /   /___/       SE—Standard Edition
+
+ Statistics and Data Science       Copyright 1985-2025 StataCorp LLC
+                                   StataCorp
+                                   4905 Lakeway Drive
+                                   College Station, Texas 77845 USA
+                                   800-782-8272        https://www.stata.com
+                                   979-696-4600        service@stata.com
+
+Stata license: Unlimited-user network, expiring 14 Jul 2026
+Serial number: [redacted serial]
+  Licensed to: Federico López
+               Universidad de San Andrés
+
+Notes:
+      1. Stata is running in batch mode.
+      2. Unicode is supported; see help unicode_advice.
+      3. Maximum number of variables is set to 5,000 but can be increased;
+          see help set_maxvar.
+
+. do code/pilot/manual_references/twoway_fe/manual_stata.do 
+
+. * Manual reference for T14 (two-way FE OLS with cluster-robust SE on firm) — 
+> Stata.
+. clear all
+
+. set more off
+
+. local data_path "code/pilot/data/pilot_v3.csv"
+
+. capture confirm file "`data_path'"
+
+. if _rc != 0 local data_path "../../data/pilot_v3.csv"
+
+. import delimited "`data_path'", clear
+(encoding automatically selected: ISO-8859-1)
+(11 vars, 2,000 obs)
+
+. 
+. xtset firm year
+
+Panel variable: firm (strongly balanced)
+ Time variable: year, 0 to 9
+         Delta: 1 unit
+
+. * areg absorbs the firm FE and reports cluster SE on firm. To get two-way FE
+. * (firm + year), include i.year explicitly and absorb firm.
+. areg y_twocluster x i.year, absorb(firm) vce(cluster firm)
+
+Linear regression, absorbing indicators             Number of obs     =  2,000
+Absorbed variable: firm                             No. of categories =    200
+                                                    F(10, 199)        =  91.97
+                                                    Prob > F          = 0.0000
+                                                    R-squared         = 0.5674
+                                                    Adj R-squared     = 0.5169
+                                                    Root MSE          = 0.9878
+
+                                 (Std. err. adjusted for 200 clusters in firm)
+------------------------------------------------------------------------------
+             |               Robust
+y_twocluster | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+           x |   .5352993   .0247463    21.63   0.000     .4865007    .5840978
+             |
+        year |
+          1  |   .8766125   .1033081     8.49   0.000     .6728934    1.080332
+          2  |   .7423352   .1059847     7.00   0.000     .5333379    .9513324
+          3  |   -.155783   .1059849    -1.47   0.143    -.3647805    .0532145
+          4  |   .6999491     .10641     6.58   0.000     .4901132    .9097849
+          5  |  -.3135499   .1051526    -2.98   0.003    -.5209063   -.1061935
+          6  |  -.0477487   .1066114    -0.45   0.655    -.2579817    .1624843
+          7  |  -.2556613   .1013988    -2.52   0.012    -.4556154   -.0557072
+          8  |  -.1243912   .1127975    -1.10   0.271    -.3468231    .0980406
+          9  |  -.1974546   .1092145    -1.81   0.072    -.4128207    .0179116
+             |
+       _cons |   .8946274   .0725155    12.34   0.000       .75163    1.037625
+------------------------------------------------------------------------------
+
+. local b = _b[x]
+
+. local se = _se[x]
+
+. local n_obs = e(N)
+
+. quietly tab firm
+
+. local n_firms = r(r)
+
+. local K_absorbed = e(df_a) + e(df_m) + 1
+
+. display "JSON_RESULT: " `"{"platform":"stata","x":"' %12.6f `b' `","se_x_clus
+> ter_firm":"' %12.6f `se' `","n_obs":"' `n_obs' `","n_firms":"' `n_firms' `","
+> K_absorbed":"' `K_absorbed' `"}"'
+JSON_RESULT: {"platform":"stata","x":    0.535299,"se_x_cluster_firm":    0.024
+> 746,"n_obs":2000,"n_firms":200,"K_absorbed":210}
+
+. 
+end of do-file

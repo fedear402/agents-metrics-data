@@ -1,0 +1,68 @@
+
+  ___  ____  ____  ____  ____ ®
+ /__    /   ____/   /   ____/      StataNow 19.5
+___/   /   /___/   /   /___/       SE—Standard Edition
+
+ Statistics and Data Science       Copyright 1985-2025 StataCorp LLC
+                                   StataCorp
+                                   4905 Lakeway Drive
+                                   College Station, Texas 77845 USA
+                                   800-782-8272        https://www.stata.com
+                                   979-696-4600        service@stata.com
+
+Stata license: Unlimited-user network, expiring 14 Jul 2026
+Serial number: [redacted serial]
+  Licensed to: Federico López
+               Universidad de San Andrés
+
+Notes:
+      1. Stata is running in batch mode.
+      2. Unicode is supported; see help unicode_advice.
+      3. Maximum number of variables is set to 5,000 but can be increased;
+          see help set_maxvar.
+
+. do code/pilot/manual_references/chisq_indep/manual_stata.do 
+
+. * Manual reference for T09 (chi-square test of independence) — Stata.
+. clear all
+
+. set more off
+
+. local data_path "code/pilot/data/pilot_v5_chisq.csv"
+
+. capture confirm file "`data_path'"
+
+. if _rc != 0 local data_path "../../data/pilot_v5_chisq.csv"
+
+. import delimited "`data_path'", clear
+(encoding automatically selected: ISO-8859-2)
+(2 vars, 600 obs)
+
+. 
+. tabulate row col, chi2
+
+           |               col
+       row |         0          1          2 |     Total
+-----------+---------------------------------+----------
+         0 |       153         87         61 |       301 
+         1 |        94        115         90 |       299 
+-----------+---------------------------------+----------
+     Total |       247        202        151 |       600 
+
+          Pearson chi2(2) =  23.5374   Pr = 0.000
+
+. local chi2 = r(chi2)
+
+. local p = r(p)
+
+. local df = (r(r) - 1) * (r(c) - 1)
+
+. local n_obs = _N
+
+. display "JSON_RESULT: " `"{"platform":"stata","chi2":"' %12.6f `chi2' `","df"
+> :"' `df' `","p_value":"' %12.6f `p' `","n_obs":"' `n_obs' `"}"'
+JSON_RESULT: {"platform":"stata","chi2":   23.537437,"df":2,"p_value":    0.000
+> 008,"n_obs":600}
+
+. 
+end of do-file

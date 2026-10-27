@@ -1,0 +1,86 @@
+
+  ___  ____  ____  ____  ____ ®
+ /__    /   ____/   /   ____/      StataNow 19.5
+___/   /   /___/   /   /___/       SE—Standard Edition
+
+ Statistics and Data Science       Copyright 1985-2025 StataCorp LLC
+                                   StataCorp
+                                   4905 Lakeway Drive
+                                   College Station, Texas 77845 USA
+                                   800-782-8272        https://www.stata.com
+                                   979-696-4600        service@stata.com
+
+Stata license: Unlimited-user network, expiring 14 Jul 2026
+Serial number: [redacted serial]
+  Licensed to: Federico López
+               Universidad de San Andrés
+
+Notes:
+      1. Stata is running in batch mode.
+      2. Unicode is supported; see help unicode_advice.
+      3. Maximum number of variables is set to 5,000 but can be increased;
+          see help set_maxvar.
+
+. do code/pilot/manual_references/ttest_welch/manual_stata.do 
+
+. * Manual reference for T07 (Welch two-sample t-test) — Stata.
+. clear all
+
+. set more off
+
+. local data_path "code/pilot/data/pilot_v5_ttest.csv"
+
+. capture confirm file "`data_path'"
+
+. if _rc != 0 local data_path "../../data/pilot_v5_ttest.csv"
+
+. import delimited "`data_path'", clear
+(encoding automatically selected: ISO-8859-1)
+(2 vars, 200 obs)
+
+. 
+. ttest y, by(group) unequal
+
+Two-sample t test with unequal variances
+------------------------------------------------------------------------------
+   Group |     Obs        Mean    Std. err.   Std. dev.   [95% conf. interval]
+---------+--------------------------------------------------------------------
+       0 |     100     -.03809    .0946854    .9468541   -.2259664    .1497864
+       1 |     100    .5072281    .1562282    1.562282    .1972374    .8172188
+---------+--------------------------------------------------------------------
+Combined |     200     .234569    .0931386    1.317179    .0509037    .4182344
+---------+--------------------------------------------------------------------
+    diff |           -.5453182    .1826817               -.9060445   -.1845918
+------------------------------------------------------------------------------
+    diff = mean(0) - mean(1)                                      t =  -2.9851
+H0: diff = 0                     Satterthwaite's degrees of freedom =  163.083
+
+    Ha: diff < 0                 Ha: diff != 0                 Ha: diff > 0
+ Pr(T < t) = 0.0016         Pr(|T| > |t|) = 0.0033          Pr(T > t) = 0.9984
+
+. local t = r(t)
+
+. local df = r(df_t)
+
+. local p = r(p)
+
+. quietly count if group == 0
+
+. local n_a = r(N)
+
+. quietly count if group == 1
+
+. local n_b = r(N)
+
+. * Stata signs ttest as (group 0) - (group 1); flip sign to match Python (b - 
+> a) convention.
+. local t_signed = -1 * `t'
+
+. display "JSON_RESULT: " `"{"platform":"stata","t":"' %12.6f `t_signed' `","df
+> ":"' %12.6f `df' `","p_value":"' %12.6f `p' `","n_a":"' `n_a' `","n_b":"' `n_
+> b' `"}"'
+JSON_RESULT: {"platform":"stata","t":    2.985073,"df":  163.083303,"p_value": 
+>    0.003272,"n_a":100,"n_b":100}
+
+. 
+end of do-file

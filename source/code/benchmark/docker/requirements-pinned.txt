@@ -1,0 +1,44 @@
+# Pinned Python scientific stack for the R3 full-agent Docker image.
+#
+# SINGLE SOURCE OF TRUTH for the container's Python environment. The Dockerfile
+# installs exactly these versions with `uv pip install --system`.
+#
+# WHY THESE EXACT PINS
+# --------------------
+# The benchmark's reference outputs (data/references/) were generated on the
+# HOST with the versions below. Verified on the host on 2026-06-30:
+#
+#     python  3.14.6        (Homebrew, /opt/homebrew/bin/python3)
+#     numpy   2.4.2
+#     pandas  3.0.0         <-- the version the session flagged as load-bearing
+#     scipy   1.18.0
+#     statsmodels 0.14.6
+#
+# Any drift here can move an agent's numbers outside the strict scorer's
+# tolerance even when the agent's code is correct, so DO NOT relax these to `>=`.
+# Re-pin only after regenerating the reference outputs on the new versions.
+numpy==2.4.2
+pandas==3.0.0
+scipy==1.18.0
+statsmodels==0.14.6
+
+# ---------------------------------------------------------------------------
+# AGENT-CONVENIENCE PACKAGES — NOT part of the host reference environment.
+# ---------------------------------------------------------------------------
+# linearmodels is requested for the image so the agent CAN reach for it on IV /
+# panel tasks, but it is NOT installed on the host (verified 2026-06-30:
+# `ModuleNotFoundError: No module named 'linearmodels'`). The reference outputs
+# therefore do NOT depend on it. It is safe to include because the agent's
+# numerics are scored against the references within tolerance regardless of which
+# library produced them.
+#
+# The version below is a placeholder compatible-range, NOT a host-verified pin.
+# Pick and freeze an exact version that resolves cleanly against numpy 2.4 /
+# pandas 3.0 the first time the image builds, then replace the range with `==`.
+linearmodels>=6,<7
+# lifelines: ratified "available standard package" (decision record 2026-06-30);
+# the legacy sweep environment had it and 62 legacy python cox_hazard runs used
+# it. Its absence from the pinned-2026-07 worker produced 3 spurious cox failures
+# (audit 2026-07-06) — models burned all self-repair attempts on the missing
+# import. Host-verified 0.30.3 against numpy 2.4 / pandas 3.0 on 2026-07-06.
+lifelines==0.30.3

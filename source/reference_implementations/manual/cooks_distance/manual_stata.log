@@ -1,0 +1,88 @@
+
+  ___  ____  ____  ____  ____ ®
+ /__    /   ____/   /   ____/      StataNow 19.5
+___/   /   /___/   /   /___/       SE—Standard Edition
+
+ Statistics and Data Science       Copyright 1985-2025 StataCorp LLC
+                                   StataCorp
+                                   4905 Lakeway Drive
+                                   College Station, Texas 77845 USA
+                                   800-782-8272        https://www.stata.com
+                                   979-696-4600        service@stata.com
+
+Stata license: Unlimited-user network, expiring 14 Jul 2026
+Serial number: [redacted serial]
+  Licensed to: Federico López
+               Universidad de San Andrés
+
+Notes:
+      1. Stata is running in batch mode.
+      2. Unicode is supported; see help unicode_advice.
+      3. Maximum number of variables is set to 5,000 but can be increased;
+          see help set_maxvar.
+
+. do code/pilot/manual_references/cooks_distance/manual_stata.do 
+
+. * Manual reference for T06 (Cook's distance top-5) — Stata.
+. clear all
+
+. set more off
+
+. 
+. local data_path "code/pilot/data/pilot_v5_collinear.csv"
+
+. capture confirm file "`data_path'"
+
+. if _rc != 0 local data_path "../../data/pilot_v5_collinear.csv"
+
+. import delimited "`data_path'", clear
+(encoding automatically selected: UTF-8)
+(6 vars, 500 obs)
+
+. 
+. gen long row_id = _n - 1   // zero-based to match Python and R; renamed to av
+> oid Stata's [..] equation parsing
+
+. regress y x1 x2 x3 x4 x5
+
+      Source |       SS           df       MS      Number of obs   =       500
+-------------+----------------------------------   F(5, 494)       =    627.33
+       Model |  3091.50581         5  618.301162   Prob > F        =    0.0000
+    Residual |  486.889896       494  .985607077   R-squared       =    0.8639
+-------------+----------------------------------   Adj R-squared   =    0.8626
+       Total |  3578.39571       499  7.17113368   Root MSE        =    .99278
+
+------------------------------------------------------------------------------
+           y | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+          x1 |   .8673786   .0849202    10.21   0.000     .7005293    1.034228
+          x2 |   1.093585   .0951723    11.49   0.000     .9065929    1.280578
+          x3 |    .529577    .042741    12.39   0.000     .4456004    .6135536
+          x4 |   1.013858   .0441426    22.97   0.000     .9271273    1.100588
+          x5 |   .5730185   .0897829     6.38   0.000      .396615    .7494221
+       _cons |   1.019879   .0444837    22.93   0.000     .9324784     1.10728
+------------------------------------------------------------------------------
+
+. predict cd, cooksd
+
+. local n_obs = _N
+
+. gsort -cd
+
+. forvalues k = 1/5 {
+  2.     quietly summarize row_id in `k'/`k', meanonly
+  3.     local id`k' = r(mean)
+  4.     quietly summarize cd in `k'/`k', meanonly
+  5.     local cd`k' = r(mean)
+  6. }
+
+. display "JSON_RESULT: " `"{"platform":"stata","top5_obs_ids":["' `id1' `","' 
+> `id2' `","' `id3' `","' `id4' `","' `id5' `"],"top5_cooks_d":["' %12.6f `cd1'
+>  `","' %12.6f `cd2' `","' %12.6f `cd3' `","' %12.6f `cd4' `","' %12.6f `cd5' 
+> `"],"n_obs":"' `n_obs' `"}"'
+JSON_RESULT: {"platform":"stata","top5_obs_ids":[190,214,377,119,323],"top5_coo
+> ks_d":[    0.028549,    0.024653,    0.020751,    0.017480,    0.017470],"n_o
+> bs":500}
+
+. 
+end of do-file

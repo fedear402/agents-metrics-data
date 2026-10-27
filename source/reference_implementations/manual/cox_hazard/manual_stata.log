@@ -1,0 +1,135 @@
+
+  ___  ____  ____  ____  ____ ®
+ /__    /   ____/   /   ____/      StataNow 19.5
+___/   /   /___/   /   /___/       SE—Standard Edition
+
+ Statistics and Data Science       Copyright 1985-2025 StataCorp LLC
+                                   StataCorp
+                                   4905 Lakeway Drive
+                                   College Station, Texas 77845 USA
+                                   800-782-8272        https://www.stata.com
+                                   979-696-4600        service@stata.com
+
+Stata license: Unlimited-user network, expiring 14 Jul 2026
+Serial number: [redacted serial]
+  Licensed to: Federico López
+               Universidad de San Andrés
+
+Notes:
+      1. Stata is running in batch mode.
+      2. Unicode is supported; see help unicode_advice.
+      3. Maximum number of variables is set to 5,000 but can be increased;
+          see help set_maxvar.
+
+. do code/pilot/manual_references/cox_hazard/manual_stata.do 
+
+. * Manual reference for T13 (Cox PH) — Stata.
+. clear all
+
+. set more off
+
+. 
+. local data_path "code/pilot/data/pilot_v4_cox.csv"
+
+. capture confirm file "`data_path'"
+
+. if _rc != 0 local data_path "../../data/pilot_v4_cox.csv"
+
+. import delimited "`data_path'", clear
+(encoding automatically selected: ISO-8859-1)
+(5 vars, 2,000 obs)
+
+. 
+. stset t_obs, failure(event)
+
+Survival-time data settings
+
+         Failure event: event!=0 & event<.
+Observed time interval: (0, t_obs]
+     Exit on or before: failure
+
+--------------------------------------------------------------------------
+      2,000  total observations
+          0  exclusions
+--------------------------------------------------------------------------
+      2,000  observations remaining, representing
+      1,470  failures in single-record/single-failure data
+  1,740.262  total analysis time at risk and under observation
+                                                At risk from t =         0
+                                     Earliest observed entry t =         0
+                                          Last observed exit t =  4.891746
+
+. stcox treat x, nohr breslow
+
+        Failure _d: event
+  Analysis time _t: t_obs
+
+Iteration 0:  Log likelihood =  -9631.316
+Iteration 1:  Log likelihood = -9520.2419
+Iteration 2:  Log likelihood = -9520.1865
+Refining estimates:
+Iteration 0:  Log likelihood = -9520.1865
+
+Cox regression with no ties
+
+No. of subjects =      2,000                            Number of obs =  2,000
+No. of failures =      1,470
+Time at risk    = 1,740.2622
+                                                        LR chi2(2)    = 222.26
+Log likelihood = -9520.1865                             Prob > chi2   = 0.0000
+
+------------------------------------------------------------------------------
+          _t | Coefficient  Std. err.      z    P>|z|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+       treat |  -.4989597   .0534005    -9.34   0.000    -.6036227   -.3942967
+           x |   .3231279   .0264936    12.20   0.000     .2712015    .3750544
+------------------------------------------------------------------------------
+
+. local b_treat = _b[treat]
+
+. local se_treat = _se[treat]
+
+. local b_x = _b[x]
+
+. local se_x = _se[x]
+
+. quietly count if event == 1
+
+. local events = r(N)
+
+. quietly count
+
+. local n_obs = r(N)
+
+. display ""
+
+
+. display "Stata reference T13 (Cox PH):"
+Stata reference T13 (Cox PH):
+
+. display "  coef_treat   = " %12.6f `b_treat'
+  coef_treat   =    -0.498960
+
+. display "  se_treat     = " %12.6f `se_treat'
+  se_treat     =     0.053400
+
+. display "  coef_x       = " %12.6f `b_x'
+  coef_x       =     0.323128
+
+. display "  se_x         = " %12.6f `se_x'
+  se_x         =     0.026494
+
+. display "  events       = " `events'
+  events       = 1470
+
+. display "  n_obs        = " `n_obs'
+  n_obs        = 2000
+
+. display "JSON_RESULT: " `"{"platform":"stata","coef_treat":"' %12.6f `b_treat
+> ' `","se_treat":"' %12.6f `se_treat' `","coef_x":"' %12.6f `b_x' `","se_x":"'
+>  %12.6f `se_x' `","events":"' `events' `","n_obs":"' `n_obs' `"}"'
+JSON_RESULT: {"platform":"stata","coef_treat":   -0.498960,"se_treat":    0.053
+> 400,"coef_x":    0.323128,"se_x":    0.026494,"events":1470,"n_obs":2000}
+
+. 
+end of do-file

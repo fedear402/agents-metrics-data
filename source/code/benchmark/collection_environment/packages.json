@@ -1,0 +1,99 @@
+{
+  "purpose": "One standard package set for the collection (decision 7). Every package here is installed before launch. The sandbox makes the libraries read-only during the collection. check_environment.py loads each package and writes environment_manifest.json.",
+  "decided": "2026-09-28",
+  "must_not_change": {
+    "python": {"numpy": "2.4.2", "pandas": "3.0.0", "scipy": "1.18.0", "statsmodels": "0.14.6", "linearmodels": "6.1", "matplotlib": "3.11.0", "pydantic": "2.13.4"},
+    "r": "Every installed row of installed.packages() before the install. r_packages.R install stops if one changes.",
+    "stata": "boottest, reghdfe, ftools, ppmlhdfe, ivreg2, ranktest (used by the analysis) and every other file already in PLUS. stata_packages.do installs without replace, except the drdid update."
+  },
+  "python": {
+    "uv_group": "collection",
+    "interpreter": ".venv/bin/python",
+    "imports": {
+      "numpy": "numpy", "pandas": "pandas", "scipy": "scipy", "statsmodels": "statsmodels",
+      "linearmodels": "linearmodels", "matplotlib": "matplotlib", "patsy": "patsy", "formulaic": "formulaic",
+      "pyhdfe": "pyhdfe", "lifelines": "lifelines", "scikit-learn": "sklearn", "numdifftools": "numdifftools",
+      "pyfixest": "pyfixest", "differences": "differences", "rdrobust": "rdrobust", "arch": "arch",
+      "csdid": "csdid", "drdid": "drdid", "py4etrics": "py4etrics", "ivmodels": "ivmodels"
+    },
+    "submodules": {
+      "py4etrics": ["py4etrics.heckit", "py4etrics.tobit", "py4etrics.truncreg"],
+      "ivmodels": ["ivmodels.tests", "ivmodels.models.kclass"]
+    },
+    "available_not_named": {
+      "packages": ["py4etrics", "ivmodels"],
+      "decided": "2026-09-29",
+      "rule": "Installed so that an agent may use them. No prompt, example, or instruction names them.",
+      "py4etrics": "Small personal package (Tetsu Haruyama, 0.1.9, 2024-01-06). Needs statsmodels 0.14.x: it imports statsmodels.tools.decorators, which statsmodels 0.15 removed.",
+      "ivmodels": "Package of the method authors (Londschien and Buhlmann, Journal of Econometrics, 106239)."
+    }
+  },
+  "r": {
+    "library": "first entry of .libPaths() under Rscript --vanilla",
+    "already_installed_checked": [
+      "jsonlite", "sandwich", "lmtest", "car", "AER", "ivreg", "lfe", "fixest", "plm", "multiwayvcov", "vars",
+      "forecast", "survival", "MASS", "nnet", "VGAM", "maxLik", "numDeriv", "sampleSelection", "did", "DRDID",
+      "margins", "systemfit", "quantreg", "urca", "zoo", "data.table", "dplyr", "tidyr", "readr", "ggplot2",
+      "purrr", "broom", "haven", "lme4", "collapse", "lpSolve", "Matrix", "boot", "mvtnorm", "caret"
+    ],
+    "cran": [
+      {"package": "tidyverse", "why": "Missing-package failures in saved runs (4)."},
+      {"package": "truncreg", "why": "hard_truncated_normal_effects standard routine."},
+      {"package": "glmx", "why": "hard_heteroskedastic_probit standard routine (hetglm)."},
+      {"package": "mlogit", "why": "hard_conditional_logit_welfare, broad_multinomial_logit."},
+      {"package": "marginaleffects", "why": "logit and other average marginal effects."},
+      {"package": "pscl", "why": "hard_poisson_hurdle_effects standard routine (hurdle)."},
+      {"package": "clubSandwich", "why": "cr2_bm_df (CR2 with Bell-McCaffrey degrees of freedom)."},
+      {"package": "censReg", "why": "tobit_twolimit_ame, broad_tobit."},
+      {"package": "estimatr", "why": "lm_robust and iv_robust named in ols_robust, cluster_ols, iv2sls_robust."},
+      {"package": "ordinal", "why": "broad_ordered_logit (clm)."},
+      {"package": "rdrobust", "why": "rdd_sharp, applied_fuzzy_rd."},
+      {"package": "rddensity", "why": "Standard RD companion."},
+      {"package": "ivmodel", "why": "ar_weakiv_invert, liml_many_iv, broad_ar_confidence_set."},
+      {"package": "gmm", "why": "gmm_twostep_j, generated_regressor_mt."},
+      {"package": "momentfit", "why": "gmm_twostep_j, generated_regressor_mt."},
+      {"package": "ShiftShareSE", "why": "applied_shift_share."},
+      {"package": "oaxaca", "why": "broad_oaxaca."},
+      {"package": "roll", "why": "hard_rolling (roll_lm)."},
+      {"package": "tseries", "why": "Standard time-series tests."},
+      {"package": "dynlm", "why": "Standard dynamic linear models."},
+      {"package": "mfx", "why": "Marginal effects for probit, logit, and count models."},
+      {"package": "modelsummary", "why": "Standard regression tables."},
+      {"package": "stargazer", "why": "Standard regression tables."},
+      {"package": "Synth", "why": "Synthetic control."},
+      {"package": "MatchIt", "why": "Matching estimators."},
+      {"package": "nortest", "why": "Normality tests."},
+      {"package": "moments", "why": "Skewness and kurtosis."},
+      {"package": "glmnet", "why": "Penalized regression."},
+      {"package": "combinat", "why": "Missing in the saved runs."},
+      {"package": "bife", "why": "Fixed-effects binary choice."},
+      {"package": "pglm", "why": "Panel GLM."},
+      {"package": "HonestDiD", "why": "Difference-in-differences sensitivity."},
+      {"package": "did2s", "why": "Two-stage difference-in-differences (staggered_did)."},
+      {"package": "etwfe", "why": "Extended two-way fixed effects (staggered_did)."},
+      {"package": "lpirfs", "why": "Local projections (lp_irf, hard_panel_lp_iv)."}
+    ],
+    "github": [
+      {"package": "synthdid", "version": "0.0.9", "repo": "synth-inference/synthdid",
+       "ref": "70c1ce3eac58e28c30b67435ca377bb48baa9b8a", "depends": ["mvtnorm"],
+       "why": "Synthetic difference-in-differences. Not on CRAN."}
+    ]
+  },
+  "stata": {
+    "binary": "/Applications/StataNow/StataSE.app/Contents/MacOS/stata-se",
+    "already_installed_checked": ["reghdfe", "ftools", "ppmlhdfe", "boottest", "ivreg2", "ranktest", "csdid", "drdid",
+                                  "synth", "estout", "esttab", "xtabond2", "rdrobust", "rddensity", "vcemway",
+                                  "did_imputation", "outreg2", "coefplot", "eventdd", "hdfe", "ivreg210"],
+    "ssc_new": ["weakiv", "avar", "twostepweakiv", "ivreghdfe", "xtivreg2", "oaxaca", "distinct", "moremata",
+                "jwdid", "eventstudyinteract", "sdid", "ppml", "ssaggregate"],
+    "ssc_update": ["drdid"],
+    "not_installed": {"bacondecomp": "Its SSC package adds the one-letter commands b.ado, ba.ado, and bac.ado.",
+                      "gtools": "Compiled plugin. Not needed by any task.",
+                      "cgmreg": "Not on SSC. vcemway and reghdfe cover multiway clustering."},
+    "check_commands": ["reghdfe", "ftools", "ppmlhdfe", "boottest", "ivreg2", "ranktest", "csdid", "drdid", "synth",
+                       "estout", "esttab", "xtabond2", "weakiv", "avar", "twostepweakiv", "ivreghdfe", "xtivreg2",
+                       "oaxaca", "distinct", "jwdid", "eventstudyinteract", "sdid", "ppml", "ssaggregate",
+                       "rdrobust", "rddensity", "vcemway", "did_imputation", "outreg2", "coefplot"],
+    "check_mata_libraries": ["lmoremata"]
+  }
+}

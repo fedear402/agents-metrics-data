@@ -7,6 +7,10 @@ runs/      Run records: prompts, model responses, scripts, logs, and outputs. On
            record_path.
 prompts/   The first prompt of each run: one text file per distinct prompt, named by its SHA-256 hash. runs.csv gives
            the prompt of each run (record_path, prompt_sha256).
+source/    The code of the study: task definitions and the simulation of the datasets (source/code/benchmark/),
+           the harness that ran the models, the scoring, the analysis and the paper builds (source/code/paper/), and
+           the reference implementations in Stata, R, and Python (source/reference_implementations/).
+           source/pyproject.toml and source/uv.lock pin the Python environment.
 code/      Run python code/reproduce.py from the repository root. It recomputes every model, pooled, and stored
            group contrast and checks estimates and CR1 standard errors against analysis/regression_contrasts.csv.
            Accuracy uses every run. Mean cost uses priced runs. requirements.txt lists the Python packages.

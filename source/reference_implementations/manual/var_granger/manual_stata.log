@@ -1,0 +1,100 @@
+
+  ___  ____  ____  ____  ____ ®
+ /__    /   ____/   /   ____/      StataNow 19.5
+___/   /   /___/   /   /___/       SE—Standard Edition
+
+ Statistics and Data Science       Copyright 1985-2025 StataCorp LLC
+                                   StataCorp
+                                   4905 Lakeway Drive
+                                   College Station, Texas 77845 USA
+                                   800-782-8272        https://www.stata.com
+                                   979-696-4600        service@stata.com
+
+Stata license: Unlimited-user network, expiring 14 Jul 2026
+Serial number: [redacted serial]
+  Licensed to: Federico López
+               Universidad de San Andrés
+
+Notes:
+      1. Stata is running in batch mode.
+      2. Unicode is supported; see help unicode_advice.
+      3. Maximum number of variables is set to 5,000 but can be increased;
+          see help set_maxvar.
+
+. do code/pilot/manual_references/var_granger/manual_stata.do 
+
+. * Manual reference for T22 (Granger F-test, y2 does not Granger-cause y1, 2 l
+> ags) — Stata.
+. clear all
+
+. set more off
+
+. 
+. local data_path "code/pilot/data/pilot_v4_var.csv"
+
+. capture confirm file "`data_path'"
+
+. if _rc != 0 local data_path "../../data/pilot_v4_var.csv"
+
+. import delimited "`data_path'", clear
+(encoding automatically selected: ISO-8859-1)
+(3 vars, 200 obs)
+
+. 
+. tsset t
+
+Time variable: t, 1 to 200
+        Delta: 1 unit
+
+. * Build the unrestricted and restricted OLS regressions explicitly to mirror
+. * the manual Python and R scripts (same data window: t = 3..N).
+. quietly regress y1 L.y1 L2.y1 L.y2 L2.y2
+
+. local rss_unr = e(rss)
+
+. local df_unr = e(df_r)
+
+. local k_unr = e(rank)
+
+. local n_used = e(N)
+
+. quietly regress y1 L.y1 L2.y1
+
+. local rss_res = e(rss)
+
+. 
+. local q = 2
+
+. local F = ((`rss_res' - `rss_unr') / `q') / (`rss_unr' / `df_unr')
+
+. local pv = Ftail(`q', `df_unr', `F')
+
+. display ""
+
+
+. display "Stata reference T22 (Granger 2-lag F):"
+Stata reference T22 (Granger 2-lag F):
+
+. display "  F            = " %12.6f `F'
+  F            =     2.810101
+
+. display "  df_num       = " `q'
+  df_num       = 2
+
+. display "  df_den       = " `df_unr'
+  df_den       = 193
+
+. display "  p_value      = " %12.6f `pv'
+  p_value      =     0.062664
+
+. display "  n_obs        = " `n_used'
+  n_obs        = 198
+
+. display "JSON_RESULT: " `"{"platform":"stata","F":"' %12.6f `F' `","df_num":"
+> ' `q' `","df_den":"' `df_unr' `","p_value":"' %12.6f `pv' `","n_obs":"' `n_us
+> ed' `"}"'
+JSON_RESULT: {"platform":"stata","F":    2.810101,"df_num":2,"df_den":193,"p_va
+> lue":    0.062664,"n_obs":198}
+
+. 
+end of do-file

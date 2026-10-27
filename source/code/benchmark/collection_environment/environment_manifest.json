@@ -1,0 +1,4020 @@
+{
+ "checked_at": "2026-09-29T07:37:25.988145+00:00",
+ "failures": [],
+ "manifest_sha256": "2e820d09c1bed5f19f640d1f9b5b6dcd5f9db47964dabdc4d1d8470101754e8b",
+ "python": {
+  "checks": {
+   "arch": {
+    "ok": true,
+    "version": "8.0.0"
+   },
+   "csdid": {
+    "ok": true,
+    "version": "0.4.2"
+   },
+   "differences": {
+    "ok": true,
+    "version": "0.3.0"
+   },
+   "drdid": {
+    "ok": true,
+    "version": "1.1.6"
+   },
+   "formulaic": {
+    "ok": true,
+    "version": "1.2.2"
+   },
+   "ivmodels": {
+    "ok": true,
+    "version": "0.10.0"
+   },
+   "lifelines": {
+    "ok": true,
+    "version": "0.30.0"
+   },
+   "linearmodels": {
+    "ok": true,
+    "version": "6.1"
+   },
+   "matplotlib": {
+    "ok": true,
+    "version": "3.11.0"
+   },
+   "numdifftools": {
+    "ok": true,
+    "version": "0.11.1"
+   },
+   "numpy": {
+    "ok": true,
+    "version": "2.4.2"
+   },
+   "pandas": {
+    "ok": true,
+    "version": "3.0.0"
+   },
+   "patsy": {
+    "ok": true,
+    "version": "1.0.2"
+   },
+   "py4etrics": {
+    "ok": true,
+    "version": "0.1.9"
+   },
+   "pyfixest": {
+    "ok": true,
+    "version": "0.60.0"
+   },
+   "pyhdfe": {
+    "ok": true,
+    "version": "0.2.0"
+   },
+   "rdrobust": {
+    "ok": true,
+    "version": "2.1.0"
+   },
+   "scikit-learn": {
+    "ok": true,
+    "version": "1.9.1"
+   },
+   "scipy": {
+    "ok": true,
+    "version": "1.18.0"
+   },
+   "statsmodels": {
+    "ok": true,
+    "version": "0.14.6"
+   }
+  },
+  "distributions": {
+   "annotated-types": "0.7.0",
+   "arch": "8.0.0",
+   "asttokens": "3.0.2",
+   "autograd": "1.9.1",
+   "autograd-gamma": "0.5.0",
+   "babel": "2.18.0",
+   "certifi": "2026.7.22",
+   "cffi": "2.1.1",
+   "charset-normalizer": "3.5.1",
+   "click": "8.5.0",
+   "cloudpickle": "3.1.2",
+   "contourpy": "1.3.3",
+   "csdid": "0.4.2",
+   "cycler": "0.12.1",
+   "cython": "3.2.8",
+   "differences": "0.3.0",
+   "docutils": "0.23",
+   "drdid": "1.1.6",
+   "executing": "2.2.1",
+   "faicons": "0.2.2",
+   "fonttools": "4.64.0",
+   "formulaic": "1.2.2",
+   "glum": "3.4.1",
+   "great-tables": "1.0.0",
+   "htmltools": "0.7.0",
+   "id": "1.6.1",
+   "idna": "3.20",
+   "importlib_metadata": "9.0.1",
+   "importlib_resources": "7.1.0",
+   "iniconfig": "2.3.0",
+   "interface_meta": "2.0.1",
+   "ipython": "9.17.1",
+   "ipython_pygments_lexers": "1.1.1",
+   "ivmodels": "0.10.0",
+   "jaraco.classes": "3.4.0",
+   "jaraco.context": "6.1.2",
+   "jaraco.functools": "4.6.0",
+   "jedi": "0.20.0",
+   "joblib": "1.6.0",
+   "keyring": "25.7.0",
+   "kiwisolver": "1.5.1",
+   "lifelines": "0.30.0",
+   "linearmodels": "6.1",
+   "llvmlite": "0.49.0",
+   "lxml": "6.1.3",
+   "maketables": "0.1.8",
+   "markdown-it-py": "4.2.0",
+   "matplotlib": "3.11.0",
+   "matplotlib-inline": "0.2.2",
+   "mdurl": "0.1.2",
+   "mizani": "0.14.6",
+   "more-itertools": "11.1.0",
+   "multimark": "0.3.2",
+   "mypy_extensions": "1.1.0",
+   "narwhals": "2.23.0",
+   "nh3": "0.3.7",
+   "nokap": "0.1.0",
+   "numba": "0.67.0",
+   "numdifftools": "0.11.1",
+   "numexpr": "2.14.2",
+   "numpy": "2.4.2",
+   "packaging": "26.2",
+   "pandas": "3.0.0",
+   "parso": "0.8.7",
+   "patsy": "1.0.2",
+   "pexpect": "4.9.0",
+   "pillow": "12.3.0",
+   "plotnine": "0.15.8",
+   "pluggy": "1.6.0",
+   "polars": "1.44.2",
+   "polars-runtime-32": "1.44.2",
+   "prompt_toolkit": "3.0.53",
+   "psutil": "7.2.2",
+   "ptyprocess": "0.7.0",
+   "pure_eval": "0.2.4",
+   "py4etrics": "0.1.9",
+   "pyarrow": "25.0.1",
+   "pycparser": "3.0",
+   "pydantic": "2.13.4",
+   "pydantic_core": "2.46.4",
+   "pyfixest": "0.60.0",
+   "pygments": "2.20.0",
+   "pyhdfe": "0.2.0",
+   "pyparsing": "3.3.2",
+   "pytest": "9.0.3",
+   "python-dateutil": "2.9.0.post0",
+   "python-docx": "1.2.0",
+   "rdrobust": "2.1.0",
+   "readme_renderer": "46.0",
+   "requests": "2.34.2",
+   "requests-toolbelt": "1.0.0",
+   "rfc3986": "2.0.0",
+   "rich": "15.0.0",
+   "ruff": "0.15.12",
+   "scikit-learn": "1.9.1",
+   "scipy": "1.18.0",
+   "seaborn": "0.13.2",
+   "setuptools": "82.0.1",
+   "setuptools-scm": "8.3.1",
+   "six": "1.17.0",
+   "stack-data": "0.6.3",
+   "statsmodels": "0.14.6",
+   "tabmat": "4.2.1",
+   "tabulate": "0.10.0",
+   "threadpoolctl": "3.7.0",
+   "tqdm": "4.70.1",
+   "traitlets": "5.16.1",
+   "twine": "7.0.0",
+   "typing-inspection": "0.4.2",
+   "typing_extensions": "4.15.0",
+   "urllib3": "2.8.0",
+   "wcwidth": "0.9.1",
+   "websockets": "17.1",
+   "wrapt": "2.2.2",
+   "zipp": "4.1.0"
+  },
+  "executable": "/Users/federicolopez/LOCAL/GALIANI/AGENTS-METRICS/.venv/bin/python",
+  "interpreter_sha256": "0826ccaa8dd19bd84a5f0ffdbe84558f036e3b7d8ce7725704a7393995392129",
+  "module_sha256": {
+   ".DS_Store": "8289ae8322095b50e05e528abe06d647fd6ff3f63b36342973cb660e6e609db9",
+   "Cython": "66c75d58531781a55d3e36ab13f052139dda64aa8001c99dc16a1cf80c5ae785",
+   "IPython": "7b4efd82c9c2cbf2698c05d7f7860e2f12cc2259bdbf82eb053bda86989963df",
+   "PIL": "90a9d6f12071c56c578479efc80ed58ccb2cdd78536d585bca1c7cff0b85dc78",
+   "_cffi_backend.cpython-314-darwin.so": "fcc6c38d2055da6475fc7e18e327df1155f264c7967eefe91a20413a82fc228a",
+   "_distutils_hack": "0750de31c17009db55d93934a709642c4796d02e93a92f9b77218e51191a2a6d",
+   "_polars_runtime_32": "67a4fde1e3d19fb5de6fe2449c9df415413d3a28c8b8b08d0ea3edc0a239c4f3",
+   "_pytest": "9366a02a4eec104c827e909a51d02bbd2014fef427d55734607abd02ca22d0c2",
+   "_virtualenv.pth": "4a343f76a4984221b394a417c953c094081e2d5bf40ef780ace4e88a45e39937",
+   "_virtualenv.py": "ae03e52691862f0797fb912c13878422e9d9c94876a00a74d334a3ab003f2093",
+   "annotated_types": "5ad7de25cb69047ebe4b67a183606357efb3e5ae179b00ee422989cd880cb66b",
+   "annotated_types-0.7.0.dist-info": "9a4a551c8d1559ce56eba4103c0b76dfb4eb6c3da718b19e28186c02f8fe68a4",
+   "arch": "23d2c3eb7f74ff927f5ec41bbf19a6226be61ef5b1245eba35a432e0ed5118a7",
+   "arch-8.0.0.dist-info": "8067c72f895e771adc695c61b0b5ac060a2ba889edc72a1ec3b65329d40c9182",
+   "asttokens": "e6c60cf18265a6d803a128aff8d9a36f19ae0f951b62286ee138e7b37d0d4464",
+   "asttokens-3.0.2.dist-info": "9aacc159cbc957decf52af865489804c3a15365cad680309de98e747de75fd01",
+   "autograd": "9a442b55f579a2b211ac49e2895cf195c4d5a5c5f3faf6479bfbf7877a42e07d",
+   "autograd-1.9.1.dist-info": "66505526765f6870a2a1df34cd78de31d5edc0d415380531b50bfac742084145",
+   "autograd_gamma": "0954aaeeef392d36109b694738717b1ef534b147c55cb685cd6cfd285054d810",
+   "autograd_gamma-0.5.0.dist-info": "6d77ebce7e6116c30f2f4d52e87f4c1a81788f7e24be9fcd53c4c2c02ada04de",
+   "babel": "47b4db7833f959dc68d01962bafa205ed10c4ea456affe457b28eebc5eaccb8e",
+   "babel-2.18.0.dist-info": "69d98b3256cfaf264f5dc8d16c0bf80ccb4cd90c56103acc5dcf19c00296fd98",
+   "certifi": "c454369e389e279da27ce69fb9b007f886447b76f3ab2ddc538ee38349a44ec2",
+   "certifi-2026.7.22.dist-info": "0c8d4d77e70e728824365f87fd6ccc9919fd42976e1af3a3c11422d5befa7c9e",
+   "cffi": "5cd264c07b8d47450607ef6f6c61eee8ec532b106bc113d1dbe67eca032822a1",
+   "cffi-2.1.1.dist-info": "44531807b6d7b1ff60224b4b24038aad2f629757e188cf392e83faa7ec5c2d23",
+   "charset_normalizer": "9ce1d42cfbb58fdd6ece9fbcde1e4687c79c12819ab0672c5362df2d6e6f743f",
+   "charset_normalizer-3.5.1.dist-info": "53bcfde6960d8125be7d1b88ec1182f04c541262e1345a6c39c35c9ef4cc7398",
+   "click": "2a7b99b41228e4156d345a12947574679220252b5fd65aa3f5e0a315b5b6522a",
+   "click-8.5.0.dist-info": "6a06cf296bd63f5d80bc211466e0c3a41d6e5ec3dc89861746d2f8493fc4bd14",
+   "cloudpickle": "44fde35141ca96ef04dd963ae500b46981dfb96b1ecbe2fa7a09e74d49652582",
+   "cloudpickle-3.1.2.dist-info": "364ad4874d80d2b0ecf776fec13c84a59126dc4f263745cb66c3e3f916b16898",
+   "contourpy": "d8b47a8098959ab75a74829188726b7b46b8dfb94a16d29d0665eb934b6d24e3",
+   "contourpy-1.3.3.dist-info": "32bc737d002883bfd9d5fb117ea77e835951e9b2574de9ca0ded43ce021e8f35",
+   "csdid": "9b5c03563df80a78c7fc4870be47cffda3ca574f226c2f563eb4ca56cdacda1e",
+   "csdid-0.4.2.dist-info": "f99f8713529e7cd12c80126686a77cfcf448e74dd739d729e3929f8e2f984d91",
+   "cycler": "14236c6dfac1a2c846d89dff210a4a2b1e0928f119f458df88b5dc95f40709b5",
+   "cycler-0.12.1.dist-info": "b63426f9077b5d5c3d9b187f2fc28f659c3b98cb1442f638262cc31ca3066740",
+   "cython-3.2.8.dist-info": "4ffcef1da371c87f8d8268d2b7f165dfaa829924a06bb7fbf67e16b795fcfae9",
+   "cython.py": "8a221928e001f52fd8dc480bfafc0e4657bf1587067957f33c14891ce250fb8e",
+   "dateutil": "ccd3a1e0a2305b8ea55b7b1aac72b38458127d532cc04e1479a4beed078ba6c9",
+   "differences": "50e85c3ad302a3297da3eaa4a17bc1f009163b55147f3bf1280e3030f6462e20",
+   "differences-0.3.0.dist-info": "cc6742b69a6025f0d7193927e470d1f2354c880d85e671a87e9ddbbf11af91ea",
+   "distutils-precedence.pth": "362a3dd02fd24d3d634729d5594d73ea95365e6ee9edc654bd8040e8ce4cf59d",
+   "docutils": "b666f4dc77ca4c4b2e031830486fc5032816d6d871622e7533e6d6fe9b59b87a",
+   "docutils-0.23.dist-info": "74cd9ba1ba2766afe4229b1974341dca2beac623884a91245eef298268f4566a",
+   "docx": "5877ab7893df2646febd5cda50a177052d917623e378638f293adfacfcfeaf03",
+   "drdid": "5c868b53724a74ad3250c59a9080980fb88ff8d51d80efba1d72188a9372511f",
+   "drdid-1.1.6.dist-info": "14b95845a1d714d51edc0ab7c95904da8bc3201dd61edb4ed5c1e1c5197466d6",
+   "executing": "4754ace46d4da0a40ee7844f34eed6d4d4020bf881e20ab2e6f90593b0333667",
+   "executing-2.2.1.dist-info": "2e55ca9f11f4bea839c180497e1a0d5a76e17127415409aacdd994c0140c4ed5",
+   "faicons": "7994f3014b9727e4a4467f875b3ee8a0354110f9cc004629c6e879147c96d01c",
+   "faicons-0.2.2.dist-info": "cf43b261f0b458a5d057ccd2025ba2e03e76ca4369961a785bb491802d9f6a45",
+   "fontTools": "9bb46ec7d00b665c205409fd46df39a57cc7e58a6b18e48516ce2b6067e8c165",
+   "fonttools-4.64.0.dist-info": "af7711b8b746c4599acd63d8bc269542482756764387aa43d779d101bfef599d",
+   "formulaic": "59e62a064e59563af07408913c1f2facb46456858197d05206acd70342d07401",
+   "formulaic-1.2.2.dist-info": "4daeaf9df19a23b65e34d4afc728fb376d321c8a0f05a5b3a22d201caf4f8bc7",
+   "glum": "736e0b0076d7d0f9004e798a674cb40201b3ba32cddff3849fc4463bf1e15730",
+   "glum-3.4.1.dist-info": "b222a2352cd273e8e1b2dbcc4f40009ec16f76d5ffc2ec9d3b6a08b988cc2cb6",
+   "great_tables": "60c85b85c7d0b19aa1457c83989ed96b9fa30e9281556a3f89ab4c4f7b05d7b7",
+   "great_tables-1.0.0.dist-info": "b5812b6c0648a0eb83ab8031140d44359603d7b38e2dacc3fd8d44d7505cfa9d",
+   "htmltools": "271fb4483fdaf5d28be3d311e8acccbdee89ec3881b9681fc4336651db599adb",
+   "htmltools-0.7.0.dist-info": "3b3615adb13cc30b91e47dedd8546169673ccf36539f87702fc3edd087c029c7",
+   "id": "b622ec2ba76de49837ff17a980e6ad52ce5b164e622bdf1ac8da1dd862ef2a2e",
+   "id-1.6.1.dist-info": "7023c0a46384f83c61f3fcbc33922c99e5b592b1ee7cc074e70572709b5a12f0",
+   "idna": "65d4eef021beb0c1192fdd02ddfe7921aeb38313260c14c5cb4a7af14e116f56",
+   "idna-3.20.dist-info": "8998583c6b3908910666660e970b65568c1469da27db345997b38f4445811c92",
+   "importlib_metadata": "ade85ef3f58903fc9b8525cbe8c1b27e62a527e2834d1e0362475abdd03e0e19",
+   "importlib_metadata-9.0.1.dist-info": "4800790022b51bdd03f62955346fb12e7bb37b3aa6a99efdd280ad3a435dabad",
+   "importlib_resources": "db003e65ec350e2f716888636fee7ca5dbe1e310ce648b2e2805764a38db6842",
+   "importlib_resources-7.1.0.dist-info": "49439dc23956fb923047c8fceec2a7ee231a72ff328410634c6d62b1dd6f8be7",
+   "iniconfig": "e9fdbd50853c6b5a5fcd604e38dae4ab92e2455931353e58039628008e25c435",
+   "iniconfig-2.3.0.dist-info": "99f34468c60f8ad3d8b406376f8b036a4d0d0ef12e40240bd4b89f5c6a23bb46",
+   "interface_meta": "40b9d42527265f09ef6ef1b51bef9cb977be030ca9373dc7bf8c5a09f2f80cf6",
+   "interface_meta-2.0.1.dist-info": "21fa6584f977987a998ebc2763a76b9dbd1c724ecbbd8ec8dca3f16719b7d524",
+   "ipython-9.17.1.dist-info": "b527169c9a9bb53331abf5fa2141b7c5aa5f60fa746ce48bcea98cc01b7f139e",
+   "ipython_pygments_lexers-1.1.1.dist-info": "b40d6b800d18d85869d4e93d0cf503d262206a845e9f155b45837fba14867e6f",
+   "ipython_pygments_lexers.py": "91b294029a67e33f667cb6a40a2ae14f7178028a1fba5dd439f2c13cc8145bb3",
+   "ivmodels": "65e1a2577c1a0271657cab28277638fc9c466259776cc46d0021833eeefcd686",
+   "ivmodels-0.10.0.dist-info": "9e7c8a7e99cee30f92961a62cdcc5fdff042b582dbf925c4c62c00b02d64331c",
+   "jaraco": "d66e91217539bd3c9c0bf07062a9a2dd8a70177972380e3e2fad6a6048e2c59f",
+   "jaraco.classes-3.4.0.dist-info": "a1bdbadac2b0e954c104c7b21b4d4a433137465f252f998ca41a63c881ce976e",
+   "jaraco_context-6.1.2.dist-info": "00626d91d5b08503344ed1ffa1c8a8169e35f1ddb0a11a595691f92e383d988a",
+   "jaraco_functools-4.6.0.dist-info": "7a4ccee59513a42637d627ecef877a156cef3408740310a3ea7313eb84ef9381",
+   "jedi": "c7e8b1b7f5918356cdfcb6d2e81eeb42113df8456ac715756a3909dc3d670c22",
+   "jedi-0.20.0.dist-info": "26199cc9e3df4b8050c81c78e9a9f2e2d7d5a1dc8c8f47cfdf369efac1a006d4",
+   "joblib": "d652e5cca4c9cc35632ae575f68d3ad061d8a298bcf70c788fcc0db68a56ac3e",
+   "joblib-1.6.0.dist-info": "32d06314be993986f624caf2dc40bd9db606df1bb4efd4b05b9d9b309d38a2c6",
+   "keyring": "4cc6542da323e78487a168d4938e03422b83ea3d247f10721f6b852a8fcda96c",
+   "keyring-25.7.0.dist-info": "b8239a0c58da32b4bbb9e5836e7f73b59e82a480efa7ccbc0d92cc81d96ceb5c",
+   "kiwisolver": "00a0b56512cf1e556f5bc03a301262ede56e0c091edfb265a92b1c0be0c83f94",
+   "kiwisolver-1.5.1.dist-info": "d92ae98b57c1ccc6b2d5fb245da0fb54a2caaa8c1c2cd6476711c76f124788fe",
+   "lifelines": "99778a277c8fb09e996b95f3e0dba8636b2f73dc4d2e8dbf147e28fcf73fcc5b",
+   "lifelines-0.30.0.dist-info": "3fd807af4e1b76f77b92474b5f1f352e27064a20dc379ffd5215f95feae11ff5",
+   "linearmodels": "292f6c0a183906243fa43a620b4a0f0f4df66eb5059fadf43b6f022e8b1e6d1b",
+   "linearmodels-6.1.dist-info": "3a599d16ec06a1e4954de7efdcda157bfd1dc9ced23b2d502ba6ab2226407bd8",
+   "llvmlite": "6f15f859d8811910d72530f4db637cb4508f2518ff8e1858df7b0f4375bc785c",
+   "llvmlite-0.49.0.dist-info": "9ae536eccb37638d2bcfdf0623ed32f3e216707550ad083a1a713cba0b3e1778",
+   "lxml": "69d322a24a4db86bde7d0935d8c4335fab64ef83b903917723e94801c68c66d8",
+   "lxml-6.1.3.dist-info": "9c16556ee65a631bbfc56eedda86611f1fb85d2ff91bc365054ddfde865655fc",
+   "maketables": "4bc9dc6115971edd0e9c9b4fa9768d3ca11171515f4ddba1c5fada0135ba0090",
+   "maketables-0.1.8.dist-info": "25e0dc610066ee93a03f84a9e6c16b440ee925c8d96c3ec12c3eb8f0c3ce338d",
+   "markdown_it": "39593b0cbd4f172500827428b958ab03ab6280014761d7b407737190fa3640e0",
+   "markdown_it_py-4.2.0.dist-info": "d038b47ab82c70a6ee73acb413aa4bd0d79ebcb49ef76911c0c0cf94ce0f1e0d",
+   "matplotlib": "9c20ce5a70dd6270a850ae883a56ee699c265593d9b0798f4d72680e94b6682b",
+   "matplotlib-3.11.0.dist-info": "3be1488a45266d0b0b8b3105f51ad72947aec19ca80c2b06d771dd20ef79b64d",
+   "matplotlib_inline": "3fb982c6f30ed0361e4e793629b712e749a4121438da2bc6a2afb2dc9e34d75c",
+   "matplotlib_inline-0.2.2.dist-info": "77accf271d65574f8a93837f690af83f236a847d23d960299cf42d8b78b2f084",
+   "mdurl": "494216264c825c6b495f9a807eead50308301f8c2ad7dc06763ce13867b54272",
+   "mdurl-0.1.2.dist-info": "37f04502e6cfac92b25f1ec2a6c6394a998164e4cfcfac7ff3da1b7225616025",
+   "mizani": "fb1e36942380cbfa5d7ed6fa324f4c69a6f47cec4ca47e1c8b129e0eee652857",
+   "mizani-0.14.6.dist-info": "ea15a102c4ae0d3a5446faaa82b41151feebef06965c49834d3d57ccbf249512",
+   "more_itertools": "006b5fe64f8be53ef56859f2d7c48d8e9f6acb5413bd6f8e242595224f66e6e8",
+   "more_itertools-11.1.0.dist-info": "2c3638f8c70169322c4ea3f9b8e223a8bafc20e18888ad547ac078244ef255d6",
+   "mpl_toolkits": "436e63477deb15ca57576cea5e1d7a2d17b74b033810711f1f129d7c175ae683",
+   "multimark": "9c4aeacfe31905808f13abd1c53e0a5b726efd9dcfba17fea3af6c04a20baa50",
+   "multimark-0.3.2.dist-info": "859ee0daee0273f9833e1e0bb0f6caaf982826996e55f0921c357fbf9ef6511d",
+   "mypy_extensions-1.1.0.dist-info": "98bbbb7ace573e2c84ef99aa2a8f76007c3cd5fb6aa89c15c7ccd522b4c599eb",
+   "mypy_extensions.py": "94be9ec3ce983175cf08a5224fab18ce14a188f33af73318838c9259a90811a0",
+   "narwhals": "883494ab115e375b4b15323d3053b008d7afc8b901dcfa2d7c8ee8f73358d4db",
+   "narwhals-2.23.0.dist-info": "2897d74aa3f78b4685e7deb9ad87c93f44f029def9248e677751b7bdf56e36ed",
+   "nh3": "21134f68dfffe6e4d0aa7e183c3f24705437690fda9138efebe4973ba5df07b7",
+   "nh3-0.3.7.dist-info": "e3cbc394ec8bdf5241c58bbad746be21e9b3b5d59a489861a40e9fb75ebc5ce8",
+   "nokap": "b46b68d836196b4f93e0e95000049aa1d007a27f42912ba22433510f2c15f958",
+   "nokap-0.1.0.dist-info": "33f5117086ff4cc7c301dd3c8ac339c51f92464f9dc87e03250d792da19de3d8",
+   "numba": "e0f5b33124a6622806db22b6f4f28175b0daef76873bb981fb0cb172d7b3795e",
+   "numba-0.67.0.dist-info": "4af0f743bbbdedfe8fa6fb2959e347e05438088797515816e02e040ecb362886",
+   "numdifftools": "5f08c556f5cff39f438549f39648026a2fcea00a179ad43aa53744d6fa3fb4d1",
+   "numdifftools-0.11.1.dist-info": "76506ed37476f3e550f167fee5e60cf9c2d075c8b22347063d1d7384fd68ac29",
+   "numexpr": "998653599b6f476201541a8922377fc9327ff0c182536aa7ca2ed342f10d9fcb",
+   "numexpr-2.14.2.dist-info": "1fc0076d0c976b6d9b7e0af9061f0008ca9c154b175256ab6d0bb828e81d8525",
+   "numpy": "48e224d5c7922e6c713ec060017470eeb50f0d86dee9eed9192492a41b09b7e1",
+   "numpy-2.4.2.dist-info": "31eb6e9854e961d3758131862138a0ac2a0f74d1a8cdcbffa1b0fc559811eb98",
+   "packaging": "70f4acf006d09ed54582ac56f5f3b81e5a2dd4c240a43cac25dd6e33e6aa408a",
+   "packaging-26.2.dist-info": "5f7dc974102a64cc6737937c94179fb0ded5d3f8ea7e01058dedccb4241e564a",
+   "pandas": "98711301ea9b1fe1786b57e4d418ab269fb25ebb66a29faf881002d21915d44c",
+   "pandas-3.0.0.dist-info": "43090c5630eed42dd298e04f2898363e8473e42d0859f18b21a4195ea55a2eff",
+   "parso": "098839db2e9b0eb1cdbc7c46bb8e1ffadd7fbc77654f939604dba0cd0b3ccf01",
+   "parso-0.8.7.dist-info": "00fc9d93e8f890de5835eaf92f5c655123862039920f96b58cb8b0feca1bd82c",
+   "patsy": "9d09d7ac98adc5912bf92c704e03a9d149401ebc81cbfd5f7bbd96d026e8d845",
+   "patsy-1.0.2.dist-info": "6a3e363aea2aba440d9c26845b62bf357f8f4283c3442246c82ba376980eed35",
+   "pexpect": "6e9861e89da37ba50998c2132f792ff034474a719cf5e32cba13f00a62b7a77f",
+   "pexpect-4.9.0.dist-info": "bfa60ef7d9055f16e117aa856b93be38f50892a79e29b1a44b585f27425f8b1c",
+   "pillow-12.3.0.dist-info": "7c1ceaac03149b200acccb30a1439b60662010a697d37edf66796cd9bca6e773",
+   "plotnine": "bcfe0d6c32797fd875e10247c40be1f7ca206ffcac50efdc0a7e5fa35761f74f",
+   "plotnine-0.15.8.dist-info": "eea12c5d0f897da91ca16abc5a193face25ac770a894d5db97f17fc38850f084",
+   "pluggy": "d9a650adae1da9d341106e9a042d20e86ea50db6444408b4015419d38d70ca1a",
+   "pluggy-1.6.0.dist-info": "4972974b59a7546e316499b0f34a60ff607959e670013ea9d5ebf6fe908b310d",
+   "polars": "87193a86ea280e520577d6519638b04402a7c666619d18693d163f5a9a6c0b38",
+   "polars-1.44.2.dist-info": "5e444754291bdbcfbbd3643bda1dea48ed3e0c5fdaa8fb0d6054b26e159fbb13",
+   "polars_runtime_32-1.44.2.dist-info": "5223a5479884d293fcc0aa658f0c823749af74e1da5d2d384def920c456882a7",
+   "prompt_toolkit": "295d42edfc845690ffd71536dfc31571272f4543d094620cdeef57014a6df8cf",
+   "prompt_toolkit-3.0.53.dist-info": "b8e13d92caf1c362124d4d67872ec1a31b26a4253e93ad70b5857f5d7889d1ae",
+   "psutil": "e619eeffeb290360d54493ad8a6fa9516ea1768cb39663488cdcecbd75b25205",
+   "psutil-7.2.2.dist-info": "0337d8f970873105cacb514f9782021959cd8a95966eaa2bb2f94d98e673a94a",
+   "ptyprocess": "dbaa411917e7f8bcaa098ecec4141bb960db6122c2152c531b227f74399f1b1d",
+   "ptyprocess-0.7.0.dist-info": "954fdcaeca59eb5df900ebe60c8f84278cc403342cbccf07873ab8c3aebbec10",
+   "pure_eval": "31ec458bdee0aa9b078883acfef046dd4971852a83db2ab8461e7590a1dd1891",
+   "pure_eval-0.2.4.dist-info": "33bad02c0c3a52eb5ef4ab7d7f14d645783aa8314413fa643ecb598dccfb2c9b",
+   "py.py": "a05251c8951932b069d95242e962d3ed8560027fbaa5b583d857d9ca49e17d3a",
+   "py4etrics": "cdc4379d95e19f9d930a0c95f42cdb72688735042c1bbc36ca904f2303143d86",
+   "py4etrics-0.1.9.dist-info": "ffa527d52552bca09c7bd1e8fc8d5ab978c20ba6c7287c79e3aebccd5dd767fa",
+   "pyarrow": "c38be613602c6c4de31800921af2067117a90193d01a063afe45f366a4380616",
+   "pyarrow-25.0.1.dist-info": "61d7dcfe4bed23deaa7c7a1fc6aa63e3b31a1480d8cc8ccd0cb013189dbef12a",
+   "pycparser": "090d104341024dbacc69a8732d484cc56535634c90a8357a8192cc141b5162f9",
+   "pycparser-3.0.dist-info": "688d7b866298b9d82926e8782a05ba3e8ad116ef7b217be18cddffc7585e1056",
+   "pydantic": "e41b5fa07d02e163a3fc41165af360e43373324664f77955629bab2e802288cc",
+   "pydantic-2.13.4.dist-info": "2e2185c62c15989294fe3d510a5a99d177389560718d35060e2dce6cf078a6a4",
+   "pydantic_core": "d104b4012d9c7cb4ab1481a620df8637211576baa36c5f2400e7ca6935caf142",
+   "pydantic_core-2.46.4.dist-info": "e5acdc2ddcf2589fb42cb73e5014ecba6f37508f0065e5e8cdfce8ca264ff033",
+   "pyfixest": "daf11714cbe7ec5d50e18637c8232a34b9712342b0631f32fe2dd21abbfae6fe",
+   "pyfixest-0.60.0.dist-info": "293ec73c7d8b404f0e789ab4436d03a3b7872ae588b9af6a221be720e732e177",
+   "pygments": "675580a8677e93650530f93b0c75fdb98f21087c08aa1ba49eb5a7f052f6963f",
+   "pygments-2.20.0.dist-info": "f83a2ce4fab78506fac9dac9bb8496d9810cb3b8c5881886781a9e04f4d132fd",
+   "pyhdfe": "f07a73dc368dea375d0bec1f54649edc590a11b977595ba644e61794ac9cdc72",
+   "pyhdfe-0.2.0.dist-info": "30cad86f376b26dbb00288bb6b2312ee1be07d4f9d992860ae8bd352a795a82c",
+   "pylab.py": "634b55b53f3da8fee86efb3bfbf29baa1e266a86ba66d024b08066194c746450",
+   "pyparsing": "ec44da2e7f75f64501c1dcef424da1038f8e9e4f19b0fdb7954a5eb958785c07",
+   "pyparsing-3.3.2.dist-info": "4ae4ef5898afa28c35a0474d5a26c68c51698a8ba35de7d4909dfa10cef3d804",
+   "pytest": "8812db9bb9ee1d0e600bf048f1dbfd6560128f3e3b51f9a32787398d250f46cf",
+   "pytest-9.0.3.dist-info": "67b8b5aeccfd76f3a341e73f12e4b55cf125d5bc856b37ec5f8813fa5723daac",
+   "python_dateutil-2.9.0.post0.dist-info": "107c68b95fa8bd7aab444067e6a8475846321c7cb98e4b6a73a276dc309859af",
+   "python_docx-1.2.0.dist-info": "7e47e7e0ff93be544d20612be0024ffef97ef88b1ba7af95498b46835d25055f",
+   "pyximport": "581668913c0c488fdfaf98a048691ccb15470ac0f1a40986b0817b070bc1f70c",
+   "rdrobust": "df62caf2bad0fe89f070e628090e8ec326d11258d5743b5ad84d49ea0b6af950",
+   "rdrobust-2.1.0.dist-info": "5bfaa3ea1f0c1175949827da86a474564228f1fa0b3db5f5bd2aa15d3ade4456",
+   "readme_renderer": "5342f5276c460fd1bcc116d33b6aaadd1aa2b7d58ad0e1045a118d50390bb448",
+   "readme_renderer-46.0.dist-info": "0aa9b24c1c1ef8da5c27b2f2bc4d42f6cd0cad6ea23c2a15c45a5b74d662bfcf",
+   "requests": "e811516132a9be4ebda873045a6a321de43bb06cf5e45f7cd08bc70a9b59a762",
+   "requests-2.34.2.dist-info": "1fc3702484f05f018f3158679c58deaf01ce37f3c304666e837a28d6b0085b20",
+   "requests_toolbelt": "61ddf3aea361aa0be8b3be80598b984c37e3588e7af316b77b6da9e83ea1e605",
+   "requests_toolbelt-1.0.0.dist-info": "3a56504647485d242c7547bc79068a990c1c0d38565f6822f655054abece3475",
+   "rfc3986": "a830cfd09c794c1aadc4b237b66348d22a0de04250c9645f13ca0f409edd3b83",
+   "rfc3986-2.0.0.dist-info": "2ed05c768bc920038314ad9e796c0f12a4c68593d5fb66422b010ed3fdd94332",
+   "rich": "d11d8124c3a8fd8981f4ca3a20577954f2ccb43dd7ed171e945aaf42d2189f90",
+   "rich-15.0.0.dist-info": "bcba00450fe7cb9e00a794e75f5549230f8db020e4443c0095f16bde2d19f9e2",
+   "ruff": "eaf18bbe4dcb8776a284caf1cc98acef9c03414be7a7f53a72907ca7d9b43add",
+   "ruff-0.15.12.dist-info": "df523621ace7e9ed5c873b0d366e9ab3f81c1a514a6effde72d37061ae0cfc05",
+   "scikit_learn-1.9.1.dist-info": "fbaeb84ea66713b07e9a39e3724be386d4e9f01293dc7ddee639f549453a843a",
+   "scipy": "6f5d43115a0abe64335126b9b7566a173cef142573ff430a24fc3098684ae3b7",
+   "scipy-1.18.0.dist-info": "6b061792b35ad9a733c775734a07ad5d173e76e1da0f8db2e3b133f22a0b9390",
+   "seaborn": "2da1fe8fe6c6049f05f2b69c98778fb026505b4d03ebddc6a64b0c677475e4ac",
+   "seaborn-0.13.2.dist-info": "38c7115bc3fd0fa3e6d508b2e642c873de95680f065449d8bd13608e65508e68",
+   "setuptools": "6abf0bb85b084866919d8612215a5b303826d3a97e65e9af1af119ad06e084f3",
+   "setuptools-82.0.1.dist-info": "8f9ccba30fdb00eb2682ec2bb0f14b0312d070e9aa10d64828062c6f85f81bc6",
+   "setuptools_scm": "3d534cc86cbae5d6a29ecacf1ff212d4e48a5e6ad04ea0a26b9c962a66569d9d",
+   "setuptools_scm-8.3.1.dist-info": "7f505efb832c4d721213deebc32395a44516b3e16a9de7e0578523248f07e6b3",
+   "six-1.17.0.dist-info": "f2b95232a05336cd226f6bec0684c165818c48a7bf2945b442df026b64f24d84",
+   "six.py": "5e6a19aec98ba0102d4414c13f40da7e8d6a2970d780563d570a71183e44b904",
+   "sklearn": "dd83e6cc47a5736c6772dc6c8e5281d8976fced18d5fe56c793fb95fb0d846d9",
+   "stack_data": "7bd46bedfa750464a36dcf7e4f1ae0bf901669efe3e5da863970e89c019dc3b0",
+   "stack_data-0.6.3.dist-info": "98a06e832defb3793b17766d1b9d2bcb561d17f219eb3d65a5809f9f395af20b",
+   "statsmodels": "afda51382886d4c30f12b97c6ccf108b3defb0fdc6d14ec689b63ad692bf18bd",
+   "statsmodels-0.14.6.dist-info": "5f730331148fd9573f6de04bd31e5f92d04f91f51a2febdb5ae61d0bb07b8cc1",
+   "tabmat": "31aabfd014dad3c216bbcd2ce38ac8bba380c59d292dc0abe9a4b5b95d70274e",
+   "tabmat-4.2.1.dist-info": "e68496f66cca0270ad282187f0cceaf25376d56f0db8ae064bc8bd61071d6900",
+   "tabulate": "6e322c256d51c43fe536ae3ca7d72a5fef97aaf058c47bb8428c8aa46b9cbfda",
+   "tabulate-0.10.0.dist-info": "b3c5ebf23d0f2c5ece52c807541ffc6b05bd1c87d4470fc41b31cec57d75d95f",
+   "threadpoolctl-3.7.0.dist-info": "4104c39186d814490914e24277b63e8a209c9cbb9b53acbdabac1e3b8ba4f63e",
+   "threadpoolctl.py": "fa35b8be410bf4ff479e9653c8ef9e9d63d8d62a6dcd6ace273e75c9ac32f3da",
+   "tqdm": "e085c41777248aa2add9a3a2e93f0c2411f76c3ab1b0d67a9bdc8ff3b59d9e79",
+   "tqdm-4.70.1.dist-info": "f5861ec08b0c3de0770f3c4955899ebe11cc58d55d77854fc35b1455bf5e5f7a",
+   "traitlets": "9a8f3ab7b7b9ef3a711f75a63bc08f30c133bef581dc9f33ac74ba14fa2a083e",
+   "traitlets-5.16.1.dist-info": "bb9de9d4b9636e8d4536175811f937b30f93977c4099fae68a54928027cfc635",
+   "twine": "b566127be3497be3f5c33b47216fb889894a019adb0db3f487e21cfe24b9c593",
+   "twine-7.0.0.dist-info": "68ca6048af3c84153011cda1f008370539c81239165f064422582fd764723627",
+   "typing_extensions-4.15.0.dist-info": "52f7786f7c6b3596248075483a838602f297ed7b700d9f1499c91d6148a23a70",
+   "typing_extensions.py": "02c6ab1611441ee92770420ba42e04065d8caad23e22c5a7a37a2f2ba98f286a",
+   "typing_inspection": "22871e1084bd7c983ff50f56f17454fd01f4be1e2141f81efd3b769b07f7823f",
+   "typing_inspection-0.4.2.dist-info": "0237ecf1fb03991ddd42833f95e9d1356350d3b641c7b6ed1a39bcc5aa2f505a",
+   "urllib3": "1f96b8673cd3605edd45753b7e31e0aa14d0e1457455d02a574d3f8c4dca37d9",
+   "urllib3-2.8.0.dist-info": "48dbeea77d849801886e13eb9fe3d6e7cb9e9c2fcd0310c1065f564c8206804c",
+   "wcwidth": "b7c20ab664cb46f7db6493b66724ae8ecde1bebda2ea713233bc0769cfa6dd5c",
+   "wcwidth-0.9.1.dist-info": "b5d070a84282fa3767ea3262dea5a8552c22c37cc471783c84035191e411c821",
+   "websockets": "d6107b44e2e98a6fc0d3cdb19b9e09a9c3e7c842e1537fa516db3d3aca7c95d0",
+   "websockets-17.1.dist-info": "37c711c9eefe393826bbfc5977b3f6c48d5a5e844932f65cc851c29249e321bf",
+   "wrapt": "06bc008ab45ef748ed3e919a61da4958ca76aced7d1be2de29bdb1d3f7264b8d",
+   "wrapt-2.2.2.dist-info": "92a9b76c88239e0de285c94f1114313c233b8ffd3bf5c55857ebe29dcd2bac3e",
+   "wrapt-stubs": "47f88e67373ed6a3a096c620dba48fc716ff86c696662fb0d390edc002f6087e",
+   "zipp": "91486f28a88fad81af093dbdb2b284e44b0e845934aa6cac8583e446b695dc02",
+   "zipp-4.1.0.dist-info": "34a3ce7cab159b55ded33a5c2a494c95c1669ffcb8254f416c7b8955bbe956da"
+  },
+  "pins_held": {
+   "linearmodels": true,
+   "matplotlib": true,
+   "numpy": true,
+   "pandas": true,
+   "pydantic": true,
+   "scipy": true,
+   "statsmodels": true
+  },
+  "purelib": "/Users/federicolopez/LOCAL/GALIANI/AGENTS-METRICS/.venv/lib/python3.14/site-packages",
+  "python": "3.14.6",
+  "site_packages_file_count": 21479,
+  "site_packages_sha256": "e2e438b757a1f8057aadfb69bd8cb8706d43d8130ede0c824ff186dbbb64084f"
+ },
+ "r": {
+  "checks": {
+   "AER": {
+    "ok": true,
+    "version": "1.2.17"
+   },
+   "CVXR": {
+    "ok": true,
+    "version": "1.9.2"
+   },
+   "CompQuadForm": {
+    "ok": true,
+    "version": "1.4.4"
+   },
+   "DBI": {
+    "ok": true,
+    "version": "1.3.0"
+   },
+   "DRDID": {
+    "ok": true,
+    "version": "1.3.0"
+   },
+   "ECOSolveR": {
+    "ok": true,
+    "version": "0.6.1"
+   },
+   "HonestDiD": {
+    "ok": true,
+    "version": "0.2.8"
+   },
+   "MASS": {
+    "ok": true,
+    "version": "7.3.65"
+   },
+   "MatchIt": {
+    "ok": true,
+    "version": "4.8.1"
+   },
+   "Matrix": {
+    "ok": true,
+    "version": "1.7.5"
+   },
+   "RcppParallel": {
+    "ok": true,
+    "version": "6.2.1"
+   },
+   "RcppProgress": {
+    "ok": true,
+    "version": "0.4.2"
+   },
+   "Rglpk": {
+    "ok": true,
+    "version": "0.6.5.1"
+   },
+   "ShiftShareSE": {
+    "ok": true,
+    "version": "1.1.0"
+   },
+   "Synth": {
+    "ok": true,
+    "version": "1.1.10"
+   },
+   "TTR": {
+    "ok": true,
+    "version": "0.24.4"
+   },
+   "TruncatedNormal": {
+    "ok": true,
+    "version": "2.3"
+   },
+   "VGAM": {
+    "ok": true,
+    "version": "1.1.14"
+   },
+   "alabama": {
+    "ok": true,
+    "version": "2025.1.0"
+   },
+   "arg": {
+    "ok": true,
+    "version": "0.2.1"
+   },
+   "bayestestR": {
+    "ok": true,
+    "version": "0.19.0"
+   },
+   "betareg": {
+    "ok": true,
+    "version": "3.2.6"
+   },
+   "bife": {
+    "ok": true,
+    "version": "0.7.3"
+   },
+   "blob": {
+    "ok": true,
+    "version": "1.3.0"
+   },
+   "boot": {
+    "ok": true,
+    "version": "1.3.32"
+   },
+   "broom": {
+    "ok": true,
+    "version": "1.0.13"
+   },
+   "car": {
+    "ok": true,
+    "version": "3.1.5"
+   },
+   "caret": {
+    "ok": true,
+    "version": "7.0.1"
+   },
+   "censReg": {
+    "ok": true,
+    "version": "0.5.38"
+   },
+   "checkmate": {
+    "ok": true,
+    "version": "2.3.4"
+   },
+   "clarabel": {
+    "ok": true,
+    "version": "0.11.3"
+   },
+   "clubSandwich": {
+    "ok": true,
+    "version": "0.7.0"
+   },
+   "collapse": {
+    "ok": true,
+    "version": "2.1.8"
+   },
+   "combinat": {
+    "ok": true,
+    "version": "0.0.9"
+   },
+   "conflicted": {
+    "ok": true,
+    "version": "1.2.0"
+   },
+   "data.table": {
+    "ok": true,
+    "version": "1.18.6.1"
+   },
+   "datawizard": {
+    "ok": true,
+    "version": "1.4.0"
+   },
+   "dbplyr": {
+    "ok": true,
+    "version": "2.6.0"
+   },
+   "dfidx": {
+    "ok": true,
+    "version": "0.2.0"
+   },
+   "did": {
+    "ok": true,
+    "version": "2.5.1"
+   },
+   "did2s": {
+    "ok": true,
+    "version": "1.2.1"
+   },
+   "didimputation": {
+    "ok": true,
+    "version": "0.5.1"
+   },
+   "doParallel": {
+    "ok": true,
+    "version": "1.0.17"
+   },
+   "dplyr": {
+    "ok": true,
+    "version": "1.2.1"
+   },
+   "dtplyr": {
+    "ok": true,
+    "version": "1.3.3"
+   },
+   "dynlm": {
+    "ok": true,
+    "version": "0.3.6"
+   },
+   "estimatr": {
+    "ok": true,
+    "version": "2.0.0"
+   },
+   "etwfe": {
+    "ok": true,
+    "version": "0.6.2"
+   },
+   "fixest": {
+    "ok": true,
+    "version": "0.14.2"
+   },
+   "flexmix": {
+    "ok": true,
+    "version": "2.3.21"
+   },
+   "forecast": {
+    "ok": true,
+    "version": "9.0.2"
+   },
+   "gargle": {
+    "ok": true,
+    "version": "1.6.1"
+   },
+   "ggplot2": {
+    "ok": true,
+    "version": "4.0.3"
+   },
+   "glmmML": {
+    "ok": true,
+    "version": "1.1.7"
+   },
+   "glmnet": {
+    "ok": true,
+    "version": "5.1"
+   },
+   "glmx": {
+    "ok": true,
+    "version": "0.2.3"
+   },
+   "gmm": {
+    "ok": true,
+    "version": "1.9.1"
+   },
+   "gmp": {
+    "ok": true,
+    "version": "0.7.5.1"
+   },
+   "googledrive": {
+    "ok": true,
+    "version": "2.1.2"
+   },
+   "googlesheets4": {
+    "ok": true,
+    "version": "1.1.2"
+   },
+   "gridExtra": {
+    "ok": true,
+    "version": "2.3.1"
+   },
+   "haven": {
+    "ok": true,
+    "version": "2.5.5"
+   },
+   "highs": {
+    "ok": true,
+    "version": "1.14.0.2"
+   },
+   "httr": {
+    "ok": true,
+    "version": "1.4.9"
+   },
+   "ids": {
+    "ok": true,
+    "version": "1.0.1"
+   },
+   "insight": {
+    "ok": true,
+    "version": "1.5.4"
+   },
+   "ivmodel": {
+    "ok": true,
+    "version": "1.9.1"
+   },
+   "ivreg": {
+    "ok": true,
+    "version": "0.6.8"
+   },
+   "jsonlite": {
+    "ok": true,
+    "version": "2.0.0"
+   },
+   "kernlab": {
+    "ok": true,
+    "version": "0.9.33"
+   },
+   "latex2exp": {
+    "ok": true,
+    "version": "0.9.8"
+   },
+   "lfe": {
+    "ok": true,
+    "version": "3.1.1"
+   },
+   "lme4": {
+    "ok": true,
+    "version": "2.0.6"
+   },
+   "lmtest": {
+    "ok": true,
+    "version": "0.9.40"
+   },
+   "lpSolve": {
+    "ok": true,
+    "version": "5.6.23"
+   },
+   "lpSolveAPI": {
+    "ok": true,
+    "version": "5.5.2.0.17.15"
+   },
+   "lpdensity": {
+    "ok": true,
+    "version": "3.0.1"
+   },
+   "lpirfs": {
+    "ok": true,
+    "version": "0.2.5"
+   },
+   "marginaleffects": {
+    "ok": true,
+    "version": "1.0.0"
+   },
+   "margins": {
+    "ok": true,
+    "version": "0.3.28"
+   },
+   "matrixStats": {
+    "ok": true,
+    "version": "1.5.0"
+   },
+   "maxLik": {
+    "ok": true,
+    "version": "1.5.2.2"
+   },
+   "mfx": {
+    "ok": true,
+    "version": "1.2.4"
+   },
+   "micsr": {
+    "ok": true,
+    "version": "0.1.5"
+   },
+   "mlogit": {
+    "ok": true,
+    "version": "2.0.0"
+   },
+   "modelsummary": {
+    "ok": true,
+    "version": "2.6.0"
+   },
+   "modeltools": {
+    "ok": true,
+    "version": "0.2.24"
+   },
+   "momentfit": {
+    "ok": true,
+    "version": "1.0"
+   },
+   "moments": {
+    "ok": true,
+    "version": "0.14.1"
+   },
+   "multiwayvcov": {
+    "ok": true,
+    "version": "1.2.3"
+   },
+   "mvtnorm": {
+    "ok": true,
+    "version": "1.4.2"
+   },
+   "nleqslv": {
+    "ok": true,
+    "version": "3.3.7"
+   },
+   "nnet": {
+    "ok": true,
+    "version": "7.3.20"
+   },
+   "nortest": {
+    "ok": true,
+    "version": "1.0.4"
+   },
+   "numDeriv": {
+    "ok": true,
+    "version": "2016.8.1.1"
+   },
+   "oaxaca": {
+    "ok": true,
+    "version": "0.1.5"
+   },
+   "optimx": {
+    "ok": true,
+    "version": "2025.4.9"
+   },
+   "ordinal": {
+    "ok": true,
+    "version": "2026.7.26"
+   },
+   "osqp": {
+    "ok": true,
+    "version": "1.0.0"
+   },
+   "parameters": {
+    "ok": true,
+    "version": "0.29.3"
+   },
+   "performance": {
+    "ok": true,
+    "version": "0.18.2"
+   },
+   "pglm": {
+    "ok": true,
+    "version": "0.2.4"
+   },
+   "plm": {
+    "ok": true,
+    "version": "2.6.7"
+   },
+   "pracma": {
+    "ok": true,
+    "version": "2.4.6"
+   },
+   "pscl": {
+    "ok": true,
+    "version": "1.5.9"
+   },
+   "purrr": {
+    "ok": true,
+    "version": "1.2.2"
+   },
+   "qrng": {
+    "ok": true,
+    "version": "0.0.11"
+   },
+   "quantmod": {
+    "ok": true,
+    "version": "0.4.29"
+   },
+   "quantreg": {
+    "ok": true,
+    "version": "6.1"
+   },
+   "ragg": {
+    "ok": true,
+    "version": "1.5.2"
+   },
+   "rddensity": {
+    "ok": true,
+    "version": "3.0"
+   },
+   "rdrobust": {
+    "ok": true,
+    "version": "4.0.0"
+   },
+   "readr": {
+    "ok": true,
+    "version": "2.2.0"
+   },
+   "rematch2": {
+    "ok": true,
+    "version": "2.1.2"
+   },
+   "reprex": {
+    "ok": true,
+    "version": "2.1.1"
+   },
+   "rgenoud": {
+    "ok": true,
+    "version": "5.9.0.11"
+   },
+   "roll": {
+    "ok": true,
+    "version": "1.2.1"
+   },
+   "rvest": {
+    "ok": true,
+    "version": "1.0.5"
+   },
+   "sampleSelection": {
+    "ok": true,
+    "version": "1.2.14"
+   },
+   "sandwich": {
+    "ok": true,
+    "version": "3.1.3"
+   },
+   "scs": {
+    "ok": true,
+    "version": "3.2.7"
+   },
+   "selectr": {
+    "ok": true,
+    "version": "0.8.0"
+   },
+   "slam": {
+    "ok": true,
+    "version": "0.1.56"
+   },
+   "spacefillr": {
+    "ok": true,
+    "version": "0.4.0"
+   },
+   "staggered": {
+    "ok": true,
+    "version": "1.2.2"
+   },
+   "stargazer": {
+    "ok": true,
+    "version": "5.2.3"
+   },
+   "statmod": {
+    "ok": true,
+    "version": "1.5.2"
+   },
+   "survival": {
+    "ok": true,
+    "version": "3.8.6"
+   },
+   "synthdid": {
+    "ok": true,
+    "version": "0.0.9"
+   },
+   "systemfit": {
+    "ok": true,
+    "version": "1.1.30"
+   },
+   "systemfonts": {
+    "ok": true,
+    "version": "1.3.2"
+   },
+   "tables": {
+    "ok": true,
+    "version": "0.9.35"
+   },
+   "textshaping": {
+    "ok": true,
+    "version": "1.0.5"
+   },
+   "tidyr": {
+    "ok": true,
+    "version": "1.3.2"
+   },
+   "tidyverse": {
+    "ok": true,
+    "version": "2.0.0"
+   },
+   "tinyplot": {
+    "ok": true,
+    "version": "0.8.0"
+   },
+   "tinytable": {
+    "ok": true,
+    "version": "0.19.0"
+   },
+   "truncreg": {
+    "ok": true,
+    "version": "0.2.5"
+   },
+   "tseries": {
+    "ok": true,
+    "version": "0.10.63"
+   },
+   "ucminf": {
+    "ok": true,
+    "version": "1.2.3"
+   },
+   "urca": {
+    "ok": true,
+    "version": "1.3.4"
+   },
+   "vars": {
+    "ok": true,
+    "version": "1.6.1"
+   },
+   "xts": {
+    "ok": true,
+    "version": "0.14.3"
+   },
+   "zoo": {
+    "ok": true,
+    "version": "1.9.0"
+   }
+  },
+  "installed": [
+   {
+    "built": "R 4.6.0; ; 2026-04-25 15:40:28 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "abind",
+    "version": "1.4-8"
+   },
+   {
+    "built": "R 4.6.1; ; 2026-07-11 20:47:44 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "AER",
+    "version": "1.2-17"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-25 15:56:30 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "alabama",
+    "version": "2025.1.0"
+   },
+   {
+    "built": "R 4.6.1; ; 2026-07-30 08:29:10 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "arg",
+    "version": "0.2.1"
+   },
+   {
+    "built": "R 4.6.1; aarch64-apple-darwin23; 2026-08-23 09:10:10 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "arrow",
+    "version": "25.0.1"
+   },
+   {
+    "built": "R 4.6.0; aarch64-apple-darwin23; 2026-04-25 23:17:34 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "askpass",
+    "version": "1.2.1"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-25 15:50:19 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "assertthat",
+    "version": "0.2.1"
+   },
+   {
+    "built": "R 4.6.0; aarch64-apple-darwin23; 2026-04-25 15:41:25 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "backports",
+    "version": "1.5.1"
+   },
+   {
+    "built": "R 4.6.1; aarch64-apple-darwin23; 2026-09-19 21:09:06 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "base64enc",
+    "version": "0.1-6"
+   },
+   {
+    "built": "R 4.6.1; ; 2026-09-16 22:59:59 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "bayestestR",
+    "version": "0.19.0"
+   },
+   {
+    "built": "R 4.6.0; aarch64-apple-darwin23; 2026-04-25 16:10:41 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "bdsmatrix",
+    "version": "1.3-7"
+   },
+   {
+    "built": "R 4.6.1; aarch64-apple-darwin23; 2026-08-26 13:36:38 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "betareg",
+    "version": "3.2-6"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-25 15:48:04 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "BH",
+    "version": "1.90.0-1"
+   },
+   {
+    "built": "R 4.6.0; aarch64-apple-darwin23; 2026-04-25 17:01:07 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "bife",
+    "version": "0.7.3"
+   },
+   {
+    "built": "R 4.6.0; aarch64-apple-darwin23; 2026-06-08 22:15:30 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "bigmemory",
+    "version": "4.6.6"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-25 16:59:26 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "bigmemory.sri",
+    "version": "0.1.8"
+   },
+   {
+    "built": "R 4.6.0; aarch64-apple-darwin23; 2026-04-25 15:45:18 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "bit",
+    "version": "4.6.0"
+   },
+   {
+    "built": "R 4.6.1; aarch64-apple-darwin23; 2026-09-01 12:40:57 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "bit64",
+    "version": "4.8.6"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-25 23:18:16 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "blob",
+    "version": "1.3.0"
+   },
+   {
+    "built": "R 4.6.1; aarch64-apple-darwin23; 2026-08-22 18:50:41 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "BMisc",
+    "version": "1.4.10"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-25 15:48:21 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "brew",
+    "version": "1.0-10"
+   },
+   {
+    "built": "R 4.6.0; aarch64-apple-darwin23; 2026-04-25 15:54:00 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "brio",
+    "version": "1.1.5"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-05-14 05:30:47 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "broom",
+    "version": "1.0.13"
+   },
+   {
+    "built": "R 4.6.1; ; 2026-08-04 04:11:06 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "bslib",
+    "version": "0.12.0"
+   },
+   {
+    "built": "R 4.6.1; ; 2026-09-17 00:15:05 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "btw",
+    "version": "1.5.0"
+   },
+   {
+    "built": "R 4.6.0; aarch64-apple-darwin23; 2026-04-25 23:13:45 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "cachem",
+    "version": "1.1.0"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-06-05 15:30:17 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "callr",
+    "version": "3.8.0"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-25 14:03:03 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "car",
+    "version": "3.1-5"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-25 15:41:28 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "carData",
+    "version": "3.0-6"
+   },
+   {
+    "built": "R 4.6.0; aarch64-apple-darwin23; 2026-04-25 13:32:50 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "caret",
+    "version": "7.0-1"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-26 05:17:23 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "cellranger",
+    "version": "1.1.0"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-26 00:09:09 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "censReg",
+    "version": "0.5-38"
+   },
+   {
+    "built": "R 4.6.0; aarch64-apple-darwin23; 2026-04-25 15:45:36 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "checkmate",
+    "version": "2.3.4"
+   },
+   {
+    "built": "R 4.6.1; aarch64-apple-darwin23; 2026-08-23 08:59:02 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "clarabel",
+    "version": "0.11.3"
+   },
+   {
+    "built": "R 4.6.0; aarch64-apple-darwin23; 2026-04-25 15:39:10 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "cli",
+    "version": "3.6.6"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-05-25 08:30:02 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "clipr",
+    "version": "0.8.1"
+   },
+   {
+    "built": "R 4.6.0; aarch64-apple-darwin23; 2026-04-25 23:24:38 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "clock",
+    "version": "0.7.4"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-05-04 08:07:19 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "clubSandwich",
+    "version": "0.7.0"
+   },
+   {
+    "built": "R 4.6.1; aarch64-apple-darwin23; 2026-08-30 18:41:14 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "collapse",
+    "version": "2.1.8"
+   },
+   {
+    "built": "R 4.6.0; aarch64-apple-darwin23; 2026-04-25 17:06:29 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "collections",
+    "version": "0.3.12"
+   },
+   {
+    "built": "R 4.6.1; aarch64-apple-darwin23; 2026-07-12 10:21:47 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "colorspace",
+    "version": "2.1-3"
+   },
+   {
+    "built": "R 4.6.1; ; 2026-09-16 22:40:13 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "combinat",
+    "version": "0.0-9"
+   },
+   {
+    "built": "R 4.6.0; aarch64-apple-darwin23; 2026-04-25 09:27:57 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "commonmark",
+    "version": "2.0.0"
+   },
+   {
+    "built": "R 4.6.0; aarch64-apple-darwin23; 2026-04-25 16:14:22 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "CompQuadForm",
+    "version": "1.4.4"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-26 02:30:17 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "conflicted",
+    "version": "1.2.0"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-25 17:06:36 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "coro",
+    "version": "1.1.0"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-26 11:08:33 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "cowplot",
+    "version": "1.2.0"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-05-06 16:42:29 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "cpp11",
+    "version": "0.5.5"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-25 15:44:21 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "crayon",
+    "version": "1.5.3"
+   },
+   {
+    "built": "R 4.6.1; aarch64-apple-darwin23; 2026-08-25 18:01:50 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "curl",
+    "version": "8.0.0"
+   },
+   {
+    "built": "R 4.6.1; aarch64-apple-darwin23; 2026-08-24 08:32:38 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "CVXR",
+    "version": "1.9.2"
+   },
+   {
+    "built": "R 4.6.1; aarch64-apple-darwin23; 2026-08-24 13:00:59 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "data.table",
+    "version": "1.18.6.1"
+   },
+   {
+    "built": "R 4.6.1; ; 2026-09-16 22:44:08 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "datawizard",
+    "version": "1.4.0"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-25 15:47:33 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "DBI",
+    "version": "1.3.0"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-06-18 00:56:28 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "dbplyr",
+    "version": "2.6.0"
+   },
+   {
+    "built": "R 4.6.1; aarch64-apple-darwin23; 2026-09-03 18:24:15 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "Deriv",
+    "version": "4.3.5"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-25 15:48:08 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "desc",
+    "version": "1.4.3"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-26 00:06:57 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "dfidx",
+    "version": "0.2-0"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-25 15:59:19 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "diagram",
+    "version": "1.6.5"
+   },
+   {
+    "built": "R 4.6.1; ; 2026-07-08 20:40:14 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "did",
+    "version": "2.5.1"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-25 13:57:17 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "did2s",
+    "version": "1.2.1"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-26 00:24:45 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "didimputation",
+    "version": "0.5.1"
+   },
+   {
+    "built": "R 4.6.0; aarch64-apple-darwin23; 2026-04-25 15:38:59 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "digest",
+    "version": "0.6.39"
+   },
+   {
+    "built": "R 4.6.1; ; 2026-07-01 12:35:32 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "doBy",
+    "version": "4.7.2"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-26 02:20:25 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "doParallel",
+    "version": "1.0.17"
+   },
+   {
+    "built": "R 4.6.0; aarch64-apple-darwin23; 2026-04-26 11:09:07 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "dplyr",
+    "version": "1.2.1"
+   },
+   {
+    "built": "R 4.6.0; aarch64-apple-darwin23; 2026-06-10 06:41:13 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "DRDID",
+    "version": "1.3.0"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-26 00:07:47 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "dreamerr",
+    "version": "1.5.0"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-26 11:14:03 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "dtplyr",
+    "version": "1.3.3"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-25 14:06:57 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "dynlm",
+    "version": "0.3-6"
+   },
+   {
+    "built": "R 4.6.0; aarch64-apple-darwin23; 2026-04-25 23:17:21 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "e1071",
+    "version": "1.7-17"
+   },
+   {
+    "built": "R 4.6.0; aarch64-apple-darwin23; 2026-04-25 18:14:33 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "ECOSolveR",
+    "version": "0.6.1"
+   },
+   {
+    "built": "R 4.6.1; ; 2026-09-06 14:59:33 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "ellmer",
+    "version": "0.5.0"
+   },
+   {
+    "built": "R 4.6.1; aarch64-apple-darwin23; 2026-09-16 23:18:03 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "estimatr",
+    "version": "2.0.0"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-26 00:35:22 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "etwfe",
+    "version": "0.6.2"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-25 15:39:47 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "evaluate",
+    "version": "1.0.5"
+   },
+   {
+    "built": "R 4.6.0; aarch64-apple-darwin23; 2026-04-25 15:40:10 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "farver",
+    "version": "2.1.2"
+   },
+   {
+    "built": "R 4.6.1; aarch64-apple-darwin23; 2026-08-27 09:25:29 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "fastglm",
+    "version": "0.1.2"
+   },
+   {
+    "built": "R 4.6.0; aarch64-apple-darwin23; 2026-04-25 15:38:44 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "fastmap",
+    "version": "1.2.0"
+   },
+   {
+    "built": "R 4.6.1; aarch64-apple-darwin23; 2026-06-26 14:46:43 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "fixest",
+    "version": "0.14.2"
+   },
+   {
+    "built": "R 4.6.1; ; 2026-08-25 23:18:24 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "flexmix",
+    "version": "2.3-21"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-26 02:18:26 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "fontawesome",
+    "version": "0.5.3"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-26 11:09:08 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "forcats",
+    "version": "1.0.1"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-25 23:16:42 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "foreach",
+    "version": "1.5.2"
+   },
+   {
+    "built": "R 4.6.0; aarch64-apple-darwin23; 2026-04-26 11:10:38 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "forecast",
+    "version": "9.0.2"
+   },
+   {
+    "built": "R 4.6.1; ; 2026-08-03 09:17:05 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "Formula",
+    "version": "1.2-6"
+   },
+   {
+    "built": "R 4.6.0; aarch64-apple-darwin23; 2026-04-28 06:38:56 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "fracdiff",
+    "version": "1.5-4"
+   },
+   {
+    "built": "R 4.6.1; aarch64-apple-darwin23; 2026-07-03 03:32:36 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "frontmatter",
+    "version": "0.3.0"
+   },
+   {
+    "built": "R 4.6.0; aarch64-apple-darwin23; 2026-04-25 15:39:15 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "fs",
+    "version": "2.1.0"
+   },
+   {
+    "built": "R 4.6.1; ; 2026-07-20 17:41:12 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "future",
+    "version": "1.75.0"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-26 05:14:52 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "future.apply",
+    "version": "1.20.2"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-26 05:25:33 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "gargle",
+    "version": "1.6.1"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-25 15:40:57 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "generics",
+    "version": "0.1.4"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-26 05:16:05 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "ggplot2",
+    "version": "4.0.3"
+   },
+   {
+    "built": "R 4.6.0; aarch64-apple-darwin23; 2026-04-25 17:28:44 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "glmmML",
+    "version": "1.1.7"
+   },
+   {
+    "built": "R 4.6.1; aarch64-apple-darwin23; 2026-09-25 02:15:35 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "glmnet",
+    "version": "5.1"
+   },
+   {
+    "built": "R 4.6.1; ; 2026-07-11 02:21:09 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "glmx",
+    "version": "0.2-3"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-25 23:14:29 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "globals",
+    "version": "0.19.1"
+   },
+   {
+    "built": "R 4.6.0; aarch64-apple-darwin23; 2026-04-25 15:39:32 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "glue",
+    "version": "1.8.1"
+   },
+   {
+    "built": "R 4.6.0; aarch64-apple-darwin23; 2026-04-25 16:30:09 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "gmm",
+    "version": "1.9-1"
+   },
+   {
+    "built": "R 4.6.0; aarch64-apple-darwin23; 2026-04-25 16:16:39 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "gmp",
+    "version": "0.7-5.1"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-26 11:16:52 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "googledrive",
+    "version": "2.1.2"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-26 15:57:49 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "googlesheets4",
+    "version": "1.1.2"
+   },
+   {
+    "built": "R 4.6.0; aarch64-apple-darwin23; 2026-04-25 15:59:15 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "gower",
+    "version": "1.0.2"
+   },
+   {
+    "built": "R 4.6.1; ; 2026-06-25 09:06:55 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "gridExtra",
+    "version": "2.3.1"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-26 02:18:41 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "gtable",
+    "version": "0.3.6"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-26 05:18:15 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "hardhat",
+    "version": "1.4.3"
+   },
+   {
+    "built": "R 4.6.0; aarch64-apple-darwin23; 2026-04-25 12:39:12 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "haven",
+    "version": "2.5.5"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-25 23:14:12 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "highr",
+    "version": "0.12"
+   },
+   {
+    "built": "R 4.6.0; aarch64-apple-darwin23; 2026-06-08 08:30:38 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "highs",
+    "version": "1.14.0-2"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-25 23:15:47 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "hms",
+    "version": "1.1.4"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-26 12:41:45 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "HonestDiD",
+    "version": "0.2.8"
+   },
+   {
+    "built": "R 4.6.0; aarch64-apple-darwin23; 2026-04-25 23:13:58 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "htmltools",
+    "version": "0.5.9"
+   },
+   {
+    "built": "R 4.6.0; aarch64-apple-darwin23; 2026-04-26 05:14:15 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "httpuv",
+    "version": "1.6.17"
+   },
+   {
+    "built": "R 4.6.1; ; 2026-09-01 17:10:27 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "httr",
+    "version": "1.4.9"
+   },
+   {
+    "built": "R 4.6.1; ; 2026-07-13 23:43:55 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "httr2",
+    "version": "1.3.0"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-26 02:30:21 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "ids",
+    "version": "1.0.1"
+   },
+   {
+    "built": "R 4.6.1; ; 2026-09-06 14:51:26 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "insight",
+    "version": "1.5.4"
+   },
+   {
+    "built": "R 4.6.1; aarch64-apple-darwin23; 2026-08-22 18:58:19 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "ipred",
+    "version": "0.9-16"
+   },
+   {
+    "built": "R 4.6.0; aarch64-apple-darwin23; 2026-04-25 23:14:25 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "isoband",
+    "version": "0.3.0"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-25 15:43:40 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "iterators",
+    "version": "1.0.14"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-26 08:16:44 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "ivmodel",
+    "version": "1.9.1"
+   },
+   {
+    "built": "R 4.6.1; ; 2026-07-11 02:24:37 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "ivreg",
+    "version": "0.6-8"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-26 02:18:12 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "jquerylib",
+    "version": "0.1.4"
+   },
+   {
+    "built": "R 4.6.0; aarch64-apple-darwin23; 2026-04-25 15:39:00 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "jsonlite",
+    "version": "2.0.0"
+   },
+   {
+    "built": "R 4.6.0; aarch64-apple-darwin23; 2026-04-25 15:48:13 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "kernlab",
+    "version": "0.9-33"
+   },
+   {
+    "built": "R 4.6.1; ; 2026-09-16 23:16:23 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "knitr",
+    "version": "1.52"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-25 15:40:07 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "labeling",
+    "version": "0.4.3"
+   },
+   {
+    "built": "R 4.6.1; aarch64-apple-darwin23; 2026-09-17 00:19:00 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "languageserver",
+    "version": "0.3.19"
+   },
+   {
+    "built": "R 4.6.0; aarch64-apple-darwin23; 2026-04-25 23:14:28 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "later",
+    "version": "1.4.8"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-25 16:05:02 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "latex2exp",
+    "version": "0.9.8"
+   },
+   {
+    "built": "R 4.6.1; ; 2026-08-20 13:49:01 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "lava",
+    "version": "1.9.3"
+   },
+   {
+    "built": "R 4.6.0; aarch64-apple-darwin23; 2026-04-26 00:16:40 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "lfe",
+    "version": "3.1.1"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-25 10:32:18 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "lifecycle",
+    "version": "1.0.5"
+   },
+   {
+    "built": "R 4.6.1; ; 2026-07-16 03:56:35 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "lintr",
+    "version": "3.4.0"
+   },
+   {
+    "built": "R 4.6.1; ; 2026-06-22 07:13:11 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "listenv",
+    "version": "1.0.0"
+   },
+   {
+    "built": "R 4.6.1; aarch64-apple-darwin23; 2026-07-16 13:27:57 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "lme4",
+    "version": "2.0-6"
+   },
+   {
+    "built": "R 4.6.0; aarch64-apple-darwin23; 2026-04-25 23:15:03 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "lmtest",
+    "version": "0.9-40"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-05-23 15:09:16 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "lpdensity",
+    "version": "3.0.1"
+   },
+   {
+    "built": "R 4.6.0; aarch64-apple-darwin23; 2026-04-26 13:50:49 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "lpirfs",
+    "version": "0.2.5"
+   },
+   {
+    "built": "R 4.6.0; aarch64-apple-darwin23; 2026-04-25 15:59:56 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "lpSolve",
+    "version": "5.6.23"
+   },
+   {
+    "built": "R 4.6.0; aarch64-apple-darwin23; 2026-04-25 16:03:32 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "lpSolveAPI",
+    "version": "5.5.2.0-17.15"
+   },
+   {
+    "built": "R 4.6.0; aarch64-apple-darwin23; 2026-04-25 23:16:04 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "lubridate",
+    "version": "1.9.5"
+   },
+   {
+    "built": "R 4.6.0; aarch64-apple-darwin23; 2026-04-25 15:39:33 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "magrittr",
+    "version": "2.0.5"
+   },
+   {
+    "built": "R 4.6.1; ; 2026-09-03 08:25:33 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "marginaleffects",
+    "version": "1.0.0"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-26 00:12:34 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "margins",
+    "version": "0.3.28"
+   },
+   {
+    "built": "R 4.6.1; aarch64-apple-darwin23; 2026-09-27 01:06:58 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "MatchIt",
+    "version": "4.8.1"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-26 02:19:55 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "MatrixModels",
+    "version": "0.5-4"
+   },
+   {
+    "built": "R 4.6.0; aarch64-apple-darwin23; 2026-04-25 15:45:26 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "matrixStats",
+    "version": "1.5.0"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-25 23:30:01 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "maxLik",
+    "version": "1.5-2.2"
+   },
+   {
+    "built": "R 4.6.1; ; 2026-09-18 16:32:35 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "mcptools",
+    "version": "1.0.3"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-26 02:18:19 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "memoise",
+    "version": "2.0.1"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-26 01:13:50 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "mfx",
+    "version": "1.2-4"
+   },
+   {
+    "built": "R 4.6.0; aarch64-apple-darwin23; 2026-04-25 15:43:17 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "microbenchmark",
+    "version": "1.5.0"
+   },
+   {
+    "built": "R 4.6.0; aarch64-apple-darwin23; 2026-06-01 20:27:58 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "micsr",
+    "version": "0.1-5"
+   },
+   {
+    "built": "R 4.6.0; aarch64-apple-darwin23; 2026-04-25 15:38:55 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "mime",
+    "version": "0.13"
+   },
+   {
+    "built": "R 4.6.0; aarch64-apple-darwin23; 2026-04-25 15:42:08 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "minqa",
+    "version": "1.2.8"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-25 16:09:26 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "miscTools",
+    "version": "0.6-30"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-06-02 06:44:22 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "mlogit",
+    "version": "2.0-0"
+   },
+   {
+    "built": "R 4.6.0; aarch64-apple-darwin23; 2026-04-25 15:59:45 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "ModelMetrics",
+    "version": "1.2.2.2"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-25 13:55:06 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "modelr",
+    "version": "0.1.11"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-26 08:54:57 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "modelsummary",
+    "version": "2.6.0"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-25 16:00:10 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "modeltools",
+    "version": "0.2-24"
+   },
+   {
+    "built": "R 4.6.0; aarch64-apple-darwin23; 2026-04-25 20:32:33 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "momentfit",
+    "version": "1.0"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-25 16:22:19 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "moments",
+    "version": "0.14.1"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-25 17:42:12 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "multiwayvcov",
+    "version": "1.2.3"
+   },
+   {
+    "built": "R 4.6.1; aarch64-apple-darwin23; 2026-07-12 10:23:18 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "mvtnorm",
+    "version": "1.4-2"
+   },
+   {
+    "built": "R 4.6.1; aarch64-apple-darwin23; 2026-08-04 18:11:16 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "nanonext",
+    "version": "1.10.2"
+   },
+   {
+    "built": "R 4.6.0; aarch64-apple-darwin23; 2026-04-25 15:43:15 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "nleqslv",
+    "version": "3.3.7"
+   },
+   {
+    "built": "R 4.6.0; aarch64-apple-darwin23; 2026-04-25 15:42:27 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "nloptr",
+    "version": "2.2.1"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-25 16:06:18 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "nortest",
+    "version": "1.0-4"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-25 15:42:27 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "numDeriv",
+    "version": "2016.8-1.1"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-26 09:10:54 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "oaxaca",
+    "version": "0.1.5"
+   },
+   {
+    "built": "R 4.6.0; aarch64-apple-darwin23; 2026-06-09 16:28:40 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "openssl",
+    "version": "2.4.2"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-25 16:00:48 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "optimx",
+    "version": "2025-4.9"
+   },
+   {
+    "built": "R 4.6.1; aarch64-apple-darwin23; 2026-07-27 11:46:59 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "ordinal",
+    "version": "2026.7-26"
+   },
+   {
+    "built": "R 4.6.0; aarch64-apple-darwin23; 2026-04-25 23:41:42 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "osqp",
+    "version": "1.0.0"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-25 15:39:31 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "otel",
+    "version": "0.2.0"
+   },
+   {
+    "built": "R 4.6.1; aarch64-apple-darwin23; 2026-07-22 17:01:57 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "pak",
+    "version": "0.11.1"
+   },
+   {
+    "built": "R 4.6.1; aarch64-apple-darwin23; 2026-06-29 17:11:51 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "parallelly",
+    "version": "1.48.0"
+   },
+   {
+    "built": "R 4.6.1; ; 2026-09-02 17:35:12 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "parameters",
+    "version": "0.29.3"
+   },
+   {
+    "built": "R 4.6.1; ; 2026-09-01 12:39:47 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "pbapply",
+    "version": "1.7-5"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-25 14:02:40 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "pbkrtest",
+    "version": "0.5.5"
+   },
+   {
+    "built": "R 4.6.1; ; 2026-09-16 23:17:40 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "performance",
+    "version": "0.18.2"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-26 01:29:54 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "pglm",
+    "version": "0.2-4"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-25 11:14:26 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "pillar",
+    "version": "1.11.1"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-26 05:15:34 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "pkgbuild",
+    "version": "1.4.8"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-25 15:40:59 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "pkgconfig",
+    "version": "2.0.3"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-06-15 18:08:46 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "pkgload",
+    "version": "1.5.3"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-25 17:17:11 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "pkgsearch",
+    "version": "3.1.5"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-25 23:45:14 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "plm",
+    "version": "2.6-7"
+   },
+   {
+    "built": "R 4.6.0; aarch64-apple-darwin23; 2026-04-25 15:43:36 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "plyr",
+    "version": "1.8.9"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-25 15:46:29 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "pracma",
+    "version": "2.4.6"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-25 17:41:25 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "prediction",
+    "version": "0.3.18"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-25 15:44:33 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "prettyunits",
+    "version": "1.2.0"
+   },
+   {
+    "built": "R 4.6.1; aarch64-apple-darwin23; 2026-08-27 14:11:27 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "pROC",
+    "version": "1.19.1"
+   },
+   {
+    "built": "R 4.6.0; aarch64-apple-darwin23; 2026-04-25 23:18:04 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "processx",
+    "version": "3.9.0"
+   },
+   {
+    "built": "R 4.6.0; aarch64-apple-darwin23; 2026-04-26 11:14:38 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "prodlim",
+    "version": "2026.03.11"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-25 23:16:07 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "progress",
+    "version": "1.2.3"
+   },
+   {
+    "built": "R 4.6.1; ; 2026-07-04 02:48:48 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "progressr",
+    "version": "1.0.0"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-26 02:18:42 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "promises",
+    "version": "1.5.0"
+   },
+   {
+    "built": "R 4.6.0; aarch64-apple-darwin23; 2026-04-25 15:46:59 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "proxy",
+    "version": "0.4-29"
+   },
+   {
+    "built": "R 4.6.0; aarch64-apple-darwin23; 2026-04-25 15:48:33 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "ps",
+    "version": "1.9.3"
+   },
+   {
+    "built": "R 4.6.0; aarch64-apple-darwin23; 2026-04-25 15:52:46 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "pscl",
+    "version": "1.5.9"
+   },
+   {
+    "built": "R 4.6.0; aarch64-apple-darwin23; 2026-04-25 11:14:29 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "purrr",
+    "version": "1.2.2"
+   },
+   {
+    "built": "R 4.6.0; aarch64-apple-darwin23; 2026-04-25 16:30:26 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "qrng",
+    "version": "0.0-11"
+   },
+   {
+    "built": "R 4.6.0; aarch64-apple-darwin23; 2026-04-25 15:55:14 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "quadprog",
+    "version": "1.5-8"
+   },
+   {
+    "built": "R 4.6.1; ; 2026-06-28 17:46:15 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "quantmod",
+    "version": "0.4.29"
+   },
+   {
+    "built": "R 4.6.0; aarch64-apple-darwin23; 2026-04-26 05:15:01 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "quantreg",
+    "version": "6.1"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-26 05:16:49 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "R.cache",
+    "version": "0.17.0"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-25 15:50:08 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "R.methodsS3",
+    "version": "1.8.2"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-25 23:18:34 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "R.oo",
+    "version": "1.27.1"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-26 02:22:50 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "R.utils",
+    "version": "2.13.0"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-25 15:39:09 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "R6",
+    "version": "2.6.1"
+   },
+   {
+    "built": "R 4.6.0; aarch64-apple-darwin23; 2026-04-25 23:22:07 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "ragg",
+    "version": "1.5.2"
+   },
+   {
+    "built": "R 4.6.0; aarch64-apple-darwin23; 2026-04-25 09:27:56 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "rappdirs",
+    "version": "0.3.4"
+   },
+   {
+    "built": "R 4.6.0; aarch64-apple-darwin23; 2026-04-25 15:42:07 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "rbibutils",
+    "version": "2.4.1"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-25 15:40:08 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "RColorBrewer",
+    "version": "1.1-3"
+   },
+   {
+    "built": "R 4.6.1; aarch64-apple-darwin23; 2026-07-05 10:40:15 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "Rcpp",
+    "version": "1.1.2"
+   },
+   {
+    "built": "R 4.6.1; aarch64-apple-darwin23; 2026-09-16 22:40:28 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "RcppArmadillo",
+    "version": "15.6.0-1"
+   },
+   {
+    "built": "R 4.6.0; aarch64-apple-darwin23; 2026-04-25 15:42:58 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "RcppEigen",
+    "version": "0.3.4.0.2"
+   },
+   {
+    "built": "R 4.6.1; aarch64-apple-darwin23; 2026-08-27 09:23:27 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "RcppParallel",
+    "version": "6.2.1"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-25 16:00:55 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "RcppProgress",
+    "version": "0.4.2"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-05-22 00:18:06 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "rddensity",
+    "version": "3.0"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-25 23:14:59 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "Rdpack",
+    "version": "2.6.6"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-05-16 12:36:23 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "rdrobust",
+    "version": "4.0.0"
+   },
+   {
+    "built": "R 4.6.1; aarch64-apple-darwin23; 2026-07-16 18:11:11 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "rdtools",
+    "version": "0.1.0"
+   },
+   {
+    "built": "R 4.6.0; aarch64-apple-darwin23; 2026-04-26 15:50:28 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "readr",
+    "version": "2.2.0"
+   },
+   {
+    "built": "R 4.6.1; aarch64-apple-darwin23; 2026-09-16 23:33:21 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "readxl",
+    "version": "1.5.0.1"
+   },
+   {
+    "built": "R 4.6.1; ; 2026-08-24 08:36:48 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "recipes",
+    "version": "1.4.0"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-26 02:19:52 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "reformulas",
+    "version": "0.4.4"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-25 15:51:36 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "rematch",
+    "version": "2.0.0"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-26 05:20:50 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "rematch2",
+    "version": "2.1.2"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-26 02:31:20 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "repr",
+    "version": "1.1.7"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-26 11:16:56 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "reprex",
+    "version": "2.1.1"
+   },
+   {
+    "built": "R 4.6.0; aarch64-apple-darwin23; 2026-04-26 02:20:52 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "reshape2",
+    "version": "1.4.5"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-25 16:01:06 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "rex",
+    "version": "1.2.2"
+   },
+   {
+    "built": "R 4.6.0; aarch64-apple-darwin23; 2026-04-25 16:30:45 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "rgenoud",
+    "version": "5.9-0.11"
+   },
+   {
+    "built": "R 4.6.0; aarch64-apple-darwin23; 2026-04-25 16:03:31 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "Rglpk",
+    "version": "0.6-5.1"
+   },
+   {
+    "built": "R 4.6.1; aarch64-apple-darwin23; 2026-07-05 10:40:38 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "rlang",
+    "version": "1.3.0"
+   },
+   {
+    "built": "R 4.6.1; ; 2026-09-01 17:10:43 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "rmarkdown",
+    "version": "2.32"
+   },
+   {
+    "built": "R 4.6.0; aarch64-apple-darwin23; 2026-04-25 18:07:39 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "roll",
+    "version": "1.2.1"
+   },
+   {
+    "built": "R 4.6.1; aarch64-apple-darwin23; 2026-08-04 23:51:08 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "roxygen2",
+    "version": "8.1.0"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-25 15:48:39 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "rprojroot",
+    "version": "2.1.1"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-06-12 01:39:39 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "rstudioapi",
+    "version": "0.19.0"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-26 05:22:36 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "rvest",
+    "version": "1.0.5"
+   },
+   {
+    "built": "R 4.6.0; aarch64-apple-darwin23; 2026-04-25 09:28:03 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "S7",
+    "version": "0.2.2"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-25 14:08:13 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "sampleSelection",
+    "version": "1.2-14"
+   },
+   {
+    "built": "R 4.6.1; ; 2026-08-03 13:54:56 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "sandwich",
+    "version": "3.1-3"
+   },
+   {
+    "built": "R 4.6.0; aarch64-apple-darwin23; 2026-04-26 02:19:08 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "sass",
+    "version": "0.4.10"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-25 23:14:37 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "scales",
+    "version": "1.4.0"
+   },
+   {
+    "built": "R 4.6.0; aarch64-apple-darwin23; 2026-04-25 16:29:31 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "scs",
+    "version": "3.2.7"
+   },
+   {
+    "built": "R 4.6.1; ; 2026-09-27 10:27:36 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "selectr",
+    "version": "0.8-0"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-06-04 14:24:20 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "sessioninfo",
+    "version": "1.2.4"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-25 15:46:22 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "shape",
+    "version": "1.4.6.1"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-25 22:19:44 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "ShiftShareSE",
+    "version": "1.1.0"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-26 15:58:06 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "skimr",
+    "version": "2.2.2"
+   },
+   {
+    "built": "R 4.6.1; aarch64-apple-darwin23; 2026-07-13 14:17:00 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "slam",
+    "version": "0.1-56"
+   },
+   {
+    "built": "R 4.6.0; aarch64-apple-darwin23; 2026-04-25 16:30:37 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "spacefillr",
+    "version": "0.4.0"
+   },
+   {
+    "built": "R 4.6.0; aarch64-apple-darwin23; 2026-04-25 15:43:24 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "SparseM",
+    "version": "1.84-2"
+   },
+   {
+    "built": "R 4.6.0; aarch64-apple-darwin23; 2026-04-25 23:20:05 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "sparsevctrs",
+    "version": "0.3.6"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-25 15:59:20 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "SQUAREM",
+    "version": "2026.1"
+   },
+   {
+    "built": "R 4.6.0; aarch64-apple-darwin23; 2026-04-26 03:19:59 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "staggered",
+    "version": "1.2.2"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-25 18:28:39 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "stargazer",
+    "version": "5.2.3"
+   },
+   {
+    "built": "R 4.6.0; aarch64-apple-darwin23; 2026-05-17 15:51:58 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "statmod",
+    "version": "1.5.2"
+   },
+   {
+    "built": "R 4.6.1; aarch64-apple-darwin23; 2026-08-04 18:11:06 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "stringi",
+    "version": "1.8.9"
+   },
+   {
+    "built": "R 4.6.1; aarch64-apple-darwin23; 2026-08-04 13:21:53 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "stringmagic",
+    "version": "1.3.0"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-25 11:14:29 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "stringr",
+    "version": "1.6.0"
+   },
+   {
+    "built": "R 4.6.1; aarch64-apple-darwin23; 2026-08-04 13:21:49 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "strucchange",
+    "version": "1.6-0"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-26 11:11:39 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "styler",
+    "version": "1.11.0"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-29 11:07:16 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "Synth",
+    "version": "1.1-10"
+   },
+   {
+    "built": "R 4.6.1; ; 2026-09-28 18:31:28 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "synthdid",
+    "version": "0.0.9"
+   },
+   {
+    "built": "R 4.6.0; aarch64-apple-darwin23; 2026-04-25 15:48:55 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "sys",
+    "version": "3.4.3"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-25 14:06:55 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "systemfit",
+    "version": "1.1-30"
+   },
+   {
+    "built": "R 4.6.0; aarch64-apple-darwin23; 2026-04-25 23:16:44 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "systemfonts",
+    "version": "1.3.2"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-06-04 19:25:12 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "tables",
+    "version": "0.9.35"
+   },
+   {
+    "built": "R 4.6.0; aarch64-apple-darwin23; 2026-04-25 23:19:28 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "textshaping",
+    "version": "1.0.5"
+   },
+   {
+    "built": "R 4.6.0; aarch64-apple-darwin23; 2026-04-26 05:14:40 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "tibble",
+    "version": "3.3.1"
+   },
+   {
+    "built": "R 4.6.0; aarch64-apple-darwin23; 2026-04-26 15:50:18 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "tidyr",
+    "version": "1.3.2"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-26 02:19:10 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "tidyselect",
+    "version": "1.2.1"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-25 13:55:25 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "tidyverse",
+    "version": "2.0.0"
+   },
+   {
+    "built": "R 4.6.0; aarch64-apple-darwin23; 2026-04-25 15:44:04 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "timechange",
+    "version": "0.4.0"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-25 15:42:55 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "timeDate",
+    "version": "4052.112"
+   },
+   {
+    "built": "R 4.6.1; ; 2026-09-28 01:38:27 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "tinyplot",
+    "version": "0.8.0"
+   },
+   {
+    "built": "R 4.6.1; ; 2026-09-16 22:46:29 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "tinytable",
+    "version": "0.19.0"
+   },
+   {
+    "built": "R 4.6.1; ; 2026-09-18 16:19:30 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "tinytex",
+    "version": "0.61"
+   },
+   {
+    "built": "R 4.6.0; aarch64-apple-darwin23; 2026-04-25 17:17:14 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "tomledit",
+    "version": "0.1.1"
+   },
+   {
+    "built": "R 4.6.0; aarch64-apple-darwin23; 2026-04-25 23:43:40 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "TruncatedNormal",
+    "version": "2.3"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-26 00:47:08 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "truncreg",
+    "version": "0.2-5"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-25 16:37:01 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "trust",
+    "version": "0.1-9"
+   },
+   {
+    "built": "R 4.6.1; aarch64-apple-darwin23; 2026-08-11 21:00:16 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "tseries",
+    "version": "0.10-63"
+   },
+   {
+    "built": "R 4.6.0; aarch64-apple-darwin23; 2026-04-25 23:21:33 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "TTR",
+    "version": "0.24.4"
+   },
+   {
+    "built": "R 4.6.0; aarch64-apple-darwin23; 2026-04-25 15:44:31 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "tzdb",
+    "version": "0.5.0"
+   },
+   {
+    "built": "R 4.6.0; aarch64-apple-darwin23; 2026-04-25 15:52:24 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "ucminf",
+    "version": "1.2.3"
+   },
+   {
+    "built": "R 4.6.0; aarch64-apple-darwin23; 2026-04-26 02:19:51 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "urca",
+    "version": "1.3-4"
+   },
+   {
+    "built": "R 4.6.0; aarch64-apple-darwin23; 2026-04-25 15:41:06 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "utf8",
+    "version": "1.2.6"
+   },
+   {
+    "built": "R 4.6.0; aarch64-apple-darwin23; 2026-04-25 15:57:30 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "uuid",
+    "version": "1.2-2"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-26 02:55:27 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "vars",
+    "version": "1.6-1"
+   },
+   {
+    "built": "R 4.6.0; aarch64-apple-darwin23; 2026-04-25 23:15:23 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "vctrs",
+    "version": "0.7.3"
+   },
+   {
+    "built": "R 4.6.0; aarch64-apple-darwin23; 2026-04-25 16:02:36 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "VGAM",
+    "version": "1.1-14"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-25 15:40:19 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "viridisLite",
+    "version": "0.4.3"
+   },
+   {
+    "built": "R 4.6.0; aarch64-apple-darwin23; 2026-04-26 11:09:05 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "vroom",
+    "version": "1.7.1"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-06-19 06:07:49 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "withr",
+    "version": "3.0.3"
+   },
+   {
+    "built": "R 4.6.1; aarch64-apple-darwin23; 2026-09-16 22:39:51 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "xfun",
+    "version": "0.61"
+   },
+   {
+    "built": "R 4.6.1; aarch64-apple-darwin23; 2026-06-22 16:51:32 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "xml2",
+    "version": "1.6.0"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-04-25 16:01:02 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "xmlparsedata",
+    "version": "1.0.5"
+   },
+   {
+    "built": "R 4.6.0; ; 2026-06-17 18:57:10 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "xtable",
+    "version": "1.8-8"
+   },
+   {
+    "built": "R 4.6.1; aarch64-apple-darwin23; 2026-09-16 22:39:52 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "xts",
+    "version": "0.14.3"
+   },
+   {
+    "built": "R 4.6.0; aarch64-apple-darwin23; 2026-04-25 15:39:54 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "yaml",
+    "version": "2.3.12"
+   },
+   {
+    "built": "R 4.6.1; aarch64-apple-darwin23; 2026-08-25 08:15:54 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "yaml12",
+    "version": "0.2.0"
+   },
+   {
+    "built": "R 4.6.1; aarch64-apple-darwin23; 2026-07-31 08:39:07 UTC; unix",
+    "libpath": "/Users/federicolopez/Library/R/arm64/4.6/library",
+    "package": "zoo",
+    "version": "1.9-0"
+   },
+   {
+    "built": "R 4.6.1; ; 2026-06-25 21:53:52 UTC; unix",
+    "libpath": "/Library/Frameworks/R.framework/Versions/4.6/Resources/library",
+    "package": "base",
+    "version": "4.6.1"
+   },
+   {
+    "built": "R 4.6.1; ; 2026-06-25 21:54:42 UTC; unix",
+    "libpath": "/Library/Frameworks/R.framework/Versions/4.6/Resources/library",
+    "package": "boot",
+    "version": "1.3-32"
+   },
+   {
+    "built": "R 4.6.1; aarch64-apple-darwin23; 2026-06-25 21:54:10 UTC; unix",
+    "libpath": "/Library/Frameworks/R.framework/Versions/4.6/Resources/library",
+    "package": "class",
+    "version": "7.3-23"
+   },
+   {
+    "built": "R 4.6.1; aarch64-apple-darwin23; 2026-06-25 21:54:10 UTC; unix",
+    "libpath": "/Library/Frameworks/R.framework/Versions/4.6/Resources/library",
+    "package": "cluster",
+    "version": "2.1.8.2"
+   },
+   {
+    "built": "R 4.6.1; ; 2026-06-25 21:54:07 UTC; unix",
+    "libpath": "/Library/Frameworks/R.framework/Versions/4.6/Resources/library",
+    "package": "codetools",
+    "version": "0.2-20"
+   },
+   {
+    "built": "R 4.6.1; ; 2026-06-25 21:53:16 UTC; unix",
+    "libpath": "/Library/Frameworks/R.framework/Versions/4.6/Resources/library",
+    "package": "compiler",
+    "version": "4.6.1"
+   },
+   {
+    "built": "R 4.6.1; ; 2026-06-25 21:53:43 UTC; unix",
+    "libpath": "/Library/Frameworks/R.framework/Versions/4.6/Resources/library",
+    "package": "datasets",
+    "version": "4.6.1"
+   },
+   {
+    "built": "R 4.6.1; aarch64-apple-darwin23; 2026-06-25 21:54:07 UTC; unix",
+    "libpath": "/Library/Frameworks/R.framework/Versions/4.6/Resources/library",
+    "package": "foreign",
+    "version": "0.8-91"
+   },
+   {
+    "built": "R 4.6.1; aarch64-apple-darwin23; 2026-06-25 21:53:33 UTC; unix",
+    "libpath": "/Library/Frameworks/R.framework/Versions/4.6/Resources/library",
+    "package": "graphics",
+    "version": "4.6.1"
+   },
+   {
+    "built": "R 4.6.1; aarch64-apple-darwin23; 2026-06-25 21:53:30 UTC; unix",
+    "libpath": "/Library/Frameworks/R.framework/Versions/4.6/Resources/library",
+    "package": "grDevices",
+    "version": "4.6.1"
+   },
+   {
+    "built": "R 4.6.1; aarch64-apple-darwin23; 2026-06-25 21:53:49 UTC; unix",
+    "libpath": "/Library/Frameworks/R.framework/Versions/4.6/Resources/library",
+    "package": "grid",
+    "version": "4.6.1"
+   },
+   {
+    "built": "R 4.6.1; aarch64-apple-darwin23; 2026-06-25 21:54:07 UTC; unix",
+    "libpath": "/Library/Frameworks/R.framework/Versions/4.6/Resources/library",
+    "package": "KernSmooth",
+    "version": "2.23-26"
+   },
+   {
+    "built": "R 4.6.1; aarch64-apple-darwin23; 2026-06-25 21:54:07 UTC; unix",
+    "libpath": "/Library/Frameworks/R.framework/Versions/4.6/Resources/library",
+    "package": "lattice",
+    "version": "0.22-9"
+   },
+   {
+    "built": "R 4.6.1; aarch64-apple-darwin23; 2026-06-25 21:54:07 UTC; unix",
+    "libpath": "/Library/Frameworks/R.framework/Versions/4.6/Resources/library",
+    "package": "MASS",
+    "version": "7.3-65"
+   },
+   {
+    "built": "R 4.6.1; aarch64-apple-darwin23; 2026-06-25 21:54:11 UTC; unix",
+    "libpath": "/Library/Frameworks/R.framework/Versions/4.6/Resources/library",
+    "package": "Matrix",
+    "version": "1.7-5"
+   },
+   {
+    "built": "R 4.6.1; aarch64-apple-darwin23; 2026-06-25 21:53:44 UTC; unix",
+    "libpath": "/Library/Frameworks/R.framework/Versions/4.6/Resources/library",
+    "package": "methods",
+    "version": "4.6.1"
+   },
+   {
+    "built": "R 4.6.1; aarch64-apple-darwin23; 2026-06-25 21:54:32 UTC; unix",
+    "libpath": "/Library/Frameworks/R.framework/Versions/4.6/Resources/library",
+    "package": "mgcv",
+    "version": "1.9-4"
+   },
+   {
+    "built": "R 4.6.1; aarch64-apple-darwin23; 2026-06-25 21:54:11 UTC; unix",
+    "libpath": "/Library/Frameworks/R.framework/Versions/4.6/Resources/library",
+    "package": "nlme",
+    "version": "3.1-169"
+   },
+   {
+    "built": "R 4.6.1; aarch64-apple-darwin23; 2026-06-25 21:54:07 UTC; unix",
+    "libpath": "/Library/Frameworks/R.framework/Versions/4.6/Resources/library",
+    "package": "nnet",
+    "version": "7.3-20"
+   },
+   {
+    "built": "R 4.6.1; aarch64-apple-darwin23; 2026-06-25 21:53:52 UTC; unix",
+    "libpath": "/Library/Frameworks/R.framework/Versions/4.6/Resources/library",
+    "package": "parallel",
+    "version": "4.6.1"
+   },
+   {
+    "built": "R 4.6.1; aarch64-apple-darwin23; 2026-06-25 21:54:07 UTC; unix",
+    "libpath": "/Library/Frameworks/R.framework/Versions/4.6/Resources/library",
+    "package": "rpart",
+    "version": "4.1.27"
+   },
+   {
+    "built": "R 4.6.1; aarch64-apple-darwin23; 2026-06-25 21:54:07 UTC; unix",
+    "libpath": "/Library/Frameworks/R.framework/Versions/4.6/Resources/library",
+    "package": "spatial",
+    "version": "7.3-18"
+   },
+   {
+    "built": "R 4.6.1; aarch64-apple-darwin23; 2026-06-25 21:53:51 UTC; unix",
+    "libpath": "/Library/Frameworks/R.framework/Versions/4.6/Resources/library",
+    "package": "splines",
+    "version": "4.6.1"
+   },
+   {
+    "built": "R 4.6.1; aarch64-apple-darwin23; 2026-06-25 21:53:35 UTC; unix",
+    "libpath": "/Library/Frameworks/R.framework/Versions/4.6/Resources/library",
+    "package": "stats",
+    "version": "4.6.1"
+   },
+   {
+    "built": "R 4.6.1; ; 2026-06-25 21:53:51 UTC; unix",
+    "libpath": "/Library/Frameworks/R.framework/Versions/4.6/Resources/library",
+    "package": "stats4",
+    "version": "4.6.1"
+   },
+   {
+    "built": "R 4.6.1; aarch64-apple-darwin23; 2026-06-25 21:54:33 UTC; unix",
+    "libpath": "/Library/Frameworks/R.framework/Versions/4.6/Resources/library",
+    "package": "survival",
+    "version": "3.8-6"
+   },
+   {
+    "built": "R 4.6.1; aarch64-apple-darwin23; 2026-06-25 21:53:51 UTC; unix",
+    "libpath": "/Library/Frameworks/R.framework/Versions/4.6/Resources/library",
+    "package": "tcltk",
+    "version": "4.6.1"
+   },
+   {
+    "built": "R 4.6.1; aarch64-apple-darwin23; 2026-06-25 21:53:16 UTC; unix",
+    "libpath": "/Library/Frameworks/R.framework/Versions/4.6/Resources/library",
+    "package": "tools",
+    "version": "4.6.1"
+   },
+   {
+    "built": "R 4.6.1; aarch64-apple-darwin23; 2026-06-25 21:53:27 UTC; unix",
+    "libpath": "/Library/Frameworks/R.framework/Versions/4.6/Resources/library",
+    "package": "utils",
+    "version": "4.6.1"
+   }
+  ],
+  "libpaths": [
+   "/Users/federicolopez/Library/R/arm64/4.6/library",
+   "/Library/Frameworks/R.framework/Versions/4.6/Resources/library"
+  ],
+  "libraries": {
+   "/Library/Frameworks/R.framework/Versions/4.6/Resources/library": {
+    "file_count": 2298,
+    "package_sha256": {
+     "KernSmooth": "cc7057d50e082fd7fb7d359e4a5f4f89384ac8f256eacea4d93db9c144c399a3",
+     "MASS": "3829ce9343a8c3b2ad21d31f9c0e71a48230bbc3909377a6bb79fdb1ab87d215",
+     "Matrix": "26dc0b50d658df0b181ec06470c9f71f327c645948d3bc71829b9ce0e8b1f279",
+     "base": "ef0e53e0cbf195f49743d010dc97fde434111f68d8816e7e12f575dbb2418602",
+     "boot": "0615ba28a2826f32d659a9e4d24b1cead3f7fff5c5dd19c5842351767e4c5fae",
+     "class": "b61908b010d85413f671e2f1bfd21dafdf885e080b8d05e710faf51ec0c004b4",
+     "cluster": "c4c3b54c4931cd83065de7bd83ff307c5f4e4e7ac5f2a1043b99d70eef8a93ec",
+     "codetools": "1d34d9f2d14d10a99fa7959649f9b023283fc9b6a0096f7bc4050bbf6f8a5432",
+     "compiler": "bb7e1399d59c330b051d8413ba18872a22a5fe842bb43d1f6fdcebbf0a66d34f",
+     "datasets": "86c07560af07352836bc0ab41e57f4e7520b79bf47497215d12fd830e30877d0",
+     "foreign": "042f475d80ea7022f30873b7377b2c7714a5ab26f0ad4a65ab129f4bd571f41e",
+     "grDevices": "eba1d8ae6cd114326fd378cb5f04bd59ff8b04c4f9c7075182d8620ed0c823e5",
+     "graphics": "dc5145b903cdfdcafa90ab190cd03cf2a12afa403732d92714795e661808f5b6",
+     "grid": "9671053913253046d6c3f0c5d6a972fbf5ca116bf2772b5548386308faa9ae2b",
+     "lattice": "bd9f0959dac711f4adeb0bd16d46e01e5daaf7217d74b1932bc095305fc23b98",
+     "methods": "d79e52b253a7483cd773cf778bb89be0c56716f14b3a0caf377385468f9d919b",
+     "mgcv": "21c8b9eb0ccf340ae4bc4a9287e745be2764a52273f393cb37c9abdec38b1d3c",
+     "nlme": "1b4487ce8a19cf004bb42e5f1a772be369b29987c0f9b8ce6026a065c99d5506",
+     "nnet": "a8a488f9e308aa1149253630db2b96baaaf7644667ae53fd0607037464674921",
+     "parallel": "9d565ae082f6bda3a7852de4a400a96e46a0e1e3db741bb7032eb956bb781c0b",
+     "rpart": "541c0cb808dd039fcc46b2721360dab463d589f0db44e0d58d15ad334d71b9bd",
+     "spatial": "09b0590b26b6120e2dd04bee2c671fe6599eeb5153b7006cd4ea799c75c3d7af",
+     "splines": "ad3d45c3ba20c8a6a714154e9c6977edfc59f1ce5a6850561f66d998bbc317c9",
+     "stats": "3c932f8c5f6bf7620275aa7088cbab5b723202fc6949787c03e5dcddb00c193c",
+     "stats4": "b551ea02b0d45fd7992edbff69f04fe58580bed1053abb3526bee7da24564b28",
+     "survival": "c1e278e0cda39ac0ed43ed9d04453883bf1cfb50a7127a445f436d5ab83f5975",
+     "tcltk": "278e954b63770c7ea0235bac265af608a7ec3d535a31fbac645268c99fa020fc",
+     "tools": "cf75a98c89d4af18141dd9dc5efbc69a224d9dec9283dcc37239f5b5e8780bc5",
+     "translations": "4ec0ddb53dc20fe505aa0a5b97fd068915489a8262e5cbcf63e802e91d241c61",
+     "utils": "d28c8064c866eb41c63cdf37daa24fc15694b894b1f5f6fef0a0f98fbd9b6aaa"
+    },
+    "sha256": "a8f49539d79eb326035a03c6e6a9520b09635cea395e61d6858aa83eb140e3e9"
+   },
+   "/Users/federicolopez/Library/R/arm64/4.6/library": {
+    "file_count": 29069,
+    "package_sha256": {
+     "AER": "67a83087c980a2f9aa95791d0b179a7f2dfa54350d2329a4a09a15beae94cd6f",
+     "BH": "369085801ab1d2b5314e7b6626f0d0740c9a2f0e11cc9cd690e43c8ee5bdb23e",
+     "BMisc": "d992478795fa053d0c13ad17749875cedba6646bcb33f18bd4293e9448a8eb74",
+     "CVXR": "0136aae4d5d10ff5b4efa11e1a8f8a5e4df225d9a76d4beebe5be03072e5a4e0",
+     "CompQuadForm": "41cbc54d188b524464cb985f174806c9fa57b42ded8b82d161185c083965ef03",
+     "DBI": "30b8d6086cacb4cb766af8b4993f8d469447811b636d2e51b142b1ff3f630fc8",
+     "DRDID": "e344e6498da91de656ae54e5513a9e7d863105d0f0cdd48955c33c054e02f07b",
+     "Deriv": "df215de8b859f9e12ba783f8aa0980e634dc65080260f120d782621d214871cf",
+     "ECOSolveR": "18a88eb490ef532e092a90bfc5724ce69f19ead26250db2be5f1b0b43e18bafb",
+     "Formula": "7006871591beaec7ab06204d70d8d56195b29b632a630bb6a3abe4e01fbd8818",
+     "HonestDiD": "ad04d1a850e715e890b3fd6217bda2a835546c2e77aa3385bb735a8cafeee3d9",
+     "MatchIt": "d0a3bc996ca19f7a7110495ddc4f22a25d85ced776b89d249e8e0de969054a85",
+     "MatrixModels": "fd84c7260fe6871a11caf4dc7639845591868df9fe48e5a98ad6a9dc98a8899a",
+     "ModelMetrics": "6c09edc3ce4599898fe2e5b7af7de1de0669f1b4f8df083ec19aaeb8e14fe0a7",
+     "R.cache": "a142d37b2d89a57c311717929e4e7aefe1012ee6952d41c5129a2deabf8f2b43",
+     "R.methodsS3": "0286b273812e9370079e9d270e38360c15db64f581a453b6ac67908df62660ef",
+     "R.oo": "ac169a4e00a27dd356f8a4666b59ec7caf6d66b3852efd17a67d1f3b4702213a",
+     "R.utils": "f72aa195db0ce3ecaecd0d6cb65272e4a5743d3cba71e9b9eaaedfceafc32348",
+     "R6": "55bf1dbf5817394ca6180ba04af39db15720809d08487b5d324ca4561b9c4b01",
+     "RColorBrewer": "2a56e8754bacda706121679e2574b66f38e753d08bd933b0dcf616ff488bfc37",
+     "Rcpp": "293c7cb25982c3a690def330d81defdbb336779f8c46481ecbbdf90693f73d56",
+     "RcppArmadillo": "6a84cd2bdb27fbebf54fd46865344716719e981d418b40f2e280d7e1f38e3749",
+     "RcppEigen": "5f55aa5513b38cb637fa6fe6e2aad3df47bc88e2005d3f7d3fc85fa8c5fa26b0",
+     "RcppParallel": "e06df3362074232734fb1dc6684f9e928cdd8661e04ca0f1917ee43c55d88137",
+     "RcppProgress": "46e5571f5bcec5afdb70fb82756924eb4b875fade15034f353384be2ce322eb8",
+     "Rdpack": "438eb536ad816b524538e11a3049f7d0a316833ee941592dd18823e8df14afd7",
+     "Rglpk": "a917b6998b26da6364a5d0a918f47d5ae27486287c678f4e2c47be17992fed80",
+     "S7": "e0e060d1df28859fb7993289450b245f1de48b6ab46d62c01a88d2ecfbcfa1b5",
+     "SQUAREM": "a58b3410bf9d6934562683515083123988e207fe7b3142c46e342d83a1b93e2a",
+     "ShiftShareSE": "506bdd240dacc63935494e335e09b41888f54e5f5687399cc5b3766128db55de",
+     "SparseM": "0bdd901412d473b84cc661002734f2178d862726cb6e5a2233018c81d03c34b9",
+     "Synth": "821d36e1a6f9b46c3eb4fb7f339e0ca1b12f8d302a496affa987ac8d1bb2d293",
+     "TTR": "9f70e841795ddda4d37753dd98222bbfadcb476d63cc2bfdcb20456e19ce305a",
+     "TruncatedNormal": "3b5434c7099be5edf48c23204fa7f731b27b8b06d4e7cbe589bc2bc2762f05f2",
+     "VGAM": "4a680badee7b28c73256831d7ca8116a71852d26f9c11df1622a2e4a448d24ec",
+     "_cache": "e8564cfc554c9dcd7208dff54c70b40c444076a4e87b033ba65b820aa874bb67",
+     "abind": "a856b33672c36cf57dedd6c95d4d74ade1bc98ff6beeeaeace99bd79c583c6ac",
+     "alabama": "f3b0c2c6bcc0028a16dfd9b923def2f75b928209ad0a44354b4cb6c066367d29",
+     "arg": "8a350ddf1bca7f3080ea721731edf9b0b251ce43fee4f42e81758d23b6bac36c",
+     "arrow": "8435bc1a2de0f8960de67fa9d4557092ef2cba9771a8755c759780566b1c44f1",
+     "askpass": "f53ecc6eb7899448fa2e148c0eafddf375a9e48c97ca15908ad70c6063773830",
+     "assertthat": "ab2d2ac5aeedea30a1e95f27a3dea65ffc0cbdb66ef527977156f256a4261c98",
+     "backports": "2fc378f7253813053f7f1d8252af2fe3f4107075b3dd4e28482af95315873829",
+     "base64enc": "0a6064d38e70ec1360a0669297f60dec4c33e41e67afedec0f8a968db9f6075d",
+     "bayestestR": "3edbcd0613f4172487972aa0496024041f051c7b8c6b9c4194a9ef53207e8df7",
+     "bdsmatrix": "0ae44e9a3f287389d6c0d399b8090aae6354a02943f861bfa19c2ec277a74fb4",
+     "betareg": "67ffd5e7e400e331451d848c177e056bfe38d1a22945a3c3e07a3bf912aa3e6a",
+     "bife": "e4ba0b76b7e0f70d7a44e7c37898455963e12e160fc2b78be04cd4989335b480",
+     "bigmemory": "d30d677e2c7dc31719b43dbab8d6883c6a4d6639b1f2fcba68d53decbcfd046b",
+     "bigmemory.sri": "1d997f3d37a52bc8e9ecfbebb5a9e3b4f3a5d67b985206d35ad3bf10ab210091",
+     "bit": "6f77c2c7447ad58f8e38bdb5e28637e9deec7a1d7ed3dd4e71d9c7a118917d57",
+     "bit64": "2a07f71dda4a54e07152fa89cfbceeead6aaca427d961c3a591195901846fb34",
+     "blob": "0016448f53f0062d5ccb376747be9333ac3b587f8d70b402c9f23be14ba6ba53",
+     "brew": "6d0232cf1749d96c558e69394d7313c1e6d9497b4359d47135b733f8d1ce8d0c",
+     "brio": "6e3c266746e2230937875933890bd18473270c416f2bd815137a14b9d9c3b387",
+     "broom": "511c5128f85b85f7a24b2c6265c04c213d648cafb90522d8d639672f5f8bdc14",
+     "bslib": "71783dca6e234a6eeffb6b22c2358f99968b1fc539eb6bb6a68d20578c37a056",
+     "btw": "c7e2dcca42e88e89dad8a91beaa87fe717d90557d7539332e3853ff9ecc6d069",
+     "cachem": "d1603ddfd26a36b3c8dad2fe6c1fc48e97ccdc4a05cc438ee0b05fb56d1e872a",
+     "callr": "62a5617b6de029f0c16ecb0cbcaa7fe1818130b1b8e1d0b72bdf64de4c5e6490",
+     "car": "cb3a96c1d2a2a6c644627103aaab082f594dcf29a5bc6b8ae7826f52b34c370a",
+     "carData": "297774e7b09312c18547d8389feff2e8da94a32a5c8fdfcdc15842229bb48855",
+     "caret": "0fa2dd641322c63bd9190aa27a1c184e8336404a96f40c7d2dcf480409dbfd36",
+     "cellranger": "0b76759e69ee00b4bf941ad68cc27c6d3fa893a1b5ffb47f75c216d03492d51e",
+     "censReg": "f56b9775c3a1fc406a8e9b58636d9eb4aa55d3caf6c361bca89c175d8a37ba90",
+     "checkmate": "d3b34acf1f9fa8df7ce3e0f3474af128ea0c378865d35f64b6b322ed8618f0a1",
+     "clarabel": "6af1ff3122f3e9fe86a263a3b4f8faa62e7c4638ad65ffe6bce9b64e27dc3d31",
+     "cli": "e0689a9d42ff891cfe39b1b37fc12230239cb05fadff9b4ca22f159deda4092c",
+     "clipr": "6c9df26fd917d412394c05ee4709a8b519c23008470880fa9c57281f372c30de",
+     "clock": "92b980fe425bcec15fbce1a1c67f70473e769dac7f27501e7650f24945b75173",
+     "clubSandwich": "05daaadd6a34e7db50b5e93ceefef137b71f69a72048052a43520e1a82a0e10d",
+     "collapse": "23501b71a0591609584716be2c1ea2e80251010da64938cbd263ec25cc851aed",
+     "collections": "1220784b6fca3b454bfab30d3327c7c424272c18ed959c68b36f864a8dfd4367",
+     "colorspace": "a61380b0d5a8b3702cf906f41e4b5d5f7098a84aa0475f1ffa171e71d2cd0bc8",
+     "combinat": "cd84ffbf0be4c9cf8edec1835b4e23e09d52729c47de6af48f40e3282c00b65b",
+     "commonmark": "99241d50d1fc003ccec248ea6c0c7390d773499de3eb10857366f49a92875b8b",
+     "conflicted": "80b8b598e0a5b0b233660b0e72a9557fd5e5a95c24e00969baaa7545a8239e6c",
+     "coro": "4e69f9fbd48549230a9806a9756bbe4e7acdb9c496b18299771a0f02567f16a6",
+     "cowplot": "68006095fc635c99a4f586aaf4898e7cae677ce9b1a5307da48075513c91b6ac",
+     "cpp11": "3c4d90ad3984e02675c5c0c48c63e03b42c54371b8fb6af7987f0eccb9756a7c",
+     "crayon": "331040881a677a2bee686202c447d44d7b5dfec0448ede82a332289bd3965989",
+     "curl": "53e56e9d5daf35cc6c5788f6cfa2aa7fe055c35a9e0858494e0e85d34efe45d3",
+     "data.table": "374ba0f784920f1fac986dbf38e7a62ed6a8de774902aa69013de41ca56fd6dc",
+     "datawizard": "cb7a3437720462dec6022efb7686a7f3490703440abfeed3d85e16df793904c5",
+     "dbplyr": "3b3d92366f6476126067968989f1db547d92ee69e680ec475a2934227db06ab9",
+     "desc": "9c78f992428884f76b0cf0ef173b08ea6369a12dab999194d14c9905b3bb9571",
+     "dfidx": "6f38122958f972029c1cae0783415075d56b6a14475796cd49f78650e0ef87e9",
+     "diagram": "0499e0557649059e0ff062475ff5fa2b5ce155af75201176ee86b7ea356c7749",
+     "did": "205ef6b1cce44efbecaa44b109b7d1e6ce423449a05b627e380a66898f38fc3e",
+     "did2s": "0c2609125570a43e971f3977402254cef586ebfc4fa41c869a769cf84705d71d",
+     "didimputation": "dfcbd36e57c45cd9f065d80c129329ac7e38cb433f26ddebe35ffc0c4b421a6b",
+     "digest": "9fc913f3e536c17d3fe69c3b183df94a6817215914f8e6f168c0721d65315cf0",
+     "doBy": "09c5ea0d81e980331a4ed77c7c3c752845f1b4cbe806f8f0377c3f570a2a8b84",
+     "doParallel": "373f7fa2a31d5efb16c2ab04d5a049a942d6432c5e2394a2f4ad1092ef3d3f2c",
+     "dplyr": "32f4a6217d8331c700f2fa0d2c963211ecf9d442c74c9193d81e024fbb7df7ac",
+     "dreamerr": "de1c355e7c52fb7d43b1162c597a1f32074479133b6df38f798c54a238be8328",
+     "dtplyr": "f939c51ff201a21a6c543a1bda9af8d69d7907574043d76fbcda9670e8d9ed24",
+     "dynlm": "7f99268c6a28c20654b3c3806da06cd930726eb2a613a0aced663df96a845f3a",
+     "e1071": "10cb03648ed03dfabac932828a526bd113cb3ddba87501c61cad0a1276602b1f",
+     "ellmer": "757a919174ee14b447963af377cebfb04c7128d66de35642dc7326aa386cacdb",
+     "estimatr": "69686cb59511fa7667909138f6b08ac679c90c9f0826590bf83a4140102b3324",
+     "etwfe": "1c9f751a7402bc2eb4c259d26a46d199f72d52a1b218576175105ce3f0c55c20",
+     "evaluate": "6860ef70861b899c8ba6865c15decf0608a58c83234994736f038a5294655054",
+     "farver": "81d24ad38a781a9d0da575f3a94e6dd3d09548fad86e1e11d8e81f09bae45d90",
+     "fastglm": "d5bed8a8abbdeadf628877352fb4f29e108e9a572407e854411206b05a574705",
+     "fastmap": "a21c1191ab353b8e48e38f22f0d70a618185cf68255aca503b8647d0160b1a5f",
+     "fixest": "4db29b7d412cc0002d4328ef3cb1529a84ba33af2c502c6f2eb8cdb754e69f9f",
+     "flexmix": "8629a1dee5f23cf3c3d1dce8fb0a439840007e605117c946ead279d2257150cd",
+     "fontawesome": "f4d09d81eb119b4e2a205c210af46eb2376e666cffefe89a3c16cf024c011249",
+     "forcats": "a80fd9ff3bc92532248465d335dcec8534558d3aab7bf98a684a01ce612e710c",
+     "foreach": "22684d6a9a9da66e80fd8dc4f576118b1857f02a80c855ff71366e4cff0e2014",
+     "forecast": "83058132fadb82d22af776c883bf3ffb4865d383e1c421e4c3b12ad451cc9fa8",
+     "fracdiff": "fa558559f0b19dbec935c348ce128dfa23c0d6aed58e64dfa6168d5d6aea49e7",
+     "frontmatter": "47eae6115f1ca4d474d1094d413bd3f0f203b4e1ec8b56ea35db2d4fe072a1e8",
+     "fs": "94da9c05b36fe0a348806fc98478127771ee0418826b57b2b677ae39acc33c25",
+     "future": "fc1f0460790add317a1a7d614d08783c25205ea4c5dee6f1c1b149f29c14dc03",
+     "future.apply": "5424ba79bbf9c033d5f1110659bedc7f0c31ae047187ed93b97db0b5bade481c",
+     "gargle": "621b5b397efef48ab31fe5986d657b2b8e627ad3a1782bb5532c971d1e487637",
+     "generics": "38b1e6aa5d55c2015f4e29435b8ca77ed42ef7697f3811f1277676a2e05b4194",
+     "ggplot2": "86c063d5bb9498abf4a641ec60f1e21afc1e7f5d78759b1089e1a20e1c137708",
+     "glmmML": "3b0fbb5c4f5ea5efeb9e1a0e7fa3cdd1abfca5b98ac1c87a7655aefe14afaf2e",
+     "glmnet": "b14ee2c69b245a9e95a6c7976b141a72f3e4ae9a9b571cc4102aaf6bd3051d8d",
+     "glmx": "2aa783593ab71fcb6476b421adb38b676764814677c2be7907a2e9ef7e21585b",
+     "globals": "8eb012976035c9c33425ec8747c548928b302ff3fafbecbc14c0eda0bbf74c93",
+     "glue": "43ba7ee310539623bc4c15afa5de4ea54ffc345271d7499a3dda66f2f0d9a41a",
+     "gmm": "d907b12228013ffa311c8df02e3ee3ec91e90ba2b39a101ceaf17365edd6d0e6",
+     "gmp": "2b2d471a012fbd7b3e5b28e4b5d5ccd7631e619fcf66c90bbbf47e1c45dd757c",
+     "googledrive": "995c9607eacbca093269b04bea89f8703eb14780a4425c9f4e363cd4f0c2f35b",
+     "googlesheets4": "9808529ca119ad4a4254eb6c263deb73b56a5d4f2d9c3f642a435269b74586cf",
+     "gower": "04a67d9735a7764b22ee875c83ef06cd1557dea5626a3600a2b2bf76e3e0d24f",
+     "gridExtra": "38ac2b8b5d43a758fadada628241da0991d2b3e44b6b98b901ba5d4af4e8a726",
+     "gtable": "398d1fd04ce9d01807a2c9e3b2c33a4ac9fc9f73ccfa9fc5e90984a5d9511291",
+     "hardhat": "07015863ebdfff169eaa5d404b96ad116f950117cace9d1b7360e175cd7d64ac",
+     "haven": "3d64a2c0ddfa9da2348e8f6ba7687a483d4a22f3f8e956bb9e56a6673732a6f9",
+     "highr": "0e4b26d3cba23a18be2c4bc2014a3cab8a204fe92d283f7171d1b33ca3f42a97",
+     "highs": "e5c47bc310128dccd91f152a3640927647b44eb6ee192469d9342b2f4c7dbb94",
+     "hms": "a326063d63efe66f7348c7a4829a1ee1e0c3268d3e24c29e421c214da645a0e8",
+     "htmltools": "b64f4147977bbfd43b22b0647f7e28f89566bc810156ee717bbc0fe53a779d7b",
+     "httpuv": "552e214b01b195985f1007e1b41a07fb09ef10676179251342347214f6e06882",
+     "httr": "c4457d786cb3b2ebb65f7a8c40d893b9f7b3ee0b723ca18dfeab30473178728f",
+     "httr2": "f9698a7f061ed2a9e3c7003ffd2ab2fc614e6f3faccf9f636f366c89903051b1",
+     "ids": "cfc280f4127ca19922f7c09827722bdcde31e3e78bda9760f0aef4f53ec19bf5",
+     "insight": "719a1130540a231894c5ff6075f4c262c040c057031497807a58318457c54045",
+     "ipred": "0209ed2290ec05ab8e40815a441e9c684b46cf68449e563874c5b697e3727377",
+     "isoband": "32973c45a36ad21732bdffb459ca10348230f4ed2dcfbd4e3cd133fae623a12d",
+     "iterators": "a849ae7ebf319daf7cacf78c6a0f3f4e84e1c9bc3922f7b3056d44d70d3cd78f",
+     "ivmodel": "23b923116fc8d4a9a762528072b38f1a43b905388efb48913c04906d815da274",
+     "ivreg": "ed2d1464ce64784ef4f2521d4887e69e4e1688fb405266f9b1132b604c6e1aa7",
+     "jquerylib": "f3a10c57627562bbca242c4d110a29beaf846246d34b1700f14cfb00e0fb7737",
+     "jsonlite": "f634b0d21f39e9afc15bed115a92a608c90e578b023c31ae31850f8fd3d5c179",
+     "kernlab": "58979448590b17635b0a59db3ba80903e07e395fdc4e6fb32dc12042f9e45e11",
+     "knitr": "cc3727560f8ad88ba21d2b9025bb3e0791886e41f37ab2405e1c56bbc4dcbac1",
+     "labeling": "ab1515338f29af9453c743628a19e4f9cb6e0ef1f7176f7cd60baf108cbd5117",
+     "languageserver": "816b8cb5756934e9bbc354b666762be279660364a50a97e071241bc09e7a4cd4",
+     "later": "b126bdfbbf51ca57d4aec536d3b5b21cff05a9980e106ac4ad4ba324a165eded",
+     "latex2exp": "ab6ff726dcf8fdf309b78a00d61dd97bf4df7471c69054fd4946e780ad774cf2",
+     "lava": "2009226d87996300ea54d8d36f8f4f12ae1977527d4473051e9a0ebd5aebcfed",
+     "lfe": "8944e29c9305e98508a8a6dee802692fdefc3ff779ad029d58d38500b3fdf782",
+     "lifecycle": "ddb897e093853756f423ac2b8a5a61cfe0d76c4feb4431c8908db3c385f92fbe",
+     "lintr": "745c3e4eeb0297a4c7281a440fae57d9679be635fc499208e25ec5ec5f71f432",
+     "listenv": "074f290b3c3487f02170ce1e21711080466cf53900bfa6c66150f962ef0f8b4c",
+     "lme4": "026cf29d120257288f9a878c78593bfd1eda80d38949c10cd944b21efafed070",
+     "lmtest": "c4ed8d734d8ecf069704873fc5e47ca73a0f552fefa48015f41c5217d82637db",
+     "lpSolve": "d69da669e9956feecd07c43c467fc8100ac92e7b1e65ed2994f8bc35340295b8",
+     "lpSolveAPI": "e63719e179b7656579c5b773261fcfd1152f39d5d2c6744f5c8043b30fed7cfa",
+     "lpdensity": "afe2b8588714eb85220ac0fd5e0e2a3f59dd6d7fa89abdc00842f85c89ca2025",
+     "lpirfs": "58e634c3ac66deb305bcf2cf04f1b983483dca0b01ae2cf4415d60c0e839e8d3",
+     "lubridate": "394aefd51c56948dfb6650fac57da7a34b2f68a54a7bbab9271c5781d76ce689",
+     "magrittr": "ee2e4af49be36ad3d4224720c1be50853e110b8cb9e70e450f4b63ca24f94c03",
+     "marginaleffects": "8b5e291e84f2cb8550cfd101dd6120715f2cc8b47370bcce7878aefa88dae52a",
+     "margins": "9b7687d83291fd3a799a3a21dc3e25a4ae984e62a909f00e13ddf32a8abc4391",
+     "matrixStats": "522c25f5b2a6c9633dadfcb79323ececfb6da01b8d6a40840dff87172d310f81",
+     "maxLik": "8b53e43f8c0efc01d6e821ea8694fc4ffca11816b471af82ebcf27cb42ac6ce0",
+     "mcptools": "571d5f0d1846056c32c76fdf369e821f07e02d6b1b67b6906f28918d5de347f7",
+     "memoise": "8a9c5d825e1df8e12e651bd6aff97febd05a56de2ecdc7250079b6767e2f2f53",
+     "mfx": "9929d7a296fe8fb8b64dd5551712f7edaf41e3f159dc198e120d8d14dd984769",
+     "microbenchmark": "db22b9e1b5a996596519ccf6b183beea13c5e3a7a27879d7fe7aa236ba9c3d53",
+     "micsr": "a554e6de2c29cdb69571145f64a6261ff6d301c0ac154ec5a92b362916a3ed72",
+     "mime": "39b8cd2ddb5886c12aa3e412994acdf6651448091995af2d6cb8803f5697e502",
+     "minqa": "8121a4107e5239e63753d363de70b1ccd4842be9b2508d12995dc0e259686c58",
+     "miscTools": "175567e7bf4f5075cad351a316d5209f13f23543b753af384248768e5bc2de57",
+     "mlogit": "f45bbbe2eada2ed2b2f33bb9859b2ab95a04a1226b8853b8ae4bbd6208cba23c",
+     "modelr": "2c905ef03078dbb7c82ce0bf09cc4de7900ca80ad17e50fc2ebb2268ca3c8115",
+     "modelsummary": "75a3ec871ea7b58d1ca7a9e2f64f1d09f2463939b82d287111ca75e60f60f55e",
+     "modeltools": "d7f7816a165423501014c4cbe6695aa0816bd3c5be637d65b0b36b52d85db306",
+     "momentfit": "7d93fee865c4f30c07dca0ea7d0c2c7873791ae7fa4e5d45d16c8d6d05e222fc",
+     "moments": "3986103b36b2c7de792069b180572c2d76ba61c684c126b925127244fa388a00",
+     "multiwayvcov": "1504f0efec199fd0f4ac53b2c3d3297cff783feb04cfc728c0923fa65b54bd30",
+     "mvtnorm": "9a3d51e4f078b26735e14dded4f32e21df81434e52daad6c3a4fbf9c2d5a4560",
+     "nanonext": "a492e2f3bc2849445fd6c1ce294d9301a4a1ba9fb2207bd9e859d1ab00e73ee5",
+     "nleqslv": "b72eb14722afd7be8e15907866bbefa288b9975fd6f1666b7ae997827945f6ef",
+     "nloptr": "e5f92356cac6ae0771792e1ddbd7cf10050bdc44accd98f7f6bc7dde07f67d10",
+     "nortest": "2de962e4476c131bdf47be9c019b992aaa4eb8f07dfe18758c177c199edb6d1c",
+     "numDeriv": "93222cac0536bee81ec98ad64ff44a22cb6c7e3cb03d49fb223b11dd75b2953a",
+     "oaxaca": "0ef9a859c7a01bb9a20d1ae5054d2bb64bd29b8006929a75260237fb6a523b34",
+     "openssl": "6f8c06e04dfe9ffb5d55d730ef3f1362a320ade85d1975405c13d7fc7ef28690",
+     "optimx": "aac4aff86f3e6a137e5dbddb3df58546366ecf32582ee71c5b265c9f40125c08",
+     "ordinal": "0b24347680cfe3785cbb7e2ae01189c9aef9916ca5804ff233ef43de2dc9174a",
+     "osqp": "68a9482d1b593633b79b065520a550219b4d5a4cea8c9be4da2784b9998edca8",
+     "otel": "388fdb28c1b8cbf860e1d1570190fe593fad70bdfb8ae406127e57c9c1a08728",
+     "pROC": "d398241b9bac1fbcc321aeac5e26e38793bd4e3a26b0970f3e2f6a2f21b66301",
+     "pak": "f5d97a73627659f47aa729f483d884ca31e581128ecf1ff54a3143b88c2a5f97",
+     "parallelly": "cee75730b4ee4479428cbaa9f991efe363a960b2259f69e87f2198cfb4f7f8e6",
+     "parameters": "02d19029fd14b64025ed20c70e612ae24df895d37827492f3d81ed3492b4c129",
+     "pbapply": "1bf8d00aedd5a6d1b63bdb55fb447c7a6683c8a4a02ee4858551cf35135177b7",
+     "pbkrtest": "9fb9f97c89e6d1beb6f49824662e9b1356fd90225bdcabd25988126a679befdc",
+     "performance": "c2e90bba03ff3e9ffa1e8a8485dcdf6f215c9b637b18c3155eeb82295b322989",
+     "pglm": "0658b6cac2a6d0451672d05b1bd7c6828fb5546ef886012b223963428379b2ac",
+     "pillar": "ce8d377d880d05e0cb5f15a23c9c3b43dc1a8b1cd0c5b4a3463afcde624bddc2",
+     "pkgbuild": "3394787a91342939d368544be65a2f598d605fa6afcd06b0922a56a0845eacf4",
+     "pkgconfig": "1ed8f3135ae8dcfd4617e7a92b374c909e7fa6cb16004d47aa5f93c0fac9147f",
+     "pkgload": "fbde3f463452348496774507b875509013828fb451a4b73d526c46a1b6422ca2",
+     "pkgsearch": "fbec7a2226fe2f01813b2f08973e6067b2c0755cfc26ef30efa2f220f5c50a5f",
+     "plm": "af9288c3a91a03d94a3d0fa9f4d5e526a05d48b939102f670145d5085c023e07",
+     "plyr": "3d9185154881375b05182a5d532606f44dce48563f06f5fcff9cb89a307bd4c4",
+     "pracma": "5cc30796109cb0e3f60c36358a1a53d322e524e4016f5005abfe8a8f5c554cd8",
+     "prediction": "221ab0a06bc4e97a5eed5b243f007688214bc5f26eb849d59a32d5257e38bd0c",
+     "prettyunits": "92032242684ccb8df8eb026cf891542147da3c4e5c69b315b53f54976b1f1fd6",
+     "processx": "4381f183e9cec5ea3efb9aaba0dbe6e558f473a790561786eb600804d7b83ade",
+     "prodlim": "eb29e3da517ecf4ff3af6f435f80057d349f1d37bf478d6763b3a510a1a1a326",
+     "progress": "66e0d0801ae4fad94be4eb5c435fba53af2e1050fc9cc00f098375afbdd84a97",
+     "progressr": "459442c9eb9e7cdbeb49f7dd4038ba650a5c9ef1d505068c4f8a927a810d8370",
+     "promises": "ec11d92ed2f8f40f62089486f24193248093be0a51aeb4d4acb8191f1263e1bc",
+     "proxy": "47359583a606a26cb2d117c34754ef00864a665f348fdfa99ff1180e2470ef0b",
+     "ps": "1714263eddf593b11160d9cb69db612d826939ec7b1e14accac35d294c6c3f6a",
+     "pscl": "874d08ff63318a67a97614fb680d77164f4378bed4f9f4f007bd839ee4a50a2b",
+     "purrr": "6dd4f3c32f849827b60a889c23d26d2ff6584b64722068701a35ab55bcf35982",
+     "qrng": "bef3cdb817b167a88a3acd0ffa49de2a2faf81e766e8f774f1a6777eac040e0d",
+     "quadprog": "a3a4d295f2ce0c46304c5efdf1c1fee3f410d25a3d405b9c6bcce00f394ca9cc",
+     "quantmod": "f8afdb8874b10f761b3f2a8b33e2c4cd2fdf42cfe06d4b793c87d55f2e117c72",
+     "quantreg": "e1d5578b1520387dfcb859183b41afec19b8f18c93eb550fa8eb6d3cb4b51512",
+     "ragg": "c2a632b8691db07cfee392d4625e9756181cbd73267a0f2cdf09095becf6d628",
+     "rappdirs": "47d4eb667f1a27865253e222918b07f3e9732bcbe1c3cabc40b6a4b6648d0bb7",
+     "rbibutils": "671b4c1dbbd184d63e9e5461235c6c4ef68286670ae739a3f30ae872e508d74b",
+     "rddensity": "4856e90cbdc47b9a2832f04375f045c664a32ac49eba44484c0088ea639ecb0f",
+     "rdrobust": "64b11371027550aae0690fdf098f42b98f68bf8a8357cfa7b307d85e279666a8",
+     "rdtools": "75fa63a7e0fa7dbd07a012a3d5123e4477264ed8442fb06dfa8ee1c120eb71aa",
+     "readr": "74407842d7b83b0312e80011112cc111fc50aad1f3473122cca95ac1628ba8c8",
+     "readxl": "8901e5df02c3cd2a7ab141cce322553e4efc0d3d8b7ca556b2f3f7acb83069ad",
+     "recipes": "d895d7add0f5c66615d2c00f5f88716bec1df1046b7c7725b7118799a93ad747",
+     "reformulas": "1f49f68ab86d074f07d28c271f146604f17a269aa40755eb2cd986ccae28cd73",
+     "rematch": "2993ee4423a6e1eefe6c7c0546e093ee3bc8dabe6497b152dd12c5e430c3fff9",
+     "rematch2": "7a4801a5b2fc433c6a1a3b2f53e5af9f5bd2643c96e012e31dbee662086121b5",
+     "repr": "e90b865b6f3e0df4bb78e70523a1ef08e2532d11d292e607474c83c23f21e234",
+     "reprex": "ea5b3a28624a7c6ef47e5fe268688fa089726e51c09a2ee2152ac9e0de0544b4",
+     "reshape2": "2fb07e1a591e87b510ecf6bd38cd5d35bd26c1a94b58832cddc73fe56b11d503",
+     "rex": "13beb679b0f9872c935776e2b932c0d8b4320bce0c7c9e89449eb468f11f069b",
+     "rgenoud": "18650ff9b341efaa6b9692faf70b43092adb59fe25921f56c7ff4b9a948daf00",
+     "rlang": "e67d2ca42a76e1db5f7e37a64df96a1efc3020c272b685318a27b22e1fb33d75",
+     "rmarkdown": "a6686d6d76e0274530839b2d46b75f616824cf24b8b38da7beceb37c90558303",
+     "roll": "907d9c1c1230efba43ed9a29e74a70d3af933603bc7fbbd9c3bd05964f0aed95",
+     "roxygen2": "4c336236f4ef5d278b1b48efd52e775ceea405e92021b342d2499b0f0a44feb0",
+     "rprojroot": "053e0076878c0f8de0e003b0e17591ad8bb47c49c0044b24ab849b6351314610",
+     "rstudioapi": "93a13f4ed2015b87b6939d857bab1e0fb3c765d2b7ef56a64ff2785f982ba551",
+     "rvest": "bd799c6af19b6308244c1c3832c918c3102821b32d81cb047856df3f3ae3a568",
+     "sampleSelection": "fc13643d28c93a20fd54e40d15785a4f6447ba2b5b4020068da8d9f222cfb266",
+     "sandwich": "fba3257d28ad7b3f8d49d58e7e66114cbc8c649f0daec50c08b104d3d57266ea",
+     "sass": "65bccaf61c9299c74f638a88b3b3ba9da52dea206bae174b304513cdfd419334",
+     "scales": "7e7edf23f50c2de094e66b49eb4523b75e3e6530f95b16d3086e11500374667f",
+     "scs": "172367142c3f11873ee938e3fb59351f3820ed3cb89b65b1b169c0bf2e1acdee",
+     "selectr": "945b9cfe7ed128f8bb893e3129249386c6643bdd3600564647a3b56f76f97ca4",
+     "sessioninfo": "3a97695e2b1d27f78ab277dd4d6f50e225b90968d83b461c99c65a5cfcca8dda",
+     "shape": "dc3e6149836702362f733891fe89ae61fde6cf714a03ef4f5c572f9326d9fb06",
+     "skimr": "a31873779a4206ebc638cfa0b5c2550c8b261b72c9dc57830147d496c9e0ec7d",
+     "slam": "d89dda4c447f4335a4af739e4d9e9a0e081a9764940d29aedd81bc133be3d865",
+     "spacefillr": "fc99745a433b6702d9ee11c1734ba7ce34e09eb10eb9f461b644073e71da8177",
+     "sparsevctrs": "14670f808534ce2d8dc10455950badf98fb18f42d7d1b12405346f2a5fe4b12e",
+     "staggered": "daf66ddf0d207cb1b989d4821d1eff909bb080de067e3eaa718450e0365c1533",
+     "stargazer": "ea16c120567b7b08d147027547db37a579fd8a2580e861221a4c3029606663dd",
+     "statmod": "6b89c9979f200c15f699c5c715a2442d52248386958ff5435cb1fa11e72955fe",
+     "stringi": "1daf531fa1a6980d98a4c86bb6d6f655330f572f51e81193705c102b21509622",
+     "stringmagic": "0c09094bf398984eedf014efc0b7133216cbcf5e74cb169f182e3bd2c9ce6e1c",
+     "stringr": "3bec21c507130357e43cf6e4e7c3cdd41ddffe7a316a7d06b65348244a310245",
+     "strucchange": "10c6bd20de5349e6f58af4850fabaf24505b72413052162b88357afb24c3258d",
+     "styler": "fddfd01590e9c09b20d7b42aeabcb158bd9878d21f6610359e4b23ce00499305",
+     "synthdid": "dd43330df5aeb4c61f5415a3fe399f7bae23ea1bbba0afa66c7529bba59056b0",
+     "sys": "f5a7cf66e78953e53413289389b80edf831d894537720c44ee30c5d8bf6489c0",
+     "systemfit": "25aad7a363780ea9ff5b8ee26072bff53535f6c73a8c877dcd3123edbe3f6af7",
+     "systemfonts": "4c7c3cfc344752eb2b6e9cfe54688e4c860d900448e62d88023ad5c1b639a169",
+     "tables": "e9a7ae3606230335a8334a31d1a711ae556805fdd2c06399e185fab3def2a66c",
+     "textshaping": "1ded9179edb84b50e5749573f46ebc7042364a8908c49ff5e2e06525ffd49ced",
+     "tibble": "fc4f61cb04bc7881487e6483dc697f046f8d06951c8b48dfd2d0febf1b6c2e06",
+     "tidyr": "673f2b265575370bb93586c09a1dd42502c603cff3a23820bcefd1118f4ef602",
+     "tidyselect": "6e6bc01caee04b2357473d83b305d27a4b7d013a7bb30a9f4f61a5c716ac31f5",
+     "tidyverse": "9c197fdf90edbe5416db5d66ce4fba1940eb91d70e7cca5f6802481d0e85c9d5",
+     "timeDate": "86dc61628c9bd1e1856c66bf907ab37a202bcdb86468486ed23831ff4cfec5be",
+     "timechange": "3ca67203bb4a4e7ec62a4f21758d5e83e5ba53b154cb0868f71ca1e532c57d1b",
+     "tinyplot": "41322c5f63384cbf69e7d42f0098a7be7cf0ca3873a7a5ee5fdb1381946aa2d3",
+     "tinytable": "2d42060c19234c3f33d596b865898fd7637ed3d10d4deedc951d95612919c9ee",
+     "tinytex": "b58a452e2b75e2487b1948758a067769ef0cd97fd5983fc33a3f7c99a40274e1",
+     "tomledit": "2c4e663581af7bbea16bf1477504bf251193add47d090ad752679caed4bc41c3",
+     "truncreg": "e76859c3f26cf7ab9258dfe22c307fe3ec1359eaeddc43bf2dfd3671fbb80040",
+     "trust": "db5c11c72cc2c7b9312ce2a0be6fcef03384a9b75e988d2b2c9c04dab1896297",
+     "tseries": "80fc916d3279179346253dc1e647b9306f7c7e98a57ae9b216b7389093cd0577",
+     "tzdb": "f4fcf3ee8229f2268cea3597a6f2d34a2fc0391be73b5181a907ad15e2fdb7a2",
+     "ucminf": "f9f7b58968633103d69eafa2a5a3cd92a91f9a2d5f810102c50f2a6b5957832b",
+     "urca": "48724b6efb55c198fbfdad9c977db846751b680b8303611641cff52e251d8025",
+     "utf8": "4ecd655735cf19e441458fd8d253adfdbd72b0aca90a7e9689a6a762d531fa34",
+     "uuid": "91411613af7f08781183ca30e83895190cc794f87278fa23f577919599e63616",
+     "vars": "27f64a2cb7257244b7452d207d4b0bd2a0d371cab3526fd203be858b18a08e28",
+     "vctrs": "cf6e4dc804d5894681cef59fb491b15b382e7dfdb4848e9924e3f6c5cb6ac906",
+     "viridisLite": "b8123a5616f1811d2e850627b65374fc0919cc0126f69ebf39398fda5c6c2dd6",
+     "vroom": "869c7bd255fd389c08e84b6a5339cb708201e75abefec5891f89a93825ff9493",
+     "withr": "0487b15265d69dc22deee594b09a01d9d07926795f433171c54cd7436f39cad1",
+     "xfun": "b0b63054a55672b903cbe37e519b4e0bfaa71ecaa815b81f81246db5dc8288f5",
+     "xml2": "dde14ec7798cbd0519bad735c95fdf108679ada511e927789d358a34b2ad89f7",
+     "xmlparsedata": "d0489ba5a087835687df291ca4fa62caa6a096de4a6b046be54a2b6c4222fc38",
+     "xtable": "5c3d206c4c1e75fabcfd81a282d3a6bf07ba59b5b90cb0986f0802bc64b59019",
+     "xts": "57bcf860f3b5ae3a59bcecc0d22803a1c3192e10769957373492876f2a33d98b",
+     "yaml": "f1799ad9cabd93730643f5aa5dbf4aa47d4b001d834a19584ae1fa19b3e5c474",
+     "yaml12": "30d23d123bc137eb44f149a8877ce03a2802c4fef1fef64287dbd5f42eb942d9",
+     "zoo": "65ff675bdbe3aecae9c4e6f0fe7a8183e5486fbcc6283ee725aa8f15b3d2644d"
+    },
+    "sha256": "994bd50ad075209dc66018f89dee3491c3a2a1408b544ea9151bcae33f9f3f3e"
+   }
+  },
+  "r": "R version 4.6.1 (2026-06-24)",
+  "rscript": "/Library/Frameworks/R.framework/Resources/bin/Rscript",
+  "rscript_sha256": "e985928bd58bee1f2454916e59a97338288b2eeec3610caa9d1135ae04e3b393"
+ },
+ "r_lock_sha256": "05ec65c8181a852da912c6e6011943e4a9a49aff90088f7182d003beeb2ae48d",
+ "spec_sha256": "459fb99b1440adf4d14ee6b8aa8e20d21e60c0fec9f1cdb28cf7e2c0b5dd8bbc",
+ "stata": {
+  "ado_folders": {
+   "oldplace": {
+    "file_count": 0,
+    "files": {},
+    "path": "/Users/federicolopez/ado",
+    "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+   },
+   "personal": {
+    "file_count": 0,
+    "files": {},
+    "path": "/Users/federicolopez/Documents/Stata/ado/personal",
+    "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+   },
+   "plus": {
+    "file_count": 400,
+    "files": {
+     "_/_eststo.ado": "c7d12cf1c1ef2388becfc8a17f90fcf197f41d77d9170373d01d6a87591a4a50",
+     "_/_eststo.hlp": "422a3a6bbe4c9d9b670af1eb159ce8af43af5a2d78a3c6d2de10f2a31d56ec8f",
+     "_/_gcsgvar.ado": "7aafe6b124f386dd692319a05fd452c9b8610f6f17f7274202383bbd11ec027b",
+     "_/_gmm_dripw.ado": "2ad84cf49550828278dbb37a42741ca5a143e2b0e0f6fd02cb44c0548c31851d",
+     "_/_gmm_regipw.ado": "1e8d8ff57f5b271ac2f6414ef8ad2907100d9cba1e7f73882e26ea7df71ab829",
+     "_/_gmm_repeated.ado": "f7af5faf9ecdfbc47b70a33ece573354e0b8788b2e7587f85fb3b2d181cb1528",
+     "_/_het_did_gmm.ado": "a410955086ccfbec101810964e2cc2c6ff27f337e1d5dcf6274c2805e52d3a56",
+     "a/addplot.ado": "38148040a0449e595dbf4c50fd5545ec6a2b87be73ecd418a661d1d2c3f17581",
+     "a/addplot.hlp": "f2f5ed70e1cec364f970effb18fb7050ff3fad2af3700a524504687465b5c583",
+     "a/artest.ado": "ad2c828dece5adca0fedb2f33829d529e275b75b3fa19aa4aae6a15165dceda9",
+     "a/asdoc.ado": "4cd58fab6ca6c73518a055ab652e0a054bb75ed9343ba8320c0b66201512b68b",
+     "a/asdoc.sthlp": "24b733a4fdb9f4cfe8dc8ca91e2a19b656a970149e41d652e5d7aa721d108d0b",
+     "a/asrol.ado": "b2973a41b0d6b6510a6258bacd6da7c0dac0c98fb45434be8fa366d3e119c6fe",
+     "a/asrol.sthlp": "be0f964de470a50753da93ba10b4b86967bc8701b86ca6b53922f76bf7c26edb",
+     "a/attk.ado": "fe36072c4304ffebeb84ec3eecb135c5df579e71aecafaaa96c75bb1c88b488f",
+     "a/attk.hlp": "48f304b4abee7728e4b51a8a0c7fb0b2c659308e760edda0be1c6c9002961bf1",
+     "a/attnd.ado": "062cfd801370d54eaeb53d6b37e733fb971c835ae9c5370af6a60a41e9b05543",
+     "a/attnd.hlp": "e37212aa7e2a8fecc68af4709c69e7b460772ca14689acd0d3dae4ce7302bd60",
+     "a/attnw.ado": "dd1d6391c26bbe6f1c9ba605a60fd792f010ca21d0517dbe780a110615ff989e",
+     "a/attnw.hlp": "6e81dca90afb5af34c6718a8c907c09f38875e3276517ef0f58d8cce563c539e",
+     "a/attr.ado": "50fdc065faae9bba6b63f0fcb6ecd24d5dc0a526e483f1df7a7e4f38f8dc302e",
+     "a/attr.hlp": "8cb02ca54093a0d3dbbbbce6db354259912bf6bcd6316e0da7acd08bf0dce780",
+     "a/atts.ado": "0cdf341e0c8a9cd01d8eed7ba879ddbcb280e22def49be77fc6d3b341c8b011d",
+     "a/atts.hlp": "881e9d235a2576540ec3e5844c58e353cf6350515108013520b713ed18e0b9cf",
+     "a/avar.ado": "2dda9aa7aeddd75b1001ffd260a7ac6e7e75566a8500b240c7c0751475e11637",
+     "a/avar.sthlp": "78bfc1c9b05065fd9ee55540230898e0582157932de077210952e008f1c971f1",
+     "a/avar9.ado": "3a210ee4f83463a0b4c60a61f912d12f66647fe6179c168d3ca1c085708af66a",
+     "b/boottest.ado": "d223c20776be863f9bd3c8de6e7e0694bced4bb4ecb174087480ee50a2ccf23d",
+     "b/boottest.mata": "6fee3fbaca3b7a80ba763c99392e5eb3241e5ad85ce3ccc15b663e51850f36aa",
+     "b/boottest.sthlp": "47540af6ffd71e5d065c71078eae7fb6fa4c43639bb6bad6a59b01491b750ca8",
+     "b/boottest_1.ado": "a12de4b6db1800c77aadcbb973a6d809fdaa99f1ac408d7e7c9c4af4b207e5c2",
+     "backup.trk": "de337dc9c810a10c7e43286774a82e847c3166448b254f664cba06874a4727fb",
+     "c/coefplot.ado": "5a53b2a3059b874352aa10b1da9bd9c483c008c4663ce98dae24c48070b13112",
+     "c/coefplot.sthlp": "c294c97e56eae21bbca0587d4adc684b5d2c1a9697c715a3371e88cc2fc85d05",
+     "c/csdid.ado": "f4f10d23f753ba1a5231ce5aa7999b65ceb58cd4a5ad66964b0793f65d179bcc",
+     "c/csdid.sthlp": "e8d443784817d8f1312ef0fd891e2bd463b478b0ae6786102fc91b8b865718a5",
+     "c/csdid_estat.ado": "be037cb115ceb25d16cb3f458764a5a5a1274175207c30d8024362426c1539a4",
+     "c/csdid_plot.ado": "6eb16369b1472b7878c7778accb6bfc4fd912c56a9f7df183dd63eed356a4825",
+     "c/csdid_postestimation.sthlp": "1003135e022bd19d2e2c5a297364c227ed13b6d701d08c0e9b6f1626efe05374",
+     "c/csdid_rif.ado": "cd8dee134c83f8b88ea1157e2f1fbcd79de33f548abfa2c7d16dd23217b7c601",
+     "c/csdid_stats.ado": "5dfa8b7932dbf4ed36c60070e2fa0570196fdedbdb31c9ec7f10ee84c0a00052",
+     "c/csdid_table.ado": "6efaac3e8aee1092c7033dc97625d41ed605892bd4585f26d626afbe33388a88",
+     "d/dfgls.ado": "67405af3a138760f478ffc43eb3d77f7d98c98804da828b45c2af596aa313b19",
+     "d/dfgls.hlp": "5a2f6a2fd7a7fbdefc1066d92ec3fd88c882297014132f93196bea505e05c68c",
+     "d/did_imputation.ado": "ca5f40639db954212aac65db922647a241ac18f79cf6a2241c9b19434d42b4d6",
+     "d/did_imputation.sthlp": "4aaaf172b9d983f1fa991e17af948fe80c5e20b3250b53c9e7432bff9484b550",
+     "d/distinct.ado": "84b9e238385e1baf2cb338e75c2e20d6c5d1fadf5866e1a3a98551b533f123e1",
+     "d/distinct.hlp": "d049f1d883e65787e6772d25b799f7552c2a38d575b372030b41af08e92b6ecd",
+     "d/drdid.ado": "242dd51923580cda80b28f1b00512b9f95666db989825c46a9fad21d87dcfc9f",
+     "d/drdid.sthlp": "8fd3579f24b066e9c951c4fb8ffb310a28db8b24964f98cbc1c0f808753e6c18",
+     "d/drdid_display.ado": "340cf38f80b02e87f3e88d866be52a57011ba8dae8e8fb27ea18e9e082915741",
+     "d/drdid_predict.ado": "cb211f4bcd2837f0731672a7f4c754ebf0124d0dcceed7f9bf02c1888e66d09c",
+     "e/estadd.ado": "215bb477394db489bdcb4dcf44011863ebb11d34b730503969b084b87c4f18ea",
+     "e/estadd.hlp": "7699b78be5b6c44923d1958a5c49b1e3eaa5b9acf13ea637665f7bb940198ae0",
+     "e/estfe.ado": "a2913f84bf90792230b525de0c495cbddfc810dc78c83dd351bac4cf9e353333",
+     "e/estout.ado": "59e8e006c8ff1679ea185d22081bd0a107e02c341132fdea557798d36f5a36f9",
+     "e/estout.hlp": "96c69bb842cc1a0b31e5b3ea42059c785f0605919e082ddc3d36c540315a3833",
+     "e/estpost.ado": "7b2d0839a787ce0994fe30595bc84f03a14746d329f0d92aae6cd734a36867f9",
+     "e/estpost.hlp": "7f698093c2fbe2326df813d28d662ff4e3a6e4eff7ace360bc39a3b8c142f4b3",
+     "e/eststo.ado": "8abde23b7a1085ea415d83cbe8be34e31236fd180dc4386b7b6435b06c69cd3a",
+     "e/eststo.hlp": "9b4a1714e22ba895c2f7df0eb1b044a0e0a993f8c6aa2535b64073f91b1ba9a5",
+     "e/esttab.ado": "e6c86e66f57eb44183678059fddeb7e9cf7e9caf493d0491eead0a02885c3eba",
+     "e/esttab.hlp": "46633fe5989bdc66594d317f7de260cc187f1ec17b9ef298d7d341696b8e13da",
+     "e/eventdd.ado": "e9cf4aad6e6b31485c06fa22f97de708c087df816cc6af5e48b8eb8f7ac3f74e",
+     "e/eventdd.sthlp": "9eb2c9e157f2d724e1312099b8f6b9207f684e6ebf6fbc1641df56b06e4c905a",
+     "e/eventdd_estat.ado": "10d986e2830d710baeac0424a864c7ba4784d7b16e126672dd2d85ad36d198e3",
+     "e/eventstudyinteract.ado": "dcf01a334702e76254527beff4dac522fef8664327fe505121fca8651e7c04e9",
+     "e/eventstudyinteract.sthlp": "e18ce548acc0bb20292b6a2b4810c368ca63fcaee12808ca1682e9f68a2e968e",
+     "f/fcollapse.ado": "bec0014c804a413e40451d1a83e5faee7766dd442d812fe9549b2f8f878a2004",
+     "f/fcollapse.sthlp": "3cfd14b325a16209b0d6c4276907f15f699bcada9168bb4ba7e4ac2026256402",
+     "f/fcollapse_functions.mata": "eb282f461a357497508d40a3d2c374e94d5ae4242b99c3b2596f736212614bd5",
+     "f/fcollapse_main.mata": "375eea05d3e412a0fa2f7406c606f0176f993109bf6e0bfcc7ef2975ba74ea11",
+     "f/fegen.ado": "c5d1638f193b142e9c7529b3f36fcf53486d68689b320d21ff7e8cdd93c50e25",
+     "f/fegen.sthlp": "9d7662d1c3015361998ab549c7d4a780345ec26268478a86b185d375928ecf7d",
+     "f/fegen_group.ado": "92ca1712b8a2d03574d14529c85d390a5561af0b7217c0f103c2b764d9d0dd6b",
+     "f/fisid.ado": "a889b5fb4c3cd6b0ac90db7500278b8080f0f66b86c71eb992a4477db57232c0",
+     "f/fisid.sthlp": "97b7eaa5baee4555c0920f3a797a9019e1535fb0c655c30069e580b5ecd5f806",
+     "f/flevelsof.ado": "24cb51b023866abf04420e43d3333abeefd7db66cfcf5beb5f6595b012f53192",
+     "f/flevelsof.sthlp": "627333bda5c89f7e40aec78efbeb24ed3c625f588f4f9b6dde3aa744ae0356f2",
+     "f/fmerge.ado": "1c2d18a8d72a12f68a7f743fb14c7a8186ece35ae05b0f75093ebc0133bcd697",
+     "f/fmerge.sthlp": "db75a458e863fdb726e432419b6075e6192040aba30853df67b7afb1d49dd2a6",
+     "f/freshape.ado": "29051f47c412d0e4bde2bae86e6db4f8e6787fc47cef4dd2a2c673c8b075f22f",
+     "f/fsort.ado": "a9eeb9312323c7898a715733d2baceb46578f5a1a3f698a87108b4cda053d97c",
+     "f/fsort.sthlp": "6a83df419f1d3068327560eaf4ea37906c55b27151aed2c5ebd1999a0d69700e",
+     "f/ftab.ado": "7a6e5d40a7f4beb2cab3b9ff2a96edb725ae5cb1cf6b18098847a81ed3c0f531",
+     "f/ftools.ado": "c7eba3272b5fcd1dfa157e65c37840a051c6e2bf327d5ee31d42df65cf330b00",
+     "f/ftools.mata": "4af859bca19614684d3dd45566e13e17c6cf44df951ecca538bda5a44ebd1744",
+     "f/ftools.sthlp": "988637569f8803e4f2ef2c8dc2f1e9050e7898f1828da64c2087eee43f98e001",
+     "f/ftools_common.mata": "ce73eae9f933f0c670e1d58f7200234414c68f5a19419357622d1e0b3887bcab",
+     "f/ftools_experimental.mata": "a087387a4e44847f1c86f965839743150c494975c51bdd03a7896a755d3abfb2",
+     "f/ftools_hash1.mata": "a31bcd5cb93be191bf235cdf1e81f794be0f51cec9a9fb747d615e5c9ee8af0c",
+     "f/ftools_main.mata": "b836c7e21872691d6b9c9da84f8407b82365852911d244561ce4bdb1a26e85af",
+     "f/ftools_plugin.mata": "897146c21a1fc6e899ef19ed01a3251d19e35c7deb5158ddf3c3f0caf6450125",
+     "f/ftools_type_aliases.mata": "27338dcf0d0b5f24795b46aa7fdeab79309bf18c35bacdee2313fce5ef739885",
+     "g/ggeocode.ado": "1252a2ee72aca707b00a319c4f4a8793f3034a8a597ec57927058de10394740c",
+     "g/ggeocode.sthlp": "5c1523c3afd52a57dd6c160ff23b21cfbfdebf85da678ea715802bf0836bb3c9",
+     "h/hdfe.ado": "de5350d61c39032cd1378b0642699ccfce80f64876b6deff6f875bd2cc31e5a6",
+     "h/hdfe.sthlp": "a37a2504db444cc5d2bec113d53b6cf72c99e49ee177f489262d8432da8c341a",
+     "i/ivreg2.ado": "0e93b020dcd4d9b2806db9e4bb432fa0381756ec2c64dc50275957ad58ef3fb4",
+     "i/ivreg2.sthlp": "1c412d0275d8df8390b4cc78ca4a72ea72cd05962d89cd5643aebbaa8173e308",
+     "i/ivreg210.ado": "66c0256e303d242e69950a9fdff2980423b42490eb916b186f879018985efddd",
+     "i/ivreg210.sthlp": "55c85076a8948a5a1428508f159a17504f806b133e629972d28420031b8138ae",
+     "i/ivreg210_p.ado": "d0279cd365bc8fe3aec3a44393e5f9466374338f9d3b9a4743135234e5d7c253",
+     "i/ivreg28.ado": "3a3775074a6029b521752183eb752a6fb0c8740a1aabec06c2da8a419309da9a",
+     "i/ivreg28.hlp": "db8b4f19fe165a4be5d6c34a4dd667002989011ffe542a461b6fad87ec8c9713",
+     "i/ivreg28_cue.ado": "bedb269ca371866e96dea7852baef2156a70f8262c5dbc6d1216a8c23a47dd3b",
+     "i/ivreg28_p.ado": "6dccfcde0466ef499c0d122fffa3001ef14b62c02f6a4d7d0497069239d0f72f",
+     "i/ivreg29.ado": "30170b31eead0bc7274800c2976f48faaec4b8a81ebee5b299db86ff2aece021",
+     "i/ivreg29.hlp": "fe3767960ed228a0e820190da84a73fdfb9d4a1300f65b73389757d56fae9619",
+     "i/ivreg29_cue.ado": "e67620642666e295a64d70a80b8307cc7409983a4bb110f5af8263d46ce42c20",
+     "i/ivreg29_p.ado": "6536988dedbd00c5f278ecd2c395c12289d791cd0a226aba5fbbc12ef00c7270",
+     "i/ivreg2_p.ado": "c2779a259bf5c4da6c92b8a12f9bcde8b1b4c6fe47f4d5d7c10b38ae3d9eb642",
+     "i/ivreghdfe.ado": "d1605318c15d3b7975b28a365e2176cd885fbf6b9378a60feaf97458c32d966e",
+     "i/ivreghdfe.sthlp": "3cf9edb0918df56176bc433e737f090f9008d47efaf001e897ebd4cb63bacda8",
+     "j/join.ado": "34a6141b43e66a25982f9514bdb8721a167091508a525114449db1648da3b18a",
+     "j/join.sthlp": "015893b534060334efeca44aa84f676128357adefeda2e0e8e6be48598eb600e",
+     "j/jsonio.ado": "05b72048539e4f5d56f24cc5c28d0fbafd351662bdb698f566dbadcaa928fbc7",
+     "j/jsonio.sthlp": "834c7d2c47eeb6a6ff96c3b8476767e188ac082b75e53c6c4e4b90460129236f",
+     "j/jwdid.ado": "5211a9d76bb3468eba05e25d8cedbdb526861f8358371f31351eb75b423d44d5",
+     "j/jwdid.sthlp": "f3aad23fbcc1963cd8c00ef03ecc7cdde9fb227a806806ebe191eb73c8179a4e",
+     "j/jwdid_estat.ado": "f3c63c98d17fa8a391ba4d8d875d7f8b633b0424c74e24ca281c176d193799ca",
+     "j/jwdid_plot.ado": "5460a2b49d5807d351bf66843dd65a724f47d4a10bb16040be5af34a7c58d6d1",
+     "j/jwdid_postestimation.sthlp": "db86ad776f7ea5cd59b2e13376849d7ec6939f4a682999b249c2d97a1d737fe9",
+     "jar/jsonio.jar": "4609c24ff23ff8fe4612b33aa8d8b678a2212ea925846020a7e49fd1f48a73d8",
+     "l/lasdoc.mlib": "5863d66ab44bd536b19e1dd9e1896a6fa9e6bfa295a678172b12479db9738585",
+     "l/lasrol.mlib": "49ae552b3f5c05d589ad86ee4c5308d2ba97420d0df0511a33009b74a7e7e4e3",
+     "l/lboottest.mlib": "975c17952dde95699a1c7dddba936fb99d33d8c4e33b26a54ee32294ef2ec812",
+     "l/lftools.mlib": "37e676509aa4158c14f9eee729f3ede4bbe27a126b723021a4f753db4dd6c57e",
+     "l/livreg2.mlib": "a2e917496f21c00c428b43ff77f6036f9e5b9889c867bcff33fbf2a494d84161",
+     "l/lmoremata.mlib": "5bb06c33dd0f3c1b274e0612d61c254cce0e938e92f25128f52640b8ea244574",
+     "l/lmoremata10.mlib": "b076e6bc12b47a689b0b0fd881f266050788b1922ae66234c008d0a17dc3f054",
+     "l/lmoremata11.mlib": "3a06a0b0d6aa460127e977aa74d0224512b1c444e96e87fbaaa1d2918c731bef",
+     "l/lmoremata14.mlib": "67687fddadc9f46dab048dc5084bef8225ef30cc094f0459a63b97ed7157278c",
+     "l/local_inlist.ado": "c4540d6ef1c85d2ea2fdc5e9eefcfaf767f9eb2a2cc40cf3e2e5e019714d71c3",
+     "l/local_inlist.sthlp": "9912ba9a104be9c6130beb5a387582c6296e3b8d8bf1a3fec935d92d836af100",
+     "l/lpbwdensity.ado": "f7c69e1312bcf3112ae43a94f857ebd06d19dd1d0ed53d57e886f6406a1cdcf2",
+     "l/lpbwdensity.sthlp": "f9775fc99f2164a9669d849a5677d2a5b2aec31cd147cd690d286c51396b4f8f",
+     "l/lpdensity.ado": "56b2e22aa3950f11b0ab63c9a338fef0edd4f65d95dea5f33bd7c54e50efe1a0",
+     "l/lpdensity.sthlp": "965d0e523d0f8e971240dde1ef8c3eefc9652f8c982ae2a65da1c7b63fd0a6a5",
+     "l/lpdensity_bwimse.mo": "1b34dff3a455c451f311634f204dc77955b8a39669939c95fc3b5d47779bd776",
+     "l/lpdensity_bwirot.mo": "88d294882cdc11f5a211cf940a3336c72af111e4a6f1922033cc41f6411c8f53",
+     "l/lpdensity_bwmse.mo": "2985101cf80da253cd106edbf6749f6b2422c694286bedc19387da13ffbeecb1",
+     "l/lpdensity_bwrot.mo": "86b47967c957b7a1631486b68a1c9efe08e47550a9f25ada0cadc216050450de",
+     "l/lpdensity_cgen.mo": "fdcb7fcbbcacd05ed72da717b2e062fdff00246d4a62842f8f149d28a3a7507b",
+     "l/lpdensity_fn.mo": "526637e8dd1724c753934e7b1209e8c9a0d934f75e902acbc5a274f875f286d4",
+     "l/lpdensity_ggen.mo": "e34df4b64869615291180a21709979b4f0ab6a3942e2355d2c4b9072dbafb1f9",
+     "l/lpdensity_normdgp.mo": "ffad3f1bb8e06662e504bc50b51915b9ae008c792f6d37779f208ff261535421",
+     "l/lpdensity_optfunc.mo": "e0e7344919f460791d829b74c16ab77001efb64be16a66d70a2bb52393efebdd",
+     "l/lpdensity_quantile.mo": "71064b6f73f0d689182e058b2a16972f6594dd748e8b84b611cf51b1707d4a05",
+     "l/lpdensity_rep.mo": "8801b892639401019508be304210b07ad24cb5e0188d370d8c5d6febc496caed",
+     "l/lpdensity_sgen.mo": "46bbbb71a3758853325b8308a7970f443e9effb674ab6167161e9c7a5629599a",
+     "l/lpdensity_tgen.mo": "e041d586787b10d3ee64d239f94013a637b4cc49ff1826a4f29723b9a7fc60de",
+     "l/lpdensity_unique.mo": "840ce11d848f617a8d1a423f429eb84a25444dfedc9eedef1d5c263b71cf5fe9",
+     "l/lpdensity_whichmin.mo": "1f2b8eb17e4de25559586fa070003e84e017a875a67e86fc0ee3e621ea32d4c5",
+     "l/lsynth_mata_subr.mlib": "160c45f5fc32e75d94840bb8655ac56947f59cbd6d51b461283b0cb264f65f00",
+     "l/ltuples.mlib": "2a0c020017838ff321b61990a54c78f8d44fb202ea426bcfd4bc5fbc5ccc3c1b",
+     "l/lxtabond2.mlib": "a67a36be25aeb1119a99c4fd1b70f9d731a23516328543c0b805f0ddebe79541",
+     "m/matsort.ado": "f133cff1e29f1846dc85f5d7c7d3099c86d0ae65922708eb001d24df0caf6fc5",
+     "m/matsort.hlp": "ad16d54750b1527ec8427726b68cc62ae7c5bdefbe3702dbf0dd7eb458c6bb28",
+     "m/mdesc.ado": "3dad517740699acdfef83540ad136efcd5213940566c86fcae70a44e1d290e27",
+     "m/mdesc.sthlp": "9b6976a78c7dcfcb53d8a907298da0c5be69d0055f3404811ea599da5a0e3684",
+     "m/mf_mm_aqreg.hlp": "3c1ef1f755a8d7743b99b899d077a553112ee6387f92170caadca04341d80f21",
+     "m/mf_mm_areg.hlp": "ebd39cc394abf7f515d34ccaae494bd83da1cdb68d8e20a37c67ea731f32e374",
+     "m/mf_mm_benford.hlp": "150cab8b8772d15c51664958482bee4150a23df9f0c101544d75c80413909d89",
+     "m/mf_mm_bs.hlp": "8ba582c383723588f79104baf7932a7707eb334d0ff42bcbc138442f9653e763",
+     "m/mf_mm_callf.hlp": "5239b2eced3414bc08d50018b7445585cf359fa2a2e118c339226571d06e2121",
+     "m/mf_mm_cauchy.hlp": "b1a353ba9939708ecf81c88a567eeb70e1854df7afbe7dbe8221407cbb460290",
+     "m/mf_mm_clip.hlp": "f58b8e4b8a6e17a99969220b13a53bc35c2565c7754462872385add1f2c63ec9",
+     "m/mf_mm_collapse.hlp": "b72c7be7ecba7d0a56d0657f2f79cf61285170fd825fac022da3f40e3c8aca48",
+     "m/mf_mm_colrunsum.hlp": "5cfb7498b6bc3d680e01c403aa0e2218abf4bb9d4d419e4713418f3bcedb53c8",
+     "m/mf_mm_colvar.hlp": "9cdc2c6708e1ff61b17e4a5df85d377c87855740d96732de4033d9860bcc5771",
+     "m/mf_mm_cond.hlp": "59a015633aa90936bbec39c663ffcd88f1e953f1c287738f80a9327559b32179",
+     "m/mf_mm_crosswalk.sthlp": "735546149262bb138d83125e98f23be26ff1c5e65a8bcaebb9b85346013f7276",
+     "m/mf_mm_cut.hlp": "615b2b9acc3a1c1a0a103d12248f07e77a88cbaa342a225325f78508066c829b",
+     "m/mf_mm_ddens.hlp": "3f89e7b6498f04ae04e0a174530cb3c9b7cef3303d28c6d6877a33899d05e8d4",
+     "m/mf_mm_density.sthlp": "f567425af1e2720f011dc26689122ba387b664ef573239d9161111618259c6f0",
+     "m/mf_mm_diff.hlp": "7b48a9be1cc7158c83ccb64ff5afcbc219fc38fe33e4e13654a61cb1e0d617d4",
+     "m/mf_mm_ebal.sthlp": "030c5ce5882e84af80aefd8580f19dadae884a460776acff37dd89837baba323",
+     "m/mf_mm_ebalance.sthlp": "8b3ae7c1cc075fa436f818022d331d105ce7e3e5470ca4db8a94fcc74e049a58",
+     "m/mf_mm_ecdf.hlp": "4a40c15121b80ba1d93a56afa56f7f37001339db7b2b15322dfd69ca219a4e68",
+     "m/mf_mm_expand.hlp": "c8043535d784023c1bb43c805d7a16a15d43a496d2834ad30be353d1c4db31c5",
+     "m/mf_mm_finvert.hlp": "f61234e4f235a77b257acfde86c23fc2cf96dbe42aa561afc15c44eea9c5000f",
+     "m/mf_mm_freq.hlp": "6b70bd3d011b51d1eb84f97a2cb701805219ac1b19045f666c61dbef17f1a023",
+     "m/mf_mm_gini.hlp": "0e9eba98168a9f27454cbaf62d3156aea9a72478d8fa09446abc5976a33328a2",
+     "m/mf_mm_greedy.hlp": "1cc7120ef0d760aed8672a94ec8c99d6db0085c60848826ceae99b9e22c7bb40",
+     "m/mf_mm_group.hlp": "9ce0aca299e63739b734c94df61bc81e6297addf414fde54b4a011445b4fd2cb",
+     "m/mf_mm_hdq.hlp": "86a6008dc7a540fd4cd46dfd3ef484f57821ddb1402b07eaeb670c8f77e010eb",
+     "m/mf_mm_histogram.hlp": "0cb8b81a5789b68e2966fb34e53c86e8d5e12ba9b6533050fbbcc17be03c377d",
+     "m/mf_mm_hl.hlp": "d843a6077fde9f64c0e0036551742835d138dc06f4150bb1f0bb5dae824f225c",
+     "m/mf_mm_insheet.hlp": "b8c5ac8f1319990ec08c19dab55027e8a947ab7e4f1401039b1cecbb7d212a23",
+     "m/mf_mm_integrate.hlp": "b0bcd1484ecb7b8ab89eaa5e623105c991de85596131bfcb6b6c58d861f7ba75",
+     "m/mf_mm_invtokens.hlp": "bdbf8cae7faa0929bf5957045e9cdbf8c7db623ffa5b4b911b65b6d0e6881f1d",
+     "m/mf_mm_ipolate.hlp": "bf934b7e57cd83b42b418217fafc8f149607934db1dea03d0aa484f51275cfeb",
+     "m/mf_mm_isconstant.hlp": "ac7b4fdf23e2a194eafe3c578929d54ae4cf6127fa1d084cca90be01d9a55b7c",
+     "m/mf_mm_jk.hlp": "50561fc92983374a090f9d6147c97b36c5e200dd6636544cb788322cdd89a9d5",
+     "m/mf_mm_kern.hlp": "2da75932844401308d3837d412d301dd619628da1b8f9020283ece323b047b83",
+     "m/mf_mm_linbin.hlp": "25810d0b742e2a9f26502f58e016d0b26645753870f4f2003f4d2357d79fdde9",
+     "m/mf_mm_linbin2.hlp": "b18deaf982f399e704a3bbcbbfd153244733538c0d7e880c7e979433ff44420a",
+     "m/mf_mm_locate.hlp": "ce25b1ead81283940ea5f7b053ad4a455e15a0b2612b4604277601f1c0a592bd",
+     "m/mf_mm_loclin.hlp": "a859101a091a70718bf256fee2f386a0ef96a3600f85d81f954be24498ab9c2c",
+     "m/mf_mm_ls.hlp": "14ff0f79aea7a593bf993349ccdccc200d0ec91d378a6b0a5a8dc374dcf26248",
+     "m/mf_mm_matlist.hlp": "a26dc06547ac5a231e690c5d9a2436f958cca04116a1c6304323a1802d66255f",
+     "m/mf_mm_mgof.hlp": "1fc5d957d0d7ccf4fa2309edc4b5b6a66d85ab079c19c638f13957acb269236b",
+     "m/mf_mm_minim.hlp": "5656fcceb3dc0350f6b31f30b89a7d44427f2d0cfd6deb2e2c2e3decec898054",
+     "m/mf_mm_mloc.hlp": "0a96d72a08db7c49b2c80750db3e74e6887a4acf8c4e856f3b90b690972351b4",
+     "m/mf_mm_nobs.hlp": "20c9b97dafb19ab9b6d684ccad80308ea751716dc619725982cae62e22677e0d",
+     "m/mf_mm_nrroot.hlp": "83b45949d4aa2eda63a832f53ede552f97078bd4f55e0f014c3228446db5ce80",
+     "m/mf_mm_nunique.hlp": "d76210323d46f16738ddf3ccbf64e7e77c1c86e0d3d7c0fa60c3237c44f9f06d",
+     "m/mf_mm_panels.hlp": "882ea99faac71041a7beaa13a656a5c925b44b1cad48e0bafb902a01b7965a6e",
+     "m/mf_mm_pieces.hlp": "6cf5eb5418c6d2f51dad494eb27bf47c130b90560212ed6d5046e17812f9eb07",
+     "m/mf_mm_plot.hlp": "ddbaef29b9f3bd0c9eec1388126e00335ab8928507a3c126a4818ec1e0f2a04d",
+     "m/mf_mm_polint.hlp": "734e598cd9c46322852f7e99d849688437750c55900c665012e784ad37aecbed",
+     "m/mf_mm_posof.hlp": "99e24c40aecb2b96668e6990c66fe22dc44edd2b4f55b33e33ec11f4cf63e4ea",
+     "m/mf_mm_prod.hlp": "0c1fe91d3ee5685be341af9d5dfa184beaf7fd6c72e2c880df23c8750b2fc00b",
+     "m/mf_mm_qr.sthlp": "2943ace50e764088054fe9107f8269763ac16253b8bf80937c275fffc0d23e6e",
+     "m/mf_mm_quantile.hlp": "26e46d4da22da7bd5f747f283b72216739e5cd06c0ab5f650a0c3bc14f34402b",
+     "m/mf_mm_ranks.hlp": "fb0b1ed03652b1a041e2d51c2cb89885466e0fcf358d677d8f8097fcaee0e63f",
+     "m/mf_mm_rbinomial.hlp": "757ab73e7ec3883137709318b2fbe3cf3ba5b307bfe5c7697d9db0f3b4d46346",
+     "m/mf_mm_read_csv.hlp": "17aa827e45a4cddc8dfb4e28c3d510bb0362efe358d499ceb77ef933762d5821",
+     "m/mf_mm_realofstr.hlp": "7c045887cf424c77c33510a6e8efe168c80b8a076d9a357f9bae545bd1b4bdbe",
+     "m/mf_mm_regexr.hlp": "1044f88f953b44499eb1245d5a0d899e38def336bf0f4514ecdb736e15a3dcb8",
+     "m/mf_mm_relrank.hlp": "9dea448fbccd41461f1a03798e472f32d1b01b9b13506b80bff2604e112c1a23",
+     "m/mf_mm_root.hlp": "b31505876d182b16958566fc19299c39358096b13b1d97e7055cf3f93da9b9b8",
+     "m/mf_mm_sample.hlp": "ecfd7419818c1c95888b06a84e979150b3b467b8339e9929cbe314e204f442cb",
+     "m/mf_mm_seq.hlp": "ddecf20578a7b37bdea42384104f35c51dc9d6fbb8d125a613ef2a635ed8a731",
+     "m/mf_mm_sort.hlp": "51229ea3f1fa9dba1ef140059e285acbf1010a78986038d65c3a9bf40ba1701c",
+     "m/mf_mm_sqrt.hlp": "5b1761f29d8ef99d821b4b3e463e5093b0be3ef94d1652f489a71cd5a7784f12",
+     "m/mf_mm_strexpand.hlp": "c466eada68df6f699f077f61dacfdb82c1e0d8becd128d1e1ff7e57617d4eacc",
+     "m/mf_mm_subset.hlp": "30bff7ab070dee23f88b0c935f701aea6e593d8619a8f043c2623fab97a8b42c",
+     "m/mf_mm_unorder2.hlp": "04f8bffb7950af1bd6c246e5d35e1f29719e27e2b87c3d882e1c8dfef3014b24",
+     "m/mf_mm_version.hlp": "47c70bd6d004fe4543ca2f90ed366371262340e349b153178147eb94f2c9059e",
+     "m/mf_mm_wbal.sthlp": "e0268c466749eb56195abc5e9332d5aac73b17d75f35c40caa374a54617c6d1d",
+     "m/mf_mm_which.hlp": "adff4cd10e29fef61c42980f9d83c1901bfec61f3a8ec415521a0f2e53eba8f7",
+     "m/mf_tuplesget.sthlp": "afd2b678eb0eda0b6e8fb9d49a85f99a207181a773eb079c89b2436f46b9b409",
+     "m/moremata.hlp": "dc2ec1bd14dbd72c1937bfbc66adc6e708e8ea6f06ff552a0a7289c28fa94599",
+     "m/moremata10_source.hlp": "6fd4e0e7f5a6610d170197d2f4bb1ea389d99b9dbf3576eadf686be075788bca",
+     "m/moremata11_source.hlp": "a8b681edbb968301632885b5bc7ceb0db896882aef2b2aa2bf3faad102df7dcc",
+     "m/moremata14_source.hlp": "70eeda006b89d984fdb3c05eeba9efc407c6e29e600389eb69d86d1435130518",
+     "m/moremata_source.hlp": "21d8c7de2374ebd1a68e2c74a186204a08ccccc9d85a773311cf070a1ba9bf19",
+     "m/ms_add_comma.ado": "62c404231453f13f968e7780823d3235e7c3695b72ac1dbe28275478f2e6e208",
+     "m/ms_compile_mata.ado": "4a316f4e00e00cef93d5cfe151308e1a128a1551fc908dd47efe6406ff00ab26",
+     "m/ms_expand_varlist.ado": "b862f7ba8f490dc1931b7dda7a37e6d6c9fd6cff9435d378b61da0e353bd91ca",
+     "m/ms_fvstrip.ado": "b272704336522f4ea707948549b542d802ab3eb257c3ad2341a1c543685a51f5",
+     "m/ms_fvstrip.sthlp": "cfe5988bb044628ab33795b04816a5492a8c92917cdf5c7734779d85cbb873dd",
+     "m/ms_fvunab.ado": "a4f47474e6d4cead0cf05cf75fd4fa6c36156e997fc2a8aa6584c122bc934900",
+     "m/ms_get_version.ado": "c20215fb7583cac63083464ef18b402d8382686c7c4c8cec05caa6b5a6ca9d91",
+     "m/ms_parse_absvars.ado": "98bec7d062b656cfc6818d49b6130af151b76798c33cd7031469fc5125ffe2cc",
+     "m/ms_parse_depvar.ado": "3987003611f401125e66629bd613cd5188e51878b05b6bb72eeb56ed1b17266c",
+     "m/ms_parse_varlist.ado": "bdb27378f1524d332cca571674c4e48c52a3138ee8183aa56bbebadb38cde48f",
+     "m/ms_parse_vce.ado": "99af53ca13f325a917b7377762feab140914a5a6534c0953ea9ce6d55dcfa678",
+     "o/oaxaca.ado": "622972bc5ec9e5394800808fbd38be637d029b853f833df56f628cee31388c90",
+     "o/oaxaca.hlp": "c55577717137695aaa8057439ecf5b313e7c4d8d21beeb94975479821ba3d715",
+     "o/outreg2.ado": "d366daa9d0621fe1011204879f696c75939202776802991ae96d170ae9d44e3f",
+     "o/outreg2.hlp": "a583dd287315d0a32aaf7df94d4cfbb1184b9356d5f0d5f812ff8a663228793c",
+     "o/outreg2.pref": "d6eb3681fe15cbf7a9f786cc4be61316b7f9fd3eb098094f6fcf1b7b20f1259e",
+     "o/outreg2_prf.ado": "37984439b2159ca82bb6f8cc85deb4101994404bc90faab26f724b16a346895f",
+     "p/parallel_map.ado": "96bea0da77aa112275134c77cad6f06977ae86f55759a2c7459e16d0eacf34dd",
+     "p/parallel_map.sthlp": "b8ea404ce46d53c60eea67baee24257085a3d286772716888dfd30e4702a45fc",
+     "p/parallel_map_template.do.ado": "d7fe2acbb7b97591b91d55760c7fc80b5ec60f5a432d80f670209647463c3d06",
+     "p/ppml.ado": "6108a5696078497f20d949aaeab48f36ff87b0ba38c974afb69aeeca7595f2a5",
+     "p/ppml.sthlp": "5fdb69bbe46349e33d60ec310e9bb4391a4b0a4cca30c456969ad91554ae6612",
+     "p/ppmlhdfe.ado": "92888a6e4e67213c71e09a50f9ec043c0320828105b553757d6cee01ca5a0b82",
+     "p/ppmlhdfe.mata": "20246794d857a76c96eeb8d5e2ddce0787e26da9169f8d2e9158799bc4b66135",
+     "p/ppmlhdfe.sthlp": "30fda14390538b7cca21d9f5f5aaabb1533a6b4d33edfaf7c542ca56565b540c",
+     "p/ppmlhdfe_functions.mata": "dcedc8070f2224572b1832b1d0b3e2c04d8c15ea92aa6357ef784e58330bbc23",
+     "p/ppmlhdfe_header.ado": "ed4ecd016b75635fb6c970f1b5a6fd43f2dd89ab6829b8e75110a224ea8aa851",
+     "p/ppmlhdfe_p.ado": "578a25c20a1e57124a1ecd0d77931b734f46ceb51dc1f116d664ce66c99414dc",
+     "p/ppmlhdfe_separation_relu.mata": "e7b7f8d58fb578255a76a7a79b430860956e7af0ea399f7b1dea73d9b3329c21",
+     "p/ppmlhdfe_separation_simplex.mata": "ea1c5f342080011fe870d19c88340f0a7ec554ac7eec6902ad65b2f0b5038fd9",
+     "p/pscore.ado": "7f8d4fb4836a4acfc9d5ab9748fd5b60c2d273f0b75652c702677f3c23599f2b",
+     "p/pscore.hlp": "1ae4565397ccbfdeed6d85b2d6041e64754f9653601ec8fc3ac0fc7d47bec726",
+     "r/rangestat.ado": "7bde60817b53fd3897ac2c626b82086b98de7ba45e54a895b8619346c778d552",
+     "r/rangestat.sthlp": "9ea3b82701b7e54e9642dd8d224eae0bceb0ac7a2782d7054e0a89f6d38ea088",
+     "r/rangestat_run.ado": "96bec1b87e385097922773eb570b00d7b3dfc96c31a4246bb825b2578ad28a48",
+     "r/ranktest.ado": "484c00ea5e4781f74419f21e9e4aeb333c00dfa24a3eb85f580b52c923690b28",
+     "r/ranktest.sthlp": "7c905aa57e8cad4cb12fad483ddec29fbda82ad5b8045bd1fdc822251036edc2",
+     "r/ranktest11.ado": "3eb940c66df4a840afa0e3f81ea98f9fd84ed4107264705c879749d4882c8328",
+     "r/ranktest11.sthlp": "bef09afb570aad88361f1e18948412284e366bf22d2b1d02e9327eeec228329a",
+     "r/ranktest9.ado": "2a6ec6a43f2b983ce37086c3147ff42f8ea0c5be7b1632971130ac5111e7e886",
+     "r/rdbwdensity.ado": "a1f9fbc83ed0d8d15e12850357be3cc38d7daaf1c4d2648a85a9d6d28bb41ef7",
+     "r/rdbwdensity.sthlp": "163e38e9ee2da433d7b6d9fc8bf7b26d8fd479354f81403a219168eb174f6af6",
+     "r/rdbwselect.ado": "ce5fc8b3bca70112ad4576f4eeeda43be735cefc15e19aac4af53d65c5fad232",
+     "r/rdbwselect.sthlp": "ff0f5bb1d05cdc04127ea5ac7e4eebcd0dfc2338789a448882271a2ede38ee2d",
+     "r/rdbwselect_2014.ado": "2b50366cb88075897973d9e43c72adcaacd451508769fe175bfec69a6413e5f2",
+     "r/rdbwselect_2014.sthlp": "10d530b32bcc28b171fbe32538b673053e66dfd9839860b4bde742528b60aafc",
+     "r/rdbwselect_2014_kconst.ado": "63f97e99b90365fa5e9495fc363bbefddbc34c9b2bddd247a24496e9ead1c508",
+     "r/rddensity.ado": "222245b6c4a14546712c605a4e5ef853464096e136580227fc49227d5eb9ae5c",
+     "r/rddensity.sthlp": "6d4d255f480aeff6b858a832183f25c1409ebf44b2175e116e16889de6fd3cc8",
+     "r/rddensity_fv.mo": "d1d85728e12aa4ed122d78df8937f791c473669e6a73610678d5d2629b7e1ffa",
+     "r/rddensity_h.mo": "05c57a2b6962b0c29e023e9a359e5dc905fdb850c847509a62841dd6b7678298",
+     "r/rddensity_quantile.mo": "ab4b56bc0f8f004ce81a0bb09e27a52aef90a0b75cadb46d5c6adcff1d3391d0",
+     "r/rddensity_rep.mo": "1a6a114d024ffc828b7587d7e42e79becd95f65f426d4adb627cfda05b0dc0a2",
+     "r/rddensity_unique.mo": "f84a6073a4af1f203655b23ee891088dbd6200bd7e2b3e78149181f90c79af15",
+     "r/rdplot.ado": "1fe88653289a32e877f066a8d40be0b761a3dd42391da8d1eccfb58cbe3f190e",
+     "r/rdplot.sthlp": "ca5bd587407f3f5968fa8822f0f098fa8020fd2b4f8ebf668e99efe665d3d897",
+     "r/rdrobust.ado": "ab472bc00d2287fe7fbf644dc981ea4dd9287b4f93badba528908649eb1219c3",
+     "r/rdrobust.sthlp": "f5a10a3743bef53eb5ee6e768d9f86b9d4157e59e32cad7e4ada176beaf09f68",
+     "r/rdrobust_bw.mo": "0fa1baf0f45e2d48902ed862fcfe51328329740857dc2a71ac732d595c0852cb",
+     "r/rdrobust_collapse.mo": "5e290acc84af5803313ada1b28923a5642679799b7275e8a2c67a794f49fe6f8",
+     "r/rdrobust_groupid.mo": "6d9954910de05c76afe852dbcd2e752cec1c9866f026397e8655fa2527994915",
+     "r/rdrobust_kweight.mo": "ead8404aafa4891a461ba7d8d1d5b02e275f17e56efdb970e8a3d2470de835cf",
+     "r/rdrobust_median.mo": "23a41bab64b14b68251c3036e4c80be162f06ae59df5591cdf35b9388872e92c",
+     "r/rdrobust_res.mo": "4a4b2e6787ea4e7d419c61626951c1155bece4cf141b2219fc8112c626588996",
+     "r/rdrobust_vce.mo": "f18d5546144aa736d5afe402dfd38ff9b674b463b1055e0231c5088b899d6113",
+     "r/reghdfe.ado": "0c700ea38de4ed110d0cbb57acd3e24351a5ab68b61dd84fcb0e5bc8f02d941a",
+     "r/reghdfe.mata": "903eb887abf948a23f4640f4e3ec0d06965b2413fcfae0342e6c4d4ef6ead4c4",
+     "r/reghdfe.sthlp": "fc3e5b070db4e9bd5c93246d291805d5a7e0d3d9d2c38b58042b4f8377e11864",
+     "r/reghdfe3.ado": "06ae4682ad1421c08dfa520dc98609141006602192d9703ab147310c0aa1db5b",
+     "r/reghdfe3.sthlp": "54bdd8cd01fd4273978d989e29e310d5158461fc72edd874272da5cfbb42d62a",
+     "r/reghdfe3_estat.ado": "9e9ceaa020bdfd1f6803e671531f162a5194440f14330f4c0fe629d8a878b73a",
+     "r/reghdfe3_footnote.ado": "66558aab202a6345540988cf555037794eace5e09a17ddebaacafa0890bfc4ea",
+     "r/reghdfe3_p.ado": "422280314dd7dc48b9a3b6238face0abd698f459160918ca2b0195125587b3d2",
+     "r/reghdfe5.ado": "0ccc39e990efeb8aa6c603ac7feb89bec47ed73d5ace095d13504390cd1baf2a",
+     "r/reghdfe5.mata": "f99d6502e5d5b300041a4c6290de25ebc5f8c20bc629292adcdc1cdaa9658187",
+     "r/reghdfe5.sthlp": "0f9b33f8d36ba36de40e56738f52f7a5ee20aa8296b48d9ae9a699316f1875fa",
+     "r/reghdfe5_estat.ado": "911cb9a178f13b6b68a9e3757b57880549e53b64ad9e5d3154ea5da7e191774b",
+     "r/reghdfe5_footnote.ado": "a70ae8289b52d86c28e01fafddb10ef381d922e80da875d4b3907a3dc9fd8d5a",
+     "r/reghdfe5_header.ado": "df5d665c5f504355ac345e87f8c3b3fe0adced08b73b5d1e51715f1eae2bfba6",
+     "r/reghdfe5_p.ado": "7b04d29494f2f8d977dc94ffaca701c6b7ec28768066f4cd3b93a5437e89e003",
+     "r/reghdfe5_parse.ado": "13662b3579e740e4233700d0f966b4cf7e03f6109a08cacd44e33fcf098cb20a",
+     "r/reghdfe_estat.ado": "c824d5d2ca8e5bbeeb1916cc80afd05554c668467ebed96c7a5ca86b8a5a87bb",
+     "r/reghdfe_footnote.ado": "39efcab7ff05fe00ccfa24e2d6e428a216471bacc7896f97d12544aae33602ac",
+     "r/reghdfe_header.ado": "2d39165ed4363c1fc503b0d599dc942db55c87415733957e98ba26eccc66f65d",
+     "r/reghdfe_p.ado": "ce736f81cfe3cecbd5d5f66c275582ce0d622ea8e67161df8bc7855dfd0b1639",
+     "r/reghdfe_parse.ado": "daf083e1222236d0b216a50f69687169e96ada27621d95b186c8f81fec13ca7e",
+     "r/reghdfe_programming.sthlp": "db849ee333a5fa269381cf928fdf9c5c465ce13cd3219a31737f8b6299cd67c2",
+     "r/require.ado": "0f5a7bad374ade6c6ba0f05973666bb06b63d4acc36ddb0e277a060249a0e6de",
+     "r/require.sthlp": "c4f2b548a031679f71deeba87bab331e6c778fdb5ee5f333b7ac218da5274c2f",
+     "s/scheme-black_brbg.scheme": "485442eec4fe6996f0c9b6b114c1db84afb4f2f05137d246a5cc86e369478466",
+     "s/scheme-black_cividis.scheme": "2d5daebeffc31b5f390b28917e0781bbcdb6fef3a9c6018c1fc6a1e56acc96b5",
+     "s/scheme-black_hue.scheme": "e4f092c2402bc27a29be35d5342d8c5ce4894e69f68428900b46c30fb88123bd",
+     "s/scheme-black_jet.scheme": "945897ad3589f24cfde010c56761d3b0077ead05cb80105dfdec9c3428a9814e",
+     "s/scheme-black_piyg.scheme": "0f0d6f6698d929c8f23d5c38ce47ff7958b404375a4843485a6d59446ced2b82",
+     "s/scheme-black_ptol.scheme": "6d300ed7392ff1a7062cdcc812ccd80771d7cc5a1480c19283996b5604063d9f",
+     "s/scheme-black_set3.scheme": "5668109191fed75a340bdf3f26211d9fdbc913864d35e651edce44ddc42f56f4",
+     "s/scheme-black_tableau.scheme": "9b3e37a2248c92c473f97ca4133223f1396150b8f40b14f9027bcd45e6e5da4c",
+     "s/scheme-black_viridis.scheme": "fd538c3a4106ab18eb444e74a8a362d372aa4b7a37797b2c565e0572b0df21ee",
+     "s/scheme-black_w3d.scheme": "8f2942505183198c2ee047dbd0e3c644a5e12e4ba3272a3e2ae946c9b3209880",
+     "s/scheme-cblind1.scheme": "ba9ef4423497d49c699be95539cf99c70c84f2a84b1decba173528abefdeab28",
+     "s/scheme-gg_brbg.scheme": "53b5684cc0d231221a50511fbec1e313ae5dc3ce5d44747a6935a9689caf0905",
+     "s/scheme-gg_cividis.scheme": "0c40610492a0aa52cfeb61151a7a9abeef93b65cea116516179251cc1679f8da",
+     "s/scheme-gg_hue.scheme": "5e621d6d4bc275acbbead8097d5156170f3ea9a9e11c42130624ae2f97df6bf1",
+     "s/scheme-gg_jet.scheme": "2e66e8650d029a6a7c523bfd58a57f8ce7c3b272809cdd5135ed475e699c9b18",
+     "s/scheme-gg_piyg.scheme": "a094a050f47c99f77f0a7f9ea4b47eda94808b7edaef36da1b6f26bd7ece3945",
+     "s/scheme-gg_ptol.scheme": "62dc3c6a36cd427f28f587ba873e256e8269ca69345cde214fd8821e043e23c9",
+     "s/scheme-gg_set3.scheme": "2c5fa1b5a5e25b63af0da1d04a9e02ef0ce20a26eb5f978f365c55f6f49c3de9",
+     "s/scheme-gg_tableau.scheme": "af923f8f45c615d7ef5d33241837568c28a4a0748a43cf025901f74c77b9a301",
+     "s/scheme-gg_viridis.scheme": "994bcfa0b39b090246294d0bddeeeef0abd7dea3706eba94b812c607e3dbe0f6",
+     "s/scheme-gg_w3d.scheme": "2d75f02b2f88a2bb12e5dbc0fa419f47d90cb69f45a1f27fb74d47bcab6cc848",
+     "s/scheme-neon.scheme": "d2ff3360e14986a5b42d343ed401252cdefaccaa469832e9a925a9d6342b6540",
+     "s/scheme-rainbow.scheme": "3980a189aa8ab5c4ef535af8842590ec2b515d2504a02d346c2c80dda33cd02c",
+     "s/scheme-swift_red.scheme": "416412d1d5d158221cb8f2a43b82b242b6ecd18c17681f965a592b767d44ddcf",
+     "s/scheme-tab1.scheme": "cb49cc93a258ac29c5ce10f4566aec35f73716b81ddc6748a96fb5c290f11d01",
+     "s/scheme-tab2.scheme": "71eb8e618912ab87291364fe393770e5e33452839f3964275ffc84a6322a7dd1",
+     "s/scheme-tab3.scheme": "5d5e1f441698a75ebc3c7b6c8adf4381a542420a0e994fa80b19371bc1a82294",
+     "s/scheme-ukraine.scheme": "cb770270699e302ad0dd09d44b467b66a0e8aaf5648dc8e3e3aec46583b21cad",
+     "s/scheme-white_brbg.scheme": "2c13eafeab096e79b34e28abf0e61e90b1cdedaa2d71227ca55e3ed6477e9497",
+     "s/scheme-white_cividis.scheme": "f391421bd9d90c4facc7510a76554467e84c9d3fc4475c1e763a5d6272df1909",
+     "s/scheme-white_hue.scheme": "019bddcc827c931742a48d13f9169b6f01eab5be24195ef0ec50d2bc5671f2a6",
+     "s/scheme-white_jet.scheme": "f5267001a9fd0e53a367f3127a8151db7b2bfe58087246f3bc649269d0663706",
+     "s/scheme-white_piyg.scheme": "cd406bd08d70bc722a2f2be426112bce03dee0652ee8d6770e74bd680f5c4b2a",
+     "s/scheme-white_ptol.scheme": "dae32947c6bbe01c0bd96bbd992ab9301448c36949c31d889d411e1d29e067cf",
+     "s/scheme-white_set3.scheme": "cd55b211bbb474ab03ba6fd886b6333b3c986bd737f9a7de65351827e1a708b0",
+     "s/scheme-white_tableau.scheme": "feb07dc30725627d3ecdf404b53564dbec39627debf7a7d49e9eccce4fa27af7",
+     "s/scheme-white_viridis.scheme": "2613a52d2de4f4bfeae8e0a0df38d6e285731603b4cc10b70ac149b9ae9af07d",
+     "s/scheme-white_w3d.scheme": "95b6b7dc28ec3e87c18824da2969ad0492c362d8c9ac7530be0e159f6626f7fe",
+     "s/schemepack.sthlp": "7622a0e950d6d1269c17822e4705202d191ab6f90f9954f825f4b588e2a70921",
+     "s/scoretest.ado": "99a6d93e29c4ddc511edef97f00feb232455d49c3306eb420675c4ababd83868",
+     "s/sdid.ado": "7621ad23d231c30fa625cc37b54280ff1425536964890b5067702278a42aa1d3",
+     "s/sdid.sthlp": "0dd7d62cd6076dccb9a24e942dcf8ba14d6cfed39b0e0bf6ef7f90ff85562c66",
+     "s/seeout.ado": "69c8700c387ee29399b407766d9be8f8e46a29b7246fe457b245cff25eeadb7d",
+     "s/seeout.hlp": "ad470113294a6d21a0b5695e3d5fb05070dd7486bb50e9dc6144b2514d444c84",
+     "s/shellout.ado": "13289488a6da8f0272732b8e266967f9ecf5e944655b7a3cd946e2da974a2e63",
+     "s/shellout.hlp": "14f9bd234a19cf0a2d9da79c443c48a013b33735459d067d79cc0f4bf1a3ed1c",
+     "s/ssaggregate.ado": "7d25e8ff583694611ceeca632fa66d29f03ef645155f17efde5142654ce39901",
+     "s/ssaggregate.sthlp": "271131af5017d23efb3b2e2be33e97ee50a051211c19cbffbc249eab9eb474a8",
+     "s/synth.ado": "7e0fdb5a76ad54e54fca06093bef0f233c19ed057cec67ec07e63896bf3f0b53",
+     "s/synth.sthlp": "66b205c7e1ab4e06122269b78514e7dcdb031b9e6926644190fa0337a68e36c6",
+     "s/synth_ll.ado": "5b26f9ffc961fd39ca04021797b117c15cac1da48060eccad51213a88f84edb2",
+     "s/synthopt.plugin": "3dd20c6076923f1e04961d5e9ae6e142a9758397fca7049cb27d3f3e1fa1002f",
+     "stata.trk": "a2d37322ac2ecfac701d62e1e2c3a90a2ea2826225f2beb7890f2ec0653133df",
+     "t/tsvmat.ado": "cdc9476da5809d2a3c31ad8bfc249347949702fbeaf7698fe2c6ab69da72140f",
+     "t/tuples.ado": "6298ff9d46d4ad40b8468890db930aa0b84487271f4451f9fa9c2cfa2f6c2216",
+     "t/tuples.hlp": "470115dec3187ea7c79735c5773cfa4e9cdb0d0c85c02de039cd47d55ca8992e",
+     "t/tuples.sthlp": "83dd2779d1db59496b038dd4588cdc069485b31ab164d74a2eb541fbfaeb96ce",
+     "t/tuplesget.mata": "374658bf34d5627505042a3777daf34087afed40cabd25ec90ae5bcc952554d2",
+     "t/twostepweakiv.ado": "71ba41be32b793039a74a685d144441a35ddaac01f33d6c3b50b9be01a65bc51",
+     "t/twostepweakiv.sthlp": "88d1481e4132cf7c00242b0c55c5d3f04f80213b58cd4184e5c73a7e81efaa7b",
+     "v/vcemway.ado": "4a612d9bab36c7608dca9eb263587fa59b3ebb467658edb5fdbdd17375a36420",
+     "v/vcemway.sthlp": "fb306ff667e5a8c010ee21974672cfe5f07cbae29a36ec04fa023285b6b22c0b",
+     "w/waldtest.ado": "4e0ba9a51c90a624d45f0a1b6cbaf9142891bacf2f9f8f15f778110bbc8acf9c",
+     "w/weakiv.ado": "8748130e2f4a7b664fcf626da46e6848d0caa35cbf366854613db58b015a9e96",
+     "w/weakiv.sthlp": "69639cc97f3a077c0867ba5610b32dab42ac77fa4ee6a78ef69502ca6421a5ea",
+     "x/xtab2_p.ado": "f8366e5a906387320451c1c1490d1f8a647772b591a8225cdbba3dbe3979bca3",
+     "x/xtabond2.ado": "96a18e5a541b223ed20edf9301eddc4f6688d15cd38385325d910da13abfa66e",
+     "x/xtabond2.hlp": "fc3151be031e32245ef75cdf2a9480f3b8401464357c03766ad53148c9d6dd7d",
+     "x/xtabond2.mata": "2a97bd6bc9e5ae3ca1f9346f7093d9cd16497029bd16b2598cdc8401b9268ba9",
+     "x/xtivreg2.ado": "39cc983b484f7c4c61d876d0af013931f7efd6ae9fb798140fc69982bf87b985",
+     "x/xtivreg2.hlp": "8a9cd4401324b48fc98bc68fcd49e1bbc60099dd8d2fa5c88a78ab47c00972fd",
+     "x/xtivreg2_p.ado": "35eeb13880a6549e0a724f584039267063948337e37800063ba44203a403fe86"
+    },
+    "path": "/Users/federicolopez/Library/Application Support/Stata/ado/plus",
+    "sha256": "8083d10c73b242a86558b8dcdb7bbb693b72d4975eec1becb27ce7bd83e1339b"
+   },
+   "site": {
+    "file_count": 0,
+    "files": {},
+    "path": "/Applications/StataNow/ado/site",
+    "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+   }
+  },
+  "binary": "/Applications/StataNow/StataSE.app/Contents/MacOS/stata-se",
+  "binary_sha256": "b540b096eccc134757e9d02be19a1719d3047e79ffb3cefce48f9c1ef1a6d0cb",
+  "born": "14 Jan 2026",
+  "checks": {
+   "command_avar": {
+    "ok": true,
+    "rc": 0
+   },
+   "command_boottest": {
+    "ok": true,
+    "rc": 0
+   },
+   "command_coefplot": {
+    "ok": true,
+    "rc": 0
+   },
+   "command_csdid": {
+    "ok": true,
+    "rc": 0
+   },
+   "command_did_imputation": {
+    "ok": true,
+    "rc": 0
+   },
+   "command_distinct": {
+    "ok": true,
+    "rc": 0
+   },
+   "command_drdid": {
+    "ok": true,
+    "rc": 0
+   },
+   "command_estout": {
+    "ok": true,
+    "rc": 0
+   },
+   "command_esttab": {
+    "ok": true,
+    "rc": 0
+   },
+   "command_eventstudyinteract": {
+    "ok": true,
+    "rc": 0
+   },
+   "command_ftools": {
+    "ok": true,
+    "rc": 0
+   },
+   "command_ivreg2": {
+    "ok": true,
+    "rc": 0
+   },
+   "command_ivreghdfe": {
+    "ok": true,
+    "rc": 0
+   },
+   "command_jwdid": {
+    "ok": true,
+    "rc": 0
+   },
+   "command_oaxaca": {
+    "ok": true,
+    "rc": 0
+   },
+   "command_outreg2": {
+    "ok": true,
+    "rc": 0
+   },
+   "command_ppml": {
+    "ok": true,
+    "rc": 0
+   },
+   "command_ppmlhdfe": {
+    "ok": true,
+    "rc": 0
+   },
+   "command_ranktest": {
+    "ok": true,
+    "rc": 0
+   },
+   "command_rddensity": {
+    "ok": true,
+    "rc": 0
+   },
+   "command_rdrobust": {
+    "ok": true,
+    "rc": 0
+   },
+   "command_reghdfe": {
+    "ok": true,
+    "rc": 0
+   },
+   "command_sdid": {
+    "ok": true,
+    "rc": 0
+   },
+   "command_ssaggregate": {
+    "ok": true,
+    "rc": 0
+   },
+   "command_synth": {
+    "ok": true,
+    "rc": 0
+   },
+   "command_twostepweakiv": {
+    "ok": true,
+    "rc": 0
+   },
+   "command_vcemway": {
+    "ok": true,
+    "rc": 0
+   },
+   "command_weakiv": {
+    "ok": true,
+    "rc": 0
+   },
+   "command_xtabond2": {
+    "ok": true,
+    "rc": 0
+   },
+   "command_xtivreg2": {
+    "ok": true,
+    "rc": 0
+   },
+   "mlib_lmoremata": {
+    "ok": true,
+    "rc": 0
+   },
+   "run_csdid": {
+    "ok": true,
+    "rc": 0
+   },
+   "run_drdid": {
+    "ok": true,
+    "rc": 0
+   }
+  },
+  "flavor": "IC",
+  "version": "19.5"
+ },
+ "uv_lock_sha256": "5ca26b127f9fe2b6ca40aad04ab937c6b0dfd7f1296a2e534d278348a75109b0"
+}
