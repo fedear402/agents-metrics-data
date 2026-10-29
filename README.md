@@ -6,7 +6,7 @@ This repository holds the run records, task inputs, reference outputs, analysis 
 
 ## Citation
 
-Galiani, S., López, F. A., and Sosa, R. A. (2026). Data and code for: AI Agents and Prompt Engineering in Econometric Coding. Zenodo. https://doi.org/10.5281/zenodo.23681819
+Galiani, S., López, F. A., and Sosa, R. A. (2026). Data and code for: AI Agents and Prompt Engineering in Econometric Coding. Zenodo. https://doi.org/10.5281/zenodo.23681818
 
 ## Contents
 

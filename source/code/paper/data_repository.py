@@ -48,7 +48,8 @@ DOCUMENTED = ('runs.csv', 'term_checks.csv', 'se_checks.csv', 'run_pricing.csv')
 CODE_FILES = {'reproduce.py': 'code/paper/data_repository_reproduce.py',
               'score.py': 'code/paper/data_repository_score.py',
               'run_references.py': 'code/paper/data_repository_references.py'}
-DOI = '10.5281/zenodo.23681819'
+# The concept DOI resolves to the latest version, so the README of every release cites a current record.
+DOI = '10.5281/zenodo.23681818'
 CONTENTS = """analysis/  CSV files of the analysis. columns.csv describes every column of runs.csv, term_checks.csv,
            se_checks.csv, and run_pricing.csv.
              runs.csv                  one row per run: design cell, primary outcome, failure category, paths
