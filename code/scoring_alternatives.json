@@ -1,0 +1,2033 @@
+{
+  "rule": "A scored value passes only if it is inside its tolerance and not closer to a listed alternative of its term than to the nearest accepted value of that term. An alternative is tested only when it and every accepted value differ after rounding to the decimals of the reported value.",
+  "decision_record": "quality_reports/decision_records/2026-10-29_wrong-method-alternative-check.md",
+  "generated_by": "code/paper/scoring_alternatives.py",
+  "scoring_spec_sha256": "4190cc1a8135c32f08145321ae7d69b66e6ae83fa82be7e665e4ffc6712016e9",
+  "accepted_estimate_conventions": {
+    "var_granger": {
+      "df_den": [
+        386.0
+      ]
+    },
+    "var_irf": {
+      "irf_y1_to_y2_h4": [
+        0.08070262104109095
+      ]
+    }
+  },
+  "tasks": {
+    "ols_robust": {
+      "data": "data/tasks/inputs/pilot.csv",
+      "data_sha256": "d2c35246a0756597512adf34b305e54e31cc872763ab37359b243128fdc84353",
+      "notes": "The task names HC1.",
+      "reference_checks": [
+        {
+          "term": "const",
+          "kind": "estimate",
+          "stored": 1.0115765173916533,
+          "recomputed": 1.0115765173916536,
+          "relative_difference": 2.1950351862414974e-16
+        },
+        {
+          "term": "x1",
+          "kind": "estimate",
+          "stored": 0.4926639840880423,
+          "recomputed": 0.4926639840880408,
+          "relative_difference": 3.0422379789307182e-15
+        },
+        {
+          "term": "x2",
+          "kind": "estimate",
+          "stored": -0.32191134940720445,
+          "recomputed": -0.32191134940720484,
+          "relative_difference": 1.2070964858317863e-15
+        },
+        {
+          "term": "const",
+          "kind": "se",
+          "stored": 0.02195426461854331,
+          "recomputed": 0.02195426461854331,
+          "relative_difference": 0.0
+        },
+        {
+          "term": "x1",
+          "kind": "se",
+          "stored": 0.022806580308961058,
+          "recomputed": 0.02280658030896097,
+          "relative_difference": 3.803120530295389e-15
+        },
+        {
+          "term": "x2",
+          "kind": "se",
+          "stored": 0.021272206273333868,
+          "recomputed": 0.021272206273333902,
+          "relative_difference": 1.630976546284622e-15
+        }
+      ],
+      "alternatives": [
+        {
+          "term": "const",
+          "kind": "se",
+          "method": "HC0",
+          "value": 0.021937792740807156,
+          "how": "OLS sandwich without the n/(n-k) factor",
+          "relative_gap": 0.0007502814611354565
+        },
+        {
+          "term": "const",
+          "kind": "se",
+          "method": "HC2",
+          "value": 0.02195441827694881,
+          "how": "OLS sandwich with e^2/(1-h)",
+          "relative_gap": 6.999023113246924e-06
+        },
+        {
+          "term": "const",
+          "kind": "se",
+          "method": "HC3",
+          "value": 0.021971066683456747,
+          "how": "OLS sandwich with e^2/(1-h)^2",
+          "relative_gap": 0.0007653212350936108
+        },
+        {
+          "term": "const",
+          "kind": "se",
+          "method": "HC1_times_hc1_factor",
+          "value": 0.02197074886410331,
+          "how": "OLS n/(n-k) applied on top of HC1 (the factor twice)",
+          "relative_gap": 0.000750844806073664
+        },
+        {
+          "term": "const",
+          "kind": "se",
+          "method": "HC2_times_hc1_factor",
+          "value": 0.021970902637882428,
+          "how": "OLS HC2 multiplied by n/(n-k)",
+          "relative_gap": 0.0007578490843671192
+        },
+        {
+          "term": "const",
+          "kind": "se",
+          "method": "HC3_times_hc1_factor",
+          "value": 0.02198756354475992,
+          "how": "OLS HC3 multiplied by n/(n-k)",
+          "relative_gap": 0.0015167406786416584
+        },
+        {
+          "term": "const",
+          "kind": "se",
+          "method": "classical",
+          "value": 0.021953535071812712,
+          "how": "OLS homoskedastic standard error",
+          "relative_gap": 3.3230296859202915e-05
+        },
+        {
+          "term": "x1",
+          "kind": "se",
+          "method": "HC0",
+          "value": 0.022789468954563262,
+          "how": "OLS sandwich without the n/(n-k) factor",
+          "relative_gap": 0.0007502814611392101
+        },
+        {
+          "term": "x1",
+          "kind": "se",
+          "method": "HC2",
+          "value": 0.02281799632387806,
+          "how": "OLS sandwich with e^2/(1-h)",
+          "relative_gap": 0.000500557942591522
+        },
+        {
+          "term": "x1",
+          "kind": "se",
+          "method": "HC3",
+          "value": 0.022846580465107787,
+          "how": "OLS sandwich with e^2/(1-h)^2",
+          "relative_gap": 0.0017538866241605126
+        },
+        {
+          "term": "x1",
+          "kind": "se",
+          "method": "HC1_times_hc1_factor",
+          "value": 0.022823704511330256,
+          "how": "OLS n/(n-k) applied on top of HC1 (the factor twice)",
+          "relative_gap": 0.0007508448060698399
+        },
+        {
+          "term": "x1",
+          "kind": "se",
+          "method": "HC2_times_hc1_factor",
+          "value": 0.02283512909790285,
+          "how": "OLS HC2 multiplied by n/(n-k)",
+          "relative_gap": 0.0012517785899965172
+        },
+        {
+          "term": "x1",
+          "kind": "se",
+          "method": "HC3_times_hc1_factor",
+          "value": 0.022863734701386557,
+          "how": "OLS HC3 multiplied by n/(n-k)",
+          "relative_gap": 0.002506048326896327
+        },
+        {
+          "term": "x1",
+          "kind": "se",
+          "method": "classical",
+          "value": 0.022231001414552202,
+          "how": "OLS homoskedastic standard error",
+          "relative_gap": 0.025237404582865164
+        },
+        {
+          "term": "x2",
+          "kind": "se",
+          "method": "HC0",
+          "value": 0.02125624613132957,
+          "how": "OLS sandwich without the n/(n-k) factor",
+          "relative_gap": 0.0007502814611337802
+        },
+        {
+          "term": "x2",
+          "kind": "se",
+          "method": "HC2",
+          "value": 0.021282223176881634,
+          "how": "OLS sandwich with e^2/(1-h)",
+          "relative_gap": 0.00047089161411164123
+        },
+        {
+          "term": "x2",
+          "kind": "se",
+          "method": "HC3",
+          "value": 0.02130825129651657,
+          "how": "OLS sandwich with e^2/(1-h)^2",
+          "relative_gap": 0.0016944656665860546
+        },
+        {
+          "term": "x2",
+          "kind": "se",
+          "method": "HC1_times_hc1_factor",
+          "value": 0.02128817839892796,
+          "how": "OLS n/(n-k) applied on top of HC1 (the factor twice)",
+          "relative_gap": 0.0007508448060752304
+        },
+        {
+          "term": "x2",
+          "kind": "se",
+          "method": "HC2_times_hc1_factor",
+          "value": 0.021298202823615695,
+          "how": "OLS HC2 multiplied by n/(n-k)",
+          "relative_gap": 0.001222089986707952
+        },
+        {
+          "term": "x2",
+          "kind": "se",
+          "method": "HC3_times_hc1_factor",
+          "value": 0.02132425048632907,
+          "how": "OLS HC3 multiplied by n/(n-k)",
+          "relative_gap": 0.0024465827534045363
+        },
+        {
+          "term": "x2",
+          "kind": "se",
+          "method": "classical",
+          "value": 0.021380183758499233,
+          "how": "OLS homoskedastic standard error",
+          "relative_gap": 0.005075989005462113
+        }
+      ]
+    },
+    "iv2sls_robust": {
+      "data": "data/tasks/inputs/pilot_v2.csv",
+      "data_sha256": "50df56fcb46d152f23c81762cec9176d7cc16a77bb69f853f2c291cd135b8075",
+      "notes": "The task names HC1 and a proper 2SLS routine.",
+      "reference_checks": [
+        {
+          "term": "const",
+          "kind": "estimate",
+          "stored": 0.9696201525550232,
+          "recomputed": 0.969620152555024,
+          "relative_difference": 8.015057393245632e-16
+        },
+        {
+          "term": "x1_iv",
+          "kind": "estimate",
+          "stored": 0.7916683389845219,
+          "recomputed": 0.7916683389845207,
+          "relative_difference": 1.5426224176833589e-15
+        },
+        {
+          "term": "x1_iv",
+          "kind": "se",
+          "stored": 0.04320202825790731,
+          "recomputed": 0.043202028257907345,
+          "relative_difference": 8.030750156547565e-16
+        }
+      ],
+      "alternatives": [
+        {
+          "term": "x1_iv",
+          "kind": "se",
+          "method": "HC0",
+          "value": 0.04318042184082305,
+          "how": "2SLS sandwich without the n/(n-k) factor (ivregress without small, linearmodels robust without debiased)",
+          "relative_gap": 0.0005001250625382089
+        },
+        {
+          "term": "x1_iv",
+          "kind": "se",
+          "method": "HC2",
+          "value": 0.04323019856281578,
+          "how": "2SLS sandwich with e^2/(1-h)",
+          "relative_gap": 0.0006520597769228917
+        },
+        {
+          "term": "x1_iv",
+          "kind": "se",
+          "method": "HC3",
+          "value": 0.04328009824536342,
+          "how": "2SLS sandwich with e^2/(1-h)^2",
+          "relative_gap": 0.0018070907918963449
+        },
+        {
+          "term": "x1_iv",
+          "kind": "se",
+          "method": "HC1_times_hc1_factor",
+          "value": 0.04322364548630935,
+          "how": "2SLS n/(n-k) applied on top of HC1 (the factor twice)",
+          "relative_gap": 0.0005003753127744707
+        },
+        {
+          "term": "x1_iv",
+          "kind": "se",
+          "method": "HC2_times_hc1_factor",
+          "value": 0.04325182988694292,
+          "how": "2SLS HC2 multiplied by n/(n-k)",
+          "relative_gap": 0.001152761364311528
+        },
+        {
+          "term": "x1_iv",
+          "kind": "se",
+          "method": "HC3_times_hc1_factor",
+          "value": 0.04330175453805982,
+          "how": "2SLS HC3 multiplied by n/(n-k)",
+          "relative_gap": 0.0023083703282901708
+        },
+        {
+          "term": "x1_iv",
+          "kind": "se",
+          "method": "classical",
+          "value": 0.042361845571247975,
+          "how": "2SLS homoskedastic standard error",
+          "relative_gap": 0.019447760221895507
+        },
+        {
+          "term": "x1_iv",
+          "kind": "se",
+          "method": "two_step_HC1",
+          "value": 0.049706436522362125,
+          "how": "HC1 of a manual second-stage OLS on the fitted regressor",
+          "relative_gap": 0.15055793736407055
+        },
+        {
+          "term": "const",
+          "kind": "estimate",
+          "method": "OLS",
+          "value": 0.9716407388878991,
+          "how": "OLS of y_iv on x1_iv without the instrument",
+          "relative_gap": 0.002083894737079815
+        },
+        {
+          "term": "x1_iv",
+          "kind": "estimate",
+          "method": "OLS",
+          "value": 1.1826635621665547,
+          "how": "OLS of y_iv on x1_iv without the instrument",
+          "relative_gap": 0.49388765967774434
+        }
+      ]
+    },
+    "cluster_ols": {
+      "data": "data/tasks/inputs/pilot_v2.csv",
+      "data_sha256": "50df56fcb46d152f23c81762cec9176d7cc16a77bb69f853f2c291cd135b8075",
+      "notes": "The task asks for cluster-robust standard errors on cluster.",
+      "reference_checks": [
+        {
+          "term": "const",
+          "kind": "estimate",
+          "stored": 0.6096814709975316,
+          "recomputed": 0.6096814709975317,
+          "relative_difference": 1.820988626747444e-16
+        },
+        {
+          "term": "x1",
+          "kind": "estimate",
+          "stored": 0.696635855127872,
+          "recomputed": 0.6966358551278695,
+          "relative_difference": 3.5061225117777057e-15
+        },
+        {
+          "term": "x2",
+          "kind": "estimate",
+          "stored": -0.18003081119663525,
+          "recomputed": -0.18003081119663544,
+          "relative_difference": 1.0791987661333919e-15
+        },
+        {
+          "term": "const",
+          "kind": "se",
+          "stored": 0.12186504039340193,
+          "recomputed": 0.12186504039340193,
+          "relative_difference": 0.0
+        },
+        {
+          "term": "x1",
+          "kind": "se",
+          "stored": 0.02950227426484277,
+          "recomputed": 0.02950227426484268,
+          "relative_difference": 3.0575819321932778e-15
+        },
+        {
+          "term": "x2",
+          "kind": "se",
+          "stored": 0.02787177599707788,
+          "recomputed": 0.027871775997077936,
+          "relative_difference": 1.9916617885088377e-15
+        }
+      ],
+      "alternatives": [
+        {
+          "term": "const",
+          "kind": "se",
+          "method": "HC1",
+          "value": 0.029330506450986064,
+          "how": "heteroskedasticity-robust standard error without clustering",
+          "relative_gap": 0.7567545350707522
+        },
+        {
+          "term": "const",
+          "kind": "se",
+          "method": "classical",
+          "value": 0.029356835536110588,
+          "how": "homoskedastic OLS standard error",
+          "relative_gap": 0.7565361811680339
+        },
+        {
+          "term": "x1",
+          "kind": "se",
+          "method": "HC1",
+          "value": 0.028740846738501784,
+          "how": "heteroskedasticity-robust standard error without clustering",
+          "relative_gap": 0.015425939929974259
+        },
+        {
+          "term": "x1",
+          "kind": "se",
+          "method": "classical",
+          "value": 0.029727870713997163,
+          "how": "homoskedastic OLS standard error",
+          "relative_gap": 0.007646747743214859
+        },
+        {
+          "term": "x2",
+          "kind": "se",
+          "method": "HC1",
+          "value": 0.029772118270961608,
+          "how": "heteroskedasticity-robust standard error without clustering",
+          "relative_gap": 0.06818159969723359
+        },
+        {
+          "term": "x2",
+          "kind": "se",
+          "method": "classical",
+          "value": 0.02859013531428763,
+          "how": "homoskedastic OLS standard error",
+          "relative_gap": 0.025773718807336272
+        }
+      ]
+    },
+    "two_way_cluster": {
+      "data": "data/tasks/inputs/pilot_v3.csv",
+      "data_sha256": "be9fe407261bc8536b1c171bb9b285a5394a90ddaf6c6676c145d69250211a3a",
+      "notes": "The task asks for two-way clustering on firm and year (Cameron-Gelbach-Miller).",
+      "reference_checks": [
+        {
+          "term": "const",
+          "kind": "estimate",
+          "stored": 1.0174559760693556,
+          "recomputed": 1.0174559760693556,
+          "relative_difference": 0.0
+        },
+        {
+          "term": "x",
+          "kind": "estimate",
+          "stored": 0.5531898969487796,
+          "recomputed": 0.5531898969487787,
+          "relative_difference": 1.6055579188973556e-15
+        },
+        {
+          "term": "const",
+          "kind": "se",
+          "stored": 0.15347233904374324,
+          "recomputed": 0.15347233904374324,
+          "relative_difference": 0.0
+        },
+        {
+          "term": "x",
+          "kind": "se",
+          "stored": 0.01664798361918575,
+          "recomputed": 0.016647983619185652,
+          "relative_difference": 5.835212051911697e-15
+        }
+      ],
+      "alternatives": [
+        {
+          "term": "const",
+          "kind": "se",
+          "method": "firm_only",
+          "value": 0.05662713622546175,
+          "how": "one-way CR1 clustered on firm",
+          "relative_gap": 0.6129726333693246
+        },
+        {
+          "term": "const",
+          "kind": "se",
+          "method": "year_only",
+          "value": 0.14560022499647174,
+          "how": "one-way CR1 clustered on year",
+          "relative_gap": 0.00487159659893618
+        },
+        {
+          "term": "const",
+          "kind": "se",
+          "method": "no_intersection",
+          "value": 0.15622438374376837,
+          "how": "firm plus year covariance without subtracting the intersection term",
+          "relative_gap": 0.012694604078608314
+        },
+        {
+          "term": "const",
+          "kind": "se",
+          "method": "HC1",
+          "value": 0.02919416422099671,
+          "how": "heteroskedasticity-robust standard error without clustering",
+          "relative_gap": 0.8004677394518248
+        },
+        {
+          "term": "x",
+          "kind": "se",
+          "method": "firm_only",
+          "value": 0.028292279668568544,
+          "how": "one-way CR1 clustered on firm",
+          "relative_gap": 0.699441825252848
+        },
+        {
+          "term": "x",
+          "kind": "se",
+          "method": "year_only",
+          "value": 0.01692336767280361,
+          "how": "one-way CR1 clustered on year",
+          "relative_gap": 0.016541586051328012
+        },
+        {
+          "term": "x",
+          "kind": "se",
+          "method": "no_intersection",
+          "value": 0.03296746065794864,
+          "how": "firm plus year covariance without subtracting the intersection term",
+          "relative_gap": 0.9802674853641568
+        },
+        {
+          "term": "x",
+          "kind": "se",
+          "method": "HC1",
+          "value": 0.028455194668965376,
+          "how": "heteroskedasticity-robust standard error without clustering",
+          "relative_gap": 0.7092276950688828
+        }
+      ]
+    },
+    "twoway_fe": {
+      "data": "data/tasks/inputs/pilot_v3.csv",
+      "data_sha256": "be9fe407261bc8536b1c171bb9b285a5394a90ddaf6c6676c145d69250211a3a",
+      "notes": "The task asks for firm and year fixed effects and a firm-clustered standard error. It names no small-sample correction, so CR0 (0.0233583) is not listed: the scoring accepts CR0 in cluster_ols and two_way_cluster.",
+      "reference_checks": [
+        {
+          "term": "x",
+          "kind": "estimate",
+          "stored": 0.5352992851842181,
+          "recomputed": 0.5352992851842221,
+          "relative_difference": 7.46648276818659e-15
+        },
+        {
+          "term": "x",
+          "kind": "se",
+          "stored": 0.02475318115286997,
+          "recomputed": 0.024753181152870084,
+          "relative_difference": 4.625334768383687e-15
+        }
+      ],
+      "alternatives": [
+        {
+          "term": "x",
+          "kind": "se",
+          "method": "cluster_year",
+          "value": 0.018025895782923056,
+          "how": "CR1 clustered on year",
+          "relative_gap": 0.23214705027578297
+        },
+        {
+          "term": "x",
+          "kind": "se",
+          "method": "HC1",
+          "value": 0.022684502184908382,
+          "how": "heteroskedasticity-robust standard error without clustering",
+          "relative_gap": 0.033703393968984335
+        },
+        {
+          "term": "x",
+          "kind": "estimate",
+          "method": "fe_without_intercept",
+          "value": 0.5332122190268747,
+          "how": "firm and year dummies with one base category each and no intercept",
+          "relative_gap": 0.003898877161072985
+        },
+        {
+          "term": "x",
+          "kind": "se",
+          "method": "fe_without_intercept",
+          "value": 0.024813551529340415,
+          "how": "CR1 standard error of that design (statsmodels use_correction=True)",
+          "relative_gap": 0.0024388936556320605
+        }
+      ]
+    },
+    "lp_irf": {
+      "data": "data/tasks/inputs/pilot_v5_lp.csv",
+      "data_sha256": "9f6355a4f2a0b8e86551373fc016b35b8aa35b30b9c3f0b270f0e6196b9225e6",
+      "notes": "The task names Newey-West with lag 4.",
+      "reference_checks": [
+        {
+          "term": "irf_h4",
+          "kind": "estimate",
+          "stored": 0.11267201727167597,
+          "recomputed": 0.11267201727167603,
+          "relative_difference": 4.92679128105151e-16
+        },
+        {
+          "term": "irf_h4",
+          "kind": "se",
+          "stored": 0.08395617091021815,
+          "recomputed": 0.08395617091021815,
+          "relative_difference": 0.0
+        }
+      ],
+      "alternatives": [
+        {
+          "term": "irf_h4",
+          "kind": "se",
+          "method": "nw_lag3",
+          "value": 0.08417927235249881,
+          "how": "Newey-West with lag 3 (also lag 4 with weights 1-j/4)",
+          "relative_gap": 0.002657356092612206
+        },
+        {
+          "term": "irf_h4",
+          "kind": "se",
+          "method": "nw_lag3_dfk",
+          "value": 0.08469943758485259,
+          "how": "Newey-West with lag 3, with n/(n-k) (also lag 4 with weights 1-j/4)",
+          "relative_gap": 0.0026573560926122677
+        },
+        {
+          "term": "irf_h4",
+          "kind": "se",
+          "method": "nw_lag5",
+          "value": 0.08244692631604084,
+          "how": "Newey-West with lag 5",
+          "relative_gap": 0.017976577276151408
+        },
+        {
+          "term": "irf_h4",
+          "kind": "se",
+          "method": "nw_lag5_dfk",
+          "value": 0.08295638693960686,
+          "how": "Newey-West with lag 5, with n/(n-k)",
+          "relative_gap": 0.011908403632181468
+        },
+        {
+          "term": "irf_h4",
+          "kind": "se",
+          "method": "HC1",
+          "value": 0.0866554340026853,
+          "how": "heteroskedasticity-robust standard error without HAC",
+          "relative_gap": 0.0258121048460031
+        },
+        {
+          "term": "irf_h4",
+          "kind": "se",
+          "method": "classical",
+          "value": 0.08904149851683589,
+          "how": "homoskedastic OLS standard error",
+          "relative_gap": 0.05405792566184858
+        }
+      ]
+    },
+    "applied_cumulative_hac": {
+      "data": "data/collections/2026-09-15_applied-five-pilot/work/cumulative_hac/input.csv",
+      "data_sha256": "cd64748ae4ccca8acde000b77ac1fcf0e89a016969d36dbdaeb4e97fdad94890",
+      "notes": "The task names Newey-West lag 15, weights 1-j/16, and N/(N-16).",
+      "reference_checks": [
+        {
+          "term": "cumulative_response",
+          "kind": "estimate",
+          "stored": 2.6366572344198413,
+          "recomputed": 2.6366572344198316,
+          "relative_difference": 3.705435234114197e-15
+        },
+        {
+          "term": "lag_1",
+          "kind": "estimate",
+          "stored": 0.5145900663645093,
+          "recomputed": 0.5145900663645089,
+          "relative_difference": 8.629960795541135e-16
+        },
+        {
+          "term": "lag_15",
+          "kind": "estimate",
+          "stored": -0.28222729788097656,
+          "recomputed": -0.2822272978809772,
+          "relative_difference": 2.360274217896604e-15
+        },
+        {
+          "term": "cumulative_response",
+          "kind": "se",
+          "stored": 0.4659528278258023,
+          "recomputed": 0.46595282782580916,
+          "relative_difference": 1.477270303261115e-14
+        }
+      ],
+      "alternatives": [
+        {
+          "term": "cumulative_response",
+          "kind": "se",
+          "method": "no_multiplier",
+          "value": 0.4606274777565364,
+          "how": "Newey-West lag 15 without the N/(N-16) multiplier",
+          "relative_gap": 0.011428946775824213
+        },
+        {
+          "term": "cumulative_response",
+          "kind": "se",
+          "method": "multiplier_twice",
+          "value": 0.47133974468110706,
+          "how": "N/(N-16) applied on top of a covariance that already includes it",
+          "relative_gap": 0.011561077717761388
+        },
+        {
+          "term": "cumulative_response",
+          "kind": "se",
+          "method": "weights_1_minus_j_over_15",
+          "value": 0.4641987910415676,
+          "how": "Bartlett weights 1-j/15 in place of 1-j/16",
+          "relative_gap": 0.0037644084969271673
+        }
+      ]
+    },
+    "applied_fuzzy_rd": {
+      "data": "data/collections/2026-09-15_applied-five-pilot/work/fuzzy_rd/input.csv",
+      "data_sha256": "38b453d38ea56bfb93a9f90f473374bff43a2b8bb68b4ad234c25fe517e94ed1",
+      "notes": "The task names HC0 and the delta method with the joint covariance.",
+      "reference_checks": [
+        {
+          "term": "reduced_form",
+          "kind": "estimate",
+          "stored": 0.8599221711096473,
+          "recomputed": 0.8599221711096171,
+          "relative_difference": 3.511720860835178e-14
+        },
+        {
+          "term": "first_stage",
+          "kind": "estimate",
+          "stored": 0.4430137637083051,
+          "recomputed": 0.4430137637082999,
+          "relative_difference": 1.1653220480766289e-14
+        },
+        {
+          "term": "treatment_effect",
+          "kind": "estimate",
+          "stored": 1.9410732612719648,
+          "recomputed": 1.941073261271919,
+          "relative_difference": 2.3564895528251588e-14
+        },
+        {
+          "term": "treatment_effect",
+          "kind": "se",
+          "stored": 0.6895291967774643,
+          "recomputed": 0.6895291967774666,
+          "relative_difference": 3.3812467443133913e-15
+        }
+      ],
+      "alternatives": [
+        {
+          "term": "treatment_effect",
+          "kind": "se",
+          "method": "HC1",
+          "value": 0.6918469485126113,
+          "how": "HC0 times n/(n-4)",
+          "relative_gap": 0.0033613540165943903
+        },
+        {
+          "term": "treatment_effect",
+          "kind": "se",
+          "method": "HC2",
+          "value": 0.6940350187911504,
+          "how": "weighted e^2/(1-h)",
+          "relative_gap": 0.006534635566911738
+        },
+        {
+          "term": "treatment_effect",
+          "kind": "se",
+          "method": "HC3",
+          "value": 0.6985790183211762,
+          "how": "weighted e^2/(1-h)^2",
+          "relative_gap": 0.013124638646204598
+        },
+        {
+          "term": "treatment_effect",
+          "kind": "se",
+          "method": "delta_without_covariance",
+          "value": 0.6176742567823762,
+          "how": "delta method that drops the covariance of the two discontinuities",
+          "relative_gap": 0.1042086982406319
+        }
+      ]
+    },
+    "applied_shift_share": {
+      "data": "data/collections/2026-09-15_applied-five-pilot/work/shift_share/input.csv",
+      "data_sha256": "e214a51ef8360268402c8270dc9890fb5bf5e3988a9ceeb4c9007f29ab10a1ee",
+      "notes": "The task names the shock-level HC1 with N/(N-2). The tolerance 1e-5 already rejects HC0.",
+      "reference_checks": [
+        {
+          "term": "effect",
+          "kind": "estimate",
+          "stored": 0.489245094628532,
+          "recomputed": 0.48924509462853183,
+          "relative_difference": 3.403886017911267e-16
+        },
+        {
+          "term": "first_stage",
+          "kind": "estimate",
+          "stored": 1.3127174046282175,
+          "recomputed": 1.3127174046282184,
+          "relative_difference": 6.765952950488011e-16
+        },
+        {
+          "term": "effective_shocks",
+          "kind": "estimate",
+          "stored": 32.02462606005303,
+          "recomputed": 32.02462606005303,
+          "relative_difference": 0.0
+        },
+        {
+          "term": "effect",
+          "kind": "se",
+          "stored": 0.4919970926159917,
+          "recomputed": 0.4919970926159915,
+          "relative_difference": 4.51312839562528e-16
+        },
+        {
+          "term": "first_stage",
+          "kind": "se",
+          "stored": 0.25749160573577123,
+          "recomputed": 0.25749160573577123,
+          "relative_difference": 0.0
+        }
+      ],
+      "alternatives": [
+        {
+          "term": "effect",
+          "kind": "se",
+          "method": "HC0",
+          "value": 0.4816380989342316,
+          "how": "shock-level sandwich without N/(N-2)",
+          "relative_gap": 0.02105498962743957
+        },
+        {
+          "term": "first_stage",
+          "kind": "se",
+          "method": "HC0",
+          "value": 0.25207012264785195,
+          "how": "shock-level sandwich without N/(N-2)",
+          "relative_gap": 0.021054989627439045
+        }
+      ]
+    },
+    "vif": {
+      "data": "data/tasks/inputs/pilot_v5_collinear.csv",
+      "data_sha256": "031c3ee0d219f456a67b3dd6c69d0fd24c934da1f4eb356f5eb20d6806bb9f08",
+      "notes": "The task asks for the VIF of each regressor of the linear model, which has an intercept. Federico named the uncentered VIF a wrong method on 2026-10-29.",
+      "reference_checks": [
+        {
+          "term": "vif_x1",
+          "kind": "estimate",
+          "stored": 3.9838952280172433,
+          "recomputed": 3.9838952280172433,
+          "relative_difference": 0.0
+        },
+        {
+          "term": "vif_x2",
+          "kind": "estimate",
+          "stored": 3.7600677352938527,
+          "recomputed": 3.760067735293852,
+          "relative_difference": 2.3621340949878216e-16
+        },
+        {
+          "term": "vif_x3",
+          "kind": "estimate",
+          "stored": 1.0118968332994016,
+          "recomputed": 1.0118968332994014,
+          "relative_difference": 2.1943403479288527e-16
+        },
+        {
+          "term": "vif_x4",
+          "kind": "estimate",
+          "stored": 1.0071780074034018,
+          "recomputed": 1.0071780074034022,
+          "relative_difference": 4.409242523026945e-16
+        },
+        {
+          "term": "vif_x5",
+          "kind": "estimate",
+          "stored": 3.178194694349114,
+          "recomputed": 3.1781946943491146,
+          "relative_difference": 1.3973002051751612e-16
+        }
+      ],
+      "alternatives": [
+        {
+          "term": "vif_x1",
+          "kind": "estimate",
+          "method": "uncentered",
+          "value": 3.990921001100872,
+          "how": "auxiliary regression without an intercept and uncentered R^2 (statsmodels variance_inflation_factor on a design without a constant)",
+          "relative_gap": 0.001763543637949888
+        },
+        {
+          "term": "vif_x2",
+          "kind": "estimate",
+          "method": "uncentered",
+          "value": 3.7672443479304727,
+          "how": "auxiliary regression without an intercept and uncentered R^2 (statsmodels variance_inflation_factor on a design without a constant)",
+          "relative_gap": 0.0019086391899956268
+        },
+        {
+          "term": "vif_x3",
+          "kind": "estimate",
+          "method": "uncentered",
+          "value": 1.0120252708713091,
+          "how": "auxiliary regression without an intercept and uncentered R^2 (statsmodels variance_inflation_factor on a design without a constant)",
+          "relative_gap": 0.00012692753616860099
+        },
+        {
+          "term": "vif_x4",
+          "kind": "estimate",
+          "method": "uncentered",
+          "value": 1.0072554278548345,
+          "how": "auxiliary regression without an intercept and uncentered R^2 (statsmodels variance_inflation_factor on a design without a constant)",
+          "relative_gap": 7.686868742523561e-05
+        },
+        {
+          "term": "vif_x5",
+          "kind": "estimate",
+          "method": "uncentered",
+          "value": 3.1821041463719317,
+          "how": "auxiliary regression without an intercept and uncentered R^2 (statsmodels variance_inflation_factor on a design without a constant)",
+          "relative_gap": 0.0012300857558439184
+        }
+      ]
+    },
+    "var_irf": {
+      "data": "data/tasks/inputs/pilot_v4_var.csv",
+      "data_sha256": "4e880cb9529500832b3b6f90f9363cd10d07c50cd1e8d95b63b64947e6fabcf4",
+      "notes": "The task names the orthogonal response of y1 to a y2 shock at horizon 4 with y1 first.",
+      "reference_checks": [
+        {
+          "term": "irf_y1_to_y2_h4",
+          "kind": "estimate",
+          "stored": 0.08174130755056178,
+          "recomputed": 0.08174130755056166,
+          "relative_difference": 1.3582153967116549e-15
+        }
+      ],
+      "alternatives": [
+        {
+          "term": "irf_y1_to_y2_h4",
+          "kind": "estimate",
+          "method": "horizon_3",
+          "value": 0.10836522958718309,
+          "how": "orthogonal response at horizon 3",
+          "relative_gap": 0.3257095198795647
+        },
+        {
+          "term": "irf_y1_to_y2_h4",
+          "kind": "estimate",
+          "method": "horizon_5",
+          "value": 0.06386930306914711,
+          "how": "orthogonal response at horizon 5",
+          "relative_gap": 0.20858452618748166
+        },
+        {
+          "term": "irf_y1_to_y2_h4",
+          "kind": "estimate",
+          "method": "cumulative",
+          "value": 0.4810425744623408,
+          "how": "cumulative orthogonal response to horizon 4",
+          "relative_gap": 4.884938580959056
+        },
+        {
+          "term": "irf_y1_to_y2_h4",
+          "kind": "estimate",
+          "method": "y2_first",
+          "value": 0.0628061819061003,
+          "how": "Cholesky with y2 ordered first",
+          "relative_gap": 0.22175784260933007
+        },
+        {
+          "term": "irf_y1_to_y2_h4",
+          "kind": "estimate",
+          "method": "upper_factor",
+          "value": 0.06461829822124232,
+          "how": "transposed Cholesky factor",
+          "relative_gap": 0.19930359897058433
+        },
+        {
+          "term": "irf_y1_to_y2_h4",
+          "kind": "estimate",
+          "method": "misread_coefficients",
+          "value": 0.08594415161493323,
+          "how": "companion matrix filled from e(b) in lag-major order with the constant skipped",
+          "relative_gap": 0.051416403655786216
+        },
+        {
+          "term": "irf_y1_to_y2_h4",
+          "kind": "estimate",
+          "method": "horizon_3_sigma_T",
+          "value": 0.10698823299340686,
+          "how": "orthogonal response at horizon 3 (Sigma divided by T)",
+          "relative_gap": 0.3088637336419947
+        },
+        {
+          "term": "irf_y1_to_y2_h4",
+          "kind": "estimate",
+          "method": "horizon_5_sigma_T",
+          "value": 0.06305771605818322,
+          "how": "orthogonal response at horizon 5 (Sigma divided by T)",
+          "relative_gap": 0.21864103984830383
+        },
+        {
+          "term": "irf_y1_to_y2_h4",
+          "kind": "estimate",
+          "method": "cumulative_sigma_T",
+          "value": 0.4749299681492331,
+          "how": "cumulative orthogonal response to horizon 4 (Sigma divided by T)",
+          "relative_gap": 4.810158686970613
+        },
+        {
+          "term": "irf_y1_to_y2_h4",
+          "kind": "estimate",
+          "method": "y2_first_sigma_T",
+          "value": 0.0620081039720411,
+          "how": "Cholesky with y2 ordered first (Sigma divided by T)",
+          "relative_gap": 0.2316469629844024
+        },
+        {
+          "term": "irf_y1_to_y2_h4",
+          "kind": "estimate",
+          "method": "upper_factor_sigma_T",
+          "value": 0.06379719373149748,
+          "how": "transposed Cholesky factor (Sigma divided by T)",
+          "relative_gap": 0.20947804534112746
+        },
+        {
+          "term": "irf_y1_to_y2_h4",
+          "kind": "estimate",
+          "method": "misread_coefficients_sigma_T",
+          "value": 0.08485205958061941,
+          "how": "companion matrix filled from e(b) in lag-major order with the constant skipped (Sigma divided by T)",
+          "relative_gap": 0.03805605908779291
+        },
+        {
+          "term": "irf_y1_to_y2_h4",
+          "kind": "estimate",
+          "method": "non_orthogonal",
+          "value": 0.08975161538897419,
+          "how": "unit-shock (non-orthogonal) response",
+          "relative_gap": 0.09799583684733174
+        }
+      ]
+    },
+    "arima_forecast": {
+      "data": "data/tasks/inputs/pilot_v4_arima.csv",
+      "data_sha256": "3d9dc1750370568712a8c88f5bfe8931aef9c4ce5193bd48a67429855149140a",
+      "notes": "The task names ARIMA(1,1,1) by maximum likelihood with no constant or drift. The bounds carry no alternative: their variance convention differs across correct implementations.",
+      "reference_checks": [
+        {
+          "term": "forecast",
+          "kind": "estimate",
+          "stored": 42.69527535947803,
+          "recomputed": 42.69527543594376,
+          "relative_difference": 1.7909647116831941e-09
+        },
+        {
+          "term": "lower_95",
+          "kind": "estimate",
+          "stored": 40.83267478235964,
+          "recomputed": 40.832674838420175,
+          "relative_difference": 1.3729332224236071e-09
+        },
+        {
+          "term": "upper_95",
+          "kind": "estimate",
+          "stored": 44.557875936596425,
+          "recomputed": 44.55787603346735,
+          "relative_difference": 2.174047241784292e-09
+        }
+      ],
+      "alternatives": [
+        {
+          "term": "forecast",
+          "kind": "estimate",
+          "method": "drift",
+          "value": 42.75289116600092,
+          "how": "ARIMA(1,1,1) with drift",
+          "relative_gap": 0.0013494656267651704
+        },
+        {
+          "term": "forecast",
+          "kind": "estimate",
+          "method": "arima_011",
+          "value": 43.26971548594503,
+          "how": "ARIMA(0,1,1)",
+          "relative_gap": 0.01345441905762237
+        },
+        {
+          "term": "forecast",
+          "kind": "estimate",
+          "method": "arima_110",
+          "value": 42.732595792706874,
+          "how": "ARIMA(1,1,0)",
+          "relative_gap": 0.0008741115478145644
+        },
+        {
+          "term": "forecast",
+          "kind": "estimate",
+          "method": "arima_211",
+          "value": 42.70752050581863,
+          "how": "ARIMA(2,1,1)",
+          "relative_gap": 0.0002868033110806079
+        },
+        {
+          "term": "forecast",
+          "kind": "estimate",
+          "method": "arima_112",
+          "value": 42.714508667807,
+          "how": "ARIMA(1,1,2)",
+          "relative_gap": 0.00045047861073699405
+        },
+        {
+          "term": "forecast",
+          "kind": "estimate",
+          "method": "wrong_formula",
+          "value": 42.356121214667404,
+          "how": "y_T+(phi+theta)*(y_T-y_{T-1}), as in arima_forecast__luna6__stata__zero_shot__agent__7",
+          "relative_gap": 0.007943598956912183
+        }
+      ]
+    },
+    "pilot_probit_interaction_ame": {
+      "data": "data/task_candidates/2026-09-19_six_expansion/pilot_probit_interaction_ame/input.csv",
+      "data_sha256": "811f2419b0e6a821e2560ea8baea768b2e3b234c3b450394eee9445b7d188793",
+      "notes": "The task names the probit MLE, target-subset averages, and the discrete change in d.",
+      "reference_checks": [
+        {
+          "term": "ame_x",
+          "kind": "estimate",
+          "stored": 0.06136846722434919,
+          "recomputed": 0.06136846724509564,
+          "relative_difference": 3.380637337849081e-10
+        },
+        {
+          "term": "effect_d",
+          "kind": "estimate",
+          "stored": 0.11255682313455369,
+          "recomputed": 0.11255682314714509,
+          "relative_difference": 1.1186705340559211e-10
+        }
+      ],
+      "alternatives": [
+        {
+          "term": "ame_x",
+          "kind": "estimate",
+          "method": "logit_score",
+          "value": 0.06418990227578675,
+          "how": "root of X'(y-Phi(Xb))=0 (logit score used as the probit gradient)",
+          "relative_gap": 0.045975322165421426
+        },
+        {
+          "term": "effect_d",
+          "kind": "estimate",
+          "method": "logit_score",
+          "value": 0.11196666103219985,
+          "how": "root of X'(y-Phi(Xb))=0 (logit score used as the probit gradient)",
+          "relative_gap": 0.005243237023919395
+        },
+        {
+          "term": "ame_x",
+          "kind": "estimate",
+          "method": "interaction_derivative_in_x",
+          "value": 0.05919310568362912,
+          "how": "x*d derivative taken as b_xd*x in place of b_xd*d",
+          "relative_gap": 0.03544754560623844
+        },
+        {
+          "term": "ame_x",
+          "kind": "estimate",
+          "method": "full_sample",
+          "value": 0.03331360224626083,
+          "how": "average over all rows in place of target==1",
+          "relative_gap": 0.45715440269228397
+        },
+        {
+          "term": "effect_d",
+          "kind": "estimate",
+          "method": "full_sample",
+          "value": 0.21940077621213883,
+          "how": "average over all rows in place of target==1",
+          "relative_gap": 0.9492445691174206
+        },
+        {
+          "term": "effect_d",
+          "kind": "estimate",
+          "method": "derivative",
+          "value": 0.10859941077248769,
+          "how": "derivative in d in place of the discrete change",
+          "relative_gap": 0.035159240034122054
+        },
+        {
+          "term": "ame_x",
+          "kind": "estimate",
+          "method": "at_means",
+          "value": 0.06209482391610808,
+          "how": "marginal effect at the target means",
+          "relative_gap": 0.01183599207559634
+        }
+      ]
+    },
+    "hard_heteroskedastic_probit": {
+      "data": "data/collections/2026-09-17_twenty-harder-tasks/groups/nonlinear/hard_heteroskedastic_probit/input.csv",
+      "data_sha256": "02d8a55b618e5b059cde8f8188ae45ed1692ce09ee87f159c5fd796154bee0cc",
+      "notes": "The task names the heteroskedastic probit MLE. A scale constant leaves the fitted probabilities unidentified at the same optimum, so it has no distinct value to list.",
+      "reference_checks": [
+        {
+          "term": "gamma_z",
+          "kind": "estimate",
+          "stored": 0.6061143284304019,
+          "recomputed": 0.6061143296655525,
+          "relative_difference": 2.0378177506589387e-09
+        },
+        {
+          "term": "ame_x",
+          "kind": "estimate",
+          "stored": 0.21556723096535085,
+          "recomputed": 0.215567232045753,
+          "relative_difference": 5.011903487323762e-09
+        },
+        {
+          "term": "effect_d",
+          "kind": "estimate",
+          "stored": -0.18096923525388756,
+          "recomputed": -0.18096923488484842,
+          "relative_difference": 2.0392368463534e-09
+        }
+      ],
+      "alternatives": [
+        {
+          "term": "gamma_z",
+          "kind": "estimate",
+          "method": "logit_score",
+          "value": 0.6116952247752928,
+          "how": "root of the logit-type score sum (y-Phi)*d(index)/d(theta)",
+          "relative_gap": 0.009207662784252644
+        },
+        {
+          "term": "ame_x",
+          "kind": "estimate",
+          "method": "logit_score",
+          "value": 0.21701893877532663,
+          "how": "root of the logit-type score sum (y-Phi)*d(index)/d(theta)",
+          "relative_gap": 0.006734362191668721
+        },
+        {
+          "term": "effect_d",
+          "kind": "estimate",
+          "method": "logit_score",
+          "value": -0.18109119538741525,
+          "how": "root of the logit-type score sum (y-Phi)*d(index)/d(theta)",
+          "relative_gap": 0.0006739274405209891
+        }
+      ]
+    },
+    "applied_nonrecipient_population_iv": {
+      "data": "data/task_candidates/2026-09-19_six_expansion/applied_nonrecipient_population_iv/input.csv",
+      "data_sha256": "cea4f7ec785a61bb5ceda6f364851f930bfd7915117581471168fb4e19599cdc",
+      "notes": "The task names household-weighted mean doses and census population weights.",
+      "reference_checks": [
+        {
+          "term": "ineligible_effect",
+          "kind": "estimate",
+          "stored": 2.0530515038360337,
+          "recomputed": 2.0530515038360373,
+          "relative_difference": 1.7304552136964983e-15
+        },
+        {
+          "term": "eligible_nonrecipient_effect",
+          "kind": "estimate",
+          "stored": 5.781929320112421,
+          "recomputed": 5.781929320112391,
+          "relative_difference": 5.2228355965474e-15
+        },
+        {
+          "term": "population_effect",
+          "kind": "estimate",
+          "stored": 2.649671954440256,
+          "recomputed": 2.649671954440254,
+          "relative_difference": 6.70406325742881e-16
+        }
+      ],
+      "alternatives": [
+        {
+          "term": "ineligible_effect",
+          "kind": "estimate",
+          "method": "unweighted_mean_dose",
+          "value": 2.0439475287231543,
+          "how": "unweighted mean dose in each group",
+          "relative_gap": 0.004434362750213061
+        },
+        {
+          "term": "eligible_nonrecipient_effect",
+          "kind": "estimate",
+          "method": "unweighted_mean_dose",
+          "value": 5.737545638428702,
+          "how": "unweighted mean dose in each group",
+          "relative_gap": 0.00767627537910756
+        },
+        {
+          "term": "population_effect",
+          "kind": "estimate",
+          "method": "unweighted_mean_dose",
+          "value": 2.6349232262760425,
+          "how": "unweighted mean dose in each group",
+          "relative_gap": 0.005566246847840086
+        },
+        {
+          "term": "population_effect",
+          "kind": "estimate",
+          "method": "household_count_weights",
+          "value": 4.290378193601849,
+          "how": "group effects averaged with retained household counts",
+          "relative_gap": 0.6192110824934903
+        },
+        {
+          "term": "population_effect",
+          "kind": "estimate",
+          "method": "household_weight_sums",
+          "value": 4.29037819360185,
+          "how": "group effects averaged with the sums of household weights",
+          "relative_gap": 0.6192110824934907
+        }
+      ]
+    },
+    "hard_conditional_logit_welfare": {
+      "data": "data/task_candidates/2026-09-21_welfare_inputs/hard_conditional_logit_welfare/input.csv",
+      "data_sha256": "3f59457948651446217f174a9ccccd08973c5931eef8796d1178276e820e4fe7",
+      "notes": "The task names unweighted estimation and person-weighted post-estimation averages.",
+      "reference_checks": [
+        {
+          "term": "welfare_gain",
+          "kind": "estimate",
+          "stored": 0.23213290208508386,
+          "recomputed": 0.23213290135881762,
+          "relative_difference": 3.1286656698264146e-09
+        },
+        {
+          "term": "share_change_alt1",
+          "kind": "estimate",
+          "stored": 0.10947154298911013,
+          "recomputed": 0.10947154373405492,
+          "relative_difference": 6.804917205623406e-09
+        },
+        {
+          "term": "cost_coefficient",
+          "kind": "estimate",
+          "stored": -1.0261688267440503,
+          "recomputed": -1.026168835270794,
+          "relative_difference": 8.309299145799413e-09
+        }
+      ],
+      "alternatives": [
+        {
+          "term": "welfare_gain",
+          "kind": "estimate",
+          "method": "unweighted_means",
+          "value": 0.23359228664616694,
+          "how": "post-estimation averages without the person weights",
+          "relative_gap": 0.006286849248747028
+        },
+        {
+          "term": "share_change_alt1",
+          "kind": "estimate",
+          "method": "unweighted_means",
+          "value": 0.10924942327699318,
+          "how": "post-estimation averages without the person weights",
+          "relative_gap": 0.002029017825564505
+        },
+        {
+          "term": "welfare_gain",
+          "kind": "estimate",
+          "method": "weighted_estimation",
+          "value": 0.22680191619484374,
+          "how": "conditional logit estimated with person weights",
+          "relative_gap": 0.022965231737318063
+        },
+        {
+          "term": "share_change_alt1",
+          "kind": "estimate",
+          "method": "weighted_estimation",
+          "value": 0.10788574469812465,
+          "how": "conditional logit estimated with person weights",
+          "relative_gap": 0.014485940799639913
+        },
+        {
+          "term": "cost_coefficient",
+          "kind": "estimate",
+          "method": "weighted_estimation",
+          "value": -1.0040936610278162,
+          "how": "conditional logit estimated with person weights",
+          "relative_gap": 0.021512216256146494
+        }
+      ]
+    },
+    "ttest_welch": {
+      "data": "data/tasks/inputs/pilot_v5_ttest.csv",
+      "data_sha256": "1729acd19b3ef602724c3cb3c79c3f34a295c4b02a970d803d8a690ce8db4a85",
+      "notes": "The task names the Welch test.",
+      "reference_checks": [
+        {
+          "term": "t",
+          "kind": "estimate",
+          "stored": 2.985073329907838,
+          "recomputed": 2.985073329907838,
+          "relative_difference": 0.0
+        },
+        {
+          "term": "df",
+          "kind": "estimate",
+          "stored": 163.08330406950444,
+          "recomputed": 163.08330406950444,
+          "relative_difference": 0.0
+        },
+        {
+          "term": "p_value",
+          "kind": "estimate",
+          "stored": 0.0032718560705995436,
+          "recomputed": 0.0032718560705996026,
+          "relative_difference": 1.8026648150327616e-14
+        }
+      ],
+      "alternatives": [
+        {
+          "term": "df",
+          "kind": "estimate",
+          "method": "pooled_variance",
+          "value": 198.0,
+          "how": "Student t-test degrees of freedom",
+          "relative_gap": 0.21410343707296012
+        },
+        {
+          "term": "p_value",
+          "kind": "estimate",
+          "method": "pooled_variance",
+          "value": 0.003192458931282326,
+          "how": "Student t-test p-value",
+          "relative_gap": 0.02426669682406558
+        }
+      ]
+    },
+    "anova_oneway": {
+      "data": "data/tasks/inputs/pilot_v5_anova.csv",
+      "data_sha256": "5ed53ce90fef639ca845afac476d956ca3ab098d6d41a6a553624f01745b4531",
+      "notes": "The task names the one-way ANOVA omnibus F test.",
+      "reference_checks": [
+        {
+          "term": "F",
+          "kind": "estimate",
+          "stored": 9.738534630314424,
+          "recomputed": 9.738534630314424,
+          "relative_difference": 0.0
+        },
+        {
+          "term": "df_num",
+          "kind": "estimate",
+          "stored": 3.0,
+          "recomputed": 3.0,
+          "relative_difference": 0.0
+        },
+        {
+          "term": "df_den",
+          "kind": "estimate",
+          "stored": 196.0,
+          "recomputed": 196.0,
+          "relative_difference": 0.0
+        },
+        {
+          "term": "p_value",
+          "kind": "estimate",
+          "stored": 5.089925867700066e-06,
+          "recomputed": 5.089925867700066e-06,
+          "relative_difference": 0.0
+        }
+      ],
+      "alternatives": [
+        {
+          "term": "F",
+          "kind": "estimate",
+          "method": "welch_anova",
+          "value": 9.561583374593178,
+          "how": "Welch heteroskedastic one-way ANOVA",
+          "relative_gap": 0.01817021373733439
+        },
+        {
+          "term": "df_den",
+          "kind": "estimate",
+          "method": "welch_anova",
+          "value": 108.700080283758,
+          "how": "Welch ANOVA denominator degrees of freedom",
+          "relative_gap": 0.4454077536542959
+        },
+        {
+          "term": "p_value",
+          "kind": "estimate",
+          "method": "welch_anova",
+          "value": 1.1726854166515378e-05,
+          "how": "Welch ANOVA p-value",
+          "relative_gap": 1.3039341772995752
+        }
+      ]
+    },
+    "chisq_indep": {
+      "data": "data/tasks/inputs/pilot_v5_chisq.csv",
+      "data_sha256": "86953e64f1fc96703b4d9ce0685e82fdbc7400920ad05f4af84f9d2516bfd939",
+      "notes": "The task names the Pearson statistic without Yates correction.",
+      "reference_checks": [
+        {
+          "term": "chi2",
+          "kind": "estimate",
+          "stored": 23.537436811968853,
+          "recomputed": 23.537436811968853,
+          "relative_difference": 0.0
+        },
+        {
+          "term": "df",
+          "kind": "estimate",
+          "stored": 2.0,
+          "recomputed": 2.0,
+          "relative_difference": 0.0
+        },
+        {
+          "term": "p_value",
+          "kind": "estimate",
+          "stored": 7.743022784393774e-06,
+          "recomputed": 7.743022784393774e-06,
+          "relative_difference": 0.0
+        }
+      ],
+      "alternatives": [
+        {
+          "term": "chi2",
+          "kind": "estimate",
+          "method": "likelihood_ratio",
+          "value": 23.721628501390136,
+          "how": "likelihood-ratio G statistic",
+          "relative_gap": 0.007825477807660899
+        },
+        {
+          "term": "p_value",
+          "kind": "estimate",
+          "method": "likelihood_ratio",
+          "value": 7.061774088559886e-06,
+          "how": "likelihood-ratio p-value",
+          "relative_gap": 0.0879822667197827
+        }
+      ]
+    },
+    "rdd_sharp": {
+      "data": "data/tasks/inputs/pilot_v5_rdd.csv",
+      "data_sha256": "bf17211414d6225eaaa971238944c914d4dd840c300d8ad6c682065888bdcbe0",
+      "notes": "The task names a triangular kernel with h = 0.5.",
+      "reference_checks": [
+        {
+          "term": "late",
+          "kind": "estimate",
+          "stored": 0.9688841518587223,
+          "recomputed": 0.9688841518587218,
+          "relative_difference": 5.7293899507763e-16
+        }
+      ],
+      "alternatives": [
+        {
+          "term": "late",
+          "kind": "estimate",
+          "method": "uniform_kernel",
+          "value": 1.0426169370653862,
+          "how": "uniform kernel weights",
+          "relative_gap": 0.0761007237709624
+        },
+        {
+          "term": "late",
+          "kind": "estimate",
+          "method": "weights_1_minus_abs_z",
+          "value": 1.0193996327597556,
+          "how": "triangular weights 1-|z| that ignore the bandwidth",
+          "relative_gap": 0.052137792536005076
+        }
+      ]
+    },
+    "staggered_did": {
+      "data": "data/tasks/inputs/pilot_v3.csv",
+      "data_sha256": "be9fe407261bc8536b1c171bb9b285a5394a90ddaf6c6676c145d69250211a3a",
+      "notes": "The task names the equal-weight average of the group-time cells and excludes TWFE.",
+      "reference_checks": [
+        {
+          "term": "att",
+          "kind": "estimate",
+          "stored": 1.5886894029357215,
+          "recomputed": 1.588689402935722,
+          "relative_difference": 2.7953180088533046e-16
+        }
+      ],
+      "alternatives": [
+        {
+          "term": "att",
+          "kind": "estimate",
+          "method": "cohort_size_weights",
+          "value": 1.5905657938890603,
+          "how": "cells weighted by cohort size",
+          "relative_gap": 0.0011810936422635163
+        },
+        {
+          "term": "att",
+          "kind": "estimate",
+          "method": "twfe",
+          "value": 1.8201664622005593,
+          "how": "two-way fixed-effects regression on treat_post",
+          "relative_gap": 0.14570315559296484
+        }
+      ]
+    },
+    "broad_cohort_stack": {
+      "data": "data/task_candidates/2026-09-19/broad_cohort_stack/input.csv",
+      "data_sha256": "32c59e41ffcf9b70bb68bd8256b94ae525d84c9e4a91f047ad77381245f51f9e",
+      "notes": "The task names treated-unit-count weights.",
+      "reference_checks": [
+        {
+          "term": "att_g3",
+          "kind": "estimate",
+          "stored": 0.954222981646582,
+          "recomputed": 0.9542229816465657,
+          "relative_difference": 1.7103212536160005e-14
+        },
+        {
+          "term": "att_g5",
+          "kind": "estimate",
+          "stored": 1.2377404221405475,
+          "recomputed": 1.237740422140525,
+          "relative_difference": 1.8118908210692335e-14
+        },
+        {
+          "term": "att_g7",
+          "kind": "estimate",
+          "stored": 2.113399165938864,
+          "recomputed": 2.1133991659389437,
+          "relative_difference": 3.782345477433753e-14
+        },
+        {
+          "term": "att_weighted",
+          "kind": "estimate",
+          "stored": 1.598869556850049,
+          "recomputed": 1.5988695568500753,
+          "relative_difference": 1.6387367730468955e-14
+        }
+      ],
+      "alternatives": [
+        {
+          "term": "att_weighted",
+          "kind": "estimate",
+          "method": "row_count_weights",
+          "value": 1.4134020429812162,
+          "how": "cohort coefficients weighted by retained rows",
+          "relative_gap": 0.1159991526977501
+        },
+        {
+          "term": "att_weighted",
+          "kind": "estimate",
+          "method": "equal_weights",
+          "value": 1.4351208565753446,
+          "how": "unweighted mean of the three coefficients",
+          "relative_gap": 0.10241529684091778
+        }
+      ]
+    },
+    "broad_oaxaca": {
+      "data": "data/task_candidates/2026-09-19/broad_oaxaca/input.csv",
+      "data_sha256": "d841958ded152062d3600151e262a5e4b85c15ef76a8e0ab043627b2cb008c8b",
+      "notes": "The task names group 0 coefficients as the reference.",
+      "reference_checks": [
+        {
+          "term": "gap",
+          "kind": "estimate",
+          "stored": 1.4355165973939368,
+          "recomputed": 1.4355165973939368,
+          "relative_difference": 0.0
+        },
+        {
+          "term": "explained",
+          "kind": "estimate",
+          "stored": 0.5722979841301531,
+          "recomputed": 0.5722979841301532,
+          "relative_difference": 1.9399387301924648e-16
+        },
+        {
+          "term": "unexplained",
+          "kind": "estimate",
+          "stored": 0.8632186132637892,
+          "recomputed": 0.8632186132637834,
+          "relative_difference": 6.816560648832064e-15
+        },
+        {
+          "term": "explained_x",
+          "kind": "estimate",
+          "stored": 0.5105028813192991,
+          "recomputed": 0.5105028813192992,
+          "relative_difference": 2.174763483716278e-16
+        }
+      ],
+      "alternatives": [
+        {
+          "term": "explained",
+          "kind": "estimate",
+          "method": "group1_reference",
+          "value": 0.8468693399585782,
+          "how": "group 1 coefficients as the reference",
+          "relative_gap": 0.47976991609668423
+        },
+        {
+          "term": "unexplained",
+          "kind": "estimate",
+          "method": "group1_reference",
+          "value": 0.5886472574353584,
+          "how": "group 1 coefficients as the reference",
+          "relative_gap": 0.31807858589875554
+        },
+        {
+          "term": "explained_x",
+          "kind": "estimate",
+          "method": "group1_reference",
+          "value": 0.8234650144060458,
+          "how": "group 1 coefficients as the reference",
+          "relative_gap": 0.6130467516225465
+        }
+      ]
+    },
+    "hard_rolling": {
+      "data": "data/collections/2026-09-14_luna-hard-five-seven/work/rolling/input.csv",
+      "data_sha256": "86f92bf4046f5ce973da090739f4e952d54e548560a527d3c0f9caeec5e3ac96",
+      "notes": "The task names 99 regression pairs from the previous 100 levels.",
+      "reference_checks": [
+        {
+          "term": "rmse",
+          "kind": "estimate",
+          "stored": 1.0551115917349456,
+          "recomputed": 1.0551115917349458,
+          "relative_difference": 2.1044656002681003e-16
+        },
+        {
+          "term": "forecast_101",
+          "kind": "estimate",
+          "stored": 0.05064737026988214,
+          "recomputed": 0.050647370269882475,
+          "relative_difference": 6.576193504475154e-15
+        },
+        {
+          "term": "forecast_150",
+          "kind": "estimate",
+          "stored": -0.849589015810549,
+          "recomputed": -0.8495890158105486,
+          "relative_difference": 5.227106301820299e-16
+        },
+        {
+          "term": "forecast_200",
+          "kind": "estimate",
+          "stored": 0.7171172895399796,
+          "recomputed": 0.7171172895399797,
+          "relative_difference": 1.5481749510423165e-16
+        },
+        {
+          "term": "forecast_250",
+          "kind": "estimate",
+          "stored": -0.8331945652533261,
+          "recomputed": -0.8331945652533266,
+          "relative_difference": 5.329958071858533e-16
+        }
+      ],
+      "alternatives": [
+        {
+          "term": "forecast_101",
+          "kind": "estimate",
+          "method": "window_98_pairs",
+          "value": 0.05735794083226581,
+          "how": "rolling window of 98 regression pairs",
+          "relative_gap": 0.13249593269355112
+        },
+        {
+          "term": "forecast_150",
+          "kind": "estimate",
+          "method": "window_98_pairs",
+          "value": -0.8065643516633236,
+          "how": "rolling window of 98 regression pairs",
+          "relative_gap": 0.050641737765615744
+        },
+        {
+          "term": "forecast_200",
+          "kind": "estimate",
+          "method": "window_98_pairs",
+          "value": 0.7179583822549993,
+          "how": "rolling window of 98 regression pairs",
+          "relative_gap": 0.0011728802628079185
+        },
+        {
+          "term": "forecast_250",
+          "kind": "estimate",
+          "method": "window_98_pairs",
+          "value": -0.8284992317725369,
+          "how": "rolling window of 98 regression pairs",
+          "relative_gap": 0.005635338583085491
+        },
+        {
+          "term": "rmse",
+          "kind": "estimate",
+          "method": "window_98_pairs",
+          "value": 1.054562236403487,
+          "how": "rolling window of 98 regression pairs",
+          "relative_gap": 0.0005206608815237198
+        }
+      ]
+    },
+    "cooks_distance": {
+      "data": "data/tasks/inputs/pilot_v5_collinear.csv",
+      "data_sha256": "031c3ee0d219f456a67b3dd6c69d0fd24c934da1f4eb356f5eb20d6806bb9f08",
+      "notes": "The model has an intercept, so Cook distance uses p = 6.",
+      "reference_checks": [
+        {
+          "term": "rank1_obs_id",
+          "kind": "estimate",
+          "stored": 190.0,
+          "recomputed": 190.0,
+          "relative_difference": 0.0
+        },
+        {
+          "term": "rank1_cooks_d",
+          "kind": "estimate",
+          "stored": 0.028549159074855068,
+          "recomputed": 0.028549159074855023,
+          "relative_difference": 1.5798297335882546e-15
+        },
+        {
+          "term": "rank2_obs_id",
+          "kind": "estimate",
+          "stored": 214.0,
+          "recomputed": 214.0,
+          "relative_difference": 0.0
+        },
+        {
+          "term": "rank2_cooks_d",
+          "kind": "estimate",
+          "stored": 0.024652545231505025,
+          "recomputed": 0.02465254523150516,
+          "relative_difference": 5.4886191204822076e-15
+        },
+        {
+          "term": "rank3_obs_id",
+          "kind": "estimate",
+          "stored": 377.0,
+          "recomputed": 377.0,
+          "relative_difference": 0.0
+        },
+        {
+          "term": "rank3_cooks_d",
+          "kind": "estimate",
+          "stored": 0.02075133603187848,
+          "recomputed": 0.02075133603187845,
+          "relative_difference": 1.5047234799539764e-15
+        },
+        {
+          "term": "rank4_obs_id",
+          "kind": "estimate",
+          "stored": 119.0,
+          "recomputed": 119.0,
+          "relative_difference": 0.0
+        },
+        {
+          "term": "rank4_cooks_d",
+          "kind": "estimate",
+          "stored": 0.01747981975836148,
+          "recomputed": 0.017479819758361503,
+          "relative_difference": 1.3893809546896512e-15
+        },
+        {
+          "term": "rank5_obs_id",
+          "kind": "estimate",
+          "stored": 323.0,
+          "recomputed": 323.0,
+          "relative_difference": 0.0
+        },
+        {
+          "term": "rank5_cooks_d",
+          "kind": "estimate",
+          "stored": 0.017470235888456434,
+          "recomputed": 0.01747023588845655,
+          "relative_difference": 6.5535319697726805e-15
+        }
+      ],
+      "alternatives": [
+        {
+          "term": "rank1_cooks_d",
+          "kind": "estimate",
+          "method": "slopes_only_p",
+          "value": 0.03425899088982602,
+          "how": "Cook distance divided by the slope count 5 in place of 6 parameters",
+          "relative_gap": 0.1999999999999979
+        },
+        {
+          "term": "rank2_cooks_d",
+          "kind": "estimate",
+          "method": "slopes_only_p",
+          "value": 0.029583054277806192,
+          "how": "Cook distance divided by the slope count 5 in place of 6 parameters",
+          "relative_gap": 0.2000000000000066
+        },
+        {
+          "term": "rank3_cooks_d",
+          "kind": "estimate",
+          "method": "slopes_only_p",
+          "value": 0.02490160323825414,
+          "how": "Cook distance divided by the slope count 5 in place of 6 parameters",
+          "relative_gap": 0.1999999999999982
+        },
+        {
+          "term": "rank4_cooks_d",
+          "kind": "estimate",
+          "method": "slopes_only_p",
+          "value": 0.0209757837100338,
+          "how": "Cook distance divided by the slope count 5 in place of 6 parameters",
+          "relative_gap": 0.2000000000000015
+        },
+        {
+          "term": "rank5_cooks_d",
+          "kind": "estimate",
+          "method": "slopes_only_p",
+          "value": 0.020964283066147858,
+          "how": "Cook distance divided by the slope count 5 in place of 6 parameters",
+          "relative_gap": 0.20000000000000787
+        }
+      ]
+    }
+  },
+  "not_listed": {
+    "applied_multivintage_trade_iv": "The reviewed wrong constructions (duplicate crosswalk codes, base employment) move the values far outside the tolerance.",
+    "broad_ar_confidence_set": "No success cluster with a distinct method; the scan found only rounded values.",
+    "broad_multinomial_logit": "The scan found rounded values only; the alternatives (another base outcome) are far outside the tolerance.",
+    "broad_ordered_logit": "The Python cluster differs by 2e-5 to 5e-5 through optimizer tolerance; no excluded method lies inside the tolerance.",
+    "broad_tobit": "The scan found rounded values only.",
+    "cox_hazard": "The task names no tie method; the scan cluster differs by 4e-6 in every language (optimizer tolerance).",
+    "hard_panel_lp_iv": "No success cluster with a distinct value.",
+    "hard_poisson_hurdle_effects": "The scan clusters differ by 1e-6 to 9e-5 (optimizer tolerance).",
+    "hard_truncated_normal_effects": "The scan clusters differ by 1e-6 to 3e-6 (optimizer tolerance).",
+    "logit": "No success cluster with a distinct value.",
+    "lp04_ppml": "The Stata cluster differs by 1e-5 (convergence tolerance of ppmlhdfe).",
+    "lp11_duration": "The R cluster differs by 2e-5 (optimizer tolerance); the log-probability check guards the probability term.",
+    "poisson_offset": "No success cluster with a distinct value.",
+    "probit": "The scan found rounded values only.",
+    "var_granger": "No success cluster with a distinct value; the F and exact df checks guard the p-value."
+  },
+  "dropped_as_accepted": [
+    {
+      "task": "cluster_ols",
+      "term": "const",
+      "kind": "se",
+      "method": "CR0",
+      "value": 0.12057986963710653,
+      "how": "cluster sandwich without small-sample factors",
+      "relative_gap": 1.150920783840671e-16,
+      "reason": "equals an accepted value"
+    },
+    {
+      "task": "cluster_ols",
+      "term": "x1",
+      "kind": "se",
+      "method": "CR0",
+      "value": 0.02919114762830291,
+      "how": "cluster sandwich without small-sample factors",
+      "relative_gap": 2.9713177057397756e-15,
+      "reason": "equals an accepted value"
+    },
+    {
+      "task": "cluster_ols",
+      "term": "x2",
+      "kind": "se",
+      "method": "CR0",
+      "value": 0.027577844354977562,
+      "how": "cluster sandwich without small-sample factors",
+      "relative_gap": 2.138695012707405e-15,
+      "reason": "equals an accepted value"
+    },
+    {
+      "task": "two_way_cluster",
+      "term": "const",
+      "kind": "se",
+      "method": "CR0",
+      "value": 0.1463130029238959,
+      "how": "Cameron-Gelbach-Miller without small-sample factors",
+      "relative_gap": 1.8969999289855226e-16,
+      "reason": "equals an accepted value"
+    },
+    {
+      "task": "two_way_cluster",
+      "term": "x",
+      "kind": "se",
+      "method": "CR0",
+      "value": 0.015645938279337974,
+      "how": "Cameron-Gelbach-Miller without small-sample factors",
+      "relative_gap": 6.208928663804691e-15,
+      "reason": "equals an accepted value"
+    },
+    {
+      "task": "ttest_welch",
+      "term": "t",
+      "kind": "estimate",
+      "method": "pooled_variance",
+      "value": 2.985073329907838,
+      "how": "Student t-test with a pooled variance",
+      "relative_gap": 0.0,
+      "reason": "equals an accepted value"
+    }
+  ]
+}

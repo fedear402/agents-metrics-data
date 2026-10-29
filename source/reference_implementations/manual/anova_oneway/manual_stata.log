@@ -10,10 +10,6 @@ ___/   /   /___/   /   /___/       SE—Standard Edition
                                    800-782-8272        https://www.stata.com
                                    979-696-4600        service@stata.com
 
-Stata license: Unlimited-user network, expiring 14 Jul 2026
-Serial number: [redacted serial]
-  Licensed to: Federico López
-               Universidad de San Andrés
 
 Notes:
       1. Stata is running in batch mode.
@@ -21,18 +17,18 @@ Notes:
       3. Maximum number of variables is set to 5,000 but can be increased;
           see help set_maxvar.
 
-. do code/pilot/manual_references/anova_oneway/manual_stata.do 
+. do source/reference_implementations/manual/anova_oneway/manual_stata.do 
 
 . * Manual reference for T08 (one-way ANOVA) — Stata.
 . clear all
 
 . set more off
 
-. local data_path "code/pilot/data/pilot_v5_anova.csv"
+. args input_dir
 
-. capture confirm file "`data_path'"
+. if `"`input_dir'"' == "" local input_dir "tasks/anova_oneway"
 
-. if _rc != 0 local data_path "../../data/pilot_v5_anova.csv"
+. local data_path "`input_dir'/pilot_v5_anova.csv"
 
 . import delimited "`data_path'", clear
 (encoding automatically selected: ISO-8859-1)
@@ -44,10 +40,10 @@ Notes:
                         Analysis of variance
     Source              SS         df      MS            F     Prob > F
 ------------------------------------------------------------------------
-Between groups      33.7413614      3   11.2471205      9.74     0.0000
- Within groups      226.362146    196   1.15490891
+Between groups      33.7413615      3   11.2471205      9.74     0.0000
+ Within groups      226.362148    196   1.15490892
 ------------------------------------------------------------------------
-    Total           260.103508    199    1.3070528
+    Total            260.10351    199   1.30705281
 
 Bartlett's equal-variances test: chi2(3) =   1.3742    Prob>chi2 = 0.712
 

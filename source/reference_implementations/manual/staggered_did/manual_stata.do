@@ -14,14 +14,10 @@
 clear all
 set more off
 
-* Resolve data path relative to this do-file's directory, with a fallback.
-local script_dir : pwd
-local data_path "data/benchmark/pilot_v3.csv"
-capture confirm file "`data_path'"
-if _rc != 0 {
-    local data_path "../../../data/benchmark/pilot_v3.csv"
-}
-
+* The input folder is the first argument (default: tasks/staggered_did, from the repository root).
+args input_dir
+if `"`input_dir'"' == "" local input_dir "tasks/staggered_did"
+local data_path "`input_dir'/pilot_v3.csv"
 import delimited "`data_path'", clear
 
 * Build the (g, t) cell list and compute ATT(g, t) for each cell.

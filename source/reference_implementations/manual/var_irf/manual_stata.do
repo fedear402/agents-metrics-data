@@ -2,9 +2,9 @@
 clear all
 set more off
 
-local data_path "data/benchmark/pilot_v4_var.csv"
-capture confirm file "`data_path'"
-if _rc != 0 local data_path "../../../data/benchmark/pilot_v4_var.csv"
+args input_dir
+if `"`input_dir'"' == "" local input_dir "tasks/var_irf"
+local data_path "`input_dir'/pilot_v4_var.csv"
 import delimited "`data_path'", clear
 
 tsset t

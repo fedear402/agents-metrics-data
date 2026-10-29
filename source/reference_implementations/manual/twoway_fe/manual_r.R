@@ -5,8 +5,9 @@
 
 suppressPackageStartupMessages({ library(jsonlite) })
 
-sp <- tryCatch(normalizePath(sub("--file=", "", grep("^--file=", commandArgs(trailingOnly = FALSE), value = TRUE)[1])), error = function(e) NA_character_)
-data_path <- if (!is.na(sp) && file.exists(sp)) file.path(dirname(sp), "..", "..", "..", "data", "benchmark", "pilot_v3.csv") else "data/benchmark/pilot_v3.csv"
+args <- commandArgs(trailingOnly = TRUE)
+input_dir <- if (length(args)) args[1] else "tasks/twoway_fe"
+data_path <- file.path(input_dir, "pilot_v3.csv")
 df <- read.csv(data_path)
 
 df$firm <- as.factor(df$firm)
@@ -32,4 +33,4 @@ correction <- (G / (G - 1)) * ((n - 1) / (n - K))
 V <- correction * XtX_inv %*% meat %*% XtX_inv
 se_x <- sqrt(V["x", "x"])
 out <- list(platform = "r", x = as.numeric(b), se_x_cluster_firm = as.numeric(se_x), n_obs = n, n_firms = G, K_absorbed = K)
-cat(toJSON(out, pretty = TRUE, auto_unbox = TRUE), "\n")
+cat(toJSON(out, digits = NA, pretty = TRUE, auto_unbox = TRUE), "\n")

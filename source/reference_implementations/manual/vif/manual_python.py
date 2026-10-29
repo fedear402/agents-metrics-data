@@ -6,13 +6,13 @@ the other four regressors with an intercept. Returns VIF for x1..x5.
 
 from __future__ import annotations
 import json
+import sys
 from pathlib import Path
 
 import numpy as np
 import pandas as pd
 
-HERE = Path(__file__).parent
-DATA = HERE.parent.parent / "data" / "pilot_v5_collinear.csv"
+DATA = Path(sys.argv[1] if len(sys.argv) > 1 else "tasks/vif") / "pilot_v5_collinear.csv"
 
 df = pd.read_csv(DATA)
 cols = ["x1", "x2", "x3", "x4", "x5"]

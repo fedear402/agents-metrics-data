@@ -5,15 +5,9 @@ suppressPackageStartupMessages({
   library(jsonlite)
 })
 
-script_path <- tryCatch(
-  normalizePath(sub("--file=", "", grep("^--file=", commandArgs(trailingOnly = FALSE), value = TRUE)[1])),
-  error = function(e) NA_character_
-)
-data_path <- if (!is.na(script_path) && file.exists(script_path)) {
-  file.path(dirname(script_path), "..", "..", "data", "pilot_v4_var.csv")
-} else {
-  "data/benchmark/pilot_v4_var.csv"
-}
+args <- commandArgs(trailingOnly = TRUE)
+input_dir <- if (length(args)) args[1] else "tasks/var_granger"
+data_path <- file.path(input_dir, "pilot_v4_var.csv")
 
 df <- read.csv(data_path)
 n <- nrow(df)
@@ -40,4 +34,4 @@ out <- list(
   p_value = pv,
   n_obs = n_used
 )
-cat(toJSON(out, pretty = TRUE, auto_unbox = TRUE), "\n")
+cat(toJSON(out, digits = NA, pretty = TRUE, auto_unbox = TRUE), "\n")

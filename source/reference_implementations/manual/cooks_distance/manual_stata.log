@@ -10,10 +10,6 @@ ___/   /   /___/   /   /___/       SE—Standard Edition
                                    800-782-8272        https://www.stata.com
                                    979-696-4600        service@stata.com
 
-Stata license: Unlimited-user network, expiring 14 Jul 2026
-Serial number: [redacted serial]
-  Licensed to: Federico López
-               Universidad de San Andrés
 
 Notes:
       1. Stata is running in batch mode.
@@ -21,7 +17,7 @@ Notes:
       3. Maximum number of variables is set to 5,000 but can be increased;
           see help set_maxvar.
 
-. do code/pilot/manual_references/cooks_distance/manual_stata.do 
+. do source/reference_implementations/manual/cooks_distance/manual_stata.do 
 
 . * Manual reference for T06 (Cook's distance top-5) — Stata.
 . clear all
@@ -29,11 +25,11 @@ Notes:
 . set more off
 
 . 
-. local data_path "code/pilot/data/pilot_v5_collinear.csv"
+. args input_dir
 
-. capture confirm file "`data_path'"
+. if `"`input_dir'"' == "" local input_dir "tasks/cooks_distance"
 
-. if _rc != 0 local data_path "../../data/pilot_v5_collinear.csv"
+. local data_path "`input_dir'/pilot_v5_collinear.csv"
 
 . import delimited "`data_path'", clear
 (encoding automatically selected: UTF-8)
@@ -47,10 +43,10 @@ Notes:
 
       Source |       SS           df       MS      Number of obs   =       500
 -------------+----------------------------------   F(5, 494)       =    627.33
-       Model |  3091.50581         5  618.301162   Prob > F        =    0.0000
-    Residual |  486.889896       494  .985607077   R-squared       =    0.8639
+       Model |   3091.5058         5  618.301161   Prob > F        =    0.0000
+    Residual |   486.88989       494  .985607065   R-squared       =    0.8639
 -------------+----------------------------------   Adj R-squared   =    0.8626
-       Total |  3578.39571       499  7.17113368   Root MSE        =    .99278
+       Total |  3578.39569       499  7.17113366   Root MSE        =    .99278
 
 ------------------------------------------------------------------------------
            y | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]

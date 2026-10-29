@@ -1,9 +1,9 @@
 * Manual reference for T09 (chi-square test of independence) — Stata.
 clear all
 set more off
-local data_path "data/benchmark/pilot_v5_chisq.csv"
-capture confirm file "`data_path'"
-if _rc != 0 local data_path "../../../data/benchmark/pilot_v5_chisq.csv"
+args input_dir
+if `"`input_dir'"' == "" local input_dir "tasks/chisq_indep"
+local data_path "`input_dir'/pilot_v5_chisq.csv"
 import delimited "`data_path'", clear
 
 tabulate row col, chi2

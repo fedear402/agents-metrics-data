@@ -1,9 +1,9 @@
 * Manual reference for T08 (one-way ANOVA) — Stata.
 clear all
 set more off
-local data_path "data/benchmark/pilot_v5_anova.csv"
-capture confirm file "`data_path'"
-if _rc != 0 local data_path "../../../data/benchmark/pilot_v5_anova.csv"
+args input_dir
+if `"`input_dir'"' == "" local input_dir "tasks/anova_oneway"
+local data_path "`input_dir'/pilot_v5_anova.csv"
 import delimited "`data_path'", clear
 
 oneway y group

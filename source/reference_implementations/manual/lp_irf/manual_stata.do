@@ -1,9 +1,9 @@
 * Manual reference for T19 (local-projection IRF at h=4, NW SE) — Stata.
 clear all
 set more off
-local data_path "data/benchmark/pilot_v5_lp.csv"
-capture confirm file "`data_path'"
-if _rc != 0 local data_path "../../../data/benchmark/pilot_v5_lp.csv"
+args input_dir
+if `"`input_dir'"' == "" local input_dir "tasks/lp_irf"
+local data_path "`input_dir'/pilot_v5_lp.csv"
 import delimited "`data_path'", clear
 
 tsset t

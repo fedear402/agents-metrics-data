@@ -6,14 +6,14 @@ with h = 4, OLS, Newey-West (Bartlett) HAC SE with lag = h.
 
 from __future__ import annotations
 import json
+import sys
 from pathlib import Path
 
 import numpy as np
 import pandas as pd
 import statsmodels.api as sm
 
-HERE = Path(__file__).parent
-DATA = HERE.parent.parent / "data" / "pilot_v5_lp.csv"
+DATA = Path(sys.argv[1] if len(sys.argv) > 1 else "tasks/lp_irf") / "pilot_v5_lp.csv"
 h = 4
 
 df = pd.read_csv(DATA).sort_values("t").reset_index(drop=True)

@@ -10,10 +10,6 @@ ___/   /   /___/   /   /___/       SE—Standard Edition
                                    800-782-8272        https://www.stata.com
                                    979-696-4600        service@stata.com
 
-Stata license: Unlimited-user network, expiring 14 Jul 2026
-Serial number: [redacted serial]
-  Licensed to: Federico López
-               Universidad de San Andrés
 
 Notes:
       1. Stata is running in batch mode.
@@ -21,7 +17,7 @@ Notes:
       3. Maximum number of variables is set to 5,000 but can be increased;
           see help set_maxvar.
 
-. do code/pilot/manual_references/var_irf/manual_stata.do 
+. do source/reference_implementations/manual/var_irf/manual_stata.do 
 
 . * Manual reference for T21 (VAR(2) orthogonal IRF, y1 response to y2 shock, h
 > =4) — Stata.
@@ -30,11 +26,11 @@ Notes:
 . set more off
 
 . 
-. local data_path "code/pilot/data/pilot_v4_var.csv"
+. args input_dir
 
-. capture confirm file "`data_path'"
+. if `"`input_dir'"' == "" local input_dir "tasks/var_irf"
 
-. if _rc != 0 local data_path "../../data/pilot_v4_var.csv"
+. local data_path "`input_dir'/pilot_v4_var.csv"
 
 . import delimited "`data_path'", clear
 (encoding automatically selected: ISO-8859-1)
@@ -68,7 +64,7 @@ y2                    5       .9124   0.2282   58.54243   0.0000
 -------------+----------------------------------------------------------------
 y1           |
           y1 |
-         L1. |    .562193   .0696669     8.07   0.000     .4256484    .6987376
+         L1. |    .562193   .0696669     8.07   0.000     .4256484    .6987377
          L2. |   .2040976   .0695441     2.93   0.003     .0677937    .3404016
              |
           y2 |

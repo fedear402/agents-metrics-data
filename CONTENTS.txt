@@ -1,16 +1,42 @@
-analysis/  CSV files of the analysis. runs.csv has one row per run; run_pricing.csv has the cost of each run;
-           term_checks.csv and se_checks.csv have each scored value and its reference; the other files are the
-           tables and figure data of the paper.
+analysis/  CSV files of the analysis. columns.csv describes every column of runs.csv, term_checks.csv,
+           se_checks.csv, and run_pricing.csv.
+             runs.csv                  one row per run: design cell, primary outcome, failure category, paths
+                                       and SHA-256 hashes of the run record and of the scored output
+             run_pricing.csv           tokens and list-price cost of each run
+             term_checks.csv           each scored estimate with its reference, tolerance, and verdict
+             se_checks.csv             each scored standard error (nine tasks) with its accepted value and verdict
+             alternative_checks.csv    each value that is closer to a wrong-method alternative than to every
+                                       accepted value
+             reference_validation.csv  for each task, the routes that reproduce the reference output
+           Plotted and tabulated values of the paper:
+             Fig. 1    benchmark_design.csv            Fig. S1   task_heterogeneity.csv
+             Table 1   regression_contrasts.csv        Fig. S2   model_agency_frontier_log.csv
+             Fig. 2    prompt_agency.csv               Fig. S3   appendix_pass_at_k.csv
+             Fig. 3    appendix_silent_vs_loud.csv     Fig. S4   runtime_by_agency.csv
+             Fig. 4    cost_of_correctness_groups.csv  SI table of success and failure types by model,
+                                                       language, and agency: runs.csv
+                                                       SI robustness table: robustness.csv
+           The other files hold per-model versions of these values, the joint test across models (cross_model.csv),
+           the cost denominators, and the scoring audit.
 tasks/     One folder per task: the input dataset and the reference output (reference.json).
 runs/      Run records: prompts, model responses, scripts, logs, and outputs. One archive per model, language, and
-           agency condition (tar.xz). After extraction, the run folders sit at the paths in runs.csv, column
+           agency condition (tar.xz). After extraction, the run folders sit at the paths in analysis/runs.csv, column
            record_path.
-prompts/   The first prompt of each run: one text file per distinct prompt, named by its SHA-256 hash. runs.csv gives
-           the prompt of each run (record_path, prompt_sha256).
-source/    The code of the study: task definitions and the simulation of the datasets (source/code/benchmark/),
-           the harness that ran the models, the scoring, the analysis and the paper builds (source/code/paper/), and
-           the reference implementations in Stata, R, and Python (source/reference_implementations/).
-           source/pyproject.toml and source/uv.lock pin the Python environment.
-code/      Run python code/reproduce.py from the repository root. It recomputes every model, pooled, and stored
-           group contrast and checks estimates and CR1 standard errors against analysis/regression_contrasts.csv.
-           Accuracy uses every run. Mean cost uses priced runs. requirements.txt lists the Python packages.
+prompts/   The first prompt of each run: one text file per distinct prompt, named by its SHA-256 hash.
+           prompts/runs.csv gives the prompt of each run (record_path, prompt_sha256).
+source/    The code of the study: task definitions and the simulation of the datasets (source/code/benchmark/; the
+           inputs of the 20 original tasks come from source/code/benchmark/dgp/), the harness that ran the models, the
+           scoring, the analysis and the paper builds (source/code/paper/), and the reference programs of the 40
+           tasks (source/reference_implementations/manual/<task>/: manual_python.py, manual_r.R, manual_stata.do,
+           and, for the 20 added tasks, generate_data.py). source/pyproject.toml and source/uv.lock pin the Python
+           environment.
+code/      Run each script from the repository root.
+             reproduce.py       recomputes every model, pooled, and stored group contrast and checks estimates and
+                                CR1 standard errors against analysis/regression_contrasts.csv
+             score.py           scores the extracted run records again and compares each outcome with runs.csv
+                                (Python standard library only; rules in scoring_spec.json and
+                                scoring_alternatives.json)
+             run_references.py  runs the reference programs (Python always, R and Stata when installed) and
+                                compares their output with tasks/<task>/reference.json; --generators also
+                                regenerates every task input
+             requirements.txt   the Python packages of reproduce.py and of the Python reference programs

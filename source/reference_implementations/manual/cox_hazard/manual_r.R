@@ -6,15 +6,9 @@ suppressPackageStartupMessages({
   library(survival)
 })
 
-script_path <- tryCatch(
-  normalizePath(sub("--file=", "", grep("^--file=", commandArgs(trailingOnly = FALSE), value = TRUE)[1])),
-  error = function(e) NA_character_
-)
-data_path <- if (!is.na(script_path) && file.exists(script_path)) {
-  file.path(dirname(script_path), "..", "..", "..", "data", "benchmark", "pilot_v4_cox.csv")
-} else {
-  "data/benchmark/pilot_v4_cox.csv"
-}
+args <- commandArgs(trailingOnly = TRUE)
+input_dir <- if (length(args)) args[1] else "tasks/cox_hazard"
+data_path <- file.path(input_dir, "pilot_v4_cox.csv")
 
 df <- read.csv(data_path)
 fit <- coxph(Surv(t_obs, event) ~ treat + x, data = df, ties = "breslow")
@@ -28,4 +22,4 @@ out <- list(
   events     = sum(df$event),
   n_obs      = nrow(df)
 )
-cat(toJSON(out, pretty = TRUE, auto_unbox = TRUE), "\n")
+cat(toJSON(out, digits = NA, pretty = TRUE, auto_unbox = TRUE), "\n")

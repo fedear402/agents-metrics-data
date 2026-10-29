@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 import json
+import sys
 from pathlib import Path
 
 import numpy as np
@@ -9,8 +10,7 @@ import pandas as pd
 import statsmodels.api as sm
 from scipy import stats
 
-HERE = Path(__file__).parent
-DATA = HERE.parent.parent / "data" / "pilot_v4_var.csv"
+DATA = Path(sys.argv[1] if len(sys.argv) > 1 else "tasks/var_granger") / "pilot_v4_var.csv"
 
 df = pd.read_csv(DATA)
 y1 = df["y1"].values

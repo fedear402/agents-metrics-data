@@ -419,7 +419,8 @@ def _patch_python(text: str, data: str) -> str:
 
 def _patch_r(text: str, data: str) -> str:
     text = re.sub(r'read\.csv\(data_path\)', f'read.csv({json.dumps(data)})', text)
-    return text.replace('toJSON(', 'toJSON(digits = NA, ')
+    # The stored programs print full precision (digits = NA). Add it only where it is absent.
+    return text if 'digits = NA' in text else text.replace('toJSON(', 'toJSON(digits = NA, ')
 
 
 def _patch_stata(text: str, data: str) -> str:

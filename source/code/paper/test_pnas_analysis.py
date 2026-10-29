@@ -11,6 +11,11 @@ sys.path.insert(0,str(Path(__file__).resolve().parent))
 import pnas_analysis as p
 
 
+
+def test_import_keeps_the_two_model_robustness_labels():
+    # The six-model label applies only while the PNAS table is written, so the AEA table keeps its own.
+    assert p.robustness.PRINTED['MODEL_gap'] == ('Sonnet 4.6 minus', 'Luna, all runs')
+
 def test_cost_per_success_uses_same_priced_subset():
     frame=pd.DataFrame({'cost_usd':[1.0,3.0,np.nan], 'primary':[True,False,True]})
     assert p.cost_per_success(frame)==4.0
@@ -94,12 +99,29 @@ def actual():
     return runs,reg
 
 
+def tolerance_outcome(runs):
+    """The outcome before the wrong-method alternative check (decision record 2026-10-29)."""
+    checks=pd.read_csv(p.OUT/'data/alternative_checks.csv')
+    changed=set(checks.position_id[checks.run_changed])
+    before=runs.copy()
+    hit=before.position_id.isin(changed)
+    before.loc[hit,'y']=1
+    before.loc[hit,'primary']=True
+    before.loc[hit,'failure_category']='Success'
+    return before,hit
+
+
 def test_complete_six_model_design(actual):
     runs,_=actual
     p.validate_design(runs)
     assert runs.groupby('model').size().eq(7200).all()
     assert runs.groupby(['model','agency']).size().eq(2400).all()
-    assert runs.y.sum()==39900
+    # 39,900 successes inside the tolerances; the alternative check turns 393 of them into silent failures.
+    before,hit=tolerance_outcome(runs)
+    assert before.y.sum()==39900
+    assert hit.sum()==393
+    assert runs.y.sum()==39507
+    assert runs.loc[hit,'failure_category'].eq('Silent failure').all()
     broken=runs.copy()
     broken.loc[0,'rep']=11
     with pytest.raises(ValueError,match='repetitions'):
@@ -121,17 +143,25 @@ def test_all_contrasts_equal_direct_balanced_cells(actual):
 
 
 def test_original_models_match_established_analysis(actual):
+    # The two-model analysis has no alternative check, so the match holds for the outcome before it.
     runs,reg=actual
+    before,_=tolerance_outcome(runs)
     old_runs=pd.read_csv(p.OLD/'data/runs.csv',usecols=['position_id','record_path','y','failure_category'])
-    selected=runs[runs.model.isin(['sonnet','luna'])].set_index('position_id')
+    selected=before[before.model.isin(['sonnet','luna'])].set_index('position_id')
     for row in old_runs.itertuples():
         assert selected.loc[row.position_id,'record_path']==row.record_path
         assert selected.loc[row.position_id,'y']==row.y
         assert selected.loc[row.position_id,'failure_category']==row.failure_category
     old=pd.read_csv(p.OLD/'tables/regression_contrasts.csv').set_index(['model','contrast'])
-    new=reg[reg.model.isin(['sonnet','luna'])].set_index(['model','contrast'])
+    recomputed,diff=p.regression_contrasts(before)
+    assert diff<=1e-6
+    new=recomputed[recomputed.model.isin(['sonnet','luna'])].set_index(['model','contrast'])
     for col in ('estimate_pp','se_cr1_pp','p_wcb'):
         np.testing.assert_allclose(new[col],old.loc[new.index,col],atol=1e-6,equal_nan=True)
+    # The stored PNAS contrasts use the outcome after the check.
+    stored=reg.set_index(['model','contrast'])
+    np.testing.assert_allclose(stored.estimate_pp,p.regression_contrasts(runs,legacy_check=False)[0]
+                               .set_index(['model','contrast']).loc[stored.index].estimate_pp,atol=1e-10)
 
 
 def test_current_cost_missingness_and_macro_totals(actual):
@@ -164,4 +194,5 @@ def test_luna_six_stata_agent_resource_accuracy_uses_all_800_runs(actual,monkeyp
     point=p.six.resource_points(data,'cost_usd').iloc[0]
     assert point.runs==800
     assert point.observed==799
-    assert point.success_pct==88.75
+    # 88.75 percent inside the tolerances; the alternative check fails 18 iv2sls_robust HC0 runs and 1 arima_forecast run.
+    assert point.success_pct==86.375

@@ -1,0 +1,102 @@
+file,column,description
+runs.csv,position_id,"Run identifier: task, model, language, prompt condition, agency condition, and repetition, joined by two underscores."
+runs.csv,task,Task name. tasks/<task>/ holds the input and the reference output.
+runs.csv,model,"Model of the run: sonnet (Claude Sonnet 4.6, medium effort), luna (GPT-5.6 Luna, low), haiku (Claude Haiku 5.5, low), luna6 (GPT-6 Luna, low), opus (Claude Opus 5.5, low), sol (GPT-6 Sol, low). Use this column; the model token in record paths and job.model can be a template label."
+runs.csv,platform,"Language of the run: python, r, or stata."
+runs.csv,prompt,"Prompt condition: zero_shot, or few_shot (the one-shot condition, with one example)."
+runs.csv,condition,"Agency condition: chatbot, self_repair, or agent (constrained agent). Equal to agency."
+runs.csv,global_rep,Repetition number within the design cell (0 to 9). Equal to rep.
+runs.csv,agency,"Agency condition: chatbot, self_repair, or agent. Equal to condition."
+runs.csv,rep,Repetition number within the design cell (0 to 9).
+runs.csv,task_label,Display name of the task.
+runs.csv,primary,"Primary outcome: True when every check passes (estimates, scored standard errors, and the wrong-method alternative check). code/score.py recomputes it."
+runs.csv,recorded_full_success,Outcome that the collection harness recorded when the run ended. It is a diagnostic and is not the primary outcome.
+runs.csv,execution_ok,True when the last execution of the submitted script ended without an error.
+runs.csv,output_available,True when every estimand has a finite value in the scored output (after the output-channel rule for Stata).
+runs.csv,failure_category,"Success; Silent failure (the run failed a check, but its last execution succeeded and it reported every estimand, or it failed only the alternative check); Loud failure (all other failures)."
+runs.csv,provider_seconds,Wall-clock seconds of the model calls.
+runs.csv,provider_timing_complete,True when every model call has a recorded duration.
+runs.csv,execution_seconds,Wall-clock seconds of the script executions. Empty when a duration is missing.
+runs.csv,execution_timing_complete,True when every execution has a recorded duration.
+runs.csv,calls_count,"Number of model calls: 1 for chatbot and agent runs, 1 to 4 for self-repair runs."
+runs.csv,tools_count,Number of tool calls that the model client reported. Empty when the record holds no count.
+runs.csv,record_path,"Run record (run_record.json), relative to the repository root after extraction of the run archive."
+runs.csv,record_sha256,SHA-256 of the run record.
+runs.csv,output_path,"Scored output file (result.json for Python and R, the Stata log or printed output for Stata), relative to the repository root."
+runs.csv,output_sha256,SHA-256 of the scored output file. Empty when the run left no output file.
+runs.csv,parse_rule,"JSON repair rule recorded by an earlier analysis, for 7,560 Claude Sonnet 4.6 and GPT-5.6 Luna runs. Empty for the other runs. extraction gives the rule of the primary outcome."
+runs.csv,scoring_notes,"Reasons why checks failed, separated by "" | "". Empty for successes."
+runs.csv,cost_context,Collection protocol hash used to group runs for pricing. Empty for most runs.
+runs.csv,provider_ok,True when every model call returned. Empty for 1440 early GPT-5.6 Luna records.
+runs.csv,task_censored,True when a model call stopped at the time limit. Empty for 1440 early GPT-5.6 Luna records.
+runs.csv,record_status,"Harness status of the record (completed, provider_timeout, historical_completed). Empty for most runs."
+runs.csv,protocol_violation,"True when the access review of the run found a write outside its workspace (2 runs). Empty when the record holds no review result."
+runs.csv,access_review_status,"Access review field of the record. pending_post_collection: the collector wrote this value when the run ended, and the record was not updated afterwards. historical_review: a record of an earlier collection, reviewed under that collection's procedure. confirmed_external_environment_write: 2 Claude Sonnet 4.6 runs that wrote outside their workspace. The primary outcome does not use this field."
+runs.csv,cost_usage_complete,True when every model call has a complete token usage record.
+runs.csv,main_input_tokens,"Input tokens of the model calls, cached input included."
+runs.csv,main_output_tokens,Output tokens of the model calls.
+runs.csv,total_main_tokens,Sum of main_input_tokens and main_output_tokens.
+runs.csv,source,"Selection bookkeeping: retained (from an earlier collection) or fresh. Empty for the original-pair runs of the first collections."
+runs.csv,analysis_status,Selection bookkeeping (analyzed). Empty for some runs.
+runs.csv,collection_status,"Status of the run in its collection (historical_completed, completed, model_failure, execution_timeout). Empty for some runs."
+runs.csv,analyzed,Selection bookkeeping (True). Empty for some runs.
+runs.csv,output_file_exists,True when the scored output file exists.
+runs.csv,extraction,"How the scored output was read: none needed (valid JSON), a list of JSON repair rules, printed_estimate_tokens (Stata ANSWER lines), missing_output, or unreadable_json."
+runs.csv,executions_count,Number of script executions. Empty for some runs.
+runs.csv,input_integrity,Input-data integrity check of the harness (the task input was intact). Empty when the record holds no check.
+runs.csv,batch,Collection batch of the run. Empty for most runs.
+runs.csv,protocol_sha256,Hash of the collection protocol (prompts and settings) of the run. Empty for some early runs.
+runs.csv,manifest_path,"Collection manifest of the run, relative to the repository root. The manifests are not in this repository."
+runs.csv,y,Primary outcome as 1 (success) or 0.
+runs.csv,output_rule,Scoring rule of the primary outcome (channel_se: estimates and scored standard errors under the Stata output-channel rule).
+runs.csv,channel_used,"Stata runs only: the other file or the stdout of the final execution whose value the output-channel rule used. Empty otherwise."
+term_checks.csv,position_id,Run identifier (runs.csv).
+term_checks.csv,task,Task name.
+term_checks.csv,term,Estimand.
+term_checks.csv,ref_estimate,Reference value of the estimand (tasks/<task>/reference.json).
+term_checks.csv,got_estimate,Reported value used by the scoring.
+term_checks.csv,coef_err,Absolute difference between got_estimate and ref_estimate.
+term_checks.csv,coef_tol,"Tolerance: max(0.01 * |ref_estimate|, 0.005), or 0 for the observation ids of cooks_distance."
+term_checks.csv,coef_pass,"Verdict of the estimate check: within the tolerance, not a boolean, and not closer to a wrong-method alternative. Empty when the value is missing or non-finite (see estimate_pass)."
+term_checks.csv,ref_se,Always empty. Standard errors are checked in se_checks.csv.
+term_checks.csv,got_se,Always empty. Standard errors are checked in se_checks.csv.
+term_checks.csv,se_err,Always empty.
+term_checks.csv,se_tol,Always empty.
+term_checks.csv,se_pass,Always empty.
+term_checks.csv,ref_n_obs,Always empty. Observation counts are not scored.
+term_checks.csv,got_n_obs,Always empty.
+term_checks.csv,n_obs_pass,True for every row with a finite value (no observation-count check).
+term_checks.csv,estimate_pass,"False when the reported value is missing or non-finite, and empty otherwise. It is never True. Use coef_pass for the verdict."
+term_checks.csv,exact_estimate_pass,"broad_ar_confidence_set only: True when accepts_zero or unbounded equals the reference integer. Empty for the other tasks."
+term_checks.csv,alternative_method,Wrong-method alternative that the value is closer to than to every accepted value (code/scoring_alternatives.json). Empty otherwise.
+term_checks.csv,alternative_value,Value of that alternative.
+se_checks.csv,position_id,Run identifier (runs.csv). The file covers the nine tasks with a scored standard error.
+se_checks.csv,task,Task name.
+se_checks.csv,term,Estimand whose standard error is scored.
+se_checks.csv,se_got,Reported standard error used by the scoring. Empty when missing.
+se_checks.csv,se_token,"Reported standard error as written in the output, which sets the rounding allowance."
+se_checks.csv,se_ref,"Accepted value that the check compared with: the matched accepted value for a pass, the nearest one for a failure."
+se_checks.csv,se_tol,Tolerance: rel_tol * |se_ref| plus the absolute floor of code/scoring_spec.json.
+se_checks.csv,se_allowance,Rounding allowance 0.5 * 10^-k for a token with k >= 4 decimal places; 0 otherwise.
+se_checks.csv,se_err,Absolute difference between se_got and se_ref.
+se_checks.csv,se_pass,"Verdict of the standard-error check, including the wrong-method alternative check."
+se_checks.csv,se_reason,"Reason for a failure: se_missing, se_outside_tolerance, se_channel_conflict, or closer_to_alternative. Empty for a pass."
+se_checks.csv,se_source,"Source of the value: primary (the scored output), another file of the final Stata execution, stdout, or none."
+se_checks.csv,se_alternative,True when the value matched an accepted convention other than the first accepted value.
+se_checks.csv,alternative_method,Wrong-method alternative that the standard error is closer to than to every accepted value. Empty otherwise.
+se_checks.csv,alternative_value,Value of that alternative.
+run_pricing.csv,task,Task name.
+run_pricing.csv,model,Model of the run (runs.csv).
+run_pricing.csv,platform,Language of the run.
+run_pricing.csv,prompt,Prompt condition.
+run_pricing.csv,condition,Agency condition.
+run_pricing.csv,global_rep,Repetition number.
+run_pricing.csv,record_path,Run record; joins with runs.csv.
+run_pricing.csv,record_sha256,SHA-256 of the run record.
+run_pricing.csv,main_input_tokens,"Input tokens of the model calls, cached input included."
+run_pricing.csv,main_output_tokens,Output tokens of the model calls.
+run_pricing.csv,priced_cached_input_tokens,Input tokens priced at the cache-read rate.
+run_pricing.csv,priced_cache_write_input_tokens,Input tokens priced at the cache-write rate (Claude models).
+run_pricing.csv,cost_usd,Cost of the run in US dollars at the published API list prices of each model and token type. Empty for 1 run without usage data.
+run_pricing.csv,cost_pricing_complete,False for the 1 run without usage data.
+run_pricing.csv,cost_pricing_issue,"estimated_from_stream: usage rebuilt from the saved event stream (2 runs); missing_or_invalid_usage: no price (1 run). Empty otherwise."

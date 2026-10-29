@@ -10,10 +10,6 @@ ___/   /   /___/   /   /___/       SE—Standard Edition
                                    800-782-8272        https://www.stata.com
                                    979-696-4600        service@stata.com
 
-Stata license: Unlimited-user network, expiring 14 Jul 2026
-Serial number: [redacted serial]
-  Licensed to: Federico López
-               Universidad de San Andrés
 
 Notes:
       1. Stata is running in batch mode.
@@ -21,18 +17,18 @@ Notes:
       3. Maximum number of variables is set to 5,000 but can be increased;
           see help set_maxvar.
 
-. do code/pilot/manual_references/ttest_welch/manual_stata.do 
+. do source/reference_implementations/manual/ttest_welch/manual_stata.do 
 
 . * Manual reference for T07 (Welch two-sample t-test) — Stata.
 . clear all
 
 . set more off
 
-. local data_path "code/pilot/data/pilot_v5_ttest.csv"
+. args input_dir
 
-. capture confirm file "`data_path'"
+. if `"`input_dir'"' == "" local input_dir "tasks/ttest_welch"
 
-. if _rc != 0 local data_path "../../data/pilot_v5_ttest.csv"
+. local data_path "`input_dir'/pilot_v5_ttest.csv"
 
 . import delimited "`data_path'", clear
 (encoding automatically selected: ISO-8859-1)
@@ -79,7 +75,7 @@ H0: diff = 0                     Satterthwaite's degrees of freedom =  163.083
 . display "JSON_RESULT: " `"{"platform":"stata","t":"' %12.6f `t_signed' `","df
 > ":"' %12.6f `df' `","p_value":"' %12.6f `p' `","n_a":"' `n_a' `","n_b":"' `n_
 > b' `"}"'
-JSON_RESULT: {"platform":"stata","t":    2.985073,"df":  163.083303,"p_value": 
+JSON_RESULT: {"platform":"stata","t":    2.985073,"df":  163.083304,"p_value": 
 >    0.003272,"n_a":100,"n_b":100}
 
 . 

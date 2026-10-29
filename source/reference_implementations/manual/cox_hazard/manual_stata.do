@@ -2,9 +2,9 @@
 clear all
 set more off
 
-local data_path "data/benchmark/pilot_v4_cox.csv"
-capture confirm file "`data_path'"
-if _rc != 0 local data_path "../../../data/benchmark/pilot_v4_cox.csv"
+args input_dir
+if `"`input_dir'"' == "" local input_dir "tasks/cox_hazard"
+local data_path "`input_dir'/pilot_v4_cox.csv"
 import delimited "`data_path'", clear
 
 stset t_obs, failure(event)

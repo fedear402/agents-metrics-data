@@ -3,8 +3,9 @@
 
 suppressPackageStartupMessages({ library(jsonlite) })
 
-sp <- tryCatch(normalizePath(sub("--file=", "", grep("^--file=", commandArgs(trailingOnly = FALSE), value = TRUE)[1])), error = function(e) NA_character_)
-data_path <- if (!is.na(sp) && file.exists(sp)) file.path(dirname(sp), "..", "..", "..", "data", "benchmark", "pilot_v5_collinear.csv") else "data/benchmark/pilot_v5_collinear.csv"
+args <- commandArgs(trailingOnly = TRUE)
+input_dir <- if (length(args)) args[1] else "tasks/cooks_distance"
+data_path <- file.path(input_dir, "pilot_v5_collinear.csv")
 df <- read.csv(data_path)
 
 fit <- lm(y ~ x1 + x2 + x3 + x4 + x5, data = df)
@@ -16,4 +17,4 @@ out <- list(
   top5_cooks_d = as.numeric(cd[ord]),
   n_obs = nrow(df)
 )
-cat(toJSON(out, pretty = TRUE, auto_unbox = TRUE), "\n")
+cat(toJSON(out, digits = NA, pretty = TRUE, auto_unbox = TRUE), "\n")

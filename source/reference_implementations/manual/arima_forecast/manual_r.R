@@ -6,15 +6,9 @@ suppressPackageStartupMessages({
   library(forecast)
 })
 
-script_path <- tryCatch(
-  normalizePath(sub("--file=", "", grep("^--file=", commandArgs(trailingOnly = FALSE), value = TRUE)[1])),
-  error = function(e) NA_character_
-)
-data_path <- if (!is.na(script_path) && file.exists(script_path)) {
-  file.path(dirname(script_path), "..", "..", "data", "pilot_v4_arima.csv")
-} else {
-  "data/benchmark/pilot_v4_arima.csv"
-}
+args <- commandArgs(trailingOnly = TRUE)
+input_dir <- if (length(args)) args[1] else "tasks/arima_forecast"
+data_path <- file.path(input_dir, "pilot_v4_arima.csv")
 
 df <- read.csv(data_path)
 fit <- Arima(df$y, order = c(1, 1, 1), method = "ML")
@@ -27,4 +21,4 @@ out <- list(
   upper_95 = as.numeric(fc$upper[1, "95%"]),
   n_obs = nrow(df)
 )
-cat(toJSON(out, pretty = TRUE, auto_unbox = TRUE), "\n")
+cat(toJSON(out, digits = NA, pretty = TRUE, auto_unbox = TRUE), "\n")

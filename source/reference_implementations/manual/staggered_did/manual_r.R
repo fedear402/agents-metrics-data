@@ -15,18 +15,9 @@ suppressPackageStartupMessages({
   library(jsonlite)
 })
 
-# Resolve data path. Prefer a script-relative path; fall back to a repo-root
-# path when CWD is the repo root (e.g., Rscript run from there).
-script_path <- tryCatch(
-  normalizePath(sub("--file=", "", grep("^--file=", commandArgs(trailingOnly = FALSE), value = TRUE)[1])),
-  error = function(e) NA_character_
-)
-if (!is.na(script_path) && nzchar(script_path) && file.exists(script_path)) {
-  HERE <- dirname(script_path)
-  data_path <- file.path(HERE, "..", "..", "data", "pilot_v3.csv")
-} else {
-  data_path <- "data/benchmark/pilot_v3.csv"
-}
+args <- commandArgs(trailingOnly = TRUE)
+input_dir <- if (length(args)) args[1] else "tasks/staggered_did"
+data_path <- file.path(input_dir, "pilot_v3.csv")
 
 df <- read.csv(data_path)
 
@@ -61,4 +52,4 @@ result <- list(
   population_truth = 20 / 12
 )
 
-cat(toJSON(result, pretty = TRUE, auto_unbox = TRUE), "\n")
+cat(toJSON(result, digits = NA, pretty = TRUE, auto_unbox = TRUE), "\n")

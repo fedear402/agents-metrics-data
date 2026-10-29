@@ -424,12 +424,15 @@ def verify_scale(info: dict) -> None:
 
 def verify_se_claims(info: dict) -> None:
     """Appendix D: the same runs fail only the SE check under the primary rule and both tight
-    tolerances, and every shift-share SE among them misses the reference by more than one percent."""
+    tolerances, and every shift-share run among them has an SE that misses the reference by more than one percent."""
     if not info['se_only_same_runs']:
         raise ValueError('The SE-only failures differ across the scoring variants; revise Appendix D')
-    gap = info['se_only_failures']['primary']['min_relative_se_error'].get('applied_shift_share')
+    primary = info['se_only_failures']['primary']
+    # The run-level gap (the largest SE miss of each run) carries the claim. The row-level minimum can
+    # sit below one percent when the other SE of that run misses by more.
+    gap = primary.get('min_run_relative_se_error', primary['min_relative_se_error']).get('applied_shift_share')
     if gap is None or gap <= 0.01:
-        raise ValueError(f'A shift-share SE-only failure is within one percent of the reference: {gap}')
+        raise ValueError(f'A shift-share SE-only failure has every SE within one percent of the reference: {gap}')
 
 
 def macros(table: pd.DataFrame, info: dict) -> dict[str, str]:

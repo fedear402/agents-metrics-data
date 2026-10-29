@@ -2,8 +2,9 @@
 # Manual reference for T18 (sharp RD, local-linear, triangular kernel, h=0.5) — R.
 
 suppressPackageStartupMessages({ library(jsonlite) })
-sp <- tryCatch(normalizePath(sub("--file=", "", grep("^--file=", commandArgs(trailingOnly = FALSE), value = TRUE)[1])), error = function(e) NA_character_)
-data_path <- if (!is.na(sp) && file.exists(sp)) file.path(dirname(sp), "..", "..", "..", "data", "benchmark", "pilot_v5_rdd.csv") else "data/benchmark/pilot_v5_rdd.csv"
+args <- commandArgs(trailingOnly = TRUE)
+input_dir <- if (length(args)) args[1] else "tasks/rdd_sharp"
+data_path <- file.path(input_dir, "pilot_v5_rdd.csv")
 df <- read.csv(data_path)
 
 h <- 0.5
@@ -28,4 +29,4 @@ out <- list(
   # matching the benchmark result schema and what models report.
   n_obs = sum(inb)
 )
-cat(toJSON(out, pretty = TRUE, auto_unbox = TRUE), "\n")
+cat(toJSON(out, digits = NA, pretty = TRUE, auto_unbox = TRUE), "\n")

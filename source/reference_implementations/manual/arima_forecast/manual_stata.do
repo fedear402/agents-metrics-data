@@ -2,9 +2,9 @@
 clear all
 set more off
 
-local data_path "data/tasks/inputs/pilot_v4_arima.csv"
-capture confirm file "`data_path'"
-if _rc != 0 local data_path "../../../data/tasks/inputs/pilot_v4_arima.csv"
+args input_dir
+if `"`input_dir'"' == "" local input_dir "tasks/arima_forecast"
+local data_path "`input_dir'/pilot_v4_arima.csv"
 import delimited "`data_path'", clear
 
 tsset t

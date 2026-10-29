@@ -2,9 +2,9 @@
 clear all
 set more off
 
-local data_path "data/benchmark/pilot_v2.csv"
-capture confirm file "`data_path'"
-if _rc != 0 local data_path "../../../data/benchmark/pilot_v2.csv"
+args input_dir
+if `"`input_dir'"' == "" local input_dir "tasks/poisson_offset"
+local data_path "`input_dir'/pilot_v2.csv"
 import delimited "`data_path'", clear
 
 gen log_exposure = log(exposure)

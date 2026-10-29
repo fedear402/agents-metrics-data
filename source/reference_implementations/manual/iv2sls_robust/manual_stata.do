@@ -2,9 +2,9 @@
 clear all
 set more off
 
-local data_path "data/benchmark/pilot_v2.csv"
-capture confirm file "`data_path'"
-if _rc != 0 local data_path "../../../data/benchmark/pilot_v2.csv"
+args input_dir
+if `"`input_dir'"' == "" local input_dir "tasks/iv2sls_robust"
+local data_path "`input_dir'/pilot_v2.csv"
 import delimited "`data_path'", clear
 
 ivregress 2sls y_iv (x1_iv = z), vce(robust)

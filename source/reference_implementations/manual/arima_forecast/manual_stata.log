@@ -10,10 +10,6 @@ ___/   /   /___/   /   /___/       SE—Standard Edition
                                    800-782-8272        https://www.stata.com
                                    979-696-4600        service@stata.com
 
-Stata license: Unlimited-user network, expiring 14 Jul 2026
-Serial number: [redacted serial]
-  Licensed to: Federico López
-               Universidad de San Andrés
 
 Notes:
       1. Stata is running in batch mode.
@@ -21,7 +17,7 @@ Notes:
       3. Maximum number of variables is set to 5,000 but can be increased;
           see help set_maxvar.
 
-. do code/pilot/manual_references/arima_forecast/manual_stata.do 
+. do source/reference_implementations/manual/arima_forecast/manual_stata.do 
 
 . * Manual reference for T02 (ARIMA(1,1,1) one-step forecast) — Stata.
 . clear all
@@ -29,11 +25,11 @@ Notes:
 . set more off
 
 . 
-. local data_path "code/pilot/data/pilot_v4_arima.csv"
+. args input_dir
 
-. capture confirm file "`data_path'"
+. if `"`input_dir'"' == "" local input_dir "tasks/arima_forecast"
 
-. if _rc != 0 local data_path "../../data/pilot_v4_arima.csv"
+. local data_path "`input_dir'/pilot_v4_arima.csv"
 
 . import delimited "`data_path'", clear
 (encoding automatically selected: ISO-8859-1)
@@ -45,40 +41,38 @@ Notes:
 Time variable: t, 1 to 250
         Delta: 1 unit
 
-. arima y, arima(1,1,1)
+. * The task excludes drift in the differenced series.
+. arima y, arima(1,1,1) noconstant
 
 (setting optimization to BHHH)
-Iteration 0:  Log likelihood = -341.32951  
-Iteration 1:  Log likelihood =  -340.8515  
-Iteration 2:  Log likelihood = -340.78064  
-Iteration 3:  Log likelihood = -340.75345  
-Iteration 4:  Log likelihood = -340.74545  
+Iteration 0:  Log likelihood = -341.75833  
+Iteration 1:  Log likelihood = -341.17784  
+Iteration 2:  Log likelihood = -341.10796  
+Iteration 3:  Log likelihood = -341.07513  
+Iteration 4:  Log likelihood = -341.06599  
 (switching optimization to BFGS)
-Iteration 5:  Log likelihood =  -340.7418  
-Iteration 6:  Log likelihood = -340.73963  
-Iteration 7:  Log likelihood = -340.73963  
+Iteration 5:  Log likelihood = -341.06186  
+Iteration 6:  Log likelihood = -341.05949  
+Iteration 7:  Log likelihood = -341.05949  
 
 ARIMA regression
 
 Sample: 2 thru 250                              Number of obs     =        249
-                                                Wald chi2(2)      =     283.58
-Log likelihood = -340.7396                      Prob > chi2       =     0.0000
+                                                Wald chi2(2)      =     286.31
+Log likelihood = -341.0595                      Prob > chi2       =     0.0000
 
 ------------------------------------------------------------------------------
              |                 OPG
          D.y | Coefficient  std. err.      z    P>|z|     [95% conf. interval]
 -------------+----------------------------------------------------------------
-y            |
-       _cons |   .1546468    .196085     0.79   0.430    -.2296727    .5389663
--------------+----------------------------------------------------------------
 ARMA         |
           ar |
-         L1. |   .5987174   .0653281     9.16   0.000     .4706767     .726758
+         L1. |   .6049892    .064821     9.33   0.000     .4779423     .732036
              |
           ma |
-         L1. |   .2876959   .0916898     3.14   0.002     .1079872    .4674045
+         L1. |   .2850589   .0917462     3.11   0.002     .1052397    .4648781
 -------------+----------------------------------------------------------------
-      /sigma |   .9491289   .0466112    20.36   0.000     .8577726    1.040485
+      /sigma |   .9503299   .0465866    20.40   0.000     .8590218    1.041638
 ------------------------------------------------------------------------------
 Note: The test of the variance against zero is one sided, and the two-sided
       confidence interval is truncated at zero.
@@ -137,16 +131,16 @@ Stata reference T02 (ARIMA(1,1,1) one-step forecast):
 . local hi = `fc' + 1.959964 * `se'
 
 . display "  forecast     = " %12.6f `fc'
-  forecast     =    42.752899
+  forecast     =    42.695288
 
 . display "  se           = " %12.6f `se'
-  se           =     0.949129
+  se           =     0.950330
 
 . display "  lower_95     = " %12.6f `lo'
-  lower_95     =    40.892641
+  lower_95     =    40.832676
 
 . display "  upper_95     = " %12.6f `hi'
-  upper_95     =    44.613158
+  upper_95     =    44.557901
 
 . display "  n_obs        = " `n_obs'
   n_obs        = 249
@@ -154,8 +148,8 @@ Stata reference T02 (ARIMA(1,1,1) one-step forecast):
 . display "JSON_RESULT: " `"{"platform":"stata","forecast":"' %12.6f `fc' `","s
 > e":"' %12.6f `se' `","lower_95":"' %12.6f `lo' `","upper_95":"' %12.6f `hi' `
 > ","n_obs":"' `n_obs' `"}"'
-JSON_RESULT: {"platform":"stata","forecast":   42.752899,"se":    0.949129,"low
-> er_95":   40.892641,"upper_95":   44.613158,"n_obs":249}
+JSON_RESULT: {"platform":"stata","forecast":   42.695288,"se":    0.950330,"low
+> er_95":   40.832676,"upper_95":   44.557901,"n_obs":249}
 
 . 
 end of do-file

@@ -1,8 +1,9 @@
 #!/usr/bin/env Rscript
 # Manual reference for T07 (Welch two-sample t-test) — R.
 suppressPackageStartupMessages({ library(jsonlite) })
-sp <- tryCatch(normalizePath(sub("--file=", "", grep("^--file=", commandArgs(trailingOnly = FALSE), value = TRUE)[1])), error = function(e) NA_character_)
-data_path <- if (!is.na(sp) && file.exists(sp)) file.path(dirname(sp), "..", "..", "..", "data", "benchmark", "pilot_v5_ttest.csv") else "data/benchmark/pilot_v5_ttest.csv"
+args <- commandArgs(trailingOnly = TRUE)
+input_dir <- if (length(args)) args[1] else "tasks/ttest_welch"
+data_path <- file.path(input_dir, "pilot_v5_ttest.csv")
 df <- read.csv(data_path)
 
 a <- df$y[df$group == 0]; b <- df$y[df$group == 1]
@@ -15,4 +16,4 @@ out <- list(
   n_a = length(a),
   n_b = length(b)
 )
-cat(toJSON(out, pretty = TRUE, auto_unbox = TRUE), "\n")
+cat(toJSON(out, digits = NA, pretty = TRUE, auto_unbox = TRUE), "\n")

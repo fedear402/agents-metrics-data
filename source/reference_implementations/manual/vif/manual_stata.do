@@ -2,9 +2,9 @@
 clear all
 set more off
 
-local data_path "data/benchmark/pilot_v5_collinear.csv"
-capture confirm file "`data_path'"
-if _rc != 0 local data_path "../../../data/benchmark/pilot_v5_collinear.csv"
+args input_dir
+if `"`input_dir'"' == "" local input_dir "tasks/vif"
+local data_path "`input_dir'/pilot_v5_collinear.csv"
 import delimited "`data_path'", clear
 
 * Compute VIF_j = 1/(1-R^2_j) for each x_j regressed on the other four xs.

@@ -2,9 +2,9 @@
 clear all
 set more off
 
-local data_path "data/benchmark/pilot_v3.csv"
-capture confirm file "`data_path'"
-if _rc != 0 local data_path "../../../data/benchmark/pilot_v3.csv"
+args input_dir
+if `"`input_dir'"' == "" local input_dir "tasks/two_way_cluster"
+local data_path "`input_dir'/pilot_v3.csv"
 import delimited "`data_path'", clear
 
 * Two-way clustering via the user-written reghdfe/ivreg2 or via Petersen's

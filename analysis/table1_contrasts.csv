@@ -1,154 +1,154 @@
 column,column_name,contrast,estimate_pp,se_cr1_pp,runs
-sonnet,Claude Sonnet 4.6 medium,H1_r,1.500000000000005,4.454237508834516,7200
-sonnet,Claude Sonnet 4.6 medium,H1_stata,-25.49999999999998,7.089169303383508,7200
-sonnet,Claude Sonnet 4.6 medium,H2_fewshot,2.5555555555555935,1.6468572530696293,7200
-sonnet,Claude Sonnet 4.6 medium,H3_self_repair,12.166666666666655,1.781445191594787,7200
-sonnet,Claude Sonnet 4.6 medium,H3_tool_loop,17.791666666666657,1.9828099990497405,7200
-sonnet,Claude Sonnet 4.6 medium,H4_self_repair,-4.499999999999955,2.6887381280887532,7200
-sonnet,Claude Sonnet 4.6 medium,H4_tool_loop,-5.083333333333267,3.307509720130475,7200
-sonnet,Claude Sonnet 4.6 medium,AUX_fewshot_chatbot,5.750000000000002,3.458170867134714,7200
-sonnet,Claude Sonnet 4.6 medium,GAP_stata_repair_zs,-8.749999999999885,3.6690722935573628,7200
-sonnet,Claude Sonnet 4.6 medium,GAP_stata_agent_zs,-1.2499999999999567,1.0285469409670087,7200
-sonnet,Claude Sonnet 4.6 medium,GAP_stata_avg,-10.874999999999995,2.800410442165596,7200
-sonnet,Claude Sonnet 4.6 medium,AUX_fewshot_self_repair,1.2500000000000469,1.6195024971863752,7200
-sonnet,Claude Sonnet 4.6 medium,AUX_fewshot_agent,0.6666666666667334,0.5250223844027401,7200
-sonnet,Claude Sonnet 4.6 medium,AUX_agent_self_repair_zs,5.916666666666659,1.3314924398373569,7200
-sonnet,Claude Sonnet 4.6 medium,AUX_agent_self_repair_fs,5.333333333333345,1.5613348322336744,7200
-sonnet,Claude Sonnet 4.6 medium,chatbot_all,81.375,,7200
-sonnet,Claude Sonnet 4.6 medium,chatbot_zs_python,86.5,,7200
-luna,GPT-5.6 Luna low,H1_r,-2.0000000000000178,3.198976510636075,7200
-luna,GPT-5.6 Luna low,H1_stata,-30.750000000000032,5.77808877865848,7200
-luna,GPT-5.6 Luna low,H2_fewshot,4.388888888888888,1.4965174027060062,7200
-luna,GPT-5.6 Luna low,H3_self_repair,13.083333333333291,1.4509409217863876,7200
-luna,GPT-5.6 Luna low,H3_tool_loop,17.83333333333329,2.144399389870275,7200
-luna,GPT-5.6 Luna low,H4_self_repair,-2.9999999999999662,2.159410535639309,7200
-luna,GPT-5.6 Luna low,H4_tool_loop,-5.833333333333279,2.4313305639290372,7200
-luna,GPT-5.6 Luna low,AUX_fewshot_chatbot,7.333333333333303,2.4297061818227728,7200
-luna,GPT-5.6 Luna low,GAP_stata_repair_zs,-12.749999999999929,3.6122871894638053,7200
-luna,GPT-5.6 Luna low,GAP_stata_agent_zs,-6.749999999999994,2.4482115588204016,7200
-luna,GPT-5.6 Luna low,GAP_stata_avg,-16.166666666666675,2.949115896811686,7200
-luna,GPT-5.6 Luna low,AUX_fewshot_self_repair,4.333333333333337,1.7577145152316114,7200
-luna,GPT-5.6 Luna low,AUX_fewshot_agent,1.5000000000000235,1.4275617536335146,7200
-luna,GPT-5.6 Luna low,AUX_agent_self_repair_zs,6.166666666666655,1.564779210635942,7200
-luna,GPT-5.6 Luna low,AUX_agent_self_repair_fs,3.333333333333343,1.1616923580593574,7200
-luna,GPT-5.6 Luna low,chatbot_all,77.25,,7200
-luna,GPT-5.6 Luna low,chatbot_zs_python,84.5,,7200
-haiku,Claude Haiku 5.5 low,H1_r,-1.7500000000000657,2.8048686712944817,7200
-haiku,Claude Haiku 5.5 low,H1_stata,-20.250000000000057,5.385729562762568,7200
-haiku,Claude Haiku 5.5 low,H2_fewshot,1.8333333333333468,0.685465284031031,7200
-haiku,Claude Haiku 5.5 low,H3_self_repair,8.99999999999998,1.3553371755815986,7200
-haiku,Claude Haiku 5.5 low,H3_tool_loop,11.166666666666657,1.79549307876336,7200
-haiku,Claude Haiku 5.5 low,H4_self_repair,-1.1666666666666687,1.5087258408872861,7200
-haiku,Claude Haiku 5.5 low,H4_tool_loop,-2.3333333333333512,1.516556034666771,7200
-haiku,Claude Haiku 5.5 low,AUX_fewshot_chatbot,3.00000000000002,1.5288131370067155,7200
-haiku,Claude Haiku 5.5 low,GAP_stata_repair_zs,-6.999999999999959,2.788988387524716,7200
-haiku,Claude Haiku 5.5 low,GAP_stata_agent_zs,-2.249999999999984,0.9835962811829407,7200
-haiku,Claude Haiku 5.5 low,GAP_stata_avg,-7.541666666666657,1.9375836329642946,7200
-haiku,Claude Haiku 5.5 low,AUX_fewshot_self_repair,1.8333333333333515,0.8636146115925826,7200
-haiku,Claude Haiku 5.5 low,AUX_fewshot_agent,0.6666666666666689,0.3431105972854867,7200
-haiku,Claude Haiku 5.5 low,AUX_agent_self_repair_zs,2.750000000000019,0.972587582160201,7200
-haiku,Claude Haiku 5.5 low,AUX_agent_self_repair_fs,1.5833333333333366,0.57447757011939,7200
-haiku,Claude Haiku 5.5 low,chatbot_all,88.41666666666667,,7200
+sonnet,Claude Sonnet 4.6 medium,H1_r,3.24999999999999,4.933720035884844,7200
+sonnet,Claude Sonnet 4.6 medium,H1_stata,-25.74999999999997,6.978375379453914,7200
+sonnet,Claude Sonnet 4.6 medium,H2_fewshot,2.250000000000045,1.648448662493085,7200
+sonnet,Claude Sonnet 4.6 medium,H3_self_repair,12.12499999999999,1.745612559609756,7200
+sonnet,Claude Sonnet 4.6 medium,H3_tool_loop,18.16666666666664,1.9722945894363657,7200
+sonnet,Claude Sonnet 4.6 medium,H4_self_repair,-4.416666666666614,2.65876966597031,7200
+sonnet,Claude Sonnet 4.6 medium,H4_tool_loop,-4.83333333333323,3.2681281645854647,7200
+sonnet,Claude Sonnet 4.6 medium,AUX_fewshot_chatbot,5.333333333333324,3.424404587604426,7200
+sonnet,Claude Sonnet 4.6 medium,GAP_stata_repair_zs,-10.74999999999989,3.5654834349304303,7200
+sonnet,Claude Sonnet 4.6 medium,GAP_stata_agent_zs,-2.2499999999998685,1.414617805211557,7200
+sonnet,Claude Sonnet 4.6 medium,GAP_stata_avg,-11.416666666666648,2.7490332293499073,7200
+sonnet,Claude Sonnet 4.6 medium,AUX_fewshot_self_repair,0.9166666666667128,1.642826470107375,7200
+sonnet,Claude Sonnet 4.6 medium,AUX_fewshot_agent,0.5000000000000961,0.5562254331593115,7200
+sonnet,Claude Sonnet 4.6 medium,AUX_agent_self_repair_zs,6.249999999999956,1.3459699804365814,7200
+sonnet,Claude Sonnet 4.6 medium,AUX_agent_self_repair_fs,5.833333333333341,1.601954699736578,7200
+sonnet,Claude Sonnet 4.6 medium,chatbot_all,79.91666666666667,,7200
+sonnet,Claude Sonnet 4.6 medium,chatbot_zs_python,84.75,,7200
+luna,GPT-5.6 Luna low,H1_r,-1.5000000000000187,3.2659309556745795,7200
+luna,GPT-5.6 Luna low,H1_stata,-33.00000000000003,5.886780561379231,7200
+luna,GPT-5.6 Luna low,H2_fewshot,4.0833333333333375,1.5655117568820525,7200
+luna,GPT-5.6 Luna low,H3_self_repair,13.041666666666622,1.5142912244612348,7200
+luna,GPT-5.6 Luna low,H3_tool_loop,18.166666666666615,2.128945268396923,7200
+luna,GPT-5.6 Luna low,H4_self_repair,-3.2499999999999627,2.13159889554921,7200
+luna,GPT-5.6 Luna low,H4_tool_loop,-5.49999999999993,2.47464085603502,7200
+luna,GPT-5.6 Luna low,AUX_fewshot_chatbot,6.999999999999969,2.4637389812835373,7200
+luna,GPT-5.6 Luna low,GAP_stata_repair_zs,-14.99999999999993,4.082660956256959,7200
+luna,GPT-5.6 Luna low,GAP_stata_agent_zs,-9.24999999999993,3.3794333491994983,7200
+luna,GPT-5.6 Luna low,GAP_stata_avg,-18.04166666666666,3.4870783076805147,7200
+luna,GPT-5.6 Luna low,AUX_fewshot_self_repair,3.7500000000000053,1.951208729108824,7200
+luna,GPT-5.6 Luna low,AUX_fewshot_agent,1.5000000000000389,1.4325813252169353,7200
+luna,GPT-5.6 Luna low,AUX_agent_self_repair_zs,6.24999999999998,1.5446368198257234,7200
+luna,GPT-5.6 Luna low,AUX_agent_self_repair_fs,4.0000000000000115,1.3932066907699487,7200
+luna,GPT-5.6 Luna low,chatbot_all,76.0,,7200
+luna,GPT-5.6 Luna low,chatbot_zs_python,84.0,,7200
+haiku,Claude Haiku 5.5 low,H1_r,-1.75000000000007,2.8048686712944844,7200
+haiku,Claude Haiku 5.5 low,H1_stata,-22.250000000000057,5.562754395785973,7200
+haiku,Claude Haiku 5.5 low,H2_fewshot,1.777777777777793,0.6984329042690118,7200
+haiku,Claude Haiku 5.5 low,H3_self_repair,9.249999999999982,1.3752508258349934,7200
+haiku,Claude Haiku 5.5 low,H3_tool_loop,11.874999999999993,1.904137057322601,7200
+haiku,Claude Haiku 5.5 low,H4_self_repair,-1.1666666666666672,1.5087258408872846,7200
+haiku,Claude Haiku 5.5 low,H4_tool_loop,-2.2500000000000187,1.5362489570052702,7200
+haiku,Claude Haiku 5.5 low,AUX_fewshot_chatbot,2.9166666666666887,1.5492771211389267,7200
+haiku,Claude Haiku 5.5 low,GAP_stata_repair_zs,-8.249999999999961,2.9834493717297,7200
+haiku,Claude Haiku 5.5 low,GAP_stata_agent_zs,-2.249999999999982,0.9835962811829407,7200
+haiku,Claude Haiku 5.5 low,GAP_stata_avg,-8.624999999999993,2.0804180191329174,7200
+haiku,Claude Haiku 5.5 low,AUX_fewshot_self_repair,1.7500000000000202,0.8721956582464429,7200
+haiku,Claude Haiku 5.5 low,AUX_fewshot_agent,0.66666666666667,0.34311059728548526,7200
+haiku,Claude Haiku 5.5 low,AUX_agent_self_repair_zs,3.166666666666687,1.0303773297510468,7200
+haiku,Claude Haiku 5.5 low,AUX_agent_self_repair_fs,2.083333333333336,0.7355731537652656,7200
+haiku,Claude Haiku 5.5 low,chatbot_all,87.70833333333333,,7200
 haiku,Claude Haiku 5.5 low,chatbot_zs_python,94.25,,7200
-luna6,GPT-6 Luna low,H1_r,4.249999999999925,3.9522022268217785,7200
-luna6,GPT-6 Luna low,H1_stata,-35.00000000000006,6.839159710339565,7200
-luna6,GPT-6 Luna low,H2_fewshot,5.250000000000021,1.7532562658663078,7200
-luna6,GPT-6 Luna low,H3_self_repair,13.333333333333302,1.7538305102771337,7200
-luna6,GPT-6 Luna low,H3_tool_loop,19.458333333333307,2.241125644511919,7200
-luna6,GPT-6 Luna low,H4_self_repair,-4.666666666666669,2.377743819911128,7200
-luna6,GPT-6 Luna low,H4_tool_loop,-6.583333333333338,2.72042197888637,7200
-luna6,GPT-6 Luna low,AUX_fewshot_chatbot,9.000000000000025,2.9084297258664633,7200
-luna6,GPT-6 Luna low,GAP_stata_repair_zs,-20.99999999999999,4.015649074713959,7200
-luna6,GPT-6 Luna low,GAP_stata_agent_zs,-10.999999999999968,2.732828508817974,7200
-luna6,GPT-6 Luna low,GAP_stata_avg,-19.791666666666657,3.532228633621287,7200
-luna6,GPT-6 Luna low,AUX_fewshot_self_repair,4.333333333333354,2.2390527391632236,7200
-luna6,GPT-6 Luna low,AUX_fewshot_agent,2.416666666666684,1.0915246465186288,7200
-luna6,GPT-6 Luna low,AUX_agent_self_repair_zs,7.083333333333338,1.8569593914441045,7200
-luna6,GPT-6 Luna low,AUX_agent_self_repair_fs,5.166666666666667,1.1172799334390198,7200
-luna6,GPT-6 Luna low,chatbot_all,74.5,,7200
-luna6,GPT-6 Luna low,chatbot_zs_python,80.25,,7200
-opus,Claude Opus 5.5 low,H1_r,-1.000000000000083,1.0039122686784836,7200
-opus,Claude Opus 5.5 low,H1_stata,-7.500000000000044,2.914716630696308,7200
-opus,Claude Opus 5.5 low,H2_fewshot,0.027777777777761824,0.39028262060213603,7200
-opus,Claude Opus 5.5 low,H3_self_repair,2.0833333333333446,0.705689581736052,7200
-opus,Claude Opus 5.5 low,H3_tool_loop,2.666666666666691,0.9693531615558696,7200
-opus,Claude Opus 5.5 low,H4_self_repair,0.16666666666668092,0.7381304061156777,7200
-opus,Claude Opus 5.5 low,H4_tool_loop,-0.33333333333334625,0.8706511278008311,7200
-opus,Claude Opus 5.5 low,AUX_fewshot_chatbot,0.08333333333331722,0.9084769586610298,7200
-opus,Claude Opus 5.5 low,GAP_stata_repair_zs,-1.5000000000000346,1.051069702938039,7200
-opus,Claude Opus 5.5 low,GAP_stata_agent_zs,0.0,0.0,7200
-opus,Claude Opus 5.5 low,GAP_stata_avg,-3.0000000000000036,1.1385997413305304,7200
-opus,Claude Opus 5.5 low,AUX_fewshot_self_repair,0.24999999999999778,0.2509780671696213,7200
-opus,Claude Opus 5.5 low,AUX_fewshot_agent,-0.25000000000002925,0.18513941869292616,7200
-opus,Claude Opus 5.5 low,AUX_agent_self_repair_zs,0.8333333333333597,0.4755185732851884,7200
-opus,Claude Opus 5.5 low,AUX_agent_self_repair_fs,0.33333333333333265,0.37509410905344787,7200
-opus,Claude Opus 5.5 low,chatbot_all,97.20833333333333,,7200
+luna6,GPT-6 Luna low,H1_r,6.4999999999999085,4.497539604498516,7200
+luna6,GPT-6 Luna low,H1_stata,-35.250000000000064,5.784793520588613,7200
+luna6,GPT-6 Luna low,H2_fewshot,5.027777777777804,1.769557658142836,7200
+luna6,GPT-6 Luna low,H3_self_repair,13.291666666666643,1.7327142126971113,7200
+luna6,GPT-6 Luna low,H3_tool_loop,20.291666666666643,2.397052890632838,7200
+luna6,GPT-6 Luna low,H4_self_repair,-4.9166666666666785,2.411282060482142,7200
+luna6,GPT-6 Luna low,H4_tool_loop,-6.250000000000017,2.7406645688073676,7200
+luna6,GPT-6 Luna low,AUX_fewshot_chatbot,8.750000000000037,2.9170245862647555,7200
+luna6,GPT-6 Luna low,GAP_stata_repair_zs,-21.749999999999986,4.356531715218682,7200
+luna6,GPT-6 Luna low,GAP_stata_agent_zs,-13.24999999999996,3.5107038348227273,7200
+luna6,GPT-6 Luna low,GAP_stata_avg,-20.416666666666657,3.437768193996334,7200
+luna6,GPT-6 Luna low,AUX_fewshot_self_repair,3.833333333333358,2.287735213070836,7200
+luna6,GPT-6 Luna low,AUX_fewshot_agent,2.5000000000000218,1.122408038105566,7200
+luna6,GPT-6 Luna low,AUX_agent_self_repair_zs,7.666666666666671,1.9549300898331807,7200
+luna6,GPT-6 Luna low,AUX_agent_self_repair_fs,6.333333333333336,1.3385496915713235,7200
+luna6,GPT-6 Luna low,chatbot_all,72.79166666666667,,7200
+luna6,GPT-6 Luna low,chatbot_zs_python,78.0,,7200
+opus,Claude Opus 5.5 low,H1_r,-1.0000000000000808,1.0039122686784852,7200
+opus,Claude Opus 5.5 low,H1_stata,-9.25000000000005,3.3020794685243238,7200
+opus,Claude Opus 5.5 low,H2_fewshot,-0.19444444444446002,0.4498993558172103,7200
+opus,Claude Opus 5.5 low,H3_self_repair,2.0416666666666785,0.7100943418020503,7200
+opus,Claude Opus 5.5 low,H3_tool_loop,2.9166666666666905,0.9839611166113551,7200
+opus,Claude Opus 5.5 low,H4_self_repair,-0.08333333333331791,0.7810121577614295,7200
+opus,Claude Opus 5.5 low,H4_tool_loop,-0.5000000000000122,0.8849619194950281,7200
+opus,Claude Opus 5.5 low,AUX_fewshot_chatbot,0.0,0.9125175009505824,7200
+opus,Claude Opus 5.5 low,GAP_stata_repair_zs,-3.0000000000000346,1.8044661135538462,7200
+opus,Claude Opus 5.5 low,GAP_stata_agent_zs,-0.7500000000000481,0.7529342015088687,7200
+opus,Claude Opus 5.5 low,GAP_stata_avg,-4.666666666666671,1.9589650375518741,7200
+opus,Claude Opus 5.5 low,AUX_fewshot_self_repair,-0.08333333333333456,0.42341374904162715,7200
+opus,Claude Opus 5.5 low,AUX_fewshot_agent,-0.5000000000000288,0.30665345040688946,7200
+opus,Claude Opus 5.5 low,AUX_agent_self_repair_zs,1.0833333333333595,0.5275797418846199,7200
+opus,Claude Opus 5.5 low,AUX_agent_self_repair_fs,0.6666666666666652,0.4969256667527912,7200
+opus,Claude Opus 5.5 low,chatbot_all,96.58333333333333,,7200
 opus,Claude Opus 5.5 low,chatbot_zs_python,100.0,,7200
-sol,GPT-6 Sol low,H1_r,-5.750000000000041,2.381326152792121,7200
-sol,GPT-6 Sol low,H1_stata,-16.750000000000053,4.349110652484269,7200
-sol,GPT-6 Sol low,H2_fewshot,1.0555555555555618,0.5936807317596349,7200
-sol,GPT-6 Sol low,H3_self_repair,7.833333333333319,1.5965684540602623,7200
-sol,GPT-6 Sol low,H3_tool_loop,9.833333333333327,1.6328006234148214,7200
-sol,GPT-6 Sol low,H4_self_repair,-1.9999999999999887,1.59319280340078,7200
-sol,GPT-6 Sol low,H4_tool_loop,-2.3333333333333304,1.5585738489376464,7200
-sol,GPT-6 Sol low,AUX_fewshot_chatbot,2.500000000000002,1.5096771183089723,7200
-sol,GPT-6 Sol low,GAP_stata_repair_zs,-2.9999999999999654,2.102139405876087,7200
-sol,GPT-6 Sol low,GAP_stata_agent_zs,0.24999999999999745,0.4384064626671179,7200
-sol,GPT-6 Sol low,GAP_stata_avg,-6.083333333333328,1.6662547682363378,7200
-sol,GPT-6 Sol low,AUX_fewshot_self_repair,0.5000000000000133,0.7997441276590297,7200
-sol,GPT-6 Sol low,AUX_fewshot_agent,0.16666666666667157,0.11678552254867008,7200
-sol,GPT-6 Sol low,AUX_agent_self_repair_zs,2.16666666666668,0.7439425462939775,7200
-sol,GPT-6 Sol low,AUX_agent_self_repair_fs,1.8333333333333381,0.8718869710457507,7200
-sol,GPT-6 Sol low,chatbot_all,90.0,,7200
+sol,GPT-6 Sol low,H1_r,-5.750000000000051,2.3813261527921212,7200
+sol,GPT-6 Sol low,H1_stata,-19.250000000000057,4.800988547102706,7200
+sol,GPT-6 Sol low,H2_fewshot,1.0277777777777868,0.5956088432520947,7200
+sol,GPT-6 Sol low,H3_self_repair,7.833333333333319,1.5965684540602627,7200
+sol,GPT-6 Sol low,H3_tool_loop,10.624999999999996,1.7015702103073287,7200
+sol,GPT-6 Sol low,H4_self_repair,-1.9999999999999933,1.5931928034007785,7200
+sol,GPT-6 Sol low,H4_tool_loop,-2.416666666666667,1.5575948270799271,7200
+sol,GPT-6 Sol low,AUX_fewshot_chatbot,2.500000000000006,1.5096771183089714,7200
+sol,GPT-6 Sol low,GAP_stata_repair_zs,-5.49999999999997,3.2140874899157192,7200
+sol,GPT-6 Sol low,GAP_stata_agent_zs,0.24999999999999953,0.4384064626671233,7200
+sol,GPT-6 Sol low,GAP_stata_avg,-7.791666666666661,2.276086065297912,7200
+sol,GPT-6 Sol low,AUX_fewshot_self_repair,0.5000000000000142,0.7997441276590297,7200
+sol,GPT-6 Sol low,AUX_fewshot_agent,0.08333333333333942,0.14613548755571087,7200
+sol,GPT-6 Sol low,AUX_agent_self_repair_zs,3.000000000000015,1.0770426120577994,7200
+sol,GPT-6 Sol low,AUX_agent_self_repair_fs,2.5833333333333397,1.1207279652581514,7200
+sol,GPT-6 Sol low,chatbot_all,89.16666666666667,,7200
 sol,GPT-6 Sol low,chatbot_zs_python,96.25,,7200
-pooled_original_pair,Original pair pooled,H1_r,-0.25000000000007744,2.8737756887830628,14400
-pooled_original_pair,Original pair pooled,H1_stata,-28.12499999999998,5.761254108167478,14400
-pooled_original_pair,Original pair pooled,H2_fewshot,3.4722222222222374,1.3270300821042107,14400
-pooled_original_pair,Original pair pooled,H3_self_repair,12.62499999999999,1.3167824467640747,14400
-pooled_original_pair,Original pair pooled,H3_tool_loop,17.812500000000007,1.7705759124044496,14400
-pooled_original_pair,Original pair pooled,H4_self_repair,-3.7499999999999005,1.8472066677094519,14400
-pooled_original_pair,Original pair pooled,H4_tool_loop,-5.458333333333306,2.154700105820509,14400
-pooled_original_pair,Original pair pooled,AUX_fewshot_chatbot,6.541666666666638,2.3674856888668825,14400
-pooled_original_pair,Original pair pooled,GAP_stata_repair_zs,-10.749999999999847,3.0565892696510133,14400
-pooled_original_pair,Original pair pooled,GAP_stata_agent_zs,-3.9999999999998743,1.4504377598087694,14400
-pooled_original_pair,Original pair pooled,GAP_stata_avg,-13.52083333333322,2.537592873003217,14400
-pooled_original_pair,Original pair pooled,AUX_fewshot_self_repair,2.7916666666667393,1.3802562166714776,14400
-pooled_original_pair,Original pair pooled,AUX_fewshot_agent,1.083333333333332,0.8972440241304341,14400
-pooled_original_pair,Original pair pooled,AUX_agent_self_repair_zs,6.04166666666672,1.1697902936431475,14400
-pooled_original_pair,Original pair pooled,AUX_agent_self_repair_fs,4.3333333333333135,1.0521864159874035,14400
-pooled_original_pair,Original pair pooled,chatbot_all,79.3125,,14400
-pooled_original_pair,Original pair pooled,chatbot_zs_python,85.5,,14400
-pooled_low_cost,Low cost pooled,H1_r,1.2499999999999392,2.6323394095654296,14400
-pooled_low_cost,Low cost pooled,H1_stata,-27.625000000000043,4.955232781074161,14400
-pooled_low_cost,Low cost pooled,H2_fewshot,3.5416666666666945,1.0316339344930994,14400
-pooled_low_cost,Low cost pooled,H3_self_repair,11.166666666666671,1.2530439678415493,14400
-pooled_low_cost,Low cost pooled,H3_tool_loop,15.312500000000027,1.7194701327754827,14400
-pooled_low_cost,Low cost pooled,H4_self_repair,-2.9166666666667402,1.4663551645777728,14400
-pooled_low_cost,Low cost pooled,H4_tool_loop,-4.458333333333362,1.6575943247506466,14400
-pooled_low_cost,Low cost pooled,AUX_fewshot_chatbot,6.000000000000064,1.8090137193481348,14400
-pooled_low_cost,Low cost pooled,GAP_stata_repair_zs,-14.000000000000124,2.6104913377658434,14400
-pooled_low_cost,Low cost pooled,GAP_stata_agent_zs,-6.625000000000017,1.4525218229936148,14400
-pooled_low_cost,Low cost pooled,GAP_stata_avg,-13.66666666666675,2.42402389780012,14400
-pooled_low_cost,Low cost pooled,AUX_fewshot_self_repair,3.083333333333322,1.2539020213325183,14400
-pooled_low_cost,Low cost pooled,AUX_fewshot_agent,1.5416666666666994,0.5817163714096285,14400
-pooled_low_cost,Low cost pooled,AUX_agent_self_repair_zs,4.916666666666667,1.1532188498843745,14400
-pooled_low_cost,Low cost pooled,AUX_agent_self_repair_fs,3.3750000000000453,0.7418063574170214,14400
-pooled_low_cost,Low cost pooled,chatbot_all,81.45833333333333,,14400
-pooled_low_cost,Low cost pooled,chatbot_zs_python,87.25,,14400
-pooled_high_cost,High cost pooled,H1_r,-3.3749999999999982,1.4525218229936565,14400
-pooled_high_cost,High cost pooled,H1_stata,-12.124999999999956,2.9781927036377076,14400
-pooled_high_cost,High cost pooled,H2_fewshot,0.5416666666666702,0.39033852204238095,14400
-pooled_high_cost,High cost pooled,H3_self_repair,4.958333333333333,1.015669188368345,14400
-pooled_high_cost,High cost pooled,H3_tool_loop,6.249999999999995,1.138828467377709,14400
-pooled_high_cost,High cost pooled,H4_self_repair,-0.9166666666666795,0.9892261632017616,14400
-pooled_high_cost,High cost pooled,H4_tool_loop,-1.3333333333333308,1.0147200987018359,14400
-pooled_high_cost,High cost pooled,AUX_fewshot_chatbot,1.2916666666666743,1.0010026778344385,14400
-pooled_high_cost,High cost pooled,GAP_stata_repair_zs,-2.2500000000000004,1.190843633646513,14400
-pooled_high_cost,High cost pooled,GAP_stata_agent_zs,0.12500000000006048,0.21908053192784557,14400
-pooled_high_cost,High cost pooled,GAP_stata_avg,-4.541666666666649,1.1229576577179763,14400
-pooled_high_cost,High cost pooled,AUX_fewshot_self_repair,0.374999999999994,0.4296402368108527,14400
-pooled_high_cost,High cost pooled,AUX_fewshot_agent,-0.04166666666665722,0.1118178539720675,14400
-pooled_high_cost,High cost pooled,AUX_agent_self_repair_zs,1.4999999999999876,0.4591374394007323,14400
-pooled_high_cost,High cost pooled,AUX_agent_self_repair_fs,1.0833333333333357,0.46975138954820866,14400
-pooled_high_cost,High cost pooled,chatbot_all,93.60416666666667,,14400
+pooled_original_pair,Original pair pooled,H1_r,0.8749999999999654,3.1210294378441312,14400
+pooled_original_pair,Original pair pooled,H1_stata,-29.37499999999997,5.675202507814687,14400
+pooled_original_pair,Original pair pooled,H2_fewshot,3.166666666666669,1.3591290766268793,14400
+pooled_original_pair,Original pair pooled,H3_self_repair,12.583333333333313,1.3148240756763023,14400
+pooled_original_pair,Original pair pooled,H3_tool_loop,18.16666666666668,1.7454700777228664,14400
+pooled_original_pair,Original pair pooled,H4_self_repair,-3.8333333333332233,1.8447304206197224,14400
+pooled_original_pair,Original pair pooled,H4_tool_loop,-5.166666666666667,2.152046667810634,14400
+pooled_original_pair,Original pair pooled,AUX_fewshot_chatbot,6.1666666666666305,2.3771670748199627,14400
+pooled_original_pair,Original pair pooled,GAP_stata_repair_zs,-12.874999999999853,3.1875206720349722,14400
+pooled_original_pair,Original pair pooled,GAP_stata_agent_zs,-5.749999999999952,2.1966886607053766,14400
+pooled_original_pair,Original pair pooled,GAP_stata_avg,-14.729166666666565,2.6358080090322256,14400
+pooled_original_pair,Original pair pooled,AUX_fewshot_self_repair,2.3333333333334068,1.471297845967515,14400
+pooled_original_pair,Original pair pooled,AUX_fewshot_agent,0.9999999999999648,0.9096450216875819,14400
+pooled_original_pair,Original pair pooled,AUX_agent_self_repair_zs,6.2500000000000835,1.1637408553094992,14400
+pooled_original_pair,Original pair pooled,AUX_agent_self_repair_fs,4.916666666666641,1.132831269126488,14400
+pooled_original_pair,Original pair pooled,chatbot_all,77.95833333333333,,14400
+pooled_original_pair,Original pair pooled,chatbot_zs_python,84.375,,14400
+pooled_low_cost,Low cost pooled,H1_r,2.3749999999999476,2.851443682455307,14400
+pooled_low_cost,Low cost pooled,H1_stata,-28.750000000000036,4.554034770607614,14400
+pooled_low_cost,Low cost pooled,H2_fewshot,3.402777777777805,1.0540753206311002,14400
+pooled_low_cost,Low cost pooled,H3_self_repair,11.270833333333341,1.2648576120310835,14400
+pooled_low_cost,Low cost pooled,H3_tool_loop,16.083333333333357,1.8265177689955527,14400
+pooled_low_cost,Low cost pooled,H4_self_repair,-3.0416666666667402,1.4579418142812313,14400
+pooled_low_cost,Low cost pooled,H4_tool_loop,-4.250000000000016,1.6786165627798535,14400
+pooled_low_cost,Low cost pooled,AUX_fewshot_chatbot,5.833333333333391,1.8308798720359842,14400
+pooled_low_cost,Low cost pooled,GAP_stata_repair_zs,-15.000000000000119,2.9733811300185877,14400
+pooled_low_cost,Low cost pooled,GAP_stata_agent_zs,-7.750000000000022,1.8047974187349176,14400
+pooled_low_cost,Low cost pooled,GAP_stata_avg,-14.520833333333416,2.452162822786421,14400
+pooled_low_cost,Low cost pooled,AUX_fewshot_self_repair,2.7916666666666505,1.2875292002587884,14400
+pooled_low_cost,Low cost pooled,AUX_fewshot_agent,1.5833333333333754,0.5956099497284585,14400
+pooled_low_cost,Low cost pooled,AUX_agent_self_repair_zs,5.416666666666655,1.1926486269274243,14400
+pooled_low_cost,Low cost pooled,AUX_agent_self_repair_fs,4.20833333333338,0.884035774650775,14400
+pooled_low_cost,Low cost pooled,chatbot_all,80.25,,14400
+pooled_low_cost,Low cost pooled,chatbot_zs_python,86.125,,14400
+pooled_high_cost,High cost pooled,H1_r,-3.3749999999999947,1.4525218229936532,14400
+pooled_high_cost,High cost pooled,H1_stata,-14.249999999999948,3.4764036739821758,14400
+pooled_high_cost,High cost pooled,H2_fewshot,0.41666666666667507,0.4142337048697445,14400
+pooled_high_cost,High cost pooled,H3_self_repair,4.937500000000003,1.0185056509717765,14400
+pooled_high_cost,High cost pooled,H3_tool_loop,6.770833333333323,1.1840456718387098,14400
+pooled_high_cost,High cost pooled,H4_self_repair,-1.0416666666666656,0.9941744148953984,14400
+pooled_high_cost,High cost pooled,H4_tool_loop,-1.4583333333333115,1.018225111054529,14400
+pooled_high_cost,High cost pooled,AUX_fewshot_chatbot,1.2500000000000004,1.0032609933679524,14400
+pooled_high_cost,High cost pooled,GAP_stata_repair_zs,-4.249999999999993,2.2831202220791513,14400
+pooled_high_cost,High cost pooled,GAP_stata_agent_zs,-0.2499999999999487,0.43816106385572756,14400
+pooled_high_cost,High cost pooled,GAP_stata_avg,-6.229166666666644,1.9318738225055823,14400
+pooled_high_cost,High cost pooled,AUX_fewshot_self_repair,0.20833333333333537,0.46452297313937746,14400
+pooled_high_cost,High cost pooled,AUX_fewshot_agent,-0.20833333333331092,0.20027215405884063,14400
+pooled_high_cost,High cost pooled,AUX_agent_self_repair_zs,2.0416666666666434,0.681346403523448,14400
+pooled_high_cost,High cost pooled,AUX_agent_self_repair_fs,1.6249999999999973,0.6969532690014534,14400
+pooled_high_cost,High cost pooled,chatbot_all,92.875,,14400
 pooled_high_cost,High cost pooled,chatbot_zs_python,98.125,,14400

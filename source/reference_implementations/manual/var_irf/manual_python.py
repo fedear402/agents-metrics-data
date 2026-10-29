@@ -2,13 +2,13 @@
 
 from __future__ import annotations
 import json
+import sys
 from pathlib import Path
 
 import pandas as pd
 from statsmodels.tsa.api import VAR
 
-HERE = Path(__file__).parent
-DATA = HERE.parent.parent / "data" / "pilot_v4_var.csv"
+DATA = Path(sys.argv[1] if len(sys.argv) > 1 else "tasks/var_irf") / "pilot_v4_var.csv"
 
 df = pd.read_csv(DATA)
 Y = df[["y1", "y2"]].values

@@ -10,10 +10,6 @@ ___/   /   /___/   /   /___/       SE—Standard Edition
                                    800-782-8272        https://www.stata.com
                                    979-696-4600        service@stata.com
 
-Stata license: Unlimited-user network, expiring 14 Jul 2026
-Serial number: [redacted serial]
-  Licensed to: Federico López
-               Universidad de San Andrés
 
 Notes:
       1. Stata is running in batch mode.
@@ -21,7 +17,7 @@ Notes:
       3. Maximum number of variables is set to 5,000 but can be increased;
           see help set_maxvar.
 
-. do code/pilot/manual_references/twoway_fe/manual_stata.do 
+. do source/reference_implementations/manual/twoway_fe/manual_stata.do 
 
 . * Manual reference for T14 (two-way FE OLS with cluster-robust SE on firm) — 
 > Stata.
@@ -29,11 +25,11 @@ Notes:
 
 . set more off
 
-. local data_path "code/pilot/data/pilot_v3.csv"
+. args input_dir
 
-. capture confirm file "`data_path'"
+. if `"`input_dir'"' == "" local input_dir "tasks/twoway_fe"
 
-. if _rc != 0 local data_path "../../data/pilot_v3.csv"
+. local data_path "`input_dir'/pilot_v3.csv"
 
 . import delimited "`data_path'", clear
 (encoding automatically selected: ISO-8859-1)
@@ -73,7 +69,7 @@ y_twocluster | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
           5  |  -.3135499   .1051526    -2.98   0.003    -.5209063   -.1061935
           6  |  -.0477487   .1066114    -0.45   0.655    -.2579817    .1624843
           7  |  -.2556613   .1013988    -2.52   0.012    -.4556154   -.0557072
-          8  |  -.1243912   .1127975    -1.10   0.271    -.3468231    .0980406
+          8  |  -.1243912   .1127975    -1.10   0.271     -.346823    .0980406
           9  |  -.1974546   .1092145    -1.81   0.072    -.4128207    .0179116
              |
        _cons |   .8946274   .0725155    12.34   0.000       .75163    1.037625

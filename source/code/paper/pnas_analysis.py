@@ -10,6 +10,13 @@ All generic, All, and Pooled number variables describe the six-model sample.
 Named original-model variables retain their model scope. Hand-audit and original
 repair-transition variables retain their original-pair scope, recorded in the
 receipt. MODEL_gap in the robustness table is the original-pair comparison.
+
+After the raw scoring, the build applies the wrong-method alternative check of
+code/paper/scoring_alternatives.py (decision record 2026-10-29_wrong-method-alternative-check.md).
+A success whose scored value is closer to a listed wrong-method value than to the nearest
+accepted value becomes a silent failure. data/alternative_checks.csv lists every changed value.
+The comparisons with the two-model analysis use the outcome before this check, because the
+two-model analysis does not apply it.
 """
 from __future__ import annotations
 
@@ -33,8 +40,7 @@ import dataset  # noqa: E402
 import six_models as six  # noqa: E402
 import production_statistics as statistics  # noqa: E402
 import paper_robustness as robustness  # noqa: E402
-# The PNAS text names both models of the model contrast in full.
-robustness.PRINTED['MODEL_gap'] = ('Sonnet 4.6 minus', 'GPT-5.6 Luna, all runs')
+import scoring_alternatives as alternatives  # noqa: E402
 from paper_numbers import fixed  # noqa: E402
 
 OUT = ROOT / 'data/analysis/six_models'
@@ -202,7 +208,9 @@ def model_cells(runs, outcome='y'):
             .reindex(index).to_numpy().reshape(len(tasks), 18) for m in six.ORDER}
 
 
-def regression_contrasts(runs):
+def regression_contrasts(runs, legacy_check=True):
+    """Table 1 contrasts. legacy_check compares Sonnet and Luna with the two-model analysis, which
+    holds only for the outcome before the alternative check."""
     cells = model_cells(runs)
     ws = statistics.weights()
     rows = []
@@ -210,7 +218,10 @@ def regression_contrasts(runs):
     for model, members in GROUPS.items():
         pooled = np.mean([cells[m] for m in members], axis=0)
         for contrast, weight in ws.items():
-            estimate, se = contrast_se(pooled @ weight, len(members))
+            task_values = pooled @ weight
+            estimate, se = contrast_se(task_values, len(members))
+            # Tasks whose compared cells differ. Table 1 marks the cells with fewer than three.
+            informative = int((np.abs(task_values) > 1e-10).sum())
             estimate = 0.0 if abs(estimate) < 1e-10 else float(estimate)
             se = 0.0 if abs(se) < 1e-10 else float(se)
             p = float(2 * tdist.sf(abs(estimate / se), 39)) if se else None
@@ -218,12 +229,12 @@ def regression_contrasts(runs):
             wcb = old.loc[(model, contrast), 'p_wcb'] if model in ('sonnet', 'luna') else np.nan
             rows.append(dict(model=model, contrast=contrast, label=statistics.LABELS[contrast], estimate_pp=estimate,
                              se_cr1_pp=se, ci_low_pp=estimate-q*se, ci_high_pp=estimate+q*se, p_cluster_t=p,
-                             n_runs=7200*len(members), effective_tasks=40, p_wcb=wcb,
+                             n_runs=7200*len(members), effective_tasks=40, informative_tasks=informative, p_wcb=wcb,
                              bootstrap_draws=9999 if pd.notna(wcb) else np.nan, member_models=','.join(members)))
     result = pd.DataFrame(rows)
     original = result[result.model.isin(['sonnet', 'luna'])].set_index(['model', 'contrast'])
     diff = max(float((original[c] - old.loc[original.index, c]).abs().max()) for c in ('estimate_pp', 'se_cr1_pp'))
-    if diff > 1e-6:
+    if legacy_check and diff > 1e-6:
         raise ValueError(f'Original model contrasts differ from the established analysis: {diff}')
     return result, diff
 
@@ -277,12 +288,19 @@ def cluster_se(values, groups, models):
     return float(np.sqrt(g / (g - 1) * (n - 1) / (n - k)) * np.sqrt((sums ** 2).sum()) / len(values)), g
 
 
-def build_robustness(out, runs, catalog, contrasts):
+def build_robustness(out, runs, catalog, contrasts, estimate_flagged=frozenset()):
+    """estimate_flagged: runs with an estimate closer to a wrong-method alternative. They fail every
+    tolerance scheme, as they fail the primary rule."""
     tasks = sorted(runs.task.unique())
     relation = pd.read_csv(robustness.RELATION).set_index('task')
     groups = np.array([robustness.dataset_groups(catalog)[t] for t in tasks])
     X = robust_matrix(model_cells(runs))
     sch = robustness.scheme_outcomes(out, runs, out / 'work')
+    # The schemes recompute the estimate tolerance from the errors; the alternative check stays in force.
+    hit = sch.position_id.isin(estimate_flagged)
+    for name in (*robustness.SCHEMES, *robustness.LOOSE_SCHEMES):
+        if name in sch:
+            sch.loc[hit, name] = 0
     full = runs.merge(sch, on='position_id', validate='one_to_one')
     schemes = {name: robust_matrix(model_cells(full, name)) for name in robustness.SCHEMES}
     rng = np.random.default_rng(robustness.SEED)
@@ -329,10 +347,14 @@ def build_robustness(out, runs, catalog, contrasts):
         positions = set(full.loc[mask,'position_id'])
         run_sets.append(positions)
         failed = se_rows[se_rows.position_id.isin(positions)]
-        gap = (failed.se_err / failed.se_ref.abs()).groupby(failed.task).min()
+        relative = failed.se_err / failed.se_ref.abs()
+        gap = relative.groupby(failed.task).min()
+        # The largest SE gap of each run, then the smallest of these over the runs of a task (Appendix D).
+        run_gap = relative.groupby(failed.position_id).max().groupby(failed.groupby('position_id').task.first()).min()
         se_only[variant] = dict(runs=int(mask.sum()), by_task={t:int(v) for t,v in by_task.items()},
                                missing_se_runs=int(failed[failed.se_reason.eq('se_missing')].position_id.nunique()),
-                               min_relative_se_error={t:float(v) for t,v in gap.dropna().items()})
+                               min_relative_se_error={t:float(v) for t,v in gap.dropna().items()},
+                               min_run_relative_se_error={t:float(v) for t,v in run_gap.dropna().items()})
     info = dict(table1_max_abs_diff=diff, dataset_clusters=len(set(groups)), seed=robustness.SEED,
                 bootstrap_draws=robustness.N_BOOT, random_draws=robustness.N_RANDOM, subset_size=robustness.SUBSET,
                 se_only_failures=se_only, success_rates={s:v['all'] for s,v in rates.items()},
@@ -347,6 +369,9 @@ def build_robustness(out, runs, catalog, contrasts):
                                                         if r.dataset_lo*r.dataset_hi<=0 or r.boot_lo*r.boot_hi<=0],
                                 failures_removed_range_pp=max(removed.values())-min(removed.values()))
     macros = robustness.macros(table,info)
+    robustness.verify_se_claims(info)
+    macros['numRobSeOnlyShiftShareMinRunGap'] = robustness.fixed(
+        100*info['se_only_failures']['primary']['min_run_relative_se_error']['applied_shift_share'], 1)
     # Diagnostic only. The primary scoring tolerance remains unchanged.
     shift=se_rows[se_rows.task.eq('applied_shift_share')].copy()
     shift['relaxed_pass']=(shift.se_reason.eq('se_outside_tolerance') &
@@ -356,7 +381,14 @@ def build_robustness(out, runs, catalog, contrasts):
     relaxed_count=int(relaxed_positions.reindex(eligible).fillna(False).sum())
     macros['numRobShiftShareRelaxedChanges']=str(relaxed_count)
     info['shift_share_se_relaxed_1pct_changed_outcomes']=relaxed_count
-    body = robustness.render_table(table,info).replace('Pooled over the Two', 'Pooled over the Six')
+    # The PNAS table names both models of the model contrast in full. The two-model table keeps its label.
+    two_model_label = robustness.PRINTED['MODEL_gap']
+    robustness.PRINTED['MODEL_gap'] = ('Sonnet 4.6 minus', 'GPT-5.6 Luna, all runs')
+    try:
+        body = robustness.render_table(table,info)
+    finally:
+        robustness.PRINTED['MODEL_gap'] = two_model_label
+    body = body.replace('Pooled over the Two', 'Pooled over the Six')
     body = body.replace('column 3 of', 'the pooled column of')
     body = body.replace(r'\textit{Notes:}', r'\textit{Notes:} The last contrast uses the original Sonnet--Luna pair. All other contrasts and success rates pool six models.')
     body = body.replace('Generated by code/benchmark/paper_robustness.py', 'Generated by code/paper/pnas_analysis.py')
@@ -391,7 +423,9 @@ def repair_transitions(data, out):
     return result
 
 
-def build_numbers(runs, pricing, contrasts, out, rob_macros):
+def build_numbers(runs, pricing, contrasts, out, rob_macros, legacy_check=True, write=True):
+    """Number variables. With legacy_check, Sonnet and Luna variables must equal the two-model values.
+    With write=False the function only runs its checks."""
     baseline = dict(re.findall(r'\\(?:newcommand|providecommand)\{\\(num[A-Za-z]+)\}\{([^{}]*)\}',BASE_NUMBERS.read_text()))
     n = dict(baseline)
     data = runs.merge(pricing[['record_path','cost_usd','cost_pricing_complete',
@@ -496,7 +530,11 @@ def build_numbers(runs, pricing, contrasts, out, rob_macros):
     for model,tag in [*TAGS.items(),('pooled','Pooled'),('cheap','Cheap'),('expensive','Expensive')]:
         for prefix,contrast in mappings:
             row=reg.loc[(model,contrast)]
-            put(prefix+tag,row.estimate_pp,absolute=True)
+            if prefix.startswith('StataGap'):
+                # Python minus Stata: positive when Stata is below Python, negative when it is above (review I21).
+                put(prefix+tag,-row.estimate_pp)
+            else:
+                put(prefix+tag,row.estimate_pp,absolute=True)
             put(prefix+tag+'SE',row.se_cr1_pp)
     def contrast(name): return reg.loc[('pooled',name),'estimate_pp']
     for agency,label in AGENCY_TAGS.items():
@@ -647,10 +685,15 @@ def build_numbers(runs, pricing, contrasts, out, rob_macros):
     generic_left=[k for k in unchanged if 'Pooled' in k or k.startswith('numAll')]
     if generic_left:
         raise ValueError(f'Generic original-pair variables remain: {generic_left}')
+    # The pass@k variables come from data/appendix_pass_at_k.csv, which six_models.py writes from the outcome after
+    # the wrong-method check, so the comparison with the two-model values leaves them out.
     legacy_differences={k:dict(old=baseline[k],new=n[k]) for k in overwritten if k in baseline and n[k]!=baseline[k]
-                        and any(t in k for t in ['Sonnet','Codex']) and k!='numAgentFailureShareCodex'}
-    if legacy_differences:
+                        and any(t in k for t in ['Sonnet','Codex']) and k!='numAgentFailureShareCodex'
+                        and not k.startswith('numPass')}
+    if legacy_check and legacy_differences:
         raise ValueError(f'Original-model macro values changed: {legacy_differences}')
+    if not write:
+        return n,None
     source_meta=dict(path=str(BASE_NUMBERS.relative_to(ROOT)),sha256=sha(BASE_NUMBERS),
                      unchanged_original_scope_macros=unchanged,
                      original_pair_audit_macros=sorted(k for k in unchanged if k.startswith(('numAudit','numRepairSilent','numRepairIncomplete','numSpurious'))),
@@ -679,16 +722,30 @@ def build(out=OUT,force=False):
                 (out/f'data/{name}.csv').write_bytes(source.read_bytes())
     runs,pricing,catalog=load_sources()
     (runs,terms,ses,audit),score_receipt=score_saved(runs,catalog,out,force)
-    for name,frame in [('runs',runs),('run_pricing',pricing),('term_checks',terms),('se_checks',ses),('rescoring_audit',audit)]:
+    # Wrong-method alternative check (PNAS only). tolerance_runs keeps the outcome before it.
+    tolerance_runs=runs.copy()
+    runs,terms,ses,flagged=alternatives.apply_check(runs,terms,ses,catalog)
+    if (runs.y>tolerance_runs.y).any():
+        raise ValueError('The alternative check turned a failure into a success')
+    alternative_summary=dict(file=str(alternatives.OUT.relative_to(ROOT)),sha256=sha(alternatives.OUT),
+                             flagged_values=len(flagged),flagged_runs=int(flagged.position_id.nunique()),
+                             successes_changed=int((tolerance_runs.y-runs.y).sum()),
+                             successes_before=int(tolerance_runs.y.sum()),successes_after=int(runs.y.sum()))
+    for name,frame in [('runs',runs),('run_pricing',pricing),('term_checks',terms),('se_checks',ses),('rescoring_audit',audit),
+                       ('alternative_checks',flagged)]:
         frame.to_csv(out/f'data/{name}.csv',index=False)
     runs[['position_id','record_path','record_sha256','output_path','output_sha256']].to_csv(out/'data/selected_records.csv',index=False)
     write_json(out/'data/catalog.json',catalog)
-    contrasts,legacy_diff=regression_contrasts(runs)
+    tolerance_contrasts,legacy_diff=regression_contrasts(tolerance_runs)
+    contrasts,_=regression_contrasts(runs,legacy_check=False)
     contrasts.to_csv(out/'tables/regression_contrasts.csv',index=False)
     heterogeneity_tests(runs,out)
-    checkpoint('contrasts',columns=list(GROUPS),legacy_max_abs_diff=legacy_diff)
-    rob_macros,rob_info=build_robustness(out,runs,catalog,contrasts)
-    macros,number_provenance=build_numbers(runs,pricing,contrasts,out,rob_macros)
+    checkpoint('contrasts',columns=list(GROUPS),legacy_max_abs_diff=legacy_diff,alternative_check=alternative_summary)
+    estimate_flagged=frozenset(flagged.position_id[flagged.kind.eq('estimate')])
+    rob_macros,rob_info=build_robustness(out,runs,catalog,contrasts,estimate_flagged)
+    # The two-model comparison of the Sonnet and Luna variables uses the outcome before the alternative check.
+    build_numbers(tolerance_runs,pricing,tolerance_contrasts,out,rob_macros,write=False)
+    macros,number_provenance=build_numbers(runs,pricing,contrasts,out,rob_macros,legacy_check=False)
     priced=runs[['record_path','position_id','model','agency','primary']].merge(pricing[['record_path','cost_usd']],on='record_path',validate='one_to_one')
     summary=priced.groupby(['model','agency']).agg(runs=('primary','size'),priced_runs=('cost_usd','count'),successes=('primary','sum'),total_cost_usd=('cost_usd','sum')).reset_index()
     successes=priced[priced.cost_usd.notna()].groupby(['model','agency']).primary.sum()
@@ -697,23 +754,26 @@ def build(out=OUT,force=False):
     summary.to_csv(out/'data/cost_denominators.csv',index=False)
     receipt=dict(built_at=datetime.now(timezone.utc).isoformat(),runs=len(runs),tasks=40,models=six.ORDER,repetitions=10,
                  provider_calls=0,submitted_scripts_executed=0,scoring_rule='channel_se',raw_scoring=score_receipt,
+                 alternative_check=alternative_summary,
                  legacy_contrast_max_abs_diff=legacy_diff,primary_successes=int(runs.primary.sum()),
                  cost=dict(priced_runs=int(priced.cost_usd.notna().sum()),unpriced_runs=priced[priced.cost_usd.isna()].drop(columns='cost_usd').to_dict('records'),
                            denominator_file='data/cost_denominators.csv'),
                  number_provenance=number_provenance,robustness_claim_checks=rob_info['claim_checks'],
                  computation_sources={str(p.relative_to(ROOT)):sha(p) for p in
-                                      [Path(__file__),Path(robustness.__file__),Path(statistics.__file__)]},
+                                      [Path(__file__),Path(robustness.__file__),Path(statistics.__file__),
+                                       Path(alternatives.__file__),alternatives.OUT]},
                  inference=dict(cluster='task',clusters=40,fixed_effects='model-by-task in each combined column',
                                 pooled_wild_bootstrap='not computed; p_wcb is missing for new and combined columns',
                                 original_model_wild_bootstrap='retained from the verified original analysis'))
     files=[out/'numbers.tex',out/'tables/regression_contrasts.csv',out/'tables/robustness.csv',out/'tables/appendix_robustness.tex',
-           *[out/f'data/{name}' for name in ('runs.csv','selected_records.csv','run_pricing.csv','term_checks.csv','se_checks.csv','catalog.json','numbers.json','robustness.json','cost_denominators.csv')]]
+           *[out/f'data/{name}' for name in ('runs.csv','selected_records.csv','run_pricing.csv','term_checks.csv','se_checks.csv','catalog.json','numbers.json','robustness.json','cost_denominators.csv','alternative_checks.csv')]]
     files.append(out/'data/cross_model.csv')
     receipt['output_hashes']={str(p.relative_to(out)):sha(p) for p in files}
     write_json(out/'pnas_analysis_receipt.json',receipt)
     write_json(out/'data/snapshot.json',dict(planned=43200,analyzed=len(runs),source_tasks=40,models=six.ORDER,
                                            provider_calls=0,output_rule='channel_se',primary_successes=int(runs.primary.sum()),
-                                           rescoring_changes=0,complete_design=True))
+                                           rescoring_changes=0,alternative_check_changes=alternative_summary['successes_changed'],
+                                           complete_design=True))
     checkpoint('analysis_build',runs=len(runs),macros=len(macros))
     print(json.dumps(dict(runs=len(runs),success_pct=100*runs.primary.mean(),macros=len(macros),
                           scoring_cache_reused=score_receipt['reused'],robustness_claim_checks=rob_info['claim_checks'])))

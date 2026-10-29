@@ -2,13 +2,13 @@
 
 from __future__ import annotations
 import json
+import sys
 from pathlib import Path
 
 import pandas as pd
 from statsmodels.duration.hazard_regression import PHReg
 
-HERE = Path(__file__).parent
-DATA = HERE.parent.parent.parent / "data" / "benchmark" / "pilot_v4_cox.csv"
+DATA = Path(sys.argv[1] if len(sys.argv) > 1 else "tasks/cox_hazard") / "pilot_v4_cox.csv"
 
 df = pd.read_csv(DATA)
 res = PHReg(df["t_obs"].values, df[["treat", "x"]].values, status=df["event"].values).fit(method="bfgs", disp=0)

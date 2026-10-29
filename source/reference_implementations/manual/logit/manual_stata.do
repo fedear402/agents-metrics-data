@@ -2,9 +2,9 @@
 clear all
 set more off
 
-local data_path "data/benchmark/pilot.csv"
-capture confirm file "`data_path'"
-if _rc != 0 local data_path "../../../data/benchmark/pilot.csv"
+args input_dir
+if `"`input_dir'"' == "" local input_dir "tasks/logit"
+local data_path "`input_dir'/pilot.csv"
 import delimited "`data_path'", clear
 
 logit y_bin_logit x1 x2

@@ -1,9 +1,9 @@
 * Manual reference for T07 (Welch two-sample t-test) — Stata.
 clear all
 set more off
-local data_path "data/benchmark/pilot_v5_ttest.csv"
-capture confirm file "`data_path'"
-if _rc != 0 local data_path "../../../data/benchmark/pilot_v5_ttest.csv"
+args input_dir
+if `"`input_dir'"' == "" local input_dir "tasks/ttest_welch"
+local data_path "`input_dir'/pilot_v5_ttest.csv"
 import delimited "`data_path'", clear
 
 ttest y, by(group) unequal

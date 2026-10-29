@@ -12,6 +12,11 @@ tasks. Each draw resamples the tasks with replacement. Every group of a figure
 uses the same draws, and every figure uses the same seed and draw count.
 The task figure (Figure 3) and the cost figures draw no interval
 (Federico, 2026-09-25).
+
+The module defaults draw the AEA figures. The six-model PNAS build
+(code/paper/six_models.py, pnas_style) sets FIG_W to PNAS_FIG_W, STYLE_OVERRIDES
+to PNAS_FONT, and the agent line to ROSE, and it checks the text with
+keep_side_margins and text_sizes (peer review 2026-10-28).
 """
 from __future__ import annotations
 
@@ -38,8 +43,15 @@ HAIR, STRONG = '#D1C5B9', '#3A4040'
 # A third neutral for a third series, and the band behind alternate task rows.
 MID = '#8C9292'
 BAND = '#F6F3F0'
+# A darker pink for lines in the PNAS figures. BLUSH has a contrast ratio of 1.82:1 against white, and ROSE
+# has 3.9:1, above the 3:1 that WCAG 2.1 asks for graphical objects (peer review 2026-10-28, I73).
+# Marker fills keep BLUSH, because their WALNUT edges carry the contrast.
+ROSE = '#CC5C74'
 
+# Figure width in inches. The AEA figures use 6.5 in. The six-model PNAS build sets PNAS_FIG_W, the PNAS
+# two-column width of 17.8 cm, so the text keeps its drawn point size in print (peer review 2026-10-28, I76).
 FIG_W = 6.5
+PNAS_FIG_W = 17.8 / 2.54
 BOOTSTRAP_DRAWS = 4000
 BOOTSTRAP_SEED = 20260925
 BOOTSTRAP_INTERVAL = '95 percent percentile, task cluster bootstrap'
@@ -55,6 +67,16 @@ STYLE = {
     'xtick.major.width': .6, 'ytick.major.width': .6, 'xtick.labelsize': 7.5, 'ytick.labelsize': 7.5,
     'legend.frameon': False, 'legend.fontsize': 7.4, 'pdf.fonttype': 42, 'axes.grid': False,
     'figure.facecolor': 'white', 'savefig.facecolor': 'white', 'savefig.bbox': 'standard'}
+
+# Settings that figure_style() applies after STYLE. The AEA figures leave it empty. The six-model PNAS build
+# sets PNAS_FONT, because PNAS asks for one font in all figures, Arial or Helvetica (peer review 2026-10-28,
+# I76). The design figure uses the same Helvetica through fontspec. The math font follows the text font, so a
+# label such as "Pass@$k$" sets k in Helvetica Oblique.
+STYLE_OVERRIDES = {}
+PNAS_FONT = {
+    'font.sans-serif': ['Helvetica', 'Arial', 'TeX Gyre Heros', 'Liberation Sans', 'DejaVu Sans'],
+    'mathtext.fontset': 'custom', 'mathtext.rm': 'Helvetica', 'mathtext.sf': 'Helvetica',
+    'mathtext.it': 'Helvetica:italic', 'mathtext.bf': 'Helvetica:bold'}
 
 # Sizes of Figure 2, in points.
 LINE_WIDTH = 1.5
@@ -74,6 +96,10 @@ SERIES = {
     'blush': dict(line=BLUSH, marker='s', face=BLUSH, edge=WALNUT, whisker=WALNUT, size=MARKER_SIZE,
                   key_size=4.2, key_edge=MARKER_EDGE),
     'mid': dict(line=MID, marker='^', face=MID, edge=MID, whisker=MID, size=5.2, key_size=5.0, key_edge=0),
+    # A third series with no accent (PNAS Figure 2): a dashed dark line and an open inverted triangle. Its
+    # shape differs from the agency markers (circle, square, diamond), so it carries no agency meaning.
+    'open': dict(line=STRONG, ls=(0, (3.2, 1.6)), marker='v', face='white', edge=STRONG, whisker=STRONG,
+                 size=5.0, key_size=4.8, key_edge=MARKER_EDGE),
 }
 
 # One marker per agency condition. Shape and fill both differ, so the key does
@@ -97,6 +123,7 @@ def figure_style():
     with plt.rc_context():
         plt.rcdefaults()
         plt.rcParams.update(STYLE)
+        plt.rcParams.update(STYLE_OVERRIDES)
         yield
 
 
@@ -233,10 +260,12 @@ def hairline_grid(ax, axis='y'):
 
 def series_handle(style):
     """Legend key for a series drawn with plot_series (Figure 2's keys)."""
+    ls = style.get('ls', '-')
     if style['key_edge']:
         return Line2D([], [], marker=style['marker'], mfc=style['face'], mec=style['edge'],
-                      mew=style['key_edge'], color=style['line'], ms=style['key_size'], lw=LINE_WIDTH)
-    return Line2D([], [], marker=style['marker'], color=style['line'], ms=style['key_size'], mew=0, lw=LINE_WIDTH)
+                      mew=style['key_edge'], color=style['line'], ms=style['key_size'], lw=LINE_WIDTH, ls=ls)
+    return Line2D([], [], marker=style['marker'], color=style['line'], ms=style['key_size'], mew=0, lw=LINE_WIDTH,
+                  ls=ls)
 
 
 def agency_handle(agency, line=False):
@@ -260,17 +289,22 @@ def whiskers(ax, x, y, low, high, color, gid=None, horizontal=False):
 def plot_series(ax, x, y, low, high, style, gid):
     """Figure 2's series: a line, whiskers, then markers on top.
 
-    The line carries `gid`, and the whiskers carry `gid` + '_interval'.
+    The line carries `gid`, and the whiskers carry `gid` + '_interval'. A style with `ls` draws that line pattern.
     """
-    ax.plot(x, y, color=style['line'], lw=LINE_WIDTH, zorder=2, gid=gid)
+    ax.plot(x, y, color=style['line'], lw=LINE_WIDTH, ls=style.get('ls', '-'), zorder=2, gid=gid)
     whiskers(ax, x, y, low, high, style['whisker'], gid=f'{gid}_interval')
     ax.plot(x, y, marker=style['marker'], ms=style['size'], mfc=style['face'], mec=style['edge'],
             mew=MARKER_EDGE, ls='none', zorder=4, clip_on=False)
 
 
+# The lower end of the success axes. None keeps the data-driven start. The six-model build sets 0,
+# because PNAS asks that numerical axes go to 0 (peer review 2026-10-28).
+AXIS_FLOOR = None
+
+
 def success_axis(ax, lows, top=101, label=True):
-    """Task-success axis from the multiple of ten below the lowest interval end."""
-    lower = min(50, 10 * math.floor(float(np.nanmin(lows)) / 10))
+    """Task-success axis from the multiple of ten below the lowest interval end, or from AXIS_FLOOR."""
+    lower = min(50, 10 * math.floor(float(np.nanmin(lows)) / 10)) if AXIS_FLOOR is None else AXIS_FLOOR
     ax.set_ylim(lower, top)
     ax.set_yticks(range(lower, 101, 10))
     if label:
@@ -325,6 +359,48 @@ def assert_text_outside(fig):
     for (first, a), (second, b) in itertools.combinations(boxes, 2):
         if _overlap(a, b):
             raise AssertionError(f'texts overlap: {first.get_text()!r} and {second.get_text()!r}')
+
+
+def text_margins(fig):
+    """Distance in points from the drawn texts to the left, right, bottom, and top canvas edges."""
+    fig.canvas.draw()
+    renderer = fig.canvas.get_renderer()
+    boxes = [Text.get_window_extent(text, renderer) for text in figure_texts(fig)]
+    to_pt = 72 / fig.dpi
+    return dict(left=min(b.x0 for b in boxes) * to_pt, right=(fig.bbox.x1 - max(b.x1 for b in boxes)) * to_pt,
+                bottom=min(b.y0 for b in boxes) * to_pt, top=(fig.bbox.y1 - max(b.y1 for b in boxes)) * to_pt)
+
+
+def keep_side_margins(fig, pad_pt, rounds=6):
+    """Narrow the axes until every text ends at least pad_pt points inside the left and right canvas edges.
+
+    The horizontal positions of all axes map linearly onto a span that is shorter by the shortfall, so the
+    panels keep their order and relative spacing, and the texts that belong to an axes move with it. The
+    PNAS build uses it, because one Figure 3B tick label ended 0.65 pt from the edge (peer review 2026-10-28,
+    I77). Returns the final margins from text_margins.
+    """
+    for _ in range(rounds):
+        margins = text_margins(fig)
+        short_left, short_right = max(0.0, pad_pt - margins['left']), max(0.0, pad_pt - margins['right'])
+        if short_left < 1e-3 and short_right < 1e-3:
+            return margins
+        width_pt = fig.get_figwidth() * 72
+        positions = [ax.get_position() for ax in fig.axes]
+        low, high = min(p.x0 for p in positions), max(p.x1 for p in positions)
+        new_low, new_high = low + 1.05 * short_left / width_pt, high - 1.05 * short_right / width_pt
+        scale = (new_high - new_low) / (high - low)
+        for ax, position in zip(fig.axes, positions):
+            ax.set_position([new_low + (position.x0 - low) * scale, position.y0, position.width * scale,
+                             position.height])
+    margins = text_margins(fig)
+    if min(margins['left'], margins['right']) < pad_pt - 1e-3:
+        raise AssertionError(f'text margin below {pad_pt} pt after {rounds} rounds: {margins}')
+    return margins
+
+
+def text_sizes(fig):
+    """The font sizes, in points, of the drawn texts of a figure."""
+    return sorted({round(text.get_fontsize(), 2) for text in figure_texts(fig)})
 
 
 def interval_segments(ax, gid):

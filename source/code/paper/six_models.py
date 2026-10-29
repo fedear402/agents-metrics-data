@@ -7,6 +7,12 @@ Models (name with effort), in pairs of one Claude and one GPT model:
 New models come from data/collections/2026-10-17_full-design/<key>_paper_rows.csv and <key>_paper_pricing.csv
 (code/benchmark/workflows/full_design_2026_10_17/paper_rows.py). A model enters only when all 7,200 runs are
 complete; the build lists the models it used. The manuscript and the paper analysis are not changed.
+Task success and the failure type come from data/analysis/six_models/data/runs.csv, the outcome of
+code/paper/pnas_analysis.py after the wrong-method check (checked_outcome), so run that script first. It reads
+data/appendix_pass_at_k.csv from this build, so rerun it after this build.
+
+The figures use the PNAS settings of pnas_style(): 17.8 cm width, Helvetica in every figure (the design figure
+through LuaLaTeX), axes from 0, and the pink accent only for the constrained agent (peer review 2026-10-28).
 
 Figures use the paper's generators and style (code/benchmark/production_paper_figures.py,
 production_paper_costs.py, paper_figure_style.py). Pooled figures pool all included models. Figures with one
@@ -31,6 +37,7 @@ from __future__ import annotations
 import argparse
 import json
 import math
+import re
 import shutil
 import subprocess
 import sys
@@ -68,11 +75,25 @@ COST_GROUPS = {'cheap': ['luna', 'haiku', 'luna6'], 'expensive': ['sonnet', 'opu
 GROUP_NAMES = {'cheap': 'Cheap models', 'expensive': 'Expensive models'}
 ORDER = [m for _, pair in GRID for m in pair]
 GROUP_COLOR = {'Original pair': style.MID, 'Low cost': style.WALNUT, 'High cost': style.STRONG}
-LINES = {m: dict(color=GROUP_COLOR[g], ls='-' if i == 0 else (0, (3, 2))) for g, pair in GRID for i, m in enumerate(pair)}
+# Each model has its own line pattern, so the two models of a pair stay apart in grayscale (peer review 2026-10-28).
+DASHES = ['-', (0, (3, 2)), (0, (1, 1.5)), (0, (5, 1.5, 1, 1.5)), (0, (6, 2)), (0, (5, 1.5, 1, 1.5, 1, 1.5))]
+LINES = {m: dict(color=GROUP_COLOR[g], ls=DASHES[k]) for k, (g, m) in enumerate((g, m) for g, pair in GRID for m in pair)}
 LINES.update(cheap=dict(color=style.WALNUT, ls=(0, (3, 2))), expensive=dict(color=style.STRONG, ls='-'))
 RUNS_PER_MODEL = 7200
 AGENCIES = ['chatbot', 'self_repair', 'agent']
 PLATFORMS = ['python', 'r', 'stata']
+# Text sizes stay between 6 and 12 pt at the drawn width (PNAS digital art rules), and every text ends at least
+# TEXT_MARGIN_PT inside the left and right figure edges (peer review 2026-10-28, I76 and I77).
+TEXT_MARGIN_PT = 4.0
+TEXT_SIZE_RANGE_PT = (6.0, 12.0)
+
+
+def label(model):
+    """The figure label of a model, with the effort in parentheses as in Fig. 1 and the SI tables (I77).
+
+    NAMES keeps its form, because the tables and the receipt use it.
+    """
+    return re.sub(r' (medium|low)$', r' (\1)', NAMES[model])
 
 
 def load():
@@ -109,12 +130,72 @@ def load():
     return data, order, skipped
 
 
+def checked_outcome(data, analysis=None):
+    """Take task success and the failure type from the PNAS analysis, after the wrong-method check.
+
+    code/paper/pnas_analysis.py scores the runs, applies scoring_alternatives.apply_check, and writes the
+    outcome to data/analysis/six_models/data/runs.csv. A success whose value lies closer to a listed
+    wrong-method value than to the reference becomes a silent failure there, and alternative_checks.csv marks
+    those runs (run_changed). load() keeps the outcome before the check, because pnas_analysis.py reads it.
+    This function replaces `primary` and `failure_category` and checks that only the marked runs change, each
+    from success to failure.
+    """
+    analysis = OUT / 'data' if analysis is None else Path(analysis)
+    if not (analysis / 'runs.csv').is_file():
+        raise SystemExit('Run code/paper/pnas_analysis.py first: the figures use its checked outcome')
+    checked = pd.read_csv(analysis / 'runs.csv', low_memory=False,
+                          usecols=['record_path', 'position_id', 'primary', 'failure_category', 'execution_ok',
+                                   'output_available'])
+    merged = data[['record_path', 'position_id', 'primary', 'execution_ok', 'output_available']].merge(
+        checked, on='record_path', how='left', suffixes=('', '_checked'), validate='one_to_one')
+    if len(checked) != len(data) or merged.primary_checked.isna().any():
+        raise ValueError('The checked outcome covers other runs than the six-model sample')
+    if not merged.position_id.eq(merged.position_id_checked).all():
+        raise ValueError('The checked outcome assigns other design positions to the records')
+    for name in ('execution_ok', 'output_available'):
+        if not merged[name].eq(merged[f'{name}_checked'].astype(bool)).all():
+            raise ValueError(f'The checked outcome changes {name}')
+    after = merged.primary_checked.astype(bool).to_numpy()
+    turned = merged.primary.to_numpy() & ~after
+    if (~merged.primary.to_numpy() & after).any():
+        raise ValueError('The checked outcome turns a failure into a success')
+    alternatives = pd.read_csv(analysis / 'alternative_checks.csv')
+    marked = set(alternatives.position_id[alternatives.run_changed.astype(bool)])
+    if set(merged.position_id[turned]) != marked:
+        raise ValueError('The changed runs differ from the runs that alternative_checks.csv marks')
+    data = data.copy()
+    data['primary'] = after
+    data['failure_category'] = merged.failure_category.to_numpy()
+    return data, int(turned.sum())
+
+
 def configure(order):
     """Point the paper generators at the included models and their names."""
     ppf.MODELS = list(order)
     ppf.MODEL_LABEL = {m: NAMES[m] for m in order}
     ppc.MODELS = list(order)
     ppc.MODEL_NAMES = {m: NAMES[m] for m in order}
+    pnas_style()
+
+
+def pnas_style():
+    """Set the PNAS figure settings in the shared modules (peer review 2026-10-28).
+
+    The AEA figures, which other scripts build, keep the module defaults.
+    - Numerical axes go to 0 (M14). Log axes are exempt.
+    - Figures are 17.8 cm wide and set every text in Helvetica, as the design figure does (I76).
+    - The pink accent marks only the constrained agent, and its lines use the darker ROSE (I73). Figure 2 draws
+      the one-shot prompt and R in gray and Stata with a dashed line, and Figure 3 draws silent failures in gray.
+    - Axis labels give the unit in parentheses (I77).
+    """
+    style.AXIS_FLOOR = 0
+    style.FIG_W = style.PNAS_FIG_W
+    style.STYLE_OVERRIDES = dict(style.PNAS_FONT)
+    style.AGENCY_LINES = {**style.AGENCY_LINES, 'agent': style.ROSE}
+    ppf.PROMPT_SERIES = {'zero_shot': style.SERIES['strong'], 'few_shot': style.SERIES['mid']}
+    ppf.PLATFORM_SERIES = {'python': style.SERIES['strong'], 'r': style.SERIES['mid'], 'stata': style.SERIES['open']}
+    ppf.FAILURE_SERIES = {'loud': style.SERIES['strong'], 'silent': style.SERIES['mid']}
+    ppf.SILENT_SHARE_LABEL = 'Silent share of failures (percent)'
 
 
 def benchmark_design(data, out, order):
@@ -127,12 +208,12 @@ def benchmark_design(data, out, order):
     rows = [', '.join(names[i:i + 3]) for i in range(0, len(names), 3)]
     new = (rf'\nreps\ repetitions per cell for each of {len(order)} models:\\[1pt]' + '\n  '
            + ('\\\\[1pt]\n  '.join(rows)) + r'\\[1pt]')
-    text = text.replace(old, new)
+    text = pnas_design(text.replace(old, new))
     (out / 'data/benchmark_design.tex').write_text(text)
     with tempfile.TemporaryDirectory(prefix='pnas-design-') as temporary:
         folder = Path(temporary)
         (folder / 'benchmark_design.tex').write_text(text)
-        run = subprocess.run(['pdflatex', '-halt-on-error', '-interaction=nonstopmode', 'benchmark_design.tex'],
+        run = subprocess.run(['lualatex', '-halt-on-error', '-interaction=nonstopmode', 'benchmark_design.tex'],
                              cwd=folder, capture_output=True, text=True)
         if run.returncode:
             raise RuntimeError(run.stdout[-3000:])
@@ -142,8 +223,54 @@ def benchmark_design(data, out, order):
     pd.DataFrame([counts]).to_csv(out / 'data/benchmark_design.csv', index=False)
 
 
-def saver(out, captions):
+def check_text(fig, stem):
+    """Keep every text inside the side margins, check the text rules, and return the text sizes and margins."""
+    margins = style.keep_side_margins(fig, TEXT_MARGIN_PT)
+    style.assert_text_outside(fig)
+    sizes = style.text_sizes(fig)
+    low, high = TEXT_SIZE_RANGE_PT
+    if sizes[0] < low or sizes[-1] > high:
+        raise AssertionError(f'{stem}: text sizes {sizes} leave {low} to {high} pt')
+    return dict(width_cm=round(fig.get_figwidth() * 2.54, 2), font_pt=[sizes[0], sizes[-1]],
+                margin_pt={side: round(value, 2) for side, value in margins.items()})
+
+
+# The PNAS design figure: the template's text in Helvetica through fontspec (LuaLaTeX), the font of the data
+# figures, and its layout widened from 135.5 mm to 177.3 mm, so the page is 17.8 cm wide with the 1 pt border
+# on each side (peer review 2026-10-28, I76). Each agency column is 50.55 mm of text plus 4.55 mm of padding
+# and frame, 6 mm apart, and the count strip spans the full width. The other boxes widen in the same
+# proportion. The type sizes stay at 6.9 to 8.4 pt.
+DESIGN_FONT = (r'\usepackage[T1]{fontenc}' '\n' r'\usepackage{helvet}' '\n' r'\renewcommand{\familydefault}{\sfdefault}'
+               '\n' r'\usepackage{sansmath}' '\n' r'\sansmath' '\n',
+               r'\usepackage{fontspec}' '\n'
+               r'\IfFontExistsTF{Helvetica}{\setmainfont{Helvetica}\setsansfont{Helvetica}}'
+               r'{\setmainfont{TeX Gyre Heros}\setsansfont{TeX Gyre Heros}}' '\n'
+               r'\renewcommand{\familydefault}{\sfdefault}' '\n')
+DESIGN_LAYOUT = [
+    (r'% Three agency columns across the 135.5 mm text width, 6 mm apart.',
+     r'% Three agency columns across the 177.3 mm PNAS width, 6 mm apart.', 1),
+    (r'\def\xL{20.9} \def\xM{67.75} \def\xR{114.6}', r'\def\xL{27.55} \def\xM{88.65} \def\xR{149.75}', 1),
+    ('text width=37.6mm', 'text width=50.55mm', 1),
+    ('[17.5mm][t]{37.6mm}', '[17.5mm][t]{50.55mm}', 1),
+    ('text width=82mm', 'text width=107mm', 2),
+    ('text width=112mm', 'text width=146mm', 1),
+    ('text width=131mm', 'text width=173.85mm', 1),
+]
+
+
+def pnas_design(text):
+    """The design template in the PNAS font and width."""
+    for old, new, count in [(*DESIGN_FONT, 1), *DESIGN_LAYOUT]:
+        if text.count(old) != count:
+            raise ValueError(f'The design template changed near {old!r}')
+        text = text.replace(old, new)
+    return text
+
+
+def saver(out, captions, layout=None):
     def save(fig, destination, stem, plotted, caption, source):
+        if layout is not None:
+            layout[stem] = check_text(fig, stem)
         fig.savefig(out / 'figures' / f'{stem}.pdf', metadata={'Title': stem})
         fig.savefig(out / 'figures' / f'{stem}.png', dpi=200)
         plt.close(fig)
@@ -165,7 +292,7 @@ def grid_axes(order, row_height, extra, sharey=True, **adjust):
     for r, (group, pair) in enumerate(rows):
         for c, model in enumerate(pair):
             if model in order:
-                placed.append((axes[r][c], model, f'{next(letter)}. {NAMES[model]}'))
+                placed.append((axes[r][c], model, f'{next(letter)}. {label(model)}'))
             else:
                 axes[r][c].set_axis_off()
         if pair[0] not in order and pair[1] in order:
@@ -203,7 +330,7 @@ def pass_by_model(data, out, save, order):
     plotted, task_count = ppf.pass_at_k_data(data)
     repetitions = int(plotted.repetitions.iloc[0])
     offsets = dict(zip(AGENCIES, (-.16, 0, .16)))
-    lower = min(70, 5 * math.floor(plotted.pass_at_k_pct_lo.min() / 5))
+    lower = 0  # PNAS asks that numerical axes go to 0 (peer review 2026-10-28).
     with style.figure_style():
         fig, axes, placed = grid_axes(order, 2.35, .6, left=.085, right=.955,
                                       top=.6, bottom=.45, wspace=.10, hspace=.62)
@@ -217,12 +344,16 @@ def pass_by_model(data, out, save, order):
                 marker = {**style.AGENCY_MARKERS[agency], 'ms': style.AGENCY_MARKERS[agency]['ms'] - .8}
                 ax.plot(x, rows.pass_at_k_pct, ls='none', zorder=4, clip_on=False, **marker)
             ax.set_ylim(lower, 101)
-            ax.set_yticks(range(lower, 101, 5 if lower >= 70 else 10))
+            # Even ticks that reach 100 (peer review 2026-10-28, I71).
+            ax.set_yticks(range(lower, 101, 20))
             ax.set_xlim(.6, repetitions + .4)
             ax.set_xticks(range(1, repetitions + 1))
             style.hairline_grid(ax)
             style.panel_title(ax, title, pad=4)
-            ax.set_xlabel('Runs drawn (k)', fontsize=style.AXIS_LABEL_SIZE)
+            # k is italic, as in the legend and the text (Pass@$k$).
+            ax.set_xlabel('Runs drawn ($k$)', fontsize=style.AXIS_LABEL_SIZE)
+        for row in axes:
+            row[0].set_ylabel('Pass@$k$ (percent)', fontsize=style.AXIS_LABEL_SIZE)
         fig.legend([style.agency_handle(a, line=True) for a in AGENCIES], [ppf.AGENCY_LABEL[a] for a in AGENCIES],
                    loc='upper left', bbox_to_anchor=(.085, .995), ncol=3, frameon=False)
         save(fig, out, 'appendix_pass_at_k', plotted,
@@ -241,7 +372,7 @@ def runtime_by_model(data, out, save, order):
         on=['model', 'agency'], validate='one_to_one')
     top = 10 * math.ceil(plotted.median_provider_seconds_hi.max() * 1.05 / 10)
     with style.figure_style():
-        fig, axes, placed = grid_axes(order, 2.0, .3, left=.11, right=.955,
+        fig, axes, placed = grid_axes(order, 2.0, .3, left=.085, right=.955,
                                       top=.25, bottom=.35, wspace=.10, hspace=.55)
         for ax, model, title in placed:
             rows = plotted[plotted.model.eq(model)].set_index('agency').loc[AGENCIES]
@@ -253,7 +384,8 @@ def runtime_by_model(data, out, save, order):
             ppf.agency_axis(ax)
             style.panel_title(ax, title, pad=4)
         for row in axes:
-            row[0].set_ylabel('Median provider\nseconds per run', fontsize=style.AXIS_LABEL_SIZE, linespacing=1.3)
+            # The caption and the text call the measure runtime (peer review 2026-10-28, I77).
+            row[0].set_ylabel('Median runtime (seconds)', fontsize=style.AXIS_LABEL_SIZE)
         save(fig, out, 'runtime_by_agency', plotted,
              'Median provider wall time per run, one panel per model. Whiskers are 95 percent intervals for the '
              f'median from a cluster bootstrap over tasks ({style.BOOTSTRAP_DRAWS:,} draws, seed {style.BOOTSTRAP_SEED}).',
@@ -270,14 +402,22 @@ def resource_points(data, resource='cost_usd'):
 
 
 LANGUAGE_LINES = {'python': '-', 'r': (0, (3, 2)), 'stata': (0, (1, 1.6))}
+# A log cost axis spans the points of its panel times and divided by LOG_PAD.
+LOG_PAD = 1.3
+
+
+def log_ticks(low, high):
+    """Ticks at 1, 2, 3, and 5 times a power of ten inside the axis limits."""
+    ticks = [m * 10.0 ** e for e in range(-3, 4) for m in (1, 2, 3, 5)]
+    return [t for t in ticks if low * (1 - 1e-9) <= t <= high * (1 + 1e-9)]
 
 
 def resource_by_model(data, out, save, order, resource, intervals=False):
     """Task success against mean resource per run, one panel per model.
 
     With intervals=True (the PNAS group cost figure), every point gets a 95 percent whisker from the task cluster
-    bootstrap of style.bootstrap_ratios (the draws and seed of the other figures), and the legend names the
-    languages by line style, so no language label sits beside the panels.
+    bootstrap of style.bootstrap_ratios (the draws and seed of the other figures), the legend names the
+    languages by line style, so no language label sits beside the panels, and each panel has a log cost axis.
     """
     points = resource_points(data, resource)
     unit = 'US cents' if resource == 'cost_usd' else 'thousands'
@@ -293,14 +433,23 @@ def resource_by_model(data, out, save, order, resource, intervals=False):
         margins = dict(right=.955, wspace=.10) if intervals else dict(right=.9, wspace=.36)
         fig, axes, placed = grid_axes(order, 2.45, .6, sharey=True, left=.085,
                                       top=.55, bottom=.45, hspace=.62, **margins)
-        low_end = points.success_lo.min() if intervals else points.success_pct.min()
-        ylim = (5 * math.floor(low_end / 5) - 1, 101)
+        ylim = (0, 101)  # PNAS asks that numerical axes go to 0 (peer review 2026-10-28).
         for ax, model, title in placed:
             selected = points[points.model.eq(model)]
             low, high = float(selected.x_value.min()), float(selected.x_value.max())
-            pad = (high - low) * .08 or high * .1
-            ax.set_xlim(max(0, low - pad), high + pad)
+            if intervals:
+                # The PNAS group figure (Fig. 4) uses a log cost axis in each panel. On a linear axis from 0, the
+                # chatbot and self-repair points of Python and R overlap (peer review 2026-10-28, I72). A log
+                # axis is exempt from the zero rule.
+                ax.set_xscale('log')
+                ax.set_xlim(low / LOG_PAD, high * LOG_PAD)
+                ticks = log_ticks(low / LOG_PAD, high * LOG_PAD)
+                ax.set_xticks(ticks, [ppc.tick_text(t) for t in ticks])
+            else:
+                pad = (high - low) * .08 or high * .1
+                ax.set_xlim(0, high + pad)
             ax.set_ylim(*ylim)
+            ax.set_yticks(range(0, 101, 20))
             ax.xaxis.set_minor_locator(NullLocator())
             style.hairline_grid(ax)
             ends = []
@@ -345,12 +494,14 @@ def resource_by_model(data, out, save, order, resource, intervals=False):
         if intervals:
             style.assert_text_outside(fig)
         stem = 'cost_of_correctness' if resource == 'cost_usd' else 'cost_tokens'
-        caption = (('Task success and mean cost per run by language and agency, one panel per model, each with its own '
-                    'linear cost axis. Costs are list-price values in US cents.') if resource == 'cost_usd' else
+        scale = 'logarithmic' if intervals else 'linear'
+        caption = ((f'Task success and mean cost per run by language and agency, one panel per model, each with its own '
+                    f'{scale} cost axis. Costs are list-price values in US cents.') if resource == 'cost_usd' else
                    'Task success and mean input plus output tokens per run, one panel per model.')
         if intervals:
-            caption += (' Line styles mark the language. Whiskers are 95 percent intervals from a cluster bootstrap '
-                        f'over the 40 tasks ({style.BOOTSTRAP_DRAWS:,} draws, seed {style.BOOTSTRAP_SEED}).')
+            caption += (' Line styles mark the language. Whiskers are 95 percent intervals for task success from a '
+                        f'cluster bootstrap over the 40 tasks ({style.BOOTSTRAP_DRAWS:,} draws, seed '
+                        f'{style.BOOTSTRAP_SEED}).')
         save(fig, out, stem, points, caption, None)
 
 
@@ -375,9 +526,9 @@ def frontier(data, out, save, order, log=False):
             ticks = ppc.linear_ticks(*xlim)
         ax.set_xticks(ticks, [ppc.tick_text(t) for t in ticks])
         ax.xaxis.set_minor_locator(NullLocator())
-        ylow = 5 * math.floor(points.success_lo.min() / 5)
-        ax.set_ylim(ylow, 101)
-        ax.set_yticks(range(ylow, 101, 5))
+        # PNAS asks that numerical axes go to 0 (peer review 2026-10-28).
+        ax.set_ylim(0, 101)
+        ax.set_yticks(range(0, 101, 10))
         style.hairline_grid(ax)
         for model in order:
             group = points[points.model.eq(model)].set_index('agency').loc[AGENCIES]
@@ -390,11 +541,11 @@ def frontier(data, out, save, order, log=False):
         ax.set_xlabel('Mean cost per run (US cents)', fontsize=style.AXIS_LABEL_SIZE)
         ax.set_ylabel('Task success (percent)', fontsize=style.AXIS_LABEL_SIZE)
         handles = [style.agency_handle(a) for a in AGENCIES] + [Line2D([], [], lw=1.1, **LINES[m]) for m in order]
-        labels = [ppc.AGENCY_NAMES[a] for a in AGENCIES] + [NAMES[m] for m in order]
+        labels = [ppc.AGENCY_NAMES[a] for a in AGENCIES] + [label(m) for m in order]
         fig.legend(handles, labels, loc='upper left', bbox_to_anchor=(.085, .99), ncol=3, frameon=False)
         save(fig, out, 'model_agency_frontier_log' if log else 'model_agency_frontier', points,
              'Task success and mean list-price cost per run by model and agency condition, pooled over prompts and '
-             f'languages, on a {"logarithmic" if log else "linear"} cost axis. Claude models are solid lines and GPT models dashed; the color marks the pair (gray: '
+             f'languages, on a {"logarithmic" if log else "linear"} cost axis. Each model has its own line pattern, and the color marks the pair (gray: '
              'original pair, brown: low cost, dark: high cost). Whiskers are 95 percent intervals from a cluster '
              'bootstrap over the 40 tasks.', None)
 
@@ -506,6 +657,7 @@ def main(argv=None):
     for sub in ('figures', 'data', 'tables'):
         (out / sub).mkdir(parents=True, exist_ok=True)
     data, order, skipped = load()
+    data, alternative_failures = checked_outcome(data)
     if args.groups:
         global GRID
         missing = [m for members in COST_GROUPS.values() for m in members if m not in order]
@@ -517,8 +669,8 @@ def main(argv=None):
         GRID = [('All six models', ['cheap', 'expensive'])]
         order = ['cheap', 'expensive']
     configure(order)
-    captions = {}
-    save = saver(out, captions)
+    captions, layout = {}, {}
+    save = saver(out, captions, layout)
     if args.groups:
         # The pooled paper figures would repeat the six-model build, so each group gets its own copy.
         for group in order:
@@ -548,7 +700,10 @@ def main(argv=None):
     table1(data, order, out)
     table = summary(data, order, out)
     receipt = dict(built_at=datetime.now(timezone.utc).isoformat(), models=[NAMES[m] for m in order],
-                   runs=len(data), skipped={NAMES.get(k, k): v for k, v in skipped.items()}, captions=captions)
+                   runs=len(data), skipped={NAMES.get(k, k): v for k, v in skipped.items()}, captions=captions,
+                   figure_text=layout,
+                   outcome=dict(source='data/analysis/six_models/data/runs.csv (after the wrong-method check)',
+                                successes=int(data.primary.sum()), turned_by_alternative_check=alternative_failures))
     if args.groups:
         receipt['groups'] = {NAMES[g]: [NAMES[m] for m in members] for g, members in COST_GROUPS.items()}
     (out / 'build_receipt.json').write_text(json.dumps(receipt, indent=2) + '\n')

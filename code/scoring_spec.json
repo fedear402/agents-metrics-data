@@ -1,0 +1,341 @@
+{
+  "version": "rescore_v2_2026-09-23",
+  "description": "Proposed per-task scoring rules for the offline rescore. Values come from the verified task audit (verify-tasks-N files override tasks-N files). V0 does not use this file.",
+  "audit_root": "quality_reports/audits/2026-09-23_task-by-task-audit/work",
+  "defaults": {
+    "rel_tol": 0.01,
+    "abs_floor": 0.0,
+    "exact_integer": false,
+    "compare_abs": false,
+    "note": "Every task below sets its own rel_tol. No absolute floor applies unless a term states one."
+  },
+  "precision_rule": {
+    "used_in": ["V1", "V2", "V3"],
+    "rule": "If the raw output token of a value has k decimal places (for scientific notation, k = mantissa decimals minus the exponent), the allowed absolute error is the term tolerance plus 0.5*10^-k. The token is read from the raw result.json text or the printed ANSWER line. When the raw token cannot be located, the shortest repr of the parsed float is used and the run records that fallback.",
+    "min_decimals": 4,
+    "min_decimals_note": "Chosen limit. The allowance applies only to tokens with at least 4 decimal places (the jsonlite write_json default). A first run without this guard gave tokens such as '0' an allowance of 0.5 and turned 17 wrong zero outputs (16 in pilot_probit_interaction_ame, 1 in hard_conditional_logit_welfare) into passes. The same guard applies when the channel rule decides whether two values are the same value.",
+    "applies_to": "estimates, derived terms, and scored standard errors; never to exact_integer terms"
+  },
+  "channel_rule": {
+    "used_in": ["V2", "V3"],
+    "rule": "Collect values from the scored output, from ANSWER lines (Stata) or a JSON result with an estimates list (R and Python) in other text files in the final workspace, and from the final Stata execution stdout. Accept the union when every requested term has exactly one distinct value across all sources. A term with two or more distinct values fails the run. Two values are the same value when they agree within the precision rule of the less precise token or within relative 1e-9.",
+    "final_execution_files": "A workspace file counts only when its modification time lies inside the final harness execution window (start: execution_attemptN.stdout, .stderr, .active.json, or end minus wall_seconds; end: execution_attemptN.json), widened by 2 seconds (chosen limit). A first run without this window let 4 agent scratch logs from earlier trial runs (run2.log, debug3.log, verify_small.log, check_example.log) conflict with correct final output.",
+    "stata_line_format": "The audited printed-value pattern of code/paper/dataset.py (PRINTED), which accepts 'ANSWER: term estimate=value' and 'ANSWER term value'.",
+    "excluded_files": ["input data files", "scripts (.do .py .R .ado)", "verification.txt", "files above 5 MB", "harness files in legacy run folders (prompt_, call_, provider_, command_, state, execution_, luna_, active_, run_record, started, inherited, *.jsonl)"]
+  },
+  "tasks": {
+    "anova_oneway": {
+      "source": "verify-tasks-1/anova_oneway.json",
+      "auditor_source": "tasks-1/anova_oneway.json",
+      "rel_tol": 1e-4,
+      "terms": {
+        "df_num": {"exact_integer": true},
+        "df_den": {"exact_integer": true},
+        "p_value": {"rel_tol": 1e-3}
+      },
+      "se_scored": false,
+      "note": "Verifier: F 1e-4 and p 1e-3 without floor survive; df_num and df_den must be added as exact integers."
+    },
+    "applied_cumulative_hac": {
+      "source": "verify-tasks-2/applied_cumulative_hac.json",
+      "auditor_source": "tasks-2/applied_cumulative_hac.json",
+      "rel_tol": 1e-6,
+      "se_scored": true,
+      "se_terms": {"cumulative_response": {"rel_tol": 1e-3, "accepted_values": [0.4659528278258023]}},
+      "note": "Tested decision is the HAC covariance and the full-covariance sum SE. Verifier: SE at relative 1e-3 detects max lag 16 (0.36 percent) and the doubled factor (1.16 percent)."
+    },
+    "applied_fuzzy_rd": {
+      "source": "verify-tasks-3/applied_fuzzy_rd.json",
+      "auditor_source": "tasks-3/applied_fuzzy_rd.json",
+      "rel_tol": 1e-4,
+      "se_scored": true,
+      "se_terms": {"treatment_effect": {"rel_tol": 1e-3, "accepted_values": [0.6895291967774643]}},
+      "note": "Prompt asks for HC0 with no correction and the joint covariance in the delta method. The HC1 value 0.69185 (0.33 percent) is not accepted because the prompt names HC0. Verifier flags SE scoring as a design decision."
+    },
+    "applied_multivintage_trade_iv": {
+      "source": "trade-redesign/E1.json",
+      "auditor_source": "trade-redesign/e1_tolerance.json",
+      "rel_tol": 1e-5,
+      "se_scored": false,
+      "note": "Pure relative 1e-5 on every term. All 258 successes pass down to 1e-6; all 13 wrong variants fail at 1e-5."
+    },
+    "applied_nonrecipient_population_iv": {
+      "source": "verify-tasks-4/applied_nonrecipient_population_iv.json",
+      "auditor_source": "tasks-4/applied_nonrecipient_population_iv.json",
+      "rel_tol": 1e-4,
+      "se_scored": false
+    },
+    "applied_shift_share": {
+      "source": "verify-tasks-5/applied_shift_share.json",
+      "auditor_source": "tasks-5/applied_shift_share.json",
+      "rel_tol": 1e-5,
+      "se_scored": true,
+      "se_terms": {
+        "effect": {"rel_tol": 1e-5, "accepted_values": [0.4919970926159917]},
+        "first_stage": {"rel_tol": 1e-5, "accepted_values": [0.25749160573577123]}
+      },
+      "note": "Verifier prefers 1e-5 over the auditor's 1e-6 (share trimming at 1.5e-6). Tested decision is the exposure-robust shock-level SE; HC0 is 2.1 percent off."
+    },
+    "arima_forecast": {
+      "source": "verify-tasks-6/arima_forecast.json",
+      "auditor_source": "tasks-6/arima_forecast.json",
+      "score_terms": [],
+      "derived_terms": {
+        "change": {"formula": "forecast - y_250", "y_250": 44.46498397457813, "reference": -1.7697086151001002, "rel_tol": 5e-3},
+        "half_width": {"formula": "(upper_95 - lower_95) / 2", "reference": 1.8626005771183927, "rel_tol": 5e-3}
+      },
+      "se_scored": false,
+      "note": "Verifier: scoring the change from y_250 and the half-width at 5e-3 survives. The level rows stay reported output and are not scored directly. The margins are a choice (ARIMA(2,1,1) at 6.9e-3; t interval at 4.9e-3)."
+    },
+    "broad_ar_confidence_set": {
+      "source": "verify-tasks-7/broad_ar_confidence_set.json",
+      "auditor_source": "tasks-7/broad_ar_confidence_set.json",
+      "rel_tol": 1e-4,
+      "terms": {"accepts_zero": {"exact_integer": true}, "unbounded": {"exact_integer": true}},
+      "se_scored": false
+    },
+    "broad_cohort_stack": {
+      "source": "verify-tasks-1/broad_cohort_stack.json",
+      "auditor_source": "tasks-1/broad_cohort_stack.json",
+      "rel_tol": 1e-4,
+      "se_scored": false
+    },
+    "broad_multinomial_logit": {
+      "source": "verify-tasks-2/broad_multinomial_logit.json",
+      "auditor_source": "tasks-2/broad_multinomial_logit.json",
+      "rel_tol": 1e-3,
+      "se_scored": false
+    },
+    "broad_oaxaca": {
+      "source": "verify-tasks-3/broad_oaxaca.json",
+      "auditor_source": "tasks-3/broad_oaxaca.json",
+      "rel_tol": 1e-6,
+      "se_scored": false
+    },
+    "broad_ordered_logit": {
+      "source": "verify-tasks-4/broad_ordered_logit.json",
+      "auditor_source": "tasks-4/broad_ordered_logit.json",
+      "rel_tol": 1e-3,
+      "se_scored": false,
+      "note": "Verifier: 1e-3 or 1e-4 both keep all successes. 1e-3 is used because the task is iterative ML."
+    },
+    "broad_tobit": {
+      "source": "verify-tasks-5/broad_tobit.json",
+      "auditor_source": "tasks-5/broad_tobit.json",
+      "rel_tol": 1e-4,
+      "se_scored": false,
+      "note": "The auditor proposes optional SE scoring at 1e-3 (hess_inv SEs), but the tested decision is not the SE, so V3 does not score it."
+    },
+    "chisq_indep": {
+      "source": "verify-tasks-6/chisq_indep.json",
+      "auditor_source": "tasks-6/chisq_indep.json",
+      "rel_tol": 1e-4,
+      "terms": {"df": {"exact_integer": true}, "p_value": {"rel_tol": 1e-3}},
+      "se_scored": false
+    },
+    "cluster_ols": {
+      "source": "verify-tasks-7/cluster_ols.json",
+      "auditor_source": "tasks-7/cluster_ols.json",
+      "rel_tol": 1e-3,
+      "se_scored": true,
+      "se_terms": {
+        "const": {"rel_tol": 5e-3, "accepted_values": [0.12186504039340193, 0.12057986963710651]},
+        "x1": {"rel_tol": 5e-3, "accepted_values": [0.02950227426484277, 0.029191147628302997]},
+        "x2": {"rel_tol": 5e-3, "accepted_values": [0.02787177599707788, 0.027577844354977503]}
+      },
+      "note": "Accepted conventions: CR1 (reference) and CR0. The unclustered SE of const is about 4 times smaller. Verifier: SE scoring changes 1 of 359 successes."
+    },
+    "cooks_distance": {
+      "source": "verify-tasks-1/cooks_distance.json",
+      "auditor_source": "tasks-1/cooks_distance.json",
+      "rel_tol": 1e-4,
+      "terms": {
+        "rank1_obs_id": {"exact_integer": true}, "rank2_obs_id": {"exact_integer": true},
+        "rank3_obs_id": {"exact_integer": true}, "rank4_obs_id": {"exact_integer": true},
+        "rank5_obs_id": {"exact_integer": true}
+      },
+      "se_scored": false,
+      "note": "Verifier prefers relative 1e-4 with full precision over the auditor's 1e-3 with a 5e-5 floor. The precision rule gives 4-decimal outputs the 5e-5 allowance."
+    },
+    "cox_hazard": {
+      "source": "verify-tasks-2/cox_hazard.json",
+      "auditor_source": "tasks-2/cox_hazard.json",
+      "rel_tol": 1e-4,
+      "reference_override": {"treat": -0.4989596882750753, "x": 0.3231279514299785},
+      "se_scored": false,
+      "note": "Reference regenerated with a converged Newton fit; see reference_overrides.json."
+    },
+    "hard_conditional_logit_welfare": {
+      "source": "verify-tasks-3/hard_conditional_logit_welfare.json",
+      "auditor_source": "tasks-3/hard_conditional_logit_welfare.json",
+      "rel_tol": 1e-4,
+      "se_scored": false
+    },
+    "hard_heteroskedastic_probit": {
+      "source": "verify-tasks-4/hard_heteroskedastic_probit.json",
+      "auditor_source": "tasks-4/hard_heteroskedastic_probit.json",
+      "rel_tol": 1e-4,
+      "se_scored": false,
+      "note": "Verifier: 1e-4 needs full precision or 3e-4. The precision rule covers 4-decimal outputs, so 1e-4 is used."
+    },
+    "hard_panel_lp_iv": {
+      "source": "verify-tasks-5/hard_panel_lp_iv.json",
+      "auditor_source": "tasks-5/hard_panel_lp_iv.json",
+      "rel_tol": 1e-6,
+      "se_scored": false,
+      "note": "Verifier moved the verdict to needs change: the 0.005 floor lets four wrong variants pass. Relative 1e-6 without floor."
+    },
+    "hard_poisson_hurdle_effects": {
+      "source": "verify-tasks-6/hard_poisson_hurdle_effects.json",
+      "auditor_source": "tasks-6/hard_poisson_hurdle_effects.json",
+      "rel_tol": 5e-4,
+      "se_scored": false,
+      "note": "Verifier rejects the auditor's 1e-4 (fails default TruncatedLFPoisson at 1.1e-4) and names a band near 5e-4 as a measured tradeoff that needs a decision record. 5e-4 fails the sample-mean runs (6.2e-4) and one success at 6.8e-4."
+    },
+    "hard_rolling": {
+      "source": "verify-tasks-7/hard_rolling.json",
+      "auditor_source": "tasks-7/hard_rolling.json",
+      "rel_tol": 1e-6,
+      "abs_floor": 1e-8,
+      "se_scored": false,
+      "note": "Relative 1e-6 with an absolute floor of 1e-8. The floor is far below every reference value."
+    },
+    "hard_truncated_normal_effects": {
+      "source": "verify-tasks-1/hard_truncated_normal_effects.json",
+      "auditor_source": "tasks-1/hard_truncated_normal_effects.json",
+      "rel_tol": 2.5e-3,
+      "se_scored": false
+    },
+    "iv2sls_robust": {
+      "source": "verify-tasks-2/iv2sls_robust.json",
+      "auditor_source": "tasks-2/iv2sls_robust.json",
+      "rel_tol": 1e-4,
+      "se_scored": true,
+      "se_terms": {"x1_iv": {"rel_tol": 1e-3, "accepted_values": [0.04320202825790731]}},
+      "note": "The stated decision (routine with HC1) affects only the SE. SE at 1e-3 detects the manual two-step and control-function SEs; it does not separate HC0 from HC1 (0.05 percent)."
+    },
+    "logit": {
+      "source": "verify-tasks-3/logit.json",
+      "auditor_source": "tasks-3/logit.json",
+      "rel_tol": 1e-3,
+      "se_scored": false
+    },
+    "lp04_ppml": {
+      "source": "verify-tasks-4/lp04_ppml.json",
+      "auditor_source": "tasks-4/lp04_ppml.json",
+      "rel_tol": 1e-4,
+      "se_scored": false,
+      "note": "Verifier: a tolerance change is not needed (0 runs change at 1e-4); 1e-4 is used for consistency."
+    },
+    "lp11_duration": {
+      "source": "verify-tasks-5/lp11_duration.json",
+      "auditor_source": "tasks-5/lp11_duration.json",
+      "rel_tol": 1e-4,
+      "terms": {"log_likelihood": {"rel_tol": 1e-6}},
+      "se_scored": false
+    },
+    "lp_irf": {
+      "source": "verify-tasks-6/lp_irf.json",
+      "auditor_source": "tasks-6/lp_irf.json",
+      "rel_tol": 1e-4,
+      "se_scored": true,
+      "se_terms": {"irf_h4": {"rel_tol": 1e-2, "accepted_values": [0.08395617091021815, 0.08447495754175584]}},
+      "note": "Verifier: NW SE at relative 1e-2 accepting the plain and the n/(n-k) values detects HC0, classical, and NW lag 8."
+    },
+    "ols_robust": {
+      "source": "verify-tasks-7/ols_robust.json",
+      "auditor_source": "tasks-7/ols_robust.json",
+      "rel_tol": 1e-3,
+      "se_scored": true,
+      "se_terms": {
+        "const": {"rel_tol": 5e-3, "accepted_values": [0.02195426461854331]},
+        "x1": {"rel_tol": 5e-3, "accepted_values": [0.022806580308961058]},
+        "x2": {"rel_tol": 5e-3, "accepted_values": [0.021272206273333868]}
+      },
+      "note": "Verifier: 5e-3 rejects the classical SE (2.52 percent on x1) and accepts HC0, HC2, HC3 (at most 0.18 percent)."
+    },
+    "pilot_probit_interaction_ame": {
+      "source": "verify-tasks-1/pilot_probit_interaction_ame.json",
+      "auditor_source": "tasks-1/pilot_probit_interaction_ame.json",
+      "rel_tol": 5e-4,
+      "se_scored": false
+    },
+    "poisson_offset": {
+      "source": "verify-tasks-2/poisson_offset.json",
+      "auditor_source": "tasks-2/poisson_offset.json",
+      "rel_tol": 1e-3,
+      "se_scored": false
+    },
+    "probit": {
+      "source": "verify-tasks-3/probit.json",
+      "auditor_source": "tasks-3/probit.json",
+      "rel_tol": 1e-3,
+      "se_scored": false
+    },
+    "rdd_sharp": {
+      "source": "verify-tasks-4/rdd_sharp.json",
+      "auditor_source": "tasks-4/rdd_sharp.json",
+      "rel_tol": 1e-4,
+      "se_scored": false
+    },
+    "staggered_did": {
+      "source": "verify-tasks-5/staggered_did.json",
+      "auditor_source": "tasks-5/staggered_did.json",
+      "rel_tol": 1e-4,
+      "se_scored": false
+    },
+    "ttest_welch": {
+      "source": "verify-tasks-6/ttest_welch.json",
+      "auditor_source": "tasks-6/ttest_welch.json",
+      "rel_tol": 1e-4,
+      "terms": {"t": {"compare_abs": false}},
+      "se_scored": false,
+      "note": "Signed t (the prompt fixes the sign), no floor on p. The verifier says the signed comparison needs a decision record that supersedes 2026-06-30 item 4. V0 keeps the magnitude comparison."
+    },
+    "two_way_cluster": {
+      "source": "verify-tasks-7/two_way_cluster.json",
+      "auditor_source": "tasks-7/two_way_cluster.json",
+      "rel_tol": 1e-4,
+      "se_scored": true,
+      "se_terms": {
+        "const": {"rel_tol": 5e-3, "accepted_values": [0.15347233904374324, 0.14631300292389593, 0.1542660374752444]},
+        "x": {"rel_tol": 5e-3, "accepted_values": [0.01664798361918575, 0.01564593827933807, 0.016496393708706605]}
+      },
+      "note": "Accepted conventions: per-component CGM CR1 (reference), CR0, and single min(G) correction. Verifier measured 287 of 360 successes under this rule. The Stata SE row swap (15 runs) fails."
+    },
+    "twoway_fe": {
+      "source": "verify-tasks-1/twoway_fe.json",
+      "auditor_source": "tasks-1/twoway_fe.json",
+      "rel_tol": 1e-5,
+      "se_scored": true,
+      "se_terms": {"x": {"rel_tol": 1e-2, "accepted_values": [0.02475318115286997, 0.024746265890504857, 0.02347571340241287]}},
+      "note": "Verifier prefers 1e-5 over 1e-4 for the coefficient (extra-control variants at 8.5e-5 and 9.3e-5). SE conventions: K=211 reference, K=210 dummy regression, xtreg fe."
+    },
+    "var_granger": {
+      "source": "verify-tasks-2/var_granger.json",
+      "auditor_source": "tasks-2/var_granger.json",
+      "rel_tol": 1e-4,
+      "terms": {
+        "df_num": {"exact_integer": true},
+        "df_den": {"exact_integer": true, "accepted_values": [193.0, 386.0]},
+        "p_value": {"rel_tol": 1e-3}
+      },
+      "se_scored": false
+    },
+    "var_irf": {
+      "source": "verify-tasks-3/var_irf.json",
+      "auditor_source": "tasks-3/var_irf.json",
+      "rel_tol": 1e-3,
+      "terms": {"irf_y1_to_y2_h4": {"accepted_values": [0.08174130755056198, 0.08070262104109095]}},
+      "se_scored": false,
+      "note": "Two covariance conventions (divide by 193 and by 198)."
+    },
+    "vif": {
+      "source": "verify-tasks-4/vif.json",
+      "auditor_source": "tasks-4/vif.json",
+      "rel_tol": 1e-4,
+      "se_scored": false,
+      "note": "Rejects the 21 uncentered-VIF successes. Verifier: this is a policy decision because the prompt does not say centered."
+    }
+  }
+}

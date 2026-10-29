@@ -10,10 +10,6 @@ ___/   /   /___/   /   /___/       SE—Standard Edition
                                    800-782-8272        https://www.stata.com
                                    979-696-4600        service@stata.com
 
-Stata license: Unlimited-user network, expiring 14 Jul 2026
-Serial number: [redacted serial]
-  Licensed to: Federico López
-               Universidad de San Andrés
 
 Notes:
       1. Stata is running in batch mode.
@@ -21,7 +17,7 @@ Notes:
       3. Maximum number of variables is set to 5,000 but can be increased;
           see help set_maxvar.
 
-. do code/pilot/manual_references/rdd_sharp/manual_stata.do 
+. do source/reference_implementations/manual/rdd_sharp/manual_stata.do 
 
 . * Manual reference for T18 (sharp RD, local-linear, triangular kernel, h=0.5)
 >  — Stata.
@@ -29,11 +25,11 @@ Notes:
 
 . set more off
 
-. local data_path "code/pilot/data/pilot_v5_rdd.csv"
+. args input_dir
 
-. capture confirm file "`data_path'"
+. if `"`input_dir'"' == "" local input_dir "tasks/rdd_sharp"
 
-. if _rc != 0 local data_path "../../data/pilot_v5_rdd.csv"
+. local data_path "`input_dir'/pilot_v5_rdd.csv"
 
 . import delimited "`data_path'", clear
 (encoding automatically selected: ISO-8859-1)
@@ -51,7 +47,12 @@ Notes:
 
 . local n_band = r(N)
 
-. local n_obs = _N
+. local n_file_rows = _N
+
+. * n_obs is the effective estimation sample (observations inside the bandwidth
+> ),
+. * matching the benchmark result schema and what models report.
+. local n_obs = `n_band'
 
 . 
 . quietly regress y z [aweight=w] if inband & z >= 0
@@ -68,7 +69,7 @@ Notes:
 > dwidth":"' %6.4f `h' `","n_inside_band":"' `n_band' `","n_obs":"' `n_obs' `"}
 > "'
 JSON_RESULT: {"platform":"stata","late":    0.968884,"bandwidth":0.5000,"n_insi
-> de_band":494,"n_obs":1000}
+> de_band":494,"n_obs":494}
 
 . 
 end of do-file

@@ -44,6 +44,10 @@ TASK_LABEL_SIZE = 8.6  # Figure 3 task labels, in points before the 0.93 text-wi
 # The treatment of each panel carries the accent: the example, and Stata.
 PROMPT_SERIES = {'zero_shot': style.SERIES['strong'], 'few_shot': style.SERIES['blush']}
 PLATFORM_SERIES = {'python': style.SERIES['strong'], 'r': style.SERIES['mid'], 'stata': style.SERIES['blush']}
+# The failure figure: loud and silent failures, and the label of its share panel. The six-model PNAS build
+# replaces these, so that the accent marks only the constrained agent (code/paper/six_models.py).
+FAILURE_SERIES = {'loud': style.SERIES['strong'], 'silent': style.SERIES['blush']}
+SILENT_SHARE_LABEL = 'Silent share of failures, percent'
 X = np.arange(3)
 # Horizontal distance between neighboring series at one agency condition, in
 # axis units, so that whiskers of close rates stay apart.
@@ -217,6 +221,8 @@ def task_figure(data, out, source, save, labels):
         ax = fig.add_axes(frame)
         left, right = padded_linear_limits(float(plotted.success_pct.min()), float(plotted.success_pct.max()),
                                            frame[2] * style.FIG_W * 72)
+        if style.AXIS_FLOOR is not None:
+            left = style.AXIS_FLOOR
         ticks = [t for t in range(0, 101, 10) if left <= t <= right]
         ax.set_xlim(left, right)
         ax.set_ylim(len(tasks) - .5, -.5)
@@ -304,23 +310,23 @@ def failure_figure(data, out, source, save):
         fig, axes = plt.subplots(1, 2, figsize=(style.FIG_W, 2.6))
         fig.subplots_adjust(left=.085, right=.985, top=.78, bottom=.175, wspace=.30)
         ax = axes[0]
-        for key, series in [('loud', style.SERIES['strong']), ('silent', style.SERIES['blush'])]:
+        for key in ('loud', 'silent'):
             style.plot_series(ax, x, rows[f'{key}_per100'].to_numpy(), rows[f'{key}_per100_lo'].to_numpy(),
-                              rows[f'{key}_per100_hi'].to_numpy(), series, gid=f'{key}_per100')
+                              rows[f'{key}_per100_hi'].to_numpy(), FAILURE_SERIES[key], gid=f'{key}_per100')
         top = max(25, 5 * math.ceil(rows[['loud_per100_hi', 'silent_per100_hi']].max().max() / 5))
         ax.set_ylim(0, top)
         ax.set_yticks(range(0, top + 1, 5))
         ax.set_ylabel('Failures per 100 runs', fontsize=style.AXIS_LABEL_SIZE)
         style.panel_title(ax, 'A. Loud and silent failures per 100 runs')
-        style.legend_above(ax, [style.series_handle(style.SERIES['strong']), style.series_handle(style.SERIES['blush'])],
-                           ['Loud', 'Silent'])
+        style.legend_above(ax, [style.series_handle(FAILURE_SERIES[k]) for k in ('loud', 'silent')], ['Loud', 'Silent'])
         ax.set_xticks(x, [AGENCY_LABEL[a] for a in AGENCIES], fontsize=style.X_TICK_LABEL_SIZE)
         ax = axes[1]
         style.plot_series(ax, x, rows.silent_share_of_failures_pct.to_numpy(), rows.silent_share_of_failures_pct_lo.to_numpy(),
-                          rows.silent_share_of_failures_pct_hi.to_numpy(), style.SERIES['blush'], gid='silent_share_of_failures_pct')
+                          rows.silent_share_of_failures_pct_hi.to_numpy(), FAILURE_SERIES['silent'],
+                          gid='silent_share_of_failures_pct')
         ax.set_ylim(0, 102)
         ax.set_yticks(range(0, 101, 25))
-        ax.set_ylabel('Silent share of failures, percent', fontsize=style.AXIS_LABEL_SIZE)
+        ax.set_ylabel(SILENT_SHARE_LABEL, fontsize=style.AXIS_LABEL_SIZE)
         style.panel_title(ax, 'B. Share of failures that are silent')
         counts = [f'{count:,} failures' if count != 1 else '1 failure' for count in rows.failures]
         ax.set_xticks(x, [f'{AGENCY_LABEL[a]}\n{n}' for a, n in zip(AGENCIES, counts)],

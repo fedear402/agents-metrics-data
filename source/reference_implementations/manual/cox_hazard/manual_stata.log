@@ -10,10 +10,6 @@ ___/   /   /___/   /   /___/       SE—Standard Edition
                                    800-782-8272        https://www.stata.com
                                    979-696-4600        service@stata.com
 
-Stata license: Unlimited-user network, expiring 14 Jul 2026
-Serial number: [redacted serial]
-  Licensed to: Federico López
-               Universidad de San Andrés
 
 Notes:
       1. Stata is running in batch mode.
@@ -21,7 +17,7 @@ Notes:
       3. Maximum number of variables is set to 5,000 but can be increased;
           see help set_maxvar.
 
-. do code/pilot/manual_references/cox_hazard/manual_stata.do 
+. do source/reference_implementations/manual/cox_hazard/manual_stata.do 
 
 . * Manual reference for T13 (Cox PH) — Stata.
 . clear all
@@ -29,11 +25,11 @@ Notes:
 . set more off
 
 . 
-. local data_path "code/pilot/data/pilot_v4_cox.csv"
+. args input_dir
 
-. capture confirm file "`data_path'"
+. if `"`input_dir'"' == "" local input_dir "tasks/cox_hazard"
 
-. if _rc != 0 local data_path "../../data/pilot_v4_cox.csv"
+. local data_path "`input_dir'/pilot_v4_cox.csv"
 
 . import delimited "`data_path'", clear
 (encoding automatically selected: ISO-8859-1)
@@ -82,7 +78,7 @@ Log likelihood = -9520.1865                             Prob > chi2   = 0.0000
           _t | Coefficient  Std. err.      z    P>|z|     [95% conf. interval]
 -------------+----------------------------------------------------------------
        treat |  -.4989597   .0534005    -9.34   0.000    -.6036227   -.3942967
-           x |   .3231279   .0264936    12.20   0.000     .2712015    .3750544
+           x |    .323128   .0264936    12.20   0.000     .2712015    .3750544
 ------------------------------------------------------------------------------
 
 . local b_treat = _b[treat]

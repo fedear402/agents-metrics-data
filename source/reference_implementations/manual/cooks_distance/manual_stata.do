@@ -2,9 +2,9 @@
 clear all
 set more off
 
-local data_path "data/benchmark/pilot_v5_collinear.csv"
-capture confirm file "`data_path'"
-if _rc != 0 local data_path "../../../data/benchmark/pilot_v5_collinear.csv"
+args input_dir
+if `"`input_dir'"' == "" local input_dir "tasks/cooks_distance"
+local data_path "`input_dir'/pilot_v5_collinear.csv"
 import delimited "`data_path'", clear
 
 gen long row_id = _n - 1   // zero-based to match Python and R; renamed to avoid Stata's [..] equation parsing

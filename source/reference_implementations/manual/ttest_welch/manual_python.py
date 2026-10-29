@@ -2,14 +2,14 @@
 
 from __future__ import annotations
 import json
+import sys
 from pathlib import Path
 
 import numpy as np
 import pandas as pd
 from scipy import stats
 
-HERE = Path(__file__).parent
-DATA = HERE.parent.parent / "data" / "pilot_v5_ttest.csv"
+DATA = Path(sys.argv[1] if len(sys.argv) > 1 else "tasks/ttest_welch") / "pilot_v5_ttest.csv"
 
 df = pd.read_csv(DATA)
 a = df.loc[df["group"] == 0, "y"].values
